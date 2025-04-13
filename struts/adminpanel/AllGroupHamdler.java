@@ -41,7 +41,7 @@ public class AllGroupHamdler extends org.apache.struts.action.Action
                     CVDal cvdal = new CVDal(DBnm);
                     HashMap hmFinal = new HashMap();
                     Vector vec = new Vector();
-
+                   //sdsd
                     DynaActionForm daf = (DynaActionForm)form;
                     String strPage_num ="";
                     String strNavOpr = "";

@@ -8,10 +8,13 @@
 	String strAmount = "";
 	String strRemark = "";
 	String Str="",strDD="",strMM="",strYY="";
+	String bgNm="";
 	            	
 
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
 	HashMap hmHead=(HashMap)request.getAttribute("head"); 
+	HashMap hmGroup=(HashMap)request.getAttribute("ghead");
+	out.print(hmGroup);
 	if(hmData!=null && hmData.size()>0){
 		strId = (String)hmData.get("AllocId");
 		strHeadId = (String)hmData.get("HeadId");
@@ -67,8 +70,40 @@
    <input type="hidden" name="page" value="BudgetAllocationMaster">
 	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
 		<tr> 
-			<td colspan=4>&nbsp;</td>
+			<td width="25%" class="innertitle">Department Name </td>
+			<td width="75%" colspan="3">
+			<select name="strDepartmentId">
+			 <option value="<%=""+0%>">-------Select---------</option>
+		<%
+			if(hmGroup!=null && hmGroup.size()>0){
+				for(int i=0;i<hmGroup.size();i++){
+					HashMap hmt=(HashMap)hmGroup.get(""+i);
+					String strDepartmentId=(String)hmt.get("strDepartmentId");
+					String strDepartmentNm=(String)hmt.get("strDepartmentNm");
+					
+				if(bgNm.equals(strDepartmentId)){
+		%>	
+		
+		
+			<option value="<%=strDepartmentId%>" selected> <%=strDepartmentNm%> </option>
+		
+		
+		
+		<%
+				}else{
+		%>
+		<option value="<%=strDepartmentId%>" > <%=strDepartmentNm%> </option>
+		
+		<%
+				}
+			     }
+			}
+		
+		%>
+			</select>
+			</td>
 		</tr>
+
 
 		<tr> 
 			<td width="25%" class="innertitle">Head Name </td>

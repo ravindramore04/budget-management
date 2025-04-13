@@ -59,6 +59,19 @@ public class showBudgetAllocationHandler extends org.apache.struts.action.Action
 			       }
 				}
 
+                HashMap hmFinal1 = new HashMap();
+                vec.clear();
+                //vec.addElement(strId);
+                cvdal.setSQL("openAllDepartment", vec);
+                Vector vec11 = (Vector)cvdal.executeQuery();
+                if(vec11!=null && vec11.size()>0){
+                    for(int i=0;i<vec11.size();i++){
+                        HashMap hm = (HashMap)vec11.elementAt(i);
+                        hmFinal1.put(""+i,hm);
+                    }
+                    request.setAttribute("ghead",hmFinal1);
+                }
+
 
                 //sop("sunil----"+nOpr);
                 switch(nOpr){
