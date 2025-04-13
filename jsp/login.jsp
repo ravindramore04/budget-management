@@ -5,7 +5,7 @@
 	String strPath = "/budget0.1/";
 	try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection conn  = DriverManager.getConnection("jdbc:mysql://localhost/finance?user=root&password=");
+			Connection conn  = DriverManager.getConnection("jdbc:mysql://localhost:3307/finance?user=root&password=root");
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * from finance.Finance_Year order by F_Year");
 			ResultSetMetaData md = rs.getMetaData();
