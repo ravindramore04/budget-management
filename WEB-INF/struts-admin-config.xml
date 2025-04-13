@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<!--
+     This is the Struts configuration file for the example application,
+     using the proposed new syntax.
+
+     NOTE:  You would only flesh out the details in the "form-bean"
+     declarations if you had a generator tool that used them to create
+     the corresponding Java classes for you.  Otherwise, you would
+     need only the "form-bean" element itself, with the corresponding
+     "name" and "type" attributes.
+-->
+<struts-config>
+	<!-- ========== Data Source Configuration =============================== -->
+	<!-- ========== Form Bean Definitions =================================== -->
+<form-beans>
+	<form-bean name="ListForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="NAV" type="java.lang.String"/>
+		<form-property name="current_page" type="java.lang.String"/>
+		<form-property name="Newcurrent_page" type="java.lang.String"/>
+		<form-property name="id" type="java.lang.String"/>
+		<form-property name="opr" type="java.lang.String"/>
+		<form-property name="txtBGid" type="java.lang.String"/>
+		<form-property name="txtId" type="java.lang.String"/>
+		<form-property name="txtYear" type="java.lang.String"/>
+		<form-property name="txtYear1" type="java.lang.String"/>
+		<form-property name="txtDBName" type="java.lang.String"/>
+		<form-property name="rd" type="java.lang.String"/>
+		
+		</form-bean>
+	
+	<form-bean name="UserForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtId" type="java.lang.String"/>
+		<form-property name="txtName" type="java.lang.String"/>
+		<form-property name="txtLogin" type="java.lang.String"/>
+		<form-property name="txtPassword" type="java.lang.String"/>
+	</form-bean>
+
+	<form-bean name="OrganiForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtName" type="java.lang.String"/>
+		<form-property name="txtShrtNm" type="java.lang.String"/>
+		<form-property name="addr" type="java.lang.String"/>
+		<form-property name="txtPh1" type="java.lang.String"/>
+		<form-property name="txtPh2" type="java.lang.String"/>
+	</form-bean>
+	
+	<form-bean name="HeadForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtId" type="java.lang.String"/>
+		<form-property name="txtName" type="java.lang.String"/>
+		<form-property name="strHeadOfDeptNm" type="java.lang.String"/>
+		<form-property name="strDepartmentId" type="java.lang.String"/>
+		<form-property name="NAV" type="java.lang.String"/>
+		<form-property name="current_page" type="java.lang.String"/>
+		<form-property name="Newcurrent_page" type="java.lang.String"/>
+		<form-property name="txtRemark" type="java.lang.String"/>
+		
+	</form-bean>
+	
+	<form-bean name="BudgetAllocationForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtId" type="java.lang.String"/>
+		<form-property name="Head" type="java.lang.String"/>
+		<form-property name="txtDate" type="java.lang.String"/>
+		<form-property name="txtAmount" type="java.lang.String"/>
+		<form-property name="txtRemark" type="java.lang.String"/>
+				
+	</form-bean>
+	<form-bean name="ChngPswd" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtOldPassword" type="java.lang.String"/>
+		<form-property name="txtPassword" type="java.lang.String"/>
+		<form-property name="txtId" type="java.lang.String"/>
+	</form-bean>
+	
+	<form-bean name="rptParam" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="id" type="java.lang.String"/>
+		<form-property name="FDD" type="java.lang.String"/>
+		<form-property name="FMM" type="java.lang.String"/>
+		<form-property name="FYY" type="java.lang.String"/>
+		<form-property name="TDD" type="java.lang.String"/>
+		<form-property name="TMM" type="java.lang.String"/>
+		<form-property name="TYY" type="java.lang.String"/>
+		<form-property name="txtBudgroupId" type="java.lang.String"/>
+		
+	</form-bean>
+	<form-bean name="FinanceForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtId" type="java.lang.String"/>
+		<form-property name="txtYear" type="java.lang.String"/>
+		<form-property name="txtYear1" type="java.lang.String"/>
+		<form-property name="txtDBName" type="java.lang.String"/>
+	</form-bean>
+
+
+
+</form-beans>
+
+	<!-- ========== Global Forward Definitions ============================== -->
+	<global-forwards>
+		<forward name="failure" path="/jsp/error.jsp"/>
+	</global-forwards>
+	<!-- ========== Action Mapping Definitions ============================== -->
+
+	<action-mappings>
+		<!-- Begin -->
+		<action path="/AllUser" type="struts.adminpanel.AllUserHandler" name="ListForm" scope="request" validate="false">
+                         <forward name="success" path="/jsp/adminpanel/alluser.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/OpenUser" type="struts.adminpanel.OpenUserHandler" name="ListForm" scope="request" validate="false">
+                         <forward name="success" path="/jsp/adminpanel/user.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/AddUser" type="struts.adminpanel.SaveUserHandler" name="UserForm" scope="request" validate="false">
+                         <forward name="success" path="/AllUser.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/Organisation" type="struts.adminpanel.NewOrganisation" scope="request" validate="false">
+                         <forward name="success" path="/jsp/adminpanel/Organisation.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/OrganisationPage" type="struts.adminpanel.OrganisationHandler" name="OrganiForm" scope="request" validate="false">
+                        <forward name="success" path="/ValidatedLogin.do"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+			
+		<action path="/AllHead" type="struts.adminpanel.AllHeadHandler" name="ListForm" scope="request" validate="false">
+                         <forward name="success" path="/jsp/adminpanel/allhead.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/OpenHead" type="struts.adminpanel.OpenHeadHandler" name="ListForm" scope="request" validate="false">
+                         <forward name="success" path="/jsp/adminpanel/head.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+
+		<action path="/SaveHead" type="struts.adminpanel.SaveHeadHandler" name="HeadForm" scope="request" validate="false">
+                         <forward name="success" path="/AllHead.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/AllGroup" type="struts.adminpanel.AllGroupHamdler" name="HeadForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/budgroup.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/OpenGroupHead" type="struts.adminpanel.OpenGroupHeadHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/opengroup.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/SaveBudGroupHead" type="struts.adminpanel.SaveBudGroupHeadHandler" name="HeadForm" scope="request" validate="false">
+			 <forward name="success" path="/AllGroup.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		<action path="/ChngPswd" type="struts.adminpanel.ChangePswdHandler" scope="request" validate="false">
+                         <forward name="success" path="/jsp/adminpanel/chngpswd.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/SaveNewPswd" type="struts.adminpanel.SaveChangePswdHandler" name="ChngPswd" scope="request" validate="false">
+                         <forward name="success" path="/ValidatedLogin.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>		
+		
+		<action path="/AllBudgetAllocation" type="struts.adminpanel.AllHeadBalanceHandler" name="ListForm" scope="request" validate="false">
+                         <forward name="success" path="/jsp/adminpanel/allheadbalance.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>		
+		
+		<action path="/openBudgetAllocation" type="struts.adminpanel.AllBudgetAllocationHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/Headbalance.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>		
+		
+		<action path="/showBudgetAllocation" type="struts.adminpanel.showBudgetAllocationHandler" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/HeadbalanceMaster.jsp"/>
+			<forward name="delete" path="/AllBudgetAllocation.do"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>		
+		
+		<action path="/SaveBudgetAllocation" type="struts.adminpanel.saveBudgetAllocationHandler" name="BudgetAllocationForm" scope="request" validate="false">
+			<forward name="success" path="/AllBudgetAllocation.do"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>		
+		
+
+		<action path="/RptParam" type="struts.adminpanel.reportParamHandler" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/reportParam.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/RptGtp" type="struts.adminpanel.AllGroupHamdler" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/allgroup.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/CrtRptGtp" type="struts.adminpanel.AllGroupHamdler" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/allgroupforbud.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/budgetNote" type="struts.adminpanel.noteParamHandler" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/noteParam.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>		
+		
+		
+		<action path="/ViewRpt" type="struts.adminpanel.viewReportHandler" name="rptParam" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/viewReport.jsp"/>
+			<forward name="success_all" path="/jsp/adminpanel/viewAllReport.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/POViewRpt" type="struts.adminpanel.POviewReportHandler" name="rptParam" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/POviewReport.jsp"/>
+			<forward name="success_all" path="/jsp/adminpanel/viewAllReport.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		<action path="/viewBudgetNote" type="struts.adminpanel.viewBudgetNoteHandler" name="rptParam" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/viewBudgetNote.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/PrintSingHead" type="struts.adminpanel.PrintSingHeadHandler" name="rptParam" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/PrintSingVoucher.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		<action path="/PrintViewReport" type="struts.adminpanel.PrintviewReportHandler" name="rptParam" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/PrintViewRPT.jsp"/>
+			<forward name="success_all" path="/jsp/adminpanel/PrintviewAllReport.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/DeleteHead" type="struts.adminpanel.DeleteHeadHandler" name="ListForm" scope="request" validate="false">
+                         <forward name="success" path="/AllHead.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/DeleteUser" type="struts.adminpanel.DeleteUserHandler" name="ListForm" scope="request" validate="false">
+                         <forward name="success" path="/AllUser.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		
+		
+		
+		<action path="/NewFinanceYear" type="struts.adminpanel.NewFinanceYearHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/financeyear.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/OpenNewYear" type="struts.adminpanel.OpenNewYearHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/newyear.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/SaveFinanceYear" type="struts.adminpanel.SaveNewYearHandler" name="FinanceForm" scope="request" validate="false">
+			 <forward name="success" path="/NewFinanceYear.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/RptPO" type="struts.adminpanel.ChoosePODateHandler" name="FinanceForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/ChooseDate.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/MainRptPO" type="struts.adminpanel.MainPODateHandler" name="FinanceForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/POChoose.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/SavePurchaseOrderReport" type="struts.adminpanel.PurchaseOrderPeport" name="FinanceForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/PuchaseorderReport.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/AllPurchaseOrderReport" type="struts.adminpanel.MainPurchaseOrderReport" name="FinanceForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/MainPOReport.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		
+		
+		<action path="/RptHeadWise" type="struts.adminpanel.AllHeadHandleropen" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/allgroupHead.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/viewheadrept" type="struts.adminpanel.viewReportHeadHandler" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/viewReportheadwise.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/PrintViewHeadReport" type="struts.adminpanel.viewReportHeadHandler" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/PrintViewHeadRPT.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+                </action>
+		
+
+	</action-mappings>
+	
+<!-- ADD [END] -->
+	
+</struts-config>

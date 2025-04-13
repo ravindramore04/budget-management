@@ -1,0 +1,52 @@
+.formtext {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #818290; TEXT-DECORATION: none
+}
+.formfield {
+	BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; FONT-WEIGHT: normal; FONT-SIZE: 8pt; BORDER-LEFT: #000000 1px solid; COLOR: #000000; BORDER-BOTTOM: #000000 1px solid; FONT-STYLE: normal; FONT-FAMILY: Verdana, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+.black {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #000000; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.brown {
+	FONT-SIZE: 13px; COLOR: #660000; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.black2 {
+	FONT-SIZE: 11px; COLOR: #000000; FONT-FAMILY: Tahoma, Arial; TEXT-DECORATION: none
+}
+.blue {
+.blue 
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #000099; FONT-STYLE: normal; FONT-FAMILY: Tahoma, Arial; TEXT-DECORATION: none
+}
+.blue2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #0000ff; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.grey {
+	FONT-SIZE: 11px; COLOR: #7f7f7f; FONT-STYLE: normal; FONT-FAMILY: Tahoma, Arial; TEXT-DECORATION: none
+}
+.PPRSbmtBtn{FONT-FAMILY:Tahoma, san-serif; FONT-SIZE:13px; BACKGROUND:#DBEAF5; BORDER-BOTTOM:1px solid #104A7B; BORDER-RIGHT:1px solid #104A7B; BORDER-LEFT:1px solid #AFC4D5; BORDER-TOP:1px solid #AFC4D5; COLOR:#000066; FONT-WEIGHT:normal; TEXT-DECORATION:none; CURSOR:hand}
+.bor {
+	border: 1px dashed #CCCCCC;
+}
+.linktext {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-decoration: none;
+}
+.linktext2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+}
+.text {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; text-decoration: none}
+.titles {  font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold; color: #FFFFFF}
+.matter {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px}
+.go-but {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #006600;
+}
+.maintext {
+	FONT-SIZE: 12px; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none

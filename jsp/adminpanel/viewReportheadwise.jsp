@@ -1,0 +1,231 @@
+<%@ page import="java.util.*,java.text.*" %>
+<%@ include file="/jsp/adminpanel/header.jsp" %>
+<%
+DecimalFormat d = new DecimalFormat("##0.00");
+String Date="";
+int vouNo=0;
+double MyBal=0;
+HashMap hm=new HashMap();
+HashMap hm1=new HashMap();
+HashMap hmAmt=new HashMap();
+HashMap hmVot=new HashMap();
+HashMap hmBal=new HashMap();
+HashMap hmFin=new HashMap();
+HashMap hmVoct=new HashMap();
+HashMap hmAmount=new HashMap();
+HashMap FinalTest=new HashMap();
+String strBudgroupId="";
+String massagetest="Hi ravindra More how r u...";
+hm=(HashMap)request.getAttribute("Amount");
+//out.println("hm"+hm);
+hm1=(HashMap)request.getAttribute("Voucher");
+//out.println("--hm1--"+hm1);
+FinalTest = (HashMap)request.getAttribute("MyHead");
+//out.println("FinalTest>>>>>>>>>>>>>"+FinalTest);
+String rd=(String)request.getAttribute("rd");
+String strId=(String)request.getAttribute("strId");
+System.out.print("ravindra headID"+strId);
+String type="";
+if(rd.equals("1"))
+{ 
+ type="CASH";
+   }
+   else
+   {
+    type="CHEQUE";
+	}
+
+if(FinalTest!=null && FinalTest.size()>0){
+	HashMap hnb=(HashMap)FinalTest.get(""+0);
+	strBudgroupId=(String)hnb.get("strBudgroupId");
+}
+hmFin=(HashMap)FinalTest.get("0");
+
+if(hm!=null && hm.size()>0)
+{
+	hmAmt=(HashMap)hm.get("AlloAmont");
+	hmBal=(HashMap)hm.get("bal");
+}
+if(hm1!=null && hm1.size()>0)
+{
+	hmVot=(HashMap)hm1.get("voucher");
+}
+
+String bal="";
+double exp=0,alloc=0;
+%>
+<script language="JavaScript">
+function navigation(code){
+    document.HeadList.NAV.value = code;
+    document.HeadList.action = "<%=strPath+"AllHead.do"%>";
+    document.HeadList.submit();
+}
+
+function setAction(code,id){
+    document.HeadList.id.value = id;
+    switch(code){
+        case 1:
+            document.HeadList.action = "<%=strPath+"OpenHead.do"%>";
+            break;
+        case 2:
+            document.HeadList.action = "<%=strPath+"PrintViewHeadReport.do"%>";
+            break;
+        case 3:
+            //delete done later
+            document.HeadList.action = "<%=strPath+"OpenHead.do"%>";
+            break;
+        case 4:
+            document.HeadList.action = "<%=strPath+"RptParam.do"%>";
+            break;
+    }
+    document.HeadList.opr.value=code;
+    document.HeadList.submit();
+}
+
+</script>
+
+<form name="HeadList" method="post" action="#">
+    <input type="hidden" name="page" value="ParamRpt">
+    <input type="hidden" name="NAV" value="">
+    <input type="hidden" name="txtBGid" value="<%=strId%>">
+    <input type="hidden" name="txtBudgroupId" value="<%=strBudgroupId%>">
+    
+    <input type="hidden" name="id" value="">
+    <input type="hidden" name="opr" value="">
+	<input type="hidden" name="rd" value="<%=rd%>">
+	
+    
+    <td width="80%" valign="top" align="center">
+	<table width="100%" border="1" cellspacing="1" cellpadding="1" align="center" >
+      <tr bgcolor="#3333FF"> 
+        <td height="20" colspan="6" > <div align="left" class="titles">Expense 
+            Head-<%=(String)hmFin.get("strName")%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=type%></div></td>
+      </tr>
+      <tr bgcolor="#E6F3FF"> 
+	  <td width="15%" height="20" align="center" class="link">Vouch No</td>
+        <td width="15%" height="20" align="center" class="link">Date</td>
+        <td width="13%" height="20" align="left" class="link"><div align="center">Allocation</div></td>
+        <td width="30%" height="20" align="left" class="link"><div align="center">Receiver Name</div></td>
+        <td width="14%" height="20" align="left" class="link"><div align="center">Expense 
+            Made BY Voucher</div></td>
+    		<!--<td width="14%" height="20" align="left" class="link"><div align="center">Expense 
+            Made BY PO No</div></td>-->
+        <td width="28%" height="20" align="left" class="link"><div align="center">Balance</div></td>
+      </tr>
+      <%
+      
+	  if(hmAmt!=null && hmAmt.size()>0){
+	  for(int i=0;i<hmAmt.size();i++)
+	  {
+	  	hmAmount=(HashMap)hmAmt.get(""+i);
+		String balance="";
+		if(i>0){
+		balance="";
+		}else
+		{
+		balance=(String)hmBal.get("dblBalance");
+		bal=(String)hmBal.get("dblBalance");
+		}
+		
+		//******************************************************
+		MyBal +=Double.parseDouble( (String)hmAmount.get("dblAmount")); 
+		//******************************************************
+		alloc+=Double.parseDouble( (String)hmAmount.get("dblAmount"));
+		Date = ((String)hmAmount.get("Dt")).substring(8,10)+"-"+((String)hmAmount.get("Dt")).substring(5,7)+"-"+((String)hmAmount.get("Dt")).substring(0,4);
+		/*strYY=strDt.substring(0,4);
+		strMM=strDt.substring(5,7);
+		strDD=strDt.substring(8,10)*/
+
+	  %>
+      <tr bgcolor=""> 
+	    <td align="center" height="20" class="link" bgcolor="#CCFFCC">&nbsp;</td>
+        <td align="center" height="20" class="link" bgcolor="#CCFFCC"><%=Date%></td>
+        <td align="left" class="link" height="20" bgcolor="#CCFFCC"><div align="center"><%=(String)hmAmount.get("dblAmount")%></div></td>
+        <td align="left" class="link" height="20">&nbsp; <div align="center"> 
+        <td align="left" class="link" height="20">&nbsp; <div align="center"> 
+          </div></td>
+        <!--  <td align="left" class="link" height="20" bgcolor="#FFCC99"><div align="center"><%=balance%></div></td>  -->
+        <!--<td align="left" class="link" height="20" bgcolor="#FFCC99"><div align="center">&nbsp;</div></td>-->	
+			<td align="left" class="link" height="20" bgcolor="#FFCC99"><div align="center"><%=d.format(MyBal)%></div></td>
+      </tr>
+      <%
+	  }
+	  	
+	  }
+	  %>
+      <%
+	  if(hmVot!=null && hmVot.size()>0)
+	  {
+	 
+	    for(int j=0;j<hmVot.size();j++)
+		{
+			hmVoct=(HashMap)hmVot.get(""+j);
+			//System.out.println(j+"  hmAmt   "+hmVot.size());
+			//System.out.println("hmAmt   "+hmVot);
+			exp+=(Double.parseDouble( (String)hmVoct.get("dblAmount") )+Double.parseDouble((String)hmVoct.get("dblTds")));
+			MyBal-=(Double.parseDouble( (String)hmVoct.get("dblAmount") )+Double.parseDouble((String)hmVoct.get("dblTds")));
+			Date = ((String)hmVoct.get("dt")).substring(8,10)+"-"+((String)hmVoct.get("dt")).substring(5,7)+"-"+((String)hmVoct.get("dt")).substring(0,4);
+		vouNo++;	 
+	  %>
+      <tr bgcolor=""> 
+	    <td align="center" height="20" class="link" bgcolor="#CCCCFF"><%=vouNo%></td>
+        <td align="center" height="20" class="link" bgcolor="#CCCCFF"><%=Date%></td>
+        <td align="left" class="link" height="20" bgcolor="#CCCCFF"><div align="center">&nbsp;</div></td>
+        <td align="left" class="link" height="20" bgcolor="#CCCCFF"><%=(String)hmVoct.get("strReceiverNm")%></td>
+        <td align="left" class="link" height="20" bgcolor="#CCCCFF">&nbsp;<div align="center"> 
+            <%=(Double.parseDouble( (String)hmVoct.get("dblAmount") )+Double.parseDouble((String)hmVoct.get("dblTds")))%>0</div></td>
+        <!--<td align="left" class="link" height="20"><div align="center"><%//=(String)hmVoct.get("strPONo")%></div></td>-->
+		<td align="left" class="link" height="20"><div align="center"><%=d.format(MyBal)%></div></td>
+      </tr>
+	 
+      <%
+		}
+		}
+		%>
+      <tr class="link"> 
+        <td height="20">&nbsp;</td>
+        <td height="20">&nbsp;</td>
+        <td height="20">&nbsp;</td>
+        <td height="20">&nbsp;</td>
+        <!--<td height="20">&nbsp;</td>-->
+		 <td height="20">&nbsp;</td>		
+      </tr>
+		
+      <tr class="link" >
+	    <td height="20" bgcolor="#FFFFFF" align="center"><strong>Total</strong></td> 
+        <td height="20" bgcolor="#FFFFFF" align="center">&nbsp;</td>
+        <td height="20" bgcolor="#CCFFCC" align="center"><strong><%=d.format(alloc)%></strong></td>
+		        <td height="20" bgcolor="#CCCCFF" align="center">&nbsp;</td>
+        <td height="20" bgcolor="#CCCCFF" align="center"><strong><%=exp%>0</strong></td>
+		 <!--<td height="20" bgcolor="#FFCC99" align="center"><strong>&nbsp;</strong></td>-->
+        <td height="20" bgcolor="#FFCC99" align="center"><strong><%=d.format(MyBal)%></strong></td>
+      </tr>
+    </table>
+    <input type="submit" accesskey="P" name="Print" value=" Print " onClick="setAction(2,<%=(String)hmBal.get("HeadId")%>)"> 
+    <input type="submit" accesskey="C" name="Close" value="Close" onClick="setAction(4,0)"> 
+
+    </td>
+	<input type="hidden" name="massagetest" value="	
+     Expense Head :-<%=(String)hmFin.get("strName")%>
+	 
+	 Date             Allocation                         Receiver Name     Expense            Balance 
+                                                                           Made BY Voucher           
+	 
+	 <%=Date%>    <%=(String)hmAmount.get("dblAmount")%>                                             <%=d.format(MyBal)%>
+   
+    <%
+	  if(hmVot!=null && hmVot.size()>0)
+	  {
+	 
+	    for(int j=0;j<hmVot.size();j++)                      
+		{
+			 hmVoct=(HashMap)hmVot.get(""+j);
+			 %>
+			 <%=(String)hmVoct.get("strReceiverNm")%>
+	<%		 
+         }
+	  } 
+	 %>
+    "> 
+</form>
+<%@ include file="/jsp/include/footer.jsp"%>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<!--
+     This is the Struts configuration file for the example application,
+     using the proposed new syntax.
+
+     NOTE:  You would only flesh out the details in the "form-bean"
+     declarations if you had a generator tool that used them to create
+     the corresponding Java classes for you.  Otherwise, you would
+     need only the "form-bean" element itself, with the corresponding
+     "name" and "type" attributes.
+-->
+<struts-config>
+	<!-- ========== Data Source Configuration =============================== -->
+	<!-- ========== Form Bean Definitions =================================== -->
+<form-beans>
+
+  	<form-bean name="VoucherForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtId" type="java.lang.String"/>
+		<form-property name="txtDt" type="java.lang.String"/>
+		<form-property name="txtNo" type="java.lang.String"/>
+		<form-property name="txtHeadId" type="java.lang.String"/>
+		<form-property name="txtAmt" type="java.lang.String"/>
+		<form-property name="txtTds" type="java.lang.String"/>
+		<form-property name="txtType" type="java.lang.String"/>
+		<form-property name="txtAcc" type="java.lang.String"/>
+		<form-property name="txtTDS" type="java.lang.String"/>
+		<form-property name="txtsession" type="java.lang.String"/>
+		<form-property name="txtMode" type="java.lang.String"/>
+		<form-property name="txtBank" type="java.lang.String"/>
+		<form-property name="txtReceiver" type="java.lang.String"/>
+		<form-property name="txtChqno" type="java.lang.String"/>
+		<form-property name="page" type="java.lang.String"/>
+		
+	</form-bean>
+	<form-bean name="PurchaseForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtId" type="java.lang.String"/>
+		<form-property name="txtDt" type="java.lang.String"/>
+		<form-property name="txtNo" type="java.lang.String"/>
+		<form-property name="txtHeadId" type="java.lang.String"/>
+		<form-property name="txtPartyNm" type="java.lang.String"/>
+		<form-property name="txtAmt" type="java.lang.String"/>
+		<form-property name="page" type="java.lang.String"/>
+			
+	</form-bean>
+
+
+</form-beans>
+
+	<!-- ========== Global Forward Definitions ============================== -->
+	<global-forwards>
+		<forward name="failure" path="/jsp/error.jsp"/>
+	</global-forwards>
+	<!-- ========== Action Mapping Definitions ============================== -->
+
+	<action-mappings>
+		<!-- Begin -->
+
+		<action path="/AllVoucher" type="struts.userpanel.VoucherLstHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/allvoucher.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		<action path="/CnlVoucher" type="struts.userpanel.VoucherLstHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/CnlVoucher.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/DeleteVoucher" type="struts.userpanel.DeleteVoucherHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/DelVoucher.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/VoucherDel" type="struts.userpanel.DelVouHandler" name="VoucherForm" scope="request" validate="false">
+			 <forward name="success" path="/CnlVoucher.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+								
+		<action path="/VoucherPrint" type="struts.userpanel.VoucherLstHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/VoucherList.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/PrintVoucher" type="struts.userpanel.DeleteVoucherHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/printvoucher.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/ChqPrint" type="struts.userpanel.VoucherLstHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/VoucherList2.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		<action path="/PrintChq" type="struts.userpanel.DeleteVoucherHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/printvoucher2.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/PrintCheque" type="struts.userpanel.ChequeVoucherHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/printcheque.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+
+		
+		
+			
+		<action path="/PrintOpenVoucher" type="struts.userpanel.DeleteVoucherHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/printopenvoucher.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		<action path="/OpenVoucher" type="struts.userpanel.OpenVoucherHandler" name="ListForm" scope="request" validate="false">
+                <forward name="success" path="/jsp/userpanel/voucher.jsp"/>
+			 	<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		<action path="/SaveVoucher" type="struts.userpanel.SaveVoucherHandler" name="VoucherForm" scope="request" validate="false">
+                         <forward name="success" path="/AllVoucher.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+	
+
+		<action path="/ChngUserPswd" type="struts.userpanel.ChangePswdHandler" scope="request" validate="false">
+                         <forward name="success" path="/jsp/userpanel/chngpswd.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/SaveUserNewPswd" type="struts.userpanel.SaveChangePswdHandler" name="ChngPswd" scope="request" validate="false">
+                         <forward name="success" path="/ValidatedLogin.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>	
+
+		<action path="/VoucherDelete" type="struts.userpanel.VoucherDeleteHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/AllVoucher.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<!-- Cheque TDS Printing -->
+		<action path="/PrintTDS" type="struts.userpanel.ChequeVoucherHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/printTDS.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<!-- TDS Voucher Printing -->
+		<action path="/PrintTDSVoucher" type="struts.userpanel.DeleteVoucherHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/printTDSVoucher.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/OpenPurchaseOrder" type="struts.userpanel.OpenPurchaseOrderHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/OpenPurchaseOrder.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/OpenNewPurchaseOrder" type="struts.userpanel.OpenNewPurchaseOrderHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/OpenNewPurchaseOrder.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/SavePurchaseOrder" type="struts.userpanel.SavePurchaseOrderHandler" name="PurchaseForm" scope="request" validate="false">
+			 <forward name="success" path="/PrintSingHeadPO.do"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/PrintSingHeadPO" type="struts.userpanel.POPrintSingHeadHandler" name="PurchaseForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/userpanel/PrintSingVoucherPO.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/OpenpurchaseOrderNumber" type="struts.userpanel.OpenpurchaseOrderNumber" name="PurchaseForm" scope="request" validate="false">
+			<forward name="success" path="/OpenVoucher.do"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		
+		
+	</action-mappings>
+<!-- ADD [END] -->
+	
+</struts-config>
+
+
+
+
+
+
+
+
+
+

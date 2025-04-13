@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<!--
+     This is the Struts configuration file for the example application,
+     using the proposed new syntax.
+
+     NOTE:  You would only flesh out the details in the "form-bean"
+     declarations if you had a generator tool that used them to create
+     the corresponding Java classes for you.  Otherwise, you would
+     need only the "form-bean" element itself, with the corresponding
+     "name" and "type" attributes.
+-->
+<struts-config>
+	<!-- ========== Data Source Configuration =============================== -->
+	<!-- ========== Form Bean Definitions =================================== -->
+<form-beans>
+		<form-bean name="AdminUser" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="txtuser" type="java.lang.String"/>
+			<form-property name="txtpassword" type="java.lang.String"/>
+		</form-bean>
+		<form-bean name="AdminForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="txtName" type="java.lang.String"/>
+			<form-property name="txtLogin" type="java.lang.String"/>
+			<form-property name="txtPassword" type="java.lang.String"/>
+		</form-bean>
+		
+</form-beans>
+
+
+	<!-- ========== Global Forward Definitions ============================== -->
+	<global-forwards>
+		<forward name="failure" path="/jsp/error.jsp"/>
+	</global-forwards>
+	<!-- ========== Action Mapping Definitions ============================== -->
+
+	<action-mappings>
+		<!-- Begin -->
+		<action path="/NewAdminUser" type="struts.comppanel.NewAdminUserHandler" scope="request" validate="false">
+                         <forward name="success" path="/jsp/comppanel/newUser.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<action path="/adminUser" type="struts.comppanel.adminUserHandler" name="AdminForm" scope="request" validate="false">
+                         <forward name="success" path="/jsp/comppanel/panel.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		
+	</action-mappings>
+<!-- ADD [END] -->
+	
+</struts-config>
+
+
+
+
+
+
+
+
+
+

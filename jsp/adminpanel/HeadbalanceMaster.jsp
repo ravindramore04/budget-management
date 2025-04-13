@@ -1,0 +1,170 @@
+<% //@page import="java.util.*" %>
+<%
+	session.setAttribute("itr", "1");
+
+	String strId = "";
+	String strHeadId = "";
+	String strDate = "";
+	String strAmount = "";
+	String strRemark = "";
+	String Str="",strDD="",strMM="",strYY="";
+	            	
+
+	HashMap hmData=(HashMap)request.getAttribute("data"); 
+	HashMap hmHead=(HashMap)request.getAttribute("head"); 
+	if(hmData!=null && hmData.size()>0){
+		strId = (String)hmData.get("AllocId");
+		strHeadId = (String)hmData.get("HeadId");
+		strDate = (String)hmData.get("Dt");
+//		String dd_mm_yyyy = strDate.substring(8,10)+"-"+strDate.substring(5,7)+"-"+strDate.substring(0,4);
+		strDD =strDate.substring(8,10);
+		strMM =strDate.substring(5,7);
+		strYY =strDate.substring(0,4);	
+		
+//		alert(dd_mm_yyyy);
+		strAmount = (String)hmData.get("dblAmount");
+		strRemark = (String)hmData.get("strRemark");
+	}
+%>
+<%@ include file="/jsp/adminpanel/header.jsp" %>
+<script language="JavaScript">
+	function formSubmit(){
+		var _Head = document.BudgetAllocationMaster.Head.value;
+		var _Amount = document.BudgetAllocationMaster.txtAmount.value;
+		var _Remark = document.BudgetAllocationMaster.txtRemark.value;
+		document.BudgetAllocationMaster.txtDate.value=document.BudgetAllocationMaster.YY.value+"-"+document.BudgetAllocationMaster.MM.value+"-"+document.BudgetAllocationMaster.DD.value;
+		
+		if(_Head=="0")
+		{
+			alert("Select Head Name ");
+			return false;
+		}
+		if(_Amount.toString()=="")
+		{
+			alert("Enter The Amount");
+			return false;
+		}
+		else{
+			if(isNaN(_Amount))
+			{
+				alert("Enter Numeric Value");
+				return false;
+			}
+		}
+		document.BudgetAllocationMaster.submit();
+	}
+	function handleEnter(fieldname,frm){
+	 	 var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+		 if (keyCode == 13){
+		 	eval('document.'+frm+'.'+fieldname+'.focus()');
+		}
+     }
+
+
+</script>
+<td width="80%" valign="top">
+   <form name="BudgetAllocationMaster" method="post" action="SaveBudgetAllocation.do">
+   <input type="hidden" name="page" value="BudgetAllocationMaster">
+	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
+		<tr> 
+			<td colspan=4>&nbsp;</td>
+		</tr>
+
+		<tr> 
+			<td width="25%" class="innertitle">Head Name </td>
+	    <td>		 <select name="Head" accesskey="H" >
+                                <OPTION value="0" selected>--------Select Head--------</option>
+                                <%
+                         if(hmHead!=null && hmHead.size()>0){
+                                    for(int indx=0;indx<hmHead.size();indx++){
+                                        HashMap hmt = (HashMap)hmHead.get(""+indx);
+                                        String HeadId = (String)hmt.get("HeadId");
+                                        String strHeadName = (String)hmt.get("strName");
+                                        %>
+                                        <OPTION value="<%=HeadId%>" <%=HeadId.equals(strHeadId)?"selected":"" %> ><%=strHeadName%></option>
+                                        <%
+                                    }
+                                }
+                                %>
+                            </select>
+					</td>		
+		</tr>
+		<tr> 
+			
+        <td width="25%" class="innertitle">Allocation Date </td>
+			
+        <td width="75%" colspan="3"> 
+          <input type="hidden" name="txtDate" size="25" class="formfield" value=""  >
+          <!-- <%=strDate%> -->
+          <select name="DD">
+            <% for(int i=1;i<=31;i++)
+	            { 
+	             if(i<10)
+	             	Str="0"+(""+i).trim();
+	             else
+	             	Str=(""+i).trim();
+	             	
+	             	
+	             if(strDD.equals(Str))
+	             {
+	    		%>
+            <option value="<%=Str%>" selected><%=Str%></option>
+            <% } else { %>
+            <option value="<%=Str%>"><%=Str%></option>
+            <% } } %>
+          </select>
+          <select name="MM">
+            <% 
+            for(int i=1;i<=12;i++)
+		    { 
+		     if(i<10)
+			Str="0"+(""+i).trim();
+		     else
+			Str=(""+i).trim();
+			
+	             if(strMM.equals(Str))
+	             {
+	    		%>
+            <option value="<%=Str%>" selected><%=Str%></option>
+            <% } else { %>
+            <option value="<%=Str%>"><%=Str%></option>
+            <% } } %>
+          </select>
+          <select name="YY">
+            <% for(int i=2000;i<=2050;i++)
+            { 
+	        Str=""+i;
+	     	if(strYY.equals(Str.trim()))
+	     	{
+		%>
+            <option value="<%=Str%>" selected><%=Str%></option>
+            <% } else { %>
+            <option value="<%=i%>"><%=i%></option>
+            <% }  } %>
+          </select></td></tr>
+		<tr> 
+			<td width="25%" class="innertitle">Amount </td>
+			<td width="75%" colspan="3"><input type="text" name="txtAmount" size="25" class="formfield" value="<%=strAmount%>" onKeyPress="handleEnter('txtRemark','BudgetAllocationMaster')"> </td>
+		</tr>
+		
+		<tr> 
+			<td class="innertitle" valign = "top">Remark</td>
+			<td colspan="3">
+				<textarea name="txtRemark" class="formfield" cols="25" rows="3"><%=strRemark%></textarea>
+			</td>
+		</tr>
+		<tr> 
+			<td colspan=4>
+				<input type="hidden" name="txtId" value="<%=strId%>">
+			</td>
+		</tr>
+		<tr> 
+			<td colspan=4 align="center">
+				<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">&nbsp;
+				<input name="btnSub" type="Button" value="Submit" class="PPRSbmtBtn" onClick="formSubmit()">
+			</td>
+		</tr>
+	</table>
+    </form>
+</td>
+<%@ include file="/jsp/include/footer.jsp" %>
