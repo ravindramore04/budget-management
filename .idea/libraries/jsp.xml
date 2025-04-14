@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jsp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jsp/userpanel.zip!/" />
+      <root url="jar://$PROJECT_DIR$/jsp/code.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

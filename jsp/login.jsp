@@ -2,7 +2,7 @@
 
 <%
 	HashMap MyMap = new HashMap();		
-	String strPath = "/budget0.1/";
+	String strPath = "/budget-management/";
 	try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			Connection conn  = DriverManager.getConnection("jdbc:mysql://localhost/finance?user=root&password=root");

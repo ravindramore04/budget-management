@@ -82,7 +82,7 @@ function Num2Word(num,fmt) {
 }
 
 function setAction(code){
-document.abc.action ="/budget0.1/VoucherPrint.do";
+document.abc.action ="/budget-management/VoucherPrint.do";
 document.abc.submit();
 }
     

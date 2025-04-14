@@ -22,7 +22,7 @@ function navigation(code){
 function setAction(code,id){
     document.HeadBalanceList.id.value = id;
 	document.HeadBalanceList.opr.value=code;
-	
+
     switch(code){
         case 1:
             document.HeadBalanceList.action = "<%=strPath+"showBudgetAllocation.do"%>";
@@ -46,8 +46,8 @@ function setAction(code,id){
     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
-	
-    
+
+
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	    <tr bgcolor="<%=strColHd%>">
@@ -64,7 +64,13 @@ function setAction(code,id){
 			Allocated Ballance
 		</td>
 		<td width="22%"  align="center" class="titles" height="20">
-			Current Balance
+			Reservered Balance
+		</td>
+		<td width="22%"  align="center" class="titles" height="20">
+			Utilised Balance
+		</td>
+		<td width="22%"  align="center" class="titles" height="20">
+			Remaining Balance
 		</td>
 	    </tr>
     	    <%
@@ -75,9 +81,10 @@ function setAction(code,id){
                     	
                         String strId = (String)hmt.get("HeadId");
                         String strName = (String)hmt.get("strName");
-			String strBalance = (String)hmt.get("dblBalance");
-			String dblAmount = (String)hmt.get("dblAmount");
+			String strBalance = (String)hmt.get("dblAmount");
 			String strDepartmentNm = (String)hmt.get("strDepartmentNm");
+			String dblReservedAmount = (String)hmt.get("dblReservedAmount");
+			String dblUtilisedAmount = (String)hmt.get("dblUtilisedAmount");
                         %>
 			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
@@ -89,11 +96,17 @@ function setAction(code,id){
 				<td align="left" class="link" height="20">
 				<%=strDepartmentNm%>
 				</td>
+		        <td  align="left" class="link" height="20"> <%=strBalance%></td>
 				<td align="left" class="link" height="20">
-					<%=dblAmount%>
+					<%=dblReservedAmount%>
 				</td>
-				
-        <td  align="left" class="link" height="20"> <%=strBalance%></td>
+				<td align="left" class="link" height="20">
+					<%=dblUtilisedAmount%>
+				</td>
+				<td align="left" class="link" height="20">
+					<!-- TODO: Add remianing balance-->
+				</td>
+
 			</tr>
     			<%
                     }
@@ -148,7 +161,7 @@ function setAction(code,id){
 	      <td colspan="5" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
-		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
+		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn">
 		    	</td>
 		    	<td colspan="2" align="left"> <input type="button" name="btn1" value="   Close   " accesskey="C" onClick="setAction(4,0)" class="PPRSbmtBtn"> 
 		    	</td>

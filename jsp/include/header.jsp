@@ -1,6 +1,6 @@
 <%@ page import="java.util.*" %>
 <%
-	String strPath = "/budget0.1/";
+	String strPath = "/budget-management/";
 	String strColHd = "#3366CC";
 	String strCol1 = "#ffffff";
 	String strCol2 = "#E6F3FF";

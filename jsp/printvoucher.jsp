@@ -91,13 +91,13 @@ function setAction(code){
     
     switch(code){
         case 1:
-            document.BudgetHead.action ="/budget0.1/PrintOpenVoucher.do";
+            document.BudgetHead.action ="/budget-management/PrintOpenVoucher.do";
             break;
         case 2:
-            document.BudgetHead.action = "/budget0.1/Close.do";
+            document.BudgetHead.action = "/budget-management/Close.do";
             break;
         case 3:
-            document.BudgetHead.action = "/budget0.1/PrintTDSVoucher.do";
+            document.BudgetHead.action = "/budget-management/PrintTDSVoucher.do";
             break;            
     }
     

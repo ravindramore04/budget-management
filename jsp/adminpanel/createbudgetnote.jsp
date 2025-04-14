@@ -1,188 +1,130 @@
-<html>
-<title>Budget Note</title>
-<head></head>
-<%@ page import="java.util.*,java.text.*" %>
+<% //@page import="java.util.*" %>
 <%
-DecimalFormat d = new DecimalFormat("##0.00");
-String strPath="/budget0.1/";
-HashMap hmAllo=new HashMap();
+	session.setAttribute("itr", "1");
 
-hmAllo=(HashMap)request.getAttribute("Head");
-//out.println(hmAllo);
-String strBudgroupId="";
-String bal="";
-String vou="";
-if(hmAllo!=null && hmAllo.size()>0){
-	//HashMap hmt=(HashMap)hmAllo.get(""+0);
-	strBudgroupId=(String)hmAllo.get("strBudgroupId");
-}
+	String strId = "";
+	String strAmount = "";
+	String strRemark = "";
+
+	String allocationId = "";
+	String departmentName = "";
+    String headName = "";
+    String allocatedAmount = "";
+    String reservedAmount = "";
+    String utilisedAmount = "";
+    String availableBalance = "";
 
 
+	HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
+	System.out.println("budgetNoteInputData====>" + hmData);
+
+	if(hmData!=null && hmData.size()>0){
+         allocationId = (String)hmData.get("allocationId");
+         departmentName = (String)hmData.get("departmentName");
+         headName = (String)hmData.get("headName");
+         allocatedAmount = (String)hmData.get("allocatedAmount");
+         reservedAmount = (String)hmData.get("reservedAmount");
+         utilisedAmount = (String)hmData.get("utilisedAmount");
+         availableBalance = (String)hmData.get("availableBalance");
+	}
 %>
+<%@ include file="/jsp/adminpanel/header.jsp" %>
 <script language="JavaScript">
-function navigation(code){
-    document.HeadList.NAV.value = code;
-    document.HeadList.action = "<%=strPath+"AllHead.do"%>"; 
-    document.HeadList.submit();
-}
+	function formSubmit(){
+		var _Head = document.BudgetAllocationMaster.Head.value;
+		var _Amount = document.BudgetAllocationMaster.txtAmount.value;
+		var _Remark = document.BudgetAllocationMaster.txtRemark.value;
+		document.BudgetAllocationMaster.txtDate.value=document.BudgetAllocationMaster.YY.value+"-"+document.BudgetAllocationMaster.MM.value+"-"+document.BudgetAllocationMaster.DD.value;
 
-function setAction(code,id){
-    document.HeadList.id.value = id;
-    switch(code){
-        case 1:
-            document.HeadList.action = "<%=strPath+"OpenHead.do"%>";
-            break;
-        case 2:
-            document.HeadList.action = "<%=strPath+"PrintSingHead.do"%>";
-            break;
-        case 3:
-            //delete done later
-            document.HeadList.action = "<%=strPath+"OpenHead.do"%>";
-            break;
-        case 4:
-            document.HeadList.action = "<%=strPath+"Close.do"%>";
-            break;
-        case 5:
-            document.HeadList.action = "<%=strPath+"budgetNote.do"%>";
-            break;
-			
-			
-    }
-    document.HeadList.opr.value=code;
-    //document.HeadList.submit();   onLoad="javascript:print();setAction(5,0)"
-}
+		if(_Head=="0")
+		{
+			alert("Select Head Name ");
+			return false;
+		}
+		if(_Amount.toString()=="")
+		{
+			alert("Enter The Amount");
+			return false;
+		}
+		else{
+			if(isNaN(_Amount))
+			{
+				alert("Enter Numeric Value");
+				return false;
+			}
+		}
+		document.BudgetAllocationMaster.submit();
+	}
+	function handleEnter(fieldname,frm){
+	 	 var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+		 if (keyCode == 13){
+		 	eval('document.'+frm+'.'+fieldname+'.focus()');
+		}
+     }
+
 
 </script>
- <body> 
-<body>
-<form name="HeadList" method="post" action="#">
-    <input type="hidden" name="page" value="PrintList">
-    <input type="hidden" name="NAV" value="">
-    <input type="hidden" name="txtBGid" value="<%=strBudgroupId%>">
-    <input type="hidden" name="id" value="">
-    <input type="hidden" name="opr" value="">
-    
-    <td width="80%" valign="top" align="center">
+<td width="80%" valign="top">
+   <form name="BudgetAllocationMaster" method="post" action="SaveBudgetAllocation.do">
+   <input type="hidden" name="page" value="BudgetAllocationMaster">
+	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
+		<tr>
+			<td width="25%" class="innertitle">Department Name </td>
+			<td width="75%" colspan="3"><%=departmentName%></td>
+		</tr>
+		<tr>
+			<td width="25%" class="innertitle">Head Name </td>
+			<td width="75%" colspan="3"><%=headName%></td>
+		</tr>
 
-	<Table width="100%" border="1" cellspacing="1" cellpadding="1" align="center">
-	<TR>
-	<TD>
-	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-      <tr class="titles"> 
-        <td height="20"  colspan="5"> <div align="center"><strong>BUDGET NOTE-2007-2008</strong></div></td>
+		<tr>
+			<td width="25%" class="innertitle">Budget Sanctioned </td>
+			<td width="75%" colspan="3"><%=allocatedAmount%></td>
+		</tr>
+		<tr>
+			<td width="25%" class="innertitle">Reserve Amount (Note created but PO not approved) </td>
+			<td width="75%" colspan="3"><%=reservedAmount%></td>
+		</tr>
+		<tr>
+			<td width="25%" class="innertitle">Budget Already Spent </td>
+			<td width="75%" colspan="3"><%=utilisedAmount%></td>
+		</tr>
+		<tr>
+			<td width="25%" class="innertitle">Balance Budget </td>
+			<td width="75%" colspan="3"><%=availableBalance%></td>
+		</tr>
 
-      </tr>
-	<TR><TD height="2" colspan="4"><HR></TD></TR>
-      <tr> 
-      </tr>
-	<TR><TD height="2" colspan="4"></TD></TR>
-      <tr> 
-        <td width="30%" ><strong> Name of Dept.</strong></td>
-        <td colspan="3"><strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;<%//=(String)hmAllo.get("strName")%></strong></td>
-      </tr>
-      <tr> 
-        <td width="30%"><strong>Budget Sanctioned</strong></td>
-        <td width="10%"><strong>: Rs</strong></td>
-        <td width="20%" align="right"><strong><%//=(String)hmAllo.get("BSUM")%></strong></td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr> 
-        <td width="30%"><strong>Amt. already spend</strong></td>
-        <td><strong>:</strong> <strong>Rs&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td width="20%" align="right"><strong> <%
-		 bal =(String)hmAllo.get("BSUM");
-		 vou =(String)hmAllo.get("VSUM");
-		//HashMap hr=(HashMap)hmAllo.get("rr");
-	    //System.out.print("ravindra check"+hr);
-		String POSUM=""; //=(String)hr.get("POAmt");
-	
-		if(POSUM==null || "".equals(POSUM))
-			{
-			POSUM="0";
-			}
-		
-		
-		
-		if (bal!=null)
-		{
-			//double Allresult = (Double.parseDouble(vou)+Double.parseDouble(POSUM));
-			//out.print(d.format(Allresult));
-		}	
-		%><%//=Double.parseDouble((String)hmAllo.get("VSUM"))%>0</strong></td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr> 
-        <td width="30%"><strong>Balance</strong></td>
-        <td><strong>: Rs &nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp; </td>
-        <td width="20%" align="right"><strong> 
-          <%
-		 bal =(String)hmAllo.get("BSUM");
-		 vou =(String)hmAllo.get("VSUM");
-		//String tds =(String)hmAllo.get("TSUM");
-		POSUM = "";//(String)hr.get("POAmt");
-		if(POSUM==null || POSUM.equals(""))
-			{
-			POSUM="0";
-			}
-		
-		
-		if (bal!=null)
-		{
-			//double result = Double.parseDouble(bal)-(Double.parseDouble(vou)+Double.parseDouble(POSUM));
-			//out.print(d.format(result));
-		}	
-		%>
-		</strong></td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td >&nbsp;</td>
-      </tr>
-      <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td >SIGN. OF HOD</td>
-      </tr>
- <!--     <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td >&nbsp;</td>
-      </tr>  -->
-      <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td><strong>Approved: Yes / No</strong></td>
-      </tr>
-      <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td align="center" colspan="2"><strong>Chief Accounts &amp; Finance Officer</strong></td>
-        <!-- <td>&nbsp;</td> -->
-        <td align="right">&nbsp;</td>
-        <td><strong>Executive Director/Principal</strong></td>
-      </tr>
-    </table>
-	</TD>
-	</TR>
-	</Table>
 
-    </td>		
-</form>
-</body>
-</html>
+
+
+		<tr>
+			<td width="25%" class="innertitle">This Expenditure </td>
+			<td width="75%" colspan="3"><input type="text" name="thisExpenditure" size="25" class="formfield" value="<%=strAmount%>" onKeyPress="handleEnter('txtRemark','BudgetAllocationMaster')"> </td>
+		</tr>
+
+		<tr>
+			<td width="25%" class="innertitle">Balance after current Expenditure </td>
+			<td width="75%" colspan="3"><input type="text" name="balanceAfterCurrentExpenditure" size="25" class="formfield" value="" > </td>
+		</tr>
+
+		<tr>
+			<td class="innertitle" valign = "top">Remark</td>
+			<td colspan="3">
+				<textarea name="txtRemark" class="formfield" cols="25" rows="3"><%=strRemark%></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan=4>
+				<input type="hidden" name="txtId" value="<%=strId%>">
+			</td>
+		</tr>
+		<tr>
+			<td colspan=4 align="center">
+				<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">&nbsp;
+				<input name="btnSub" type="Button" value="Submit" class="PPRSbmtBtn" onClick="formSubmit()">
+			</td>
+		</tr>
+	</table>
+    </form>
+</td>
+<%@ include file="/jsp/include/footer.jsp" %>

@@ -54,7 +54,7 @@ function setAction(code,id){
 
 		</td>
 		<td width="22%" align="center" class="titles" height="20">
-			Budget Head
+			Budget Head123
 		</td>
 		<td width="22%" align="center" class="titles" height="20">
 			Dept. Name
@@ -63,7 +63,13 @@ function setAction(code,id){
 			Allocated Ballance
 		</td>
 		<td width="22%"  align="center" class="titles" height="20">
-			Current Balance
+			Reservered Balance
+		</td>
+		<td width="22%"  align="center" class="titles" height="20">
+			Utilised Balance
+		</td>
+		<td width="22%"  align="center" class="titles" height="20">
+			Remaining Balance
 		</td>
 	    </tr>
     	    <%
@@ -75,8 +81,9 @@ function setAction(code,id){
                         String strId = (String)hmt.get("HeadId");
                         String strName = (String)hmt.get("strName");
 			String strBalance = (String)hmt.get("dblBalance");
-			String dblAmount = (String)hmt.get("dblAmount");
 			String strDepartmentNm = (String)hmt.get("strDepartmentNm");
+			String dblReservedAmount = (String)hmt.get("dblReservedAmount");
+			String dblUtilisedAmount = (String)hmt.get("dblUtilisedAmount");
                         %>
 			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
@@ -89,9 +96,15 @@ function setAction(code,id){
 				<%=strDepartmentNm%>
 				</td>
 				<td align="left" class="link" height="20">
-					<%=dblAmount%>
+					<%=dblReservedAmount%>
 				</td>
-				
+				<td align="left" class="link" height="20">
+					<%=dblUtilisedAmount%>
+				</td>
+				<td align="left" class="link" height="20">
+					<!-- TODO: Add remianing balance-->
+				</td>
+
         <td  align="left" class="link" height="20"> <%=strBalance%></td>
 			</tr>
     			<%

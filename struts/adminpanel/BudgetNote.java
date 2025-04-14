@@ -45,6 +45,9 @@ public class BudgetNote extends Action
             String strPage_num ="";
             String strNavOpr = "";
             String operation=(String)daf.get("opr");
+            String budgetAllocationId=(String)daf.get("id");
+            sop("budgetAllocationId-->" + budgetAllocationId);
+
             if(daf!=null){
                 strPage_num = (String)daf.get("current_page");
                 strNavOpr = (String)daf.get("NAV");
@@ -61,64 +64,76 @@ public class BudgetNote extends Action
                 nPage = Double.parseDouble(strPage_num);
 
             vec.clear();
-            cvdal.setSQL("openAllHeadWithBalance", vec);
-            Vector vec1 = (Vector)cvdal.executeQuery();
-            sop("vec1====================>"+vec1);
-            if(vec1!=null && vec1.size()>0){
-                nTotalPage = Math.ceil(vec1.size()/(double)nNum_Per_Page);
-            }
-            sop("total--> "+vec1.size());
-            sop("total pages-->" + nTotalPage);
 
-            switch (nOpr){
-                case 1:
-                    //first
-                    nPage = 1;
-                    break;
-                case 2:
-                    //next
-                    nPage++;
-                    break;
-                case 3:
-                    //privious
-                    nPage--;
-                    break;
-                case 4:
-                    //last
-                    nPage = nTotalPage;
-            }
+            if ("create".equals(operation)){
 
-            long nLowLimit = (long)(nNum_Per_Page * (nPage-1));
+                vec.add(budgetAllocationId);
 
-            if(nPage<=nTotalPage){
-                vec.clear();
-                vec.addElement(""+nLowLimit);
-                vec.addElement(""+nNum_Per_Page);
-                cvdal.setSQL("openAllHeadWithBalanceWL", vec);
-                vec1 = (Vector)cvdal.executeQuery();
+                cvdal.setSQL("budgetNoteInputData", vec);
+                Vector vec1 = (Vector)cvdal.executeQuery();
+                sop("vec1====================>" + vec1);
+
+
+                sop("create budget note..................");
+                request.setAttribute("budgetNoteInputData", vec1.get(0));
+
+                FORWARD_final = "createnote";
+
+            }else{
+                cvdal.setSQL("openAllHeadWithBalance", vec);
+                Vector vec1 = (Vector)cvdal.executeQuery();
+                sop("vec1====================>"+vec1);
                 if(vec1!=null && vec1.size()>0){
-                    for(int indx=0;indx<vec1.size();indx++){
-                        HashMap hmt = (HashMap)vec1.elementAt(indx);
-                        hmFinal.put(""+indx, hmt);
+                    nTotalPage = Math.ceil(vec1.size()/(double)nNum_Per_Page);
+                }
+                sop("total--> "+vec1.size());
+                sop("total pages-->" + nTotalPage);
+
+                switch (nOpr){
+                    case 1:
+                        //first
+                        nPage = 1;
+                        break;
+                    case 2:
+                        //next
+                        nPage++;
+                        break;
+                    case 3:
+                        //privious
+                        nPage--;
+                        break;
+                    case 4:
+                        //last
+                        nPage = nTotalPage;
+                }
+
+                long nLowLimit = (long)(nNum_Per_Page * (nPage-1));
+
+                if(nPage<=nTotalPage){
+                    vec.clear();
+                    vec.addElement(""+nLowLimit);
+                    vec.addElement(""+nNum_Per_Page);
+                    cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+                    vec1 = (Vector)cvdal.executeQuery();
+                    if(vec1!=null && vec1.size()>0){
+                        for(int indx=0;indx<vec1.size();indx++){
+                            HashMap hmt = (HashMap)vec1.elementAt(indx);
+                            hmFinal.put(""+indx, hmt);
+                        }
                     }
                 }
-            }
 
 
-            sop("-------------------------------------------------");
-            sop("-------------------------------------------------");
-            sop(""+hmFinal);
-            request.setAttribute("data", hmFinal);
-            HashMap hmPage = new HashMap();
-            hmPage.put("current_page", ""+(long)nPage);
-            hmPage.put("total_page", ""+(long)nTotalPage);
-            request.setAttribute("page", hmPage);
-            FORWARD_final = Success;
+                sop("-------------------------------------------------");
+                sop("-------------------------------------------------");
+                sop(""+hmFinal);
+                request.setAttribute("data", hmFinal);
+                HashMap hmPage = new HashMap();
+                hmPage.put("current_page", ""+(long)nPage);
+                hmPage.put("total_page", ""+(long)nTotalPage);
+                request.setAttribute("page", hmPage);
+                FORWARD_final = Success;
 
-            if(operation.equals("create")){
-           sop("create budget note..................");
-                request.setAttribute("Head", new HashMap());
-                FORWARD_final = "createnote";
             }
 
         }catch(Exception e){
