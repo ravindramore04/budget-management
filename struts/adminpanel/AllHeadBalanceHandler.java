@@ -44,6 +44,7 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
                     DynaActionForm daf = (DynaActionForm)form;
                     String strPage_num ="";
                     String strNavOpr = "";
+
                     if(daf!=null){
                         strPage_num = (String)daf.get("current_page");
                         strNavOpr = (String)daf.get("NAV");

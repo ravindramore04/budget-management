@@ -21,14 +21,14 @@ function navigation(code){
 
 function setAction(code,id){
     document.HeadBalanceList.id.value = id;
-	document.HeadBalanceList.opr.value=code;
-	
+	document.HeadBalanceList.opr.value='create';
     switch(code){
         case 1:
             document.HeadBalanceList.action = "<%=strPath+"showBudgetAllocation.do"%>";
             break;
         case 2:
-            document.HeadBalanceList.action = "<%=strPath+"openBudgetAllocation.do"%>";
+            //document.HeadBalanceList.action = "<%=strPath+"openBudgetAllocation.do"%>";
+			document.HeadBalanceList.action = "<%=strPath+"AllHeadForBudgetNote.do"%>"
             break;
        
         case 4:
@@ -46,7 +46,6 @@ function setAction(code,id){
     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
-	
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
@@ -148,7 +147,7 @@ function setAction(code,id){
 	      <td colspan="5" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
-		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
+		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new BN" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
 		    	</td>
 		    	<td colspan="2" align="left"> <input type="button" name="btn1" value="   Close   " accesskey="C" onClick="setAction(4,0)" class="PPRSbmtBtn"> 
 		    	</td>
