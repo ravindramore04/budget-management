@@ -50,13 +50,14 @@ public class saveBudgetAllocationHandler extends org.apache.struts.action.Action
 
                         Vector vector=new Vector();
                         DynaActionForm daf = (DynaActionForm)form;
-
+                        sop("working"+daf);
                        	String strId=(String)daf.get("txtId");
                         String strHeadId=(String)daf.get("Head");
                         String strAmount=(String)daf.get("txtAmount");
                         sop("strAmount==============="+strAmount);
 						String strDate=(String)daf.get("txtDate");
 						String strRemark=(String)daf.get("txtRemark");
+						String strDepartmentId=(String)daf.get("strDepartmentId");
 						String InsertBy=strUserId;
 						String InsertOn=strToday;
 						String HeadId="";
@@ -108,6 +109,7 @@ public class saveBudgetAllocationHandler extends org.apache.struts.action.Action
 						vec.addElement(InsertOn);
 						vec.addElement(strUserId);
 						vec.addElement(strToday);
+						vec.addElement(strDepartmentId);
 
 						cvdal = new CVDal(DBnm);
 						if(strId == null || strId.length()==0){

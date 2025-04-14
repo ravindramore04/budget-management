@@ -49,12 +49,15 @@
 		<form-property name="txtId" type="java.lang.String"/>
 		<form-property name="txtName" type="java.lang.String"/>
 		<form-property name="strHeadOfDeptNm" type="java.lang.String"/>
-		<form-property name="strDepartmentId" type="java.lang.String"/>
 		<form-property name="NAV" type="java.lang.String"/>
 		<form-property name="current_page" type="java.lang.String"/>
 		<form-property name="Newcurrent_page" type="java.lang.String"/>
-		<form-property name="txtRemark" type="java.lang.String"/>
 		
+		<form-property name="strDepartmentId" type="java.lang.String"/>
+		<form-property name="txtRemark" type="java.lang.String"/>
+		<form-property name="txtAmount" type="java.lang.String"/>
+		<form-property name="Head" type="java.lang.String"/>
+		<form-property name="txtDate" type="java.lang.String"/>
 	</form-bean>
 	
 	<form-bean name="BudgetAllocationForm" type="org.apache.struts.validator.DynaValidatorForm">
@@ -63,8 +66,20 @@
 		<form-property name="txtDate" type="java.lang.String"/>
 		<form-property name="txtAmount" type="java.lang.String"/>
 		<form-property name="txtRemark" type="java.lang.String"/>
-				
+		<form-property name="strDepartmentId" type="strDepartmentId"/>		
 	</form-bean>
+	
+	<form-bean name="BudgetAllocationMaster" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtId" type="java.lang.String"/>
+		<form-property name="Head" type="java.lang.String"/>
+		<form-property name="txtDate" type="java.lang.String"/>
+		<form-property name="txtAmount" type="java.lang.String"/>
+		<form-property name="txtRemark" type="java.lang.String"/>
+		<form-property name="strDepartmentId" type="strDepartmentId"/>		
+	</form-bean>
+	
+	
+	
 	<form-bean name="ChngPswd" type="org.apache.struts.validator.DynaValidatorForm">
 		<form-property name="txtOldPassword" type="java.lang.String"/>
 		<form-property name="txtPassword" type="java.lang.String"/>
@@ -182,7 +197,7 @@
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>		
 		
-		<action path="/SaveBudgetAllocation" type="struts.adminpanel.saveBudgetAllocationHandler" name="BudgetAllocationForm" scope="request" validate="false">
+		<action path="/SaveBudgetAllocation" type="struts.adminpanel.saveBudgetAllocationHandler" name="HeadForm" scope="request" validate="false">
 			<forward name="success" path="/AllBudgetAllocation.do"/>
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>		

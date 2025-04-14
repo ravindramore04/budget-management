@@ -53,10 +53,16 @@ function setAction(code,id){
 		<td width="10%" height="20">&nbsp;
 
 		</td>
-		<td width="45%" align="center" class="titles" height="20">
+		<td width="22%" align="center" class="titles" height="20">
 			Budget Head
 		</td>
-		<td width="45%" colspan="2" align="center" class="titles" height="20">
+		<td width="22%" align="center" class="titles" height="20">
+			Dept. Name
+		</td>
+		<td width="22%"  align="center" class="titles" height="20">
+			Allocated Ballance
+		</td>
+		<td width="22%"  align="center" class="titles" height="20">
 			Current Balance
 		</td>
 	    </tr>
@@ -69,6 +75,8 @@ function setAction(code,id){
                         String strId = (String)hmt.get("HeadId");
                         String strName = (String)hmt.get("strName");
 			String strBalance = (String)hmt.get("dblBalance");
+			String dblAmount = (String)hmt.get("dblAmount");
+			String strDepartmentNm = (String)hmt.get("strDepartmentNm");
                         %>
 			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
@@ -77,9 +85,14 @@ function setAction(code,id){
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=strName%></a>
 				</td>
-				<td colspan="2" align="left" class="link" height="20">
-					<%=strBalance%>
+				<td align="left" class="link" height="20">
+				<%=strDepartmentNm%>
 				</td>
+				<td align="left" class="link" height="20">
+					<%=dblAmount%>
+				</td>
+				
+        <td  align="left" class="link" height="20"> <%=strBalance%></td>
 			</tr>
     			<%
                     }
@@ -94,13 +107,15 @@ function setAction(code,id){
 	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
+				<td valign="top" height="20">&nbsp; </td>
+				<td valign="top" height="20">&nbsp; </td>
 	    	</tr>
 	    	<%        
 	    }
 	    %>
 	    
 	    <tr bgcolor="<%=strColHd%>"> 
-	      <td colspan="4" height="20" align="center"> 
+	      <td colspan="5" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
@@ -126,10 +141,10 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	    <tr> 
-		<td colspan=4 height="20">&nbsp;</td>
+		<td colspan="5" height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
-	      <td colspan="4" valign="top" height="20" align="center">
+	      <td colspan="5" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
 		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 

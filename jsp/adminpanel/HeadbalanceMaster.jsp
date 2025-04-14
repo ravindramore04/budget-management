@@ -14,7 +14,7 @@
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
 	HashMap hmHead=(HashMap)request.getAttribute("head"); 
 	HashMap hmGroup=(HashMap)request.getAttribute("ghead");
-	out.print(hmGroup);
+	//out.print(hmGroup);
 	if(hmData!=null && hmData.size()>0){
 		strId = (String)hmData.get("AllocId");
 		strHeadId = (String)hmData.get("HeadId");
@@ -27,6 +27,7 @@
 //		alert(dd_mm_yyyy);
 		strAmount = (String)hmData.get("dblAmount");
 		strRemark = (String)hmData.get("strRemark");
+		bgNm=(String)hmData.get("strDepartmentId");
 	}
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>

@@ -154,8 +154,8 @@ public class CVDal
 		ALLSQL.put("openVoucherWithId","select voucher.*, voucher.dblAmount+voucher.dblTds as amt,cheque.strChequeNo,BudgetHead.* from voucher left join BudgetHead on voucher.HeadId = BudgetHead.HeadId left join cheque on voucher.voucherId = cheque.voucherId where voucher.voucherId='?'");
 		ALLSQL.put("openVoucherId","select * from voucher where voucherId='?'");
 
-		ALLSQL.put("openAllHeadWithBalance","select * from budgethead left join headbal on budgethead.HeadId=headbal.HeadId order by budgethead.strName");
-		ALLSQL.put("openAllHeadWithBalanceWL","select * from budgethead left join headbal on budgethead.HeadId=headbal.HeadId order by budgethead.strName limit ?,?");
+		ALLSQL.put("openAllHeadWithBalance","select a.HeadId,a.dblAmount,b.strName,h.dblBalance,d.strDepartmentNm from budgetalloc a left join budgethead b on a.HeadId = b.HeadId  left join headbal h on b.HeadId=h.HeadId left join departments d on a.strDepartmentId = d.strDepartmentId order by b.strName");
+		ALLSQL.put("openAllHeadWithBalanceWL","select a.HeadId,a.dblAmount,b.strName,h.dblBalance,d.strDepartmentNm from budgetalloc a left join budgethead b on a.HeadId = b.HeadId  left join headbal h on b.HeadId=h.HeadId left join departments d on a.strDepartmentId = d.strDepartmentId order by b.strName limit ?,?");
 		ALLSQL.put("openHeadBalanceWithId","select * from headbal where HeadId='?'");
 
 		ALLSQL.put("openAllAllocationOfHead","select * from budgetalloc where HeadId='?'");
@@ -171,7 +171,7 @@ public class CVDal
 
 		ALLSQL.put("insertHeadBalance","insert into headbal values('?','?')");
 		ALLSQL.put("InsertOrg","insert into company values('?','?','?','?','?',?,'?',?,'?')");
-		ALLSQL.put("insertintobudgetallocation","insert into budgetalloc values('?','?','?','?','?',?,'?',?,'?')");
+		ALLSQL.put("insertintobudgetallocation","insert into budgetalloc values('?','?','?','?','?',?,'?',?,'?','?')");
 		ALLSQL.put("InsertintoHeadBalance","insert into headbal values('?','?')");
 		ALLSQL.put("insertintoVoucher","insert into voucher values('?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?')");
 		ALLSQL.put("insertintoCheque","insert into cheque values('?','?','?')");
@@ -191,7 +191,7 @@ public class CVDal
 		ALLSQL.put("updateUser","Update userLst set strName='?',strLogin='?', strUptdBy='?',strUptdOn='?' where UId='?'");
 		//ALLSQL.put("updateHead","Update BudgetHead set strName='?',strRemark='?', strUptdBy='?',strUptdOn='?' where HeadId='?'");
 		ALLSQL.put("UpdateOrg","Update company set strName='?', strShortNm ='?', strAddr='?',strPh1='?', strPh2='?', strUptdBy='?', strUptdOn='?'");
-		ALLSQL.put("updateintobudgetallocation","Update budgetalloc set HeadId='?', Dt ='?', dblAmount='?',strRemark='?', strInsBy='?',strInsOn='?', strUptdBy='?', strUptdOn='?' where AllocId='?'");
+		ALLSQL.put("updateintobudgetallocation","Update budgetalloc set HeadId='?', Dt ='?', dblAmount='?',strRemark='?', strInsBy='?',strInsOn='?', strUptdBy='?', strUptdOn='?',strDepartmentId='?' where AllocId='?'");
 		ALLSQL.put("updateHeadBalance","Update headbal set dblBalance=dblBalance+'?' where HeadId='?'");
 		ALLSQL.put("minusHeadBalance","Update headbal set dblBalance=dblBalance-'?' where HeadId='?'");
 
