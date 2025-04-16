@@ -23,10 +23,24 @@
 .grey {
 	FONT-SIZE: 11px; COLOR: #7f7f7f; FONT-STYLE: normal; FONT-FAMILY: Tahoma, Arial; TEXT-DECORATION: none
 }
-.PPRSbmtBtn{FONT-FAMILY:Tahoma, san-serif; FONT-SIZE:13px; BACKGROUND:#DBEAF5; BORDER-BOTTOM:1px solid #104A7B; BORDER-RIGHT:1px solid #104A7B; BORDER-LEFT:1px solid #AFC4D5; BORDER-TOP:1px solid #AFC4D5; COLOR:#000066; FONT-WEIGHT:normal; TEXT-DECORATION:none; CURSOR:hand}
+.PPRSbmtBtn{FONT-FAMILY:Tahoma, san-serif; FONT-SIZE:13px; padding:10px; BACKGROUND:#11468f; COLOR:#000066; FONT-WEIGHT:normal; TEXT-DECORATION:none; CURSOR:hand; color:#fff;}
 .bor {
-	border: 1px dashed #CCCCCC;
+	border: 1px dashed #CCCCCC
 }
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #007bff; /* Customize color */
+  cursor: pointer;
+}
+
+/* Optional: Adjust appearance when checked */
+input[type="checkbox"]:checked {
+  box-shadow: 0 0 5px #007bff;
+  transform: scale(1.1); /* Slightly enlarge when checked */
+}
+
+
 .linktext {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 11px;
