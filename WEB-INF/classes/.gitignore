@@ -1,0 +1,5 @@
+# Default ignored files
+.idea
+./struts/.idea
+./struts/.idea/*
+*.iml

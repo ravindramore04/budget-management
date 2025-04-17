@@ -1,0 +1,34 @@
+DROP TABLE IF EXISTS `budgetalloc`;
+CREATE TABLE `budgetalloc` (
+  `AllocId` int(6) default NULL,
+  `HeadId` int(6) default NULL,
+  `Dt` date default NULL,
+  `dblAmount` double(11,2) default 0.0,
+  `strRemark` varchar(100) default NULL,
+  `strInsBy` int(6) default NULL,
+  `strInsOn` date default NULL,
+  `strUptdBy` int(6) default NULL,
+  `strUptdOn` date default NULL,
+  `strDepartmentId` varchar(10) default NULL,
+  `dblReservedAmount` double(11,2) default 0.0,
+  `dblUtilisedAmount` double(11,2) default 0.0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `budgetnote`;
+CREATE TABLE `budgetnote`(
+  `budgetNoteId` int(6) default NULL,
+  `AllocId` int(6) default NULL,
+  `HeadId` int(6) default NULL,
+  `bgtNoteDate` date default NULL,
+  `dblReservedAmount` double(11,2) default 0.0,
+  `dblUtilisedAmount` double(11,2) default 0.0,
+  `thisExpenditure` double(11,2) default 0.0,
+  `balAmount` double(11,2) default 0.0,
+  `balAfterThisExpenditureAmt` double(11,2) default 0.0,
+  `strRemark` varchar(100) default NULL,
+  `strInsBy` int(6) default NULL,
+  `strInsOn` date default NULL,
+  `strUptdBy` int(6) default NULL,
+  `strUptdOn` date default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

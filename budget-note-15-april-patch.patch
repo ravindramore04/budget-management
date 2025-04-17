@@ -1,0 +1,1142 @@
+Index: .idea/libraries/jsp.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/libraries/jsp.xml	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
++++ .idea/libraries/jsp.xml	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -0,0 +1,10 @@
++<component name="libraryTable">
++  <library name="jsp">
++    <CLASSES>
++      <root url="jar://$PROJECT_DIR$/jsp/userpanel.zip!/" />
++      <root url="jar://$PROJECT_DIR$/jsp/code.zip!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/libraries/lib.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/libraries/lib.xml	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
++++ .idea/libraries/lib.xml	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -0,0 +1,19 @@
++<component name="libraryTable">
++  <library name="lib">
++    <CLASSES>
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/struts.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/commons-lang.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/mysql-connector-java-3.0.11-stable-bin.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/jakarta-oro.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/struts-legacy.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/commons-digester.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/commons-logging.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/commons-fileupload.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/commons-collections.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/commons-beanutils.jar!/" />
++      <root url="jar://$PROJECT_DIR$/WEB-INF/lib/commons-validator.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: budget-management.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- budget-management.iml	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
++++ budget-management.iml	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="false">
++    <output url="file://$MODULE_DIR$/WEB-INF/classes" />
++    <output-test url="file://$MODULE_DIR$/out/test/budget-management" />
++    <exclude-output />
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
++      <excludeFolder url="file://$MODULE_DIR$/WEB-INF" />
++      <excludeFolder url="file://$MODULE_DIR$/html" />
++      <excludeFolder url="file://$MODULE_DIR$/jsp" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="library" exported="" name="lib" level="project" />
++    <orderEntry type="library" name="tomcat" level="project" />
++  </component>
++</module>
+\ No newline at end of file
+Index: jsp/adminpanel/Copy of PrintViewRPT.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/Copy of PrintViewRPT.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/Copy of PrintViewRPT.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -1,6 +1,6 @@
+ <%@ page import="java.util.*" %>
+ <%
+-String strPath="/budget0.1/";
++String strPath="/budget-management/";
+ HashMap hm=new HashMap();
+ HashMap hm1=new HashMap();
+ HashMap hmAmt=new HashMap();
+Index: jsp/adminpanel/Copy of PrintviewAllReport.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/Copy of PrintviewAllReport.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/Copy of PrintviewAllReport.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -1,6 +1,6 @@
+ <%@ page import="java.util.*" %>
+ <%
+-String strPath="/budget0.1/";
++String strPath="/budget-management/";
+ 
+ HashMap Allo=new HashMap();
+ HashMap Vouc=new HashMap();
+Index: jsp/adminpanel/PrintSingVoucher.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/PrintSingVoucher.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/PrintSingVoucher.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -4,7 +4,7 @@
+ <%@ page import="java.util.*,java.text.*" %>
+ <%
+ DecimalFormat d = new DecimalFormat("##0.00");
+-String strPath="/budget0.1/";
++String strPath="/budget-management/";
+ HashMap hmAllo=new HashMap();
+ 
+ hmAllo=(HashMap)request.getAttribute("Head");
+\ No newline at end of file
+Index: jsp/adminpanel/PrintViewHeadRPT.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/PrintViewHeadRPT.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/PrintViewHeadRPT.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -1,7 +1,7 @@
+ <%@ page import="java.util.*,java.text.*" %>
+ <%
+ DecimalFormat d = new DecimalFormat("##0.00");
+-String strPath="/budget0.1/";
++String strPath="/budget-management/";
+ int PG=1;
+ String Date="";
+ String type="";
+\ No newline at end of file
+Index: jsp/adminpanel/PrintViewRPT.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/PrintViewRPT.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/PrintViewRPT.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -1,7 +1,7 @@
+ <%@ page import="java.util.*,java.text.*" %>
+ <%
+ DecimalFormat d = new DecimalFormat("##0.00");
+-String strPath="/budget0.1/";
++String strPath="/budget-management/";
+ int PG=1;
+ String Date="";
+ String strVoucherNo="";
+\ No newline at end of file
+Index: jsp/adminpanel/PrintviewAllReport.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/PrintviewAllReport.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/PrintviewAllReport.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -1,6 +1,6 @@
+ <%@ page import="java.util.*,java.text.*" %>
+ <% DecimalFormat d = new DecimalFormat("##0.00");
+-String strPath="/budget0.1/";
++String strPath="/budget-management/";
+ HashMap Allo=new HashMap();
+ HashMap Vouc=new HashMap();
+ HashMap HMFinal=new HashMap();
+Index: jsp/adminpanel/allheadbalance.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/allheadbalance.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/allheadbalance.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -22,7 +22,7 @@
+ function setAction(code,id){
+     document.HeadBalanceList.id.value = id;
+ 	document.HeadBalanceList.opr.value=code;
+-	
++
+     switch(code){
+         case 1:
+             document.HeadBalanceList.action = "<%=strPath+"showBudgetAllocation.do"%>";
+@@ -46,8 +46,8 @@
+     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
+     <input type="hidden" name="id" value="">
+     <input type="hidden" name="opr" value="">
+-	
+-    
++
++
+     <td width="80%" valign="top" align="center">
+ 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+ 	    <tr bgcolor="<%=strColHd%>">
+@@ -64,8 +64,14 @@
+ 			Allocated Ballance
+ 		</td>
+ 		<td width="22%"  align="center" class="titles" height="20">
+-			Current Balance
++			Reservered Balance
+ 		</td>
++		<td width="22%"  align="center" class="titles" height="20">
++			Utilised Balance
++		</td>
++		<td width="22%"  align="center" class="titles" height="20">
++			Remaining Balance
++		</td>
+ 	    </tr>
+     	    <%
+             if(hmData!=null && hmData.size()>0){
+@@ -75,9 +81,10 @@
+                     	
+                         String strId = (String)hmt.get("HeadId");
+                         String strName = (String)hmt.get("strName");
+-			String strBalance = (String)hmt.get("dblBalance");
+-			String dblAmount = (String)hmt.get("dblAmount");
++			String strBalance = (String)hmt.get("dblAmount");
+ 			String strDepartmentNm = (String)hmt.get("strDepartmentNm");
++			String dblReservedAmount = (String)hmt.get("dblReservedAmount");
++			String dblUtilisedAmount = (String)hmt.get("dblUtilisedAmount");
+                         %>
+ 			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+ 				<td align="center" height="20">
+@@ -89,11 +96,17 @@
+ 				<td align="left" class="link" height="20">
+ 				<%=strDepartmentNm%>
+ 				</td>
++		        <td  align="left" class="link" height="20"> <%=strBalance%></td>
+ 				<td align="left" class="link" height="20">
+-					<%=dblAmount%>
++					<%=dblReservedAmount%>
+ 				</td>
++				<td align="left" class="link" height="20">
++					<%=dblUtilisedAmount%>
++				</td>
++				<td align="left" class="link" height="20">
++					<!-- TODO: Add remianing balance-->
++				</td>
+-				
++
+-        <td  align="left" class="link" height="20"> <%=strBalance%></td>
+ 			</tr>
+     			<%
+                     }
+@@ -148,7 +161,7 @@
+ 	      <td colspan="5" valign="top" height="20" align="center">
+ 	          <table width="50%">
+ 		      <tr> 
+-		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
++		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn">
+ 		    	</td>
+ 		    	<td colspan="2" align="left"> <input type="button" name="btn1" value="   Close   " accesskey="C" onClick="setAction(4,0)" class="PPRSbmtBtn"> 
+ 		    	</td>
+Index: jsp/adminpanel/allheadforbudgetnote.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/allheadforbudgetnote.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/allheadforbudgetnote.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -54,7 +54,7 @@
+ 
+ 		</td>
+ 		<td width="22%" align="center" class="titles" height="20">
+-			Budget Head
++			Budget Head123
+ 		</td>
+ 		<td width="22%" align="center" class="titles" height="20">
+ 			Dept. Name
+@@ -63,8 +63,14 @@
+ 			Allocated Ballance
+ 		</td>
+ 		<td width="22%"  align="center" class="titles" height="20">
+-			Current Balance
++			Reservered Balance
+ 		</td>
++		<td width="22%"  align="center" class="titles" height="20">
++			Utilised Balance
++		</td>
++		<td width="22%"  align="center" class="titles" height="20">
++			Remaining Balance
++		</td>
+ 	    </tr>
+     	    <%
+             if(hmData!=null && hmData.size()>0){
+@@ -75,8 +81,9 @@
+                         String strId = (String)hmt.get("HeadId");
+                         String strName = (String)hmt.get("strName");
+ 			String strBalance = (String)hmt.get("dblBalance");
+-			String dblAmount = (String)hmt.get("dblAmount");
+ 			String strDepartmentNm = (String)hmt.get("strDepartmentNm");
++			String dblReservedAmount = (String)hmt.get("dblReservedAmount");
++			String dblUtilisedAmount = (String)hmt.get("dblUtilisedAmount");
+                         %>
+ 			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+ 				<td align="center" height="20">
+@@ -89,9 +96,15 @@
+ 				<%=strDepartmentNm%>
+ 				</td>
+ 				<td align="left" class="link" height="20">
+-					<%=dblAmount%>
++					<%=dblReservedAmount%>
++				</td>
++				<td align="left" class="link" height="20">
++					<%=dblUtilisedAmount%>
++				</td>
++				<td align="left" class="link" height="20">
++					<!-- TODO: Add remianing balance-->
+ 				</td>
+-				
++
+         <td  align="left" class="link" height="20"> <%=strBalance%></td>
+ 			</tr>
+     			<%
+\ No newline at end of file
+Index: jsp/adminpanel/createbudgetnote.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/createbudgetnote.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/createbudgetnote.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -1,188 +1,130 @@
+-<html>
+-<title>Budget Note</title>
+-<head></head>
+-<%@ page import="java.util.*,java.text.*" %>
++<% //@page import="java.util.*" %>
+ <%
+-DecimalFormat d = new DecimalFormat("##0.00");
+-String strPath="/budget0.1/";
+-HashMap hmAllo=new HashMap();
++	session.setAttribute("itr", "1");
+ 
+-hmAllo=(HashMap)request.getAttribute("Head");
+-//out.println(hmAllo);
+-String strBudgroupId="";
+-String bal="";
+-String vou="";
+-if(hmAllo!=null && hmAllo.size()>0){
+-	//HashMap hmt=(HashMap)hmAllo.get(""+0);
+-	strBudgroupId=(String)hmAllo.get("strBudgroupId");
+-}
++	String strId = "";
++	String strAmount = "";
++	String strRemark = "";
+ 
++	String allocationId = "";
++	String departmentName = "";
++    String headName = "";
++    String allocatedAmount = "";
++    String reservedAmount = "";
++    String utilisedAmount = "";
++    String availableBalance = "";
+ 
++
++	HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
++	System.out.println("budgetNoteInputData====>" + hmData);
++
++	if(hmData!=null && hmData.size()>0){
++         allocationId = (String)hmData.get("allocationId");
++         departmentName = (String)hmData.get("departmentName");
++         headName = (String)hmData.get("headName");
++         allocatedAmount = (String)hmData.get("allocatedAmount");
++         reservedAmount = (String)hmData.get("reservedAmount");
++         utilisedAmount = (String)hmData.get("utilisedAmount");
++         availableBalance = (String)hmData.get("availableBalance");
++	}
+ %>
++<%@ include file="/jsp/adminpanel/header.jsp" %>
+ <script language="JavaScript">
+-function navigation(code){
+-    document.HeadList.NAV.value = code;
+-    document.HeadList.action = "<%=strPath+"AllHead.do"%>"; 
+-    document.HeadList.submit();
+-}
++	function formSubmit(){
++		var _Head = document.BudgetAllocationMaster.Head.value;
++		var _Amount = document.BudgetAllocationMaster.txtAmount.value;
++		var _Remark = document.BudgetAllocationMaster.txtRemark.value;
++		document.BudgetAllocationMaster.txtDate.value=document.BudgetAllocationMaster.YY.value+"-"+document.BudgetAllocationMaster.MM.value+"-"+document.BudgetAllocationMaster.DD.value;
+ 
+-function setAction(code,id){
+-    document.HeadList.id.value = id;
+-    switch(code){
+-        case 1:
+-            document.HeadList.action = "<%=strPath+"OpenHead.do"%>";
+-            break;
+-        case 2:
+-            document.HeadList.action = "<%=strPath+"PrintSingHead.do"%>";
+-            break;
+-        case 3:
+-            //delete done later
+-            document.HeadList.action = "<%=strPath+"OpenHead.do"%>";
+-            break;
+-        case 4:
+-            document.HeadList.action = "<%=strPath+"Close.do"%>";
+-            break;
+-        case 5:
+-            document.HeadList.action = "<%=strPath+"budgetNote.do"%>";
+-            break;
+-			
+-			
++		if(_Head=="0")
++		{
++			alert("Select Head Name ");
++			return false;
+-    }
++		}
+-    document.HeadList.opr.value=code;
+-    //document.HeadList.submit();   onLoad="javascript:print();setAction(5,0)"
++		if(_Amount.toString()=="")
++		{
++			alert("Enter The Amount");
++			return false;
+-}
++		}
++		else{
++			if(isNaN(_Amount))
++			{
++				alert("Enter Numeric Value");
++				return false;
++			}
++		}
++		document.BudgetAllocationMaster.submit();
++	}
++	function handleEnter(fieldname,frm){
++	 	 var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
++		 if (keyCode == 13){
++		 	eval('document.'+frm+'.'+fieldname+'.focus()');
++		}
++     }
+ 
+-</script>
+- <body> 
+-<body>
+-<form name="HeadList" method="post" action="#">
+-    <input type="hidden" name="page" value="PrintList">
+-    <input type="hidden" name="NAV" value="">
+-    <input type="hidden" name="txtBGid" value="<%=strBudgroupId%>">
+-    <input type="hidden" name="id" value="">
+-    <input type="hidden" name="opr" value="">
+-    
++
+-    <td width="80%" valign="top" align="center">
+-
+-	<Table width="100%" border="1" cellspacing="1" cellpadding="1" align="center">
+-	<TR>
+-	<TD>
+-	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+-      <tr class="titles"> 
+-        <td height="20"  colspan="5"> <div align="center"><strong>BUDGET NOTE-2007-2008</strong></div></td>
+-
++</script>
++<td width="80%" valign="top">
++   <form name="BudgetAllocationMaster" method="post" action="SaveBudgetAllocation.do">
++   <input type="hidden" name="page" value="BudgetAllocationMaster">
++	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
++		<tr>
++			<td width="25%" class="innertitle">Department Name </td>
++			<td width="75%" colspan="3"><%=departmentName%></td>
+-      </tr>
++		</tr>
+-	<TR><TD height="2" colspan="4"><HR></TD></TR>
+-      <tr> 
++		<tr>
++			<td width="25%" class="innertitle">Head Name </td>
++			<td width="75%" colspan="3"><%=headName%></td>
+-      </tr>
++		</tr>
+-	<TR><TD height="2" colspan="4"></TD></TR>
++
+-      <tr> 
++		<tr>
+-        <td width="30%" ><strong> Name of Dept.</strong></td>
+-        <td colspan="3"><strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;<%//=(String)hmAllo.get("strName")%></strong></td>
++			<td width="25%" class="innertitle">Budget Sanctioned </td>
++			<td width="75%" colspan="3"><%=allocatedAmount%></td>
+-      </tr>
+-      <tr> 
++		</tr>
++		<tr>
+-        <td width="30%"><strong>Budget Sanctioned</strong></td>
+-        <td width="10%"><strong>: Rs</strong></td>
+-        <td width="20%" align="right"><strong><%//=(String)hmAllo.get("BSUM")%></strong></td>
+-        <td>&nbsp;</td>
++			<td width="25%" class="innertitle">Reserve Amount (Note created but PO not approved) </td>
++			<td width="75%" colspan="3"><%=reservedAmount%></td>
+-      </tr>
+-      <tr> 
++		</tr>
++		<tr>
+-        <td width="30%"><strong>Amt. already spend</strong></td>
+-        <td><strong>:</strong> <strong>Rs&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+-        <td width="20%" align="right"><strong> <%
+-		 bal =(String)hmAllo.get("BSUM");
+-		 vou =(String)hmAllo.get("VSUM");
+-		//HashMap hr=(HashMap)hmAllo.get("rr");
+-	    //System.out.print("ravindra check"+hr);
+-		String POSUM=""; //=(String)hr.get("POAmt");
++			<td width="25%" class="innertitle">Budget Already Spent </td>
++			<td width="75%" colspan="3"><%=utilisedAmount%></td>
++		</tr>
++		<tr>
++			<td width="25%" class="innertitle">Balance Budget </td>
++			<td width="75%" colspan="3"><%=availableBalance%></td>
++		</tr>
+-	
++
+-		if(POSUM==null || "".equals(POSUM))
+-			{
+-			POSUM="0";
+-			}
+-		
+-		
+-		
++
++
++
+-		if (bal!=null)
+-		{
+-			//double Allresult = (Double.parseDouble(vou)+Double.parseDouble(POSUM));
+-			//out.print(d.format(Allresult));
+-		}	
+-		%><%//=Double.parseDouble((String)hmAllo.get("VSUM"))%>0</strong></td>
+-        <td>&nbsp;</td>
+-      </tr>
+-      <tr> 
++		<tr>
+-        <td width="30%"><strong>Balance</strong></td>
+-        <td><strong>: Rs &nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp; </td>
+-        <td width="20%" align="right"><strong> 
+-          <%
+-		 bal =(String)hmAllo.get("BSUM");
+-		 vou =(String)hmAllo.get("VSUM");
+-		//String tds =(String)hmAllo.get("TSUM");
+-		POSUM = "";//(String)hr.get("POAmt");
+-		if(POSUM==null || POSUM.equals(""))
+-			{
+-			POSUM="0";
+-			}
+-		
+-		
+-		if (bal!=null)
+-		{
+-			//double result = Double.parseDouble(bal)-(Double.parseDouble(vou)+Double.parseDouble(POSUM));
+-			//out.print(d.format(result));
+-		}	
+-		%>
+-		</strong></td>
+-        <td>&nbsp;</td>
++			<td width="25%" class="innertitle">This Expenditure </td>
++			<td width="75%" colspan="3"><input type="text" name="thisExpenditure" size="25" class="formfield" value="<%=strAmount%>" onKeyPress="handleEnter('txtRemark','BudgetAllocationMaster')"> </td>
+-      </tr>
++		</tr>
++
+-      <tr> 
++		<tr>
+-        <td>&nbsp;</td>
+-        <td>&nbsp;</td>
+-        <td align="right">&nbsp;</td>
+-        <td >&nbsp;</td>
++			<td width="25%" class="innertitle">Balance after current Expenditure </td>
++			<td width="75%" colspan="3"><input type="text" name="balanceAfterCurrentExpenditure" size="25" class="formfield" value="" > </td>
+-      </tr>
++		</tr>
++
+-      <tr> 
++		<tr>
+-        <td>&nbsp;</td>
+-        <td>&nbsp;</td>
+-        <td align="right">&nbsp;</td>
+-        <td >SIGN. OF HOD</td>
++			<td class="innertitle" valign = "top">Remark</td>
++			<td colspan="3">
++				<textarea name="txtRemark" class="formfield" cols="25" rows="3"><%=strRemark%></textarea>
++			</td>
+-      </tr>
++		</tr>
+- <!--     <tr> 
+-        <td>&nbsp;</td>
+-        <td>&nbsp;</td>
+-        <td align="right">&nbsp;</td>
+-        <td >&nbsp;</td>
+-      </tr>  -->
+-      <tr> 
++		<tr>
+-        <td>&nbsp;</td>
+-        <td>&nbsp;</td>
+-        <td align="right">&nbsp;</td>
+-        <td><strong>Approved: Yes / No</strong></td>
++			<td colspan=4>
++				<input type="hidden" name="txtId" value="<%=strId%>">
++			</td>
+-      </tr>
+-      <tr> 
++		</tr>
++		<tr>
+-        <td>&nbsp;</td>
+-        <td>&nbsp;</td>
+-        <td align="right">&nbsp;</td>
+-        <td>&nbsp;</td>
++			<td colspan=4 align="center">
++				<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">&nbsp;
++				<input name="btnSub" type="Button" value="Submit" class="PPRSbmtBtn" onClick="formSubmit()">
++			</td>
+-      </tr>
++		</tr>
+-      <tr> 
+-        <td>&nbsp;</td>
+-        <td>&nbsp;</td>
+-        <td align="right">&nbsp;</td>
+-        <td>&nbsp;</td>
+-      </tr>
+-      <tr>
+-        <td align="center" colspan="2"><strong>Chief Accounts &amp; Finance Officer</strong></td>
+-        <!-- <td>&nbsp;</td> -->
+-        <td align="right">&nbsp;</td>
+-        <td><strong>Executive Director/Principal</strong></td>
+-      </tr>
+-    </table>
++	</table>
+-	</TD>
+-	</TR>
+-	</Table>
+-
+-    </td>		
+-</form>
++    </form>
+-</body>
+-</html>
+\ No newline at end of file
++</td>
++<%@ include file="/jsp/include/footer.jsp" %>
+Index: jsp/adminpanel/printbudgetnote.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/adminpanel/printbudgetnote.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/adminpanel/printbudgetnote.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -4,7 +4,7 @@
+ <%@ page import="java.util.*,java.text.*" %>
+ <%
+ DecimalFormat d = new DecimalFormat("##0.00");
+-String strPath="/budget0.1/";
++String strPath="/budget-management/";
+ HashMap hmAllo=new HashMap();
+ 
+ hmAllo=(HashMap)request.getAttribute("Head");
+\ No newline at end of file
+Index: jsp/include/header.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/include/header.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/include/header.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -1,6 +1,6 @@
+ <%@ page import="java.util.*" %>
+ <%
+-	String strPath = "/budget0.1/";
++	String strPath = "/budget-management/";
+ 	String strColHd = "#3366CC";
+ 	String strCol1 = "#ffffff";
+ 	String strCol2 = "#E6F3FF";
+Index: jsp/login.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/login.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/login.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -2,7 +2,7 @@
+ 
+ <%
+ 	HashMap MyMap = new HashMap();		
+-	String strPath = "/budget0.1/";
++	String strPath = "/budget-management/";
+ 	try{
+ 			Class.forName("com.mysql.jdbc.Driver").newInstance();
+ 			Connection conn  = DriverManager.getConnection("jdbc:mysql://localhost/finance?user=root&password=root");
+\ No newline at end of file
+Index: jsp/printopenvoucher.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/printopenvoucher.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/printopenvoucher.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -191,7 +191,7 @@
+ }
+ 
+ function setAction(){
+-document.abc.action ="/budget0.1/VoucherPrint.do";
++document.abc.action ="/budget-management/VoucherPrint.do";
+ document.abc.submit();
+ }
+     
+Index: jsp/printopenvoucherold.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/printopenvoucherold.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/printopenvoucherold.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -82,7 +82,7 @@
+ }
+ 
+ function setAction(code){
+-document.abc.action ="/budget0.1/VoucherPrint.do";
++document.abc.action ="/budget-management/VoucherPrint.do";
+ document.abc.submit();
+ }
+     
+\ No newline at end of file
+Index: jsp/printvoucher.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/printvoucher.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/printvoucher.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -91,13 +91,13 @@
+     
+     switch(code){
+         case 1:
+-            document.BudgetHead.action ="/budget0.1/PrintOpenVoucher.do";
++            document.BudgetHead.action ="/budget-management/PrintOpenVoucher.do";
+             break;
+         case 2:
+-            document.BudgetHead.action = "/budget0.1/Close.do";
++            document.BudgetHead.action = "/budget-management/Close.do";
+             break;
+         case 3:
+-            document.BudgetHead.action = "/budget0.1/PrintTDSVoucher.do";
++            document.BudgetHead.action = "/budget-management/PrintTDSVoucher.do";
+             break;            
+     }
+     
+Index: jsp/userpanel/Copy of printcheque.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/Copy of printcheque.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/Copy of printcheque.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -86,7 +86,7 @@
+ 	return rslt
+ }
+ 	function setAction(){
+-		document.chqprn.action ="/budget0.1/ChqPrint.do";
++		document.chqprn.action ="/budget-management/ChqPrint.do";
+ 		document.chqprn.submit();
+ 	}
+   
+\ No newline at end of file
+Index: jsp/userpanel/Copy of printopenvoucher.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/Copy of printopenvoucher.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/Copy of printopenvoucher.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -82,7 +82,7 @@
+ }
+ 
+ function setAction(code){
+-document.abc.action ="/budget0.1/VoucherPrint.do";
++document.abc.action ="/budget-management/VoucherPrint.do";
+ document.abc.submit();
+ }
+     
+\ No newline at end of file
+Index: jsp/userpanel/PrintSingVoucher.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/PrintSingVoucher.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/PrintSingVoucher.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -4,7 +4,7 @@
+ <%@ page import="java.util.*,java.text.*" %>
+ <%
+ DecimalFormat d = new DecimalFormat("##0.00");
+-String strPath="/budget0.1/";
++String strPath="/budget-management/";
+ HashMap hmAllo=new HashMap();
+ 
+ hmAllo=(HashMap)request.getAttribute("Head");
+\ No newline at end of file
+Index: jsp/userpanel/PrintSingVoucherPO.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/PrintSingVoucherPO.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/PrintSingVoucherPO.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -4,7 +4,7 @@
+ <%@ page import="java.util.*,java.text.*" %>
+ <%
+ DecimalFormat d = new DecimalFormat("##0.00");
+-String strPath="/budget0.1/";
++String strPath="/budget-management/";
+ HashMap hmAllo=new HashMap();
+ 
+ hmAllo=(HashMap)request.getAttribute("Head");
+\ No newline at end of file
+Index: jsp/userpanel/printTDS.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/printTDS.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/printTDS.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -174,7 +174,7 @@
+ 	return rslt
+ }
+ 	function setAction(){
+-		document.chqprn.action ="/budget0.1/ChqPrint.do";
++		document.chqprn.action ="/budget-management/ChqPrint.do";
+ 		document.chqprn.submit();
+ 	}
+   
+\ No newline at end of file
+Index: jsp/userpanel/printTDSVoucher.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/printTDSVoucher.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/printTDSVoucher.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -174,7 +174,7 @@
+ }
+ 
+ function setAction(){
+-document.abc.action ="/budget0.1/VoucherPrint.do";
++document.abc.action ="/budget-management/VoucherPrint.do";
+ document.abc.submit();
+ }
+     
+Index: jsp/userpanel/printcheque.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/printcheque.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/printcheque.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -177,7 +177,7 @@
+ 	return rslt
+ }
+ 	function setAction(){
+-		//document.chqprn.action ="/budget0.1/ChqPrint.do";
++		//document.chqprn.action ="/budget-management/ChqPrint.do";
+ 		//document.chqprn.submit();
+ 	}
+ 
+\ No newline at end of file
+Index: jsp/userpanel/printopenvoucher.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/printopenvoucher.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/printopenvoucher.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -191,7 +191,7 @@
+ }
+ 
+ function setAction(){
+-document.abc.action ="/budget0.1/VoucherPrint.do";
++document.abc.action ="/budget-management/VoucherPrint.do";
+ document.abc.submit();
+ }
+     
+Index: jsp/userpanel/printopenvoucherold.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/printopenvoucherold.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/printopenvoucherold.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -82,7 +82,7 @@
+ }
+ 
+ function setAction(code){
+-document.abc.action ="/budget0.1/VoucherPrint.do";
++document.abc.action ="/budget-management/VoucherPrint.do";
+ document.abc.submit();
+ }
+     
+\ No newline at end of file
+Index: jsp/userpanel/printvoucher.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/printvoucher.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/printvoucher.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -186,13 +186,13 @@
+     
+     switch(code){
+         case 1:
+-            document.BudgetHead.action ="/budget0.1/PrintOpenVoucher.do";
++            document.BudgetHead.action ="/budget-management/PrintOpenVoucher.do";
+             break;
+         case 2:
+-            document.BudgetHead.action = "/budget0.1/Close.do";
++            document.BudgetHead.action = "/budget-management/Close.do";
+             break;
+         case 3:
+-            document.BudgetHead.action = "/budget0.1/PrintTDSVoucher.do";
++            document.BudgetHead.action = "/budget-management/PrintTDSVoucher.do";
+             break;            
+     }
+     
+Index: jsp/userpanel/printvoucher2.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- jsp/userpanel/printvoucher2.jsp	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ jsp/userpanel/printvoucher2.jsp	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -99,13 +99,13 @@
+     
+     switch(code){
+         case 1:
+-            document.BudgetHead.action ="/budget0.1/PrintCheque.do";
++            document.BudgetHead.action ="/budget-management/PrintCheque.do";
+             break;
+         case 2:
+-            document.BudgetHead.action = "/budget0.1/Close.do";
++            document.BudgetHead.action = "/budget-management/Close.do";
+             break;
+         case 3:
+-            document.BudgetHead.action = "/budget0.1/PrintTDS.do";
++            document.BudgetHead.action = "/budget-management/PrintTDS.do";
+             break;
+             
+     }
+Index: struts/adminpanel/BudgetNote.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- struts/adminpanel/BudgetNote.java	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ struts/adminpanel/BudgetNote.java	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -45,6 +45,9 @@
+             String strPage_num ="";
+             String strNavOpr = "";
+             String operation=(String)daf.get("opr");
++            String budgetAllocationId=(String)daf.get("id");
++            sop("budgetAllocationId-->" + budgetAllocationId);
++
+             if(daf!=null){
+                 strPage_num = (String)daf.get("current_page");
+                 strNavOpr = (String)daf.get("NAV");
+@@ -61,64 +64,76 @@
+                 nPage = Double.parseDouble(strPage_num);
+ 
+             vec.clear();
++
++            if ("create".equals(operation)){
++
++                vec.add(budgetAllocationId);
++
++                cvdal.setSQL("budgetNoteInputData", vec);
++                Vector vec1 = (Vector)cvdal.executeQuery();
++                sop("vec1====================>" + vec1);
++
++
++                sop("create budget note..................");
++                request.setAttribute("budgetNoteInputData", vec1.get(0));
++
++                FORWARD_final = "createnote";
++
++            }else{
+-            cvdal.setSQL("openAllHeadWithBalance", vec);
+-            Vector vec1 = (Vector)cvdal.executeQuery();
+-            sop("vec1====================>"+vec1);
+-            if(vec1!=null && vec1.size()>0){
+-                nTotalPage = Math.ceil(vec1.size()/(double)nNum_Per_Page);
+-            }
+-            sop("total--> "+vec1.size());
+-            sop("total pages-->" + nTotalPage);
++                cvdal.setSQL("openAllHeadWithBalance", vec);
++                Vector vec1 = (Vector)cvdal.executeQuery();
++                sop("vec1====================>"+vec1);
++                if(vec1!=null && vec1.size()>0){
++                    nTotalPage = Math.ceil(vec1.size()/(double)nNum_Per_Page);
++                }
++                sop("total--> "+vec1.size());
++                sop("total pages-->" + nTotalPage);
+ 
+-            switch (nOpr){
+-                case 1:
+-                    //first
+-                    nPage = 1;
+-                    break;
+-                case 2:
+-                    //next
+-                    nPage++;
+-                    break;
+-                case 3:
+-                    //privious
+-                    nPage--;
+-                    break;
+-                case 4:
+-                    //last
+-                    nPage = nTotalPage;
+-            }
++                switch (nOpr){
++                    case 1:
++                        //first
++                        nPage = 1;
++                        break;
++                    case 2:
++                        //next
++                        nPage++;
++                        break;
++                    case 3:
++                        //privious
++                        nPage--;
++                        break;
++                    case 4:
++                        //last
++                        nPage = nTotalPage;
++                }
+ 
+-            long nLowLimit = (long)(nNum_Per_Page * (nPage-1));
++                long nLowLimit = (long)(nNum_Per_Page * (nPage-1));
+ 
+-            if(nPage<=nTotalPage){
+-                vec.clear();
+-                vec.addElement(""+nLowLimit);
+-                vec.addElement(""+nNum_Per_Page);
+-                cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+-                vec1 = (Vector)cvdal.executeQuery();
+-                if(vec1!=null && vec1.size()>0){
+-                    for(int indx=0;indx<vec1.size();indx++){
+-                        HashMap hmt = (HashMap)vec1.elementAt(indx);
+-                        hmFinal.put(""+indx, hmt);
+-                    }
+-                }
+-            }
++                if(nPage<=nTotalPage){
++                    vec.clear();
++                    vec.addElement(""+nLowLimit);
++                    vec.addElement(""+nNum_Per_Page);
++                    cvdal.setSQL("openAllHeadWithBalanceWL", vec);
++                    vec1 = (Vector)cvdal.executeQuery();
++                    if(vec1!=null && vec1.size()>0){
++                        for(int indx=0;indx<vec1.size();indx++){
++                            HashMap hmt = (HashMap)vec1.elementAt(indx);
++                            hmFinal.put(""+indx, hmt);
++                        }
++                    }
++                }
+ 
+ 
+-            sop("-------------------------------------------------");
+-            sop("-------------------------------------------------");
+-            sop(""+hmFinal);
+-            request.setAttribute("data", hmFinal);
+-            HashMap hmPage = new HashMap();
+-            hmPage.put("current_page", ""+(long)nPage);
+-            hmPage.put("total_page", ""+(long)nTotalPage);
+-            request.setAttribute("page", hmPage);
+-            FORWARD_final = Success;
++                sop("-------------------------------------------------");
++                sop("-------------------------------------------------");
++                sop(""+hmFinal);
++                request.setAttribute("data", hmFinal);
++                HashMap hmPage = new HashMap();
++                hmPage.put("current_page", ""+(long)nPage);
++                hmPage.put("total_page", ""+(long)nTotalPage);
++                request.setAttribute("page", hmPage);
++                FORWARD_final = Success;
+ 
+-            if(operation.equals("create")){
+-           sop("create budget note..................");
+-                request.setAttribute("Head", new HashMap());
+-                FORWARD_final = "createnote";
+             }
+ 
+         }catch(Exception e){
+Index: struts/adminpanel/PrintviewReportHeadHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- struts/adminpanel/PrintviewReportHeadHandler.java	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ struts/adminpanel/PrintviewReportHeadHandler.java	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -26,7 +26,7 @@
+ 	private static final String Success_all = "success_all";
+ 	public static final String GLOBAL_FORWARD_failure = "failure";
+ 	private static String FORWARD_final = GLOBAL_FORWARD_failure;
+-	 private static final String path="..\\webapps\\budget0.1\\upload\\";
++	 private static final String path="..\\webapps\\budget-management\\upload\\";
+ 
+ 
+     public ActionForward execute(ActionMapping mapping, ActionForm form,HttpServletRequest request,
+Index: struts/common/CVDal.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- struts/common/CVDal.java	(revision 5c2b7995bff552a49f32785dc7cb393ae106e52a)
++++ struts/common/CVDal.java	(revision ee1de6c23c87617c8a9b908a03a40ab2aadfa999)
+@@ -146,16 +146,18 @@
+ 		ALLSQL.put("openAllHeadExpanse","select budgetHead.HeadId, sum(voucher.dblAmount + voucher.dblTds) as exp from budgetHead left join voucher on budgetHead.HeadId=voucher.HeadId Group by budgetHead.HeadId order by budgetHead.strName ");
+ 		ALLSQL.put("openHeadExpanse","select budgetHead.HeadId, sum(voucher.dblAmount + voucher.dblTds) as exp from budgetHead left join voucher on budgetHead.HeadId=voucher.HeadId where budgetHead.HeadId='?' Group by budgetHead.HeadId");
+ 
++		// Create Budget Note - Queries - Start
++		ALLSQL.put("budgetNoteInputData"," select a.AllocId as allocationId, d.strDepartmentNm as departmentName, b.strName as headName, a.dblAmount as allocatedAmount, a.dblReservedAmount as reservedAmount, a.dblUtilisedAmount as utilisedAmount, (a.dblAmount-a.dblReservedAmount-a.dblUtilisedAmount) as availableBalance from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  and a.AllocId = ?");
++		// Create Budget Note - Queries - End
+ 
+ 
+-
+ 		ALLSQL.put("openAllVoucher","select *, voucher.dblAmount+voucher.dblTds as amt from voucher left join BudgetHead on voucher.HeadId = BudgetHead.HeadId order by voucher.dt desc");
+ 		ALLSQL.put("openAllVoucherWL","select *, voucher.dblAmount+voucher.dblTds as amt from voucher left join BudgetHead on voucher.HeadId = BudgetHead.HeadId order by voucher.dt desc limit ?,?");
+ 		ALLSQL.put("openVoucherWithId","select voucher.*, voucher.dblAmount+voucher.dblTds as amt,cheque.strChequeNo,BudgetHead.* from voucher left join BudgetHead on voucher.HeadId = BudgetHead.HeadId left join cheque on voucher.voucherId = cheque.voucherId where voucher.voucherId='?'");
+ 		ALLSQL.put("openVoucherId","select * from voucher where voucherId='?'");
+ 
+-		ALLSQL.put("openAllHeadWithBalance","select a.HeadId,a.dblAmount,b.strName,h.dblBalance,d.strDepartmentNm from budgetalloc a left join budgethead b on a.HeadId = b.HeadId  left join headbal h on b.HeadId=h.HeadId left join departments d on a.strDepartmentId = d.strDepartmentId order by b.strName");
+-		ALLSQL.put("openAllHeadWithBalanceWL","select a.HeadId,a.dblAmount,b.strName,h.dblBalance,d.strDepartmentNm from budgetalloc a left join budgethead b on a.HeadId = b.HeadId  left join headbal h on b.HeadId=h.HeadId left join departments d on a.strDepartmentId = d.strDepartmentId order by b.strName limit ?,?");
++		ALLSQL.put("openAllHeadWithBalance","select a.HeadId, a.dblAmount, b.strName, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  order by b.strName");
++		ALLSQL.put("openAllHeadWithBalanceWL","select a.HeadId, a.dblAmount, b.strName, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  order by b.strName limit ?,?");
+ 		ALLSQL.put("openHeadBalanceWithId","select * from headbal where HeadId='?'");
+ 
+ 		ALLSQL.put("openAllAllocationOfHead","select * from budgetalloc where HeadId='?'");
+@@ -171,7 +173,7 @@
+ 
+ 		ALLSQL.put("insertHeadBalance","insert into headbal values('?','?')");
+ 		ALLSQL.put("InsertOrg","insert into company values('?','?','?','?','?',?,'?',?,'?')");
+-		ALLSQL.put("insertintobudgetallocation","insert into budgetalloc values('?','?','?','?','?',?,'?',?,'?','?')");
++		ALLSQL.put("insertintobudgetallocation","insert into budgetalloc values('?','?','?','?','?',?,'?',?,'?','?',0.0,0.0)");
+ 		ALLSQL.put("InsertintoHeadBalance","insert into headbal values('?','?')");
+ 		ALLSQL.put("insertintoVoucher","insert into voucher values('?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?')");
+ 		ALLSQL.put("insertintoCheque","insert into cheque values('?','?','?')");

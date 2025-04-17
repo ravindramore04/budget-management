@@ -16,7 +16,7 @@
 
 
 	HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
-	System.out.println("budgetNoteInputData====>" + hmData);
+	out.println("budgetNoteInputData====>" + hmData);
 
 	if(hmData!=null && hmData.size()>0){
          allocationId = (String)hmData.get("allocationId");
@@ -61,6 +61,19 @@
 		 	eval('document.'+frm+'.'+fieldname+'.focus()');
 		}
      }
+	 
+function calculateDifference() {
+    // Get values from the input fields
+	 var ballanceBudget = parseFloat(document.getElementById("ballanceBudget").value) || 0;
+    var thisExpenditure = parseFloat(document.getElementById("thisExpenditure").value) || 0;
+   
+    // Calculate the difference
+    var result = ballanceBudget - thisExpenditure;
+
+    // Set the result in text3
+    document.getElementById("ballanceAftercurrentExpenditure").value = result;
+}
+</script>
 
 
 </script>
@@ -70,20 +83,24 @@
 	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
 		<tr>
 			<td width="25%" class="innertitle">Department Name </td>
-			<td width="75%" colspan="3"><%=departmentName%></td>
+			
+        <td width="75%" colspan="3"><%=departmentName%></td>
 		</tr>
 		<tr>
 			<td width="25%" class="innertitle">Head Name </td>
-			<td width="75%" colspan="3"><%=headName%></td>
+			
+        <td width="75%" colspan="3"><%=headName%></td>
 		</tr>
 
 		<tr>
 			<td width="25%" class="innertitle">Budget Sanctioned </td>
-			<td width="75%" colspan="3"><%=allocatedAmount%></td>
+			
+        <td width="75%" colspan="3"><%=allocatedAmount%></td>
 		</tr>
 		<tr>
 			<td width="25%" class="innertitle">Reserve Amount (Note created but PO not approved) </td>
-			<td width="75%" colspan="3"><%=reservedAmount%></td>
+			
+        <td width="75%" colspan="3"><%=reservedAmount%></td>
 		</tr>
 		<tr>
 			<td width="25%" class="innertitle">Budget Already Spent </td>
@@ -91,7 +108,7 @@
 		</tr>
 		<tr>
 			<td width="25%" class="innertitle">Balance Budget </td>
-			<td width="75%" colspan="3"><%=availableBalance%></td>
+			<td width="75%" colspan="3"><input type="text" id="ballanceBudget" readonly="true" name="ballanceBudget" size="25" class="formfield" value="<%=availableBalance%>"/></td>
 		</tr>
 
 
@@ -99,12 +116,12 @@
 
 		<tr>
 			<td width="25%" class="innertitle">This Expenditure </td>
-			<td width="75%" colspan="3"><input type="text" name="thisExpenditure" size="25" class="formfield" value="<%=strAmount%>" onKeyPress="handleEnter('txtRemark','BudgetAllocationMaster')"> </td>
+			<td width="75%" colspan="3"><input type="text" id="thisExpenditure" name="thisExpenditure" size="25" class="formfield" value="<%=strAmount%>" onBlur="calculateDifference()" onKeyPress="handleEnter('txtRemark','BudgetAllocationMaster')"> </td>
 		</tr>
 
 		<tr>
 			<td width="25%" class="innertitle">Balance after current Expenditure </td>
-			<td width="75%" colspan="3"><input type="text" name="balanceAfterCurrentExpenditure" size="25" class="formfield" value="" > </td>
+			<td width="75%" colspan="3"><input type="text" id="ballanceAftercurrentExpenditure" name="balanceAfterCurrentExpenditure" size="25" class="formfield" value="" > </td>
 		</tr>
 
 		<tr>
