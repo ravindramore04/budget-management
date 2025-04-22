@@ -48,7 +48,7 @@ public class BudgetNote extends Action
             String budgetAllocationId=(String)daf.get("id");
             sop("budgetAllocationId->" + budgetAllocationId);
 
-            sop("budgetAllocationId--operation>" + operation);
+            sop("budgetAllocationId--operation>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + operation);
             if(daf!=null){
                 strPage_num = (String)daf.get("current_page");
                 strNavOpr = (String)daf.get("NAV");
@@ -68,11 +68,13 @@ public class BudgetNote extends Action
 
             if ("create".equals(operation)){
 
+                sop("budgetAllocationId--operation>>>>>>>>>>>>>>>>>>>>>>in Create>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + operation);
+
                 vec.add(budgetAllocationId);
 
                 cvdal.setSQL("budgetNoteInputData", vec);
                 Vector vec1 = (Vector)cvdal.executeQuery();
-                sop("vec1====================>" + vec1);
+                sop("daf.getMap().entrySet();daf.getMap().entrySet();daf.getMap().entrySet();====================>" + daf.getMap().entrySet());
 
 
                 sop("create budget note..................");
@@ -80,7 +82,9 @@ public class BudgetNote extends Action
 
                 FORWARD_final = "createnote";
 
-            }if ("save".equals(operation)){
+            }  else if ("save".equals(operation)){
+
+                sop("budgetAllocationId--operation>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>in save>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + operation);
 
                 vec.add(budgetAllocationId);
 
@@ -88,13 +92,11 @@ public class BudgetNote extends Action
                 Vector vec1 = (Vector)cvdal.executeQuery();
                 sop("vec1====================>" + vec1);
 
-
-                sop("save budget note..................");
-                request.setAttribute("budgetNoteInputData", vec1.get(0));
-
                 FORWARD_final = "createnote";
 
             }else{
+
+                sop("budgetAllocationId--operation>>>>>>>>>>>>>>>>>>>>>>>>>>in else>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + operation);
                 cvdal.setSQL("openAllHeadWithBalance", vec);
                 Vector vec1 = (Vector)cvdal.executeQuery();
                 sop("vec1====================>"+vec1);
@@ -150,7 +152,7 @@ public class BudgetNote extends Action
                 FORWARD_final = Success;
 
             }
-
+            sop("budgetAllocationId--operation>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>FORWARD_finalFORWARD_final>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + FORWARD_final);
         }catch(Exception e){
             e.printStackTrace();
             String err = eh.getError("138530");

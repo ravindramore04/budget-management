@@ -3,3 +3,4 @@
 ./struts/.idea
 ./struts/.idea/*
 *.iml
+*.class
