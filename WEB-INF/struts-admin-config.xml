@@ -27,8 +27,7 @@
 		<form-property name="txtYear1" type="java.lang.String"/>
 		<form-property name="txtDBName" type="java.lang.String"/>
 		<form-property name="rd" type="java.lang.String"/>
-		
-		</form-bean>
+	</form-bean>
 	
 	<form-bean name="UserForm" type="org.apache.struts.validator.DynaValidatorForm">
 		<form-property name="txtId" type="java.lang.String"/>
@@ -187,6 +186,12 @@
 		</action>
 		
 		<action path="/AllHeadForBudgetNote" type="struts.adminpanel.BudgetNote" name="ListForm" scope="request" validate="false">
+             <forward name="success" path="/jsp/adminpanel/allheadforbudgetnote.jsp"/>
+			<forward name="createnote" path="/jsp/adminpanel/createbudgetnote.jsp"/>			 
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		<action path="/SaveBudgetNote" type="struts.adminpanel.BudgetNote" name="ListForm" scope="request" validate="false">
              <forward name="success" path="/jsp/adminpanel/allheadforbudgetnote.jsp"/>
 			<forward name="createnote" path="/jsp/adminpanel/createbudgetnote.jsp"/>			 
 			 <forward name="failure" path="/jsp/error.jsp"/>

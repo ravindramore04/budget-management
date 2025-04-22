@@ -46,8 +46,9 @@ public class BudgetNote extends Action
             String strNavOpr = "";
             String operation=(String)daf.get("opr");
             String budgetAllocationId=(String)daf.get("id");
-            sop("budgetAllocationId-->" + budgetAllocationId);
+            sop("budgetAllocationId->" + budgetAllocationId);
 
+            sop("budgetAllocationId--operation>" + operation);
             if(daf!=null){
                 strPage_num = (String)daf.get("current_page");
                 strNavOpr = (String)daf.get("NAV");
@@ -75,6 +76,20 @@ public class BudgetNote extends Action
 
 
                 sop("create budget note..................");
+                request.setAttribute("budgetNoteInputData", vec1.get(0));
+
+                FORWARD_final = "createnote";
+
+            }if ("save".equals(operation)){
+
+                vec.add(budgetAllocationId);
+
+                cvdal.setSQL("budgetNoteInputData", vec);
+                Vector vec1 = (Vector)cvdal.executeQuery();
+                sop("vec1====================>" + vec1);
+
+
+                sop("save budget note..................");
                 request.setAttribute("budgetNoteInputData", vec1.get(0));
 
                 FORWARD_final = "createnote";

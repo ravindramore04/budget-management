@@ -31,6 +31,7 @@
 <%@ include file="/jsp/adminpanel/header.jsp" %>
 <script language="JavaScript">
 	function formSubmit(){
+	    document.BudgetAllocationMaster.opr.value='save';
 		var _Head = document.BudgetAllocationMaster.Head.value;
 		var _Amount = document.BudgetAllocationMaster.txtAmount.value;
 		var _Remark = document.BudgetAllocationMaster.txtRemark.value;
@@ -78,8 +79,10 @@ function calculateDifference() {
 
 </script>
 <td width="80%" valign="top">
-   <form name="BudgetAllocationMaster" method="post" action="SaveBudgetAllocation.do">
+   <form name="BudgetAllocationMaster" method="post" action="SaveBudgetNote.do">
    <input type="hidden" name="page" value="BudgetAllocationMaster">
+   <input type="hidden" name="id" value="">
+   <input type="hidden" name="opr" value="">
 	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
 		<tr>
 			<td width="25%" class="innertitle">Department Name </td>
