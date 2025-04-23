@@ -83,6 +83,12 @@
         Budget New<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Note</a> </td>
 		</tr>
 		
+		<td width="100%" bgcolor="#99CCFF" onMouseOver="this.style.backgroundColor='#cccccc'" onMouseOut="this.style.backgroundColor='#99CCFF'"> &nbsp;&nbsp;&nbsp;&nbsp;<a class="linktext" href="<%=strPath+"BudgetNoteList.do"%>">Budget Note List 
+        <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Note</a> </td>
+		</tr>
+		
+		
+		
 		<tr valign="top">
 			<td width="100%" bgcolor="#99CCFF" onMouseOver="this.style.backgroundColor='#cccccc'" onMouseOut="this.style.backgroundColor='#99CCFF'">
 				&nbsp;&nbsp;&nbsp;&nbsp;<a class="linktext" href="<%=strPath+"Logout.do"%>">Logout</a> 

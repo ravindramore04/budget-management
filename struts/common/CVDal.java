@@ -234,6 +234,20 @@ public class CVDal
 
 		ALLSQL.put("A_Amount","Select Sum(budgetalloc.dblAmount) as BSUM from budgetalloc where HeadId='?'");
 		ALLSQL.put("V_Amount","Select Sum(voucher.dblAmount) as VSUM from voucher where HeadId='?'");
+
+
+		// actions from - createbudgetnote.jsp - START
+		ALLSQL.put("budget_note_MAX_ID", "SELECT (COALESCE(MAX(budget_note_id), 0)+1) as MAX_ID FROM budget_note");
+		ALLSQL.put("budget_note_INSERT", "INSERT INTO budget_note values('?', '?', '?', '?', '?', '?', '?', '?', CURRENT_DATE, '?', CURRENT_DATE)");
+
+		ALLSQL.put("budget_note_history_MAX_ID", "SELECT (COALESCE(MAX(budget_note_history_id), 0)+1) as MAX_ID FROM budget_note_history");
+		ALLSQL.put("budget_note_history_INSERT", "INSERT INTO budget_note_history values('?', '?', '?', '?', '?', '?', '?', '?', CURRENT_DATE)");
+		// actions from - createbudgetnote.jsp - END
+
+
+		ALLSQL.put("listbudgetnote","SELECT bn.budget_note_id, bn.budget_note_expense, bn.budget_note_status, bn.create_date, ba.AllocId, ba.Dt AS allocation_date, ba.dblAmount AS allocated_amount, ba.dblReservedAmount, ba.dblUtilisedAmount, bh.HeadId, bh.strName AS budget_head_name, bh.strBudgroupId AS budget_group_id, dp.strDepartmentNm FROM budget_note bn JOIN budgetalloc ba ON bn.AllocId = ba.AllocId JOIN budgethead bh ON ba.HeadId = bh.HeadId JOIN departments dp ON ba.strDepartmentId = dp.strDepartmentId order by bn.create_date desc");
+		ALLSQL.put("listbudgetnotelimit","SELECT bn.budget_note_id, bn.budget_note_expense, bn.budget_note_status, bn.create_date, ba.AllocId, ba.Dt AS allocation_date, ba.dblAmount AS allocated_amount, ba.dblReservedAmount, ba.dblUtilisedAmount, bh.HeadId, bh.strName AS budget_head_name, bh.strBudgroupId AS budget_group_id, dp.strDepartmentNm FROM budget_note bn JOIN budgetalloc ba ON bn.AllocId = ba.AllocId JOIN budgethead bh ON ba.HeadId = bh.HeadId JOIN departments dp ON ba.strDepartmentId = dp.strDepartmentId order by bn.create_date desc limit ?,?");
+
 	}
 
 
@@ -335,8 +349,26 @@ public class CVDal
 
 	}
 
+
+
 	public void sop(String msg)
 	{
-            System.out.println(msg);
+		System.out.println(this.getClass().getSimpleName() + " : " + msg);
         }
+
+	public String getMaxId(String queryName){
+		String result = null;
+
+		HashMap hmFinal = new HashMap();
+		Vector queryParams = new Vector();
+
+		setSQL(queryName, queryParams);
+		Vector queryResult = (Vector)executeQuery();
+
+		result = (String)(((Map) queryResult.get(0)).get("MAX_ID")) ;
+
+//		sop(queryName + "-------->" + result);
+
+		return result;
+	}
 }

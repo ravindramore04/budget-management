@@ -27,9 +27,22 @@
 		<form-property name="txtYear1" type="java.lang.String"/>
 		<form-property name="txtDBName" type="java.lang.String"/>
 		<form-property name="rd" type="java.lang.String"/>
-		
-		</form-bean>
-	
+	</form-bean>
+
+
+	<form-bean name="CreateBudgetNoteForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="opr" type="java.lang.String"/>
+		<form-property name="allocationId" type="java.lang.String"/>
+		<form-property name="budget_note_expense" type="java.lang.String"/>
+		<form-property name="allocation_reserved_amount" type="java.lang.String"/>
+		<form-property name="allocation_balance_amount_after_expense" type="java.lang.String"/>
+		<form-property name="budget_note_remark" type="java.lang.String"/>
+		<form-property name="budget_note_status" type="java.lang.String"/>
+		<form-property name="operation_code" type="java.lang.String"/>
+		<form-property name="user_id" type="java.lang.String"/>
+	</form-bean>
+
+
 	<form-bean name="UserForm" type="org.apache.struts.validator.DynaValidatorForm">
 		<form-property name="txtId" type="java.lang.String"/>
 		<form-property name="txtName" type="java.lang.String"/>
@@ -190,8 +203,23 @@
              <forward name="success" path="/jsp/adminpanel/allheadforbudgetnote.jsp"/>
 			<forward name="createnote" path="/jsp/adminpanel/createbudgetnote.jsp"/>			 
 			 <forward name="failure" path="/jsp/error.jsp"/>
-		</action>		
-		
+		</action>
+
+		<!-- actions from - createbudgetnote.jsp - START -->
+		<action path="/SaveBudgetNote" type="struts.adminpanel.BudgetNote" name="CreateBudgetNoteForm" scope="request" validate="false">
+			<forward name="success" path="/AllBudgetAllocation.do"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<!-- actions from - createbudgetnote.jsp - END -->
+
+		<!-- actions from - listbudgetnote.jsp - START -->
+		<action path="/BudgetNoteList" type="struts.adminpanel.BudgetNoteList" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/listbudgetnote.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<!-- actions from - listbudgetnote.jsp - END -->
+
+
 		<action path="/openBudgetAllocation" type="struts.adminpanel.AllBudgetAllocationHandler" name="ListForm" scope="request" validate="false">
 			 <forward name="success" path="/jsp/adminpanel/Headbalance.jsp"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>

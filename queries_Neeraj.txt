@@ -1,0 +1,76 @@
+DROP TABLE IF EXISTS `budgetalloc`;
+CREATE TABLE `budgetalloc` (
+  `AllocId` int(6) default NULL,
+  `HeadId` int(6) default NULL,
+  `Dt` date default NULL,
+  `dblAmount` double(11,2) default 0.0,
+  `strRemark` varchar(100) default NULL,
+  `strInsBy` int(6) default NULL,
+  `strInsOn` date default NULL,
+  `strUptdBy` int(6) default NULL,
+  `strUptdOn` date default NULL,
+  `strDepartmentId` varchar(10) default NULL,
+  `dblReservedAmount` double(11,2) default 0.0,
+  `dblUtilisedAmount` double(11,2) default 0.0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+allocationId--->100001
+budget_note_expense--->1000
+allocation_reserved_amount--->11.00
+allocation_balance_amount_after_expense--->8967.8
+budget_note_remark--->AAAA
+
+DROP TABLE IF EXISTS `budget_note`;
+CREATE TABLE `budget_note`(
+  `budget_note_id` int(6) default NULL,
+  `AllocId` int(6) default NULL,
+  `budget_note_expense` double(11,2) default 0.0,
+  `allocation_reserved_amount` double(11,2) default 0.0,
+  `allocation_balance_amount_after_expense` double(11,2) default 0.0,
+  `budget_note_remark` varchar(100) default NULL,
+  `budget_note_status` varchar(10) default NULL,
+  `created_by_user_id` int(6) default NULL,
+  `create_date` date default NULL,
+  `updated_by_user_id` int(6) default NULL,
+  `update_date` date default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO budget_note values('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
+INSERT INTO budget_note values((SELECT (COALESCE(MAX(budget_note_id), 0)+1) FROM budget_note), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+
+DROP TABLE IF EXISTS `budget_note_history`;
+CREATE TABLE `budget_note_history`(
+  `budget_note_history_id` int(6) default NULL,
+  `budget_note_id` int(6) default NULL,
+  `budget_note_expense` double(11,2) default 0.0,
+  `allocation_reserved_amount` double(11,2) default 0.0,
+  `allocation_balance_amount_after_expense` double(11,2) default 0.0,
+  `budget_note_remark` varchar(100) default NULL,
+  `budget_note_status` varchar(10) default NULL,
+  `created_by_user_id` int(6) default NULL,
+  `create_date` date default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `voucher_details`;
+CREATE TABLE `voucher_details`(
+  `voucher_id` int(6) default NULL,
+  `voucher_number` int(6) default NULL,
+  `budget_note_id` int(6) default NULL,
+  `voucher_date` date default NULL,
+  `amount` double(11,2) default 0.0,
+  `tds_amount` double(11,2) default 0.0,
+  `payment_mode` varchar(10) default NULL,
+  `bank_name` varchar(100) default NULL,
+  `receiver_name` varchar(100) default NULL,
+  `narration` varchar(500) default NULL,
+  `po_number` varchar(100) default NULL,
+  `created_by_user_id` int(6) default NULL,
+  `create_date` date default NULL,
+  `updated_by_user_id` int(6) default NULL,
+  `update_date` date default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

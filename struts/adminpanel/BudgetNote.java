@@ -33,6 +33,8 @@ public class BudgetNote extends Action
         HttpSession session = request.getSession(true);
         HashMap My = (HashMap)session.getAttribute("user");
         String DBnm = (String)My.get("DBnm");
+        String user_id = (String)My.get("UId");
+
         ErrorHandler eh = new ErrorHandler();
         try{
             int nNum_Per_Page = 10;
@@ -45,96 +47,110 @@ public class BudgetNote extends Action
             String strPage_num ="";
             String strNavOpr = "";
             String operation=(String)daf.get("opr");
-            String budgetAllocationId=(String)daf.get("id");
-            sop("budgetAllocationId-->" + budgetAllocationId);
 
-            if(daf!=null){
-                strPage_num = (String)daf.get("current_page");
-                strNavOpr = (String)daf.get("NAV");
-            }
+            sop( "operation-->" + operation);
 
-            double nPage = 1;
-            double nTotalPage = 0;
-            int nOpr = 0;
+            if ("insert_budget_note".equals(operation)){
+                // save_budget_note - START
+                insertBudgetNote(cvdal, user_id, daf);
 
-            if(!(strNavOpr == null || strNavOpr.length()==0))
-                nOpr = Integer.parseInt(strNavOpr);
-
-            if(!(strPage_num == null || strPage_num.length()==0))
-                nPage = Double.parseDouble(strPage_num);
-
-            vec.clear();
-
-            if ("create".equals(operation)){
-
-                vec.add(budgetAllocationId);
-
-                cvdal.setSQL("budgetNoteInputData", vec);
-                Vector vec1 = (Vector)cvdal.executeQuery();
-                sop("vec1====================>" + vec1);
-
-
-                sop("create budget note..................");
-                request.setAttribute("budgetNoteInputData", vec1.get(0));
-
-                FORWARD_final = "createnote";
-
+                FORWARD_final = Success;
+                // save_budget_note - END
             }else{
-                cvdal.setSQL("openAllHeadWithBalance", vec);
-                Vector vec1 = (Vector)cvdal.executeQuery();
-                sop("vec1====================>"+vec1);
-                if(vec1!=null && vec1.size()>0){
-                    nTotalPage = Math.ceil(vec1.size()/(double)nNum_Per_Page);
-                }
-                sop("total--> "+vec1.size());
-                sop("total pages-->" + nTotalPage);
+                //
+                String budgetAllocationId=(String)daf.get("id");
+                sop("budgetAllocationId-->" + budgetAllocationId);
 
-                switch (nOpr){
-                    case 1:
-                        //first
-                        nPage = 1;
-                        break;
-                    case 2:
-                        //next
-                        nPage++;
-                        break;
-                    case 3:
-                        //privious
-                        nPage--;
-                        break;
-                    case 4:
-                        //last
-                        nPage = nTotalPage;
+                if(daf!=null){
+                    strPage_num = (String)daf.get("current_page");
+                    strNavOpr = (String)daf.get("NAV");
                 }
 
-                long nLowLimit = (long)(nNum_Per_Page * (nPage-1));
+                double nPage = 1;
+                double nTotalPage = 0;
+                int nOpr = 0;
 
-                if(nPage<=nTotalPage){
-                    vec.clear();
-                    vec.addElement(""+nLowLimit);
-                    vec.addElement(""+nNum_Per_Page);
-                    cvdal.setSQL("openAllHeadWithBalanceWL", vec);
-                    vec1 = (Vector)cvdal.executeQuery();
+                if(!(strNavOpr == null || strNavOpr.length()==0))
+                    nOpr = Integer.parseInt(strNavOpr);
+
+                if(!(strPage_num == null || strPage_num.length()==0))
+                    nPage = Double.parseDouble(strPage_num);
+
+                vec.clear();
+
+                if ("create".equals(operation)){
+
+                    vec.add(budgetAllocationId);
+
+                    cvdal.setSQL("budgetNoteInputData", vec);
+                    Vector vec1 = (Vector)cvdal.executeQuery();
+                    sop("vec1====================>" + vec1);
+
+
+                    sop("create budget note..................");
+                    request.setAttribute("budgetNoteInputData", vec1.get(0));
+
+                    FORWARD_final = "createnote";
+
+                }else{
+                    cvdal.setSQL("openAllHeadWithBalance", vec);
+                    Vector vec1 = (Vector)cvdal.executeQuery();
+                    sop("vec1====================>"+vec1);
                     if(vec1!=null && vec1.size()>0){
-                        for(int indx=0;indx<vec1.size();indx++){
-                            HashMap hmt = (HashMap)vec1.elementAt(indx);
-                            hmFinal.put(""+indx, hmt);
+                        nTotalPage = Math.ceil(vec1.size()/(double)nNum_Per_Page);
+                    }
+                    sop("total--> "+vec1.size());
+                    sop("total pages-->" + nTotalPage);
+
+                    switch (nOpr){
+                        case 1:
+                            //first
+                            nPage = 1;
+                            break;
+                        case 2:
+                            //next
+                            nPage++;
+                            break;
+                        case 3:
+                            //privious
+                            nPage--;
+                            break;
+                        case 4:
+                            //last
+                            nPage = nTotalPage;
+                    }
+
+                    long nLowLimit = (long)(nNum_Per_Page * (nPage-1));
+
+                    if(nPage<=nTotalPage){
+                        vec.clear();
+                        vec.addElement(""+nLowLimit);
+                        vec.addElement(""+nNum_Per_Page);
+                        cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+                        vec1 = (Vector)cvdal.executeQuery();
+                        if(vec1!=null && vec1.size()>0){
+                            for(int indx=0;indx<vec1.size();indx++){
+                                HashMap hmt = (HashMap)vec1.elementAt(indx);
+                                hmFinal.put(""+indx, hmt);
+                            }
                         }
                     }
+
+
+                    sop("-------------------------------------------------");
+                    sop("-------------------------------------------------");
+                    sop(""+hmFinal);
+                    request.setAttribute("data", hmFinal);
+                    HashMap hmPage = new HashMap();
+                    hmPage.put("current_page", ""+(long)nPage);
+                    hmPage.put("total_page", ""+(long)nTotalPage);
+                    request.setAttribute("page", hmPage);
+                    FORWARD_final = Success;
+
                 }
-
-
-                sop("-------------------------------------------------");
-                sop("-------------------------------------------------");
-                sop(""+hmFinal);
-                request.setAttribute("data", hmFinal);
-                HashMap hmPage = new HashMap();
-                hmPage.put("current_page", ""+(long)nPage);
-                hmPage.put("total_page", ""+(long)nTotalPage);
-                request.setAttribute("page", hmPage);
-                FORWARD_final = Success;
-
             }
+
+
 
         }catch(Exception e){
             e.printStackTrace();
@@ -153,8 +169,51 @@ public class BudgetNote extends Action
         return (mapping.findForward(FORWARD_final));
     }//End of execute()
 
+
+    private void insertBudgetNote(CVDal cvdal, String user_id, DynaActionForm daf) {
+        String budget_note_id = cvdal.getMaxId("budget_note_MAX_ID");
+
+        Vector queryParams = new Vector();
+        queryParams.add(budget_note_id);
+        queryParams.add(daf.get("allocationId"));
+        queryParams.add(daf.get("budget_note_expense"));
+        queryParams.add(daf.get("allocation_reserved_amount"));
+        queryParams.add(daf.get("allocation_balance_amount_after_expense"));
+        queryParams.add(daf.get("budget_note_remark"));
+        queryParams.add("DRAFT");
+        queryParams.add(user_id);
+        queryParams.add(user_id);
+
+        cvdal.setSQL("budget_note_INSERT", queryParams);
+        cvdal.executeUpdate();
+        insertBudgetNoteHistory(cvdal, user_id, daf, budget_note_id);
+
+    }
+
+    private void insertBudgetNoteHistory(CVDal cvdal, String user_id, DynaActionForm daf, String budget_note_id){
+        Vector queryParams = new Vector();
+
+        String budget_note_history_id = cvdal.getMaxId("budget_note_history_MAX_ID");
+        queryParams.clear();
+        queryParams.add(budget_note_history_id);
+        queryParams.add(budget_note_id);
+        queryParams.add(daf.get("budget_note_expense"));
+        queryParams.add(daf.get("allocation_reserved_amount"));
+        queryParams.add(daf.get("allocation_balance_amount_after_expense"));
+        queryParams.add(daf.get("budget_note_remark"));
+        queryParams.add("DRAFT");
+        queryParams.add(user_id);
+
+        cvdal.setSQL("budget_note_history_INSERT", queryParams);
+        cvdal.executeUpdate();
+    }
+
+
     public void sop(String msg){
-        System.out.println(msg);
+        System.out.println(this.getClass().getSimpleName() + " : " + msg);
+    }
+    public void sop(DynaActionForm daf, String key){
+        sop(key + "--->" + daf.get(key));
     }
 }
 

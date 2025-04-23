@@ -56,6 +56,6 @@
 		</td>
 	</tr>
 </table>
-<div id="t1" style="left:1px;top:1px;width:780px;height:370px;z-index:1;Overflow:Scroll">
+<div id="t1" style="left:1px;top:1px;width:1400px;height:600px;z-index:1;Overflow:Scroll">
 	<table width="100%" height="100%">
 		<tr>
