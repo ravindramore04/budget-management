@@ -73,7 +73,7 @@
 		<tr> 
 			<td width="25%" class="innertitle">Department Name </td>
 			<td width="75%" colspan="3">
-			<select name="strDepartmentId">
+			<select name="strDepartmentId" class="formfield" >
 			 <option value="<%=""+0%>">-------Select---------</option>
 		<%
 			if(hmGroup!=null && hmGroup.size()>0){
@@ -108,7 +108,7 @@
 
 		<tr> 
 			<td width="25%" class="innertitle">Head Name </td>
-	    <td>		 <select name="Head" accesskey="H" >
+	    <td>		 <select name="Head" accesskey="H" class="formfield">
                                 <OPTION value="0" selected>--------Select Head--------</option>
                                 <%
                          if(hmHead!=null && hmHead.size()>0){
@@ -132,7 +132,7 @@
         <td width="75%" colspan="3"> 
           <input type="hidden" name="txtDate" size="25" class="formfield" value=""  >
           <!-- <%=strDate%> -->
-          <select name="DD">
+          <select name="DD" class="formfield" >
             <% for(int i=1;i<=31;i++)
 	            { 
 	             if(i<10)
@@ -149,7 +149,7 @@
             <option value="<%=Str%>"><%=Str%></option>
             <% } } %>
           </select>
-          <select name="MM">
+          <select name="MM" class="formfield">
             <% 
             for(int i=1;i<=12;i++)
 		    { 
@@ -166,7 +166,7 @@
             <option value="<%=Str%>"><%=Str%></option>
             <% } } %>
           </select>
-          <select name="YY">
+          <select name="YY" class="formfield" >
             <% for(int i=2000;i<=2050;i++)
             { 
 	        Str=""+i;

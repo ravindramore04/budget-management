@@ -1,9 +1,9 @@
 <%@ page import="java.util.*" %>
 <%
 	String strPath = "/budget-management/";
-	String strColHd = "#3366CC";
-	String strCol1 = "#ffffff";
-	String strCol2 = "#E6F3FF";
+	String strColHd = "background-color:#555555; padding:10px 10px;";
+	String strCol1 = "background-color:#ededed";
+	String strCol2 = "background-color:#d1dde5";
 	
 	
         HashMap hmComp = (HashMap)session.getAttribute("user");
@@ -38,7 +38,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></head>
 <body leftmargin="0" topmargin="0" >
-<table width="100%" bgcolor="#E6F3FF"> 
+<table width="100%" bgcolor="#ffffff"> 
 	<tr>
 		<td width="15%" rowspan="2">
 			<img src="<%=strPath+ "html/_images/award.gif"%>" width="55" height="55">
@@ -56,6 +56,6 @@
 		</td>
 	</tr>
 </table>
-<div id="t1" style="left:1px;top:1px;width:1400px;height:600px;z-index:1;Overflow:Scroll">
+<div id="t1" style="left:1px;top:1px;width:100%;height:auto;z-index:1;Overflow:Scroll">
 	<table width="100%" height="100%">
 		<tr>

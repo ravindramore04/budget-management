@@ -1,5 +1,5 @@
 <% //@page import="java.util.*" %>
-<%@ include file="/jsp/userpanel/header.jsp" %>
+<%@ include file="/jsp/adminpanel/header.jsp" %>
 
 <%
 	session.setAttribute("itr", "1");
@@ -309,19 +309,19 @@ function handleEnter(fieldname,frm){
    <input type="hidden" name="txtId" value="<%=strVoucherId%>">  
    <input type="hidden" name="txtDt" value="">
 	<td width="80%" valign="top">
-    <table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+    <table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" style="padding-left:20px;">
       <tr> 
         <td colspan=5>&nbsp;</td>
       </tr>
       <tr> 
         <td width="200" class="innertitle" align="left">Department:</td>
         <td width="350" align="left">&nbsp;</td>
-        <td width="100" class="innertitle" align="right">Voucher No</td>
-        <td width="150" colspan="18" align="right"> <input type="text" name="txtNo" size="12" class="formfield" value=<%=strVoucherNo%>></td>
+        <td width="100" class="innertitle" align="left">Voucher No</td>
+        <td width="150" colspan="18" align="left"> <input type="text" name="txtNo" size="12" class="formfield" value=<%=strVoucherNo%>></td>
       </tr>
       <tr> 
         <td width="200" class="innertitle" align="left">Head Name</td>
-        <td width="350" align="left"> <div align="right"> 
+        <td width="350" align="left"> <div align="left"> 
             <select name="txtHeadId" class="formfield"  onchange="setSesn(value)">
               <option value="">Select Budget Head</option>
               <%
@@ -353,8 +353,8 @@ function handleEnter(fieldname,frm){
 				%>
             </select>
           </div></td>
-        <td width="100" class="innertitle" align="left"> <div align="right">Date</div></td>
-        <td colspan="2" align="right" width="150"> <select name="DD">
+        <td width="100" class="innertitle" align="left"> <div align="left">Date</div></td>
+        <td colspan="2" align="left" width="150"> <select name="DD" class="formfield" >
             <% for(int i=1;i<=31;i++)
 	            { 
 
@@ -371,7 +371,7 @@ function handleEnter(fieldname,frm){
             <% } else { %>
             <option value="<%=Str%>"><%=Str%></option>
             <% } } %>
-          </select> <select name="MM">
+          </select> <select name="MM" class="formfield" >
             <% for(int i=1;i<=12;i++)
 		    { 
 		     if(i<10)
@@ -386,7 +386,7 @@ function handleEnter(fieldname,frm){
             <% } else { %>
             <option value="<%=Str%>"><%=Str%></option>
             <% } } %>
-          </select> <select name="YY">
+          </select> <select name="YY" class="formfield" >
             <% for(int i=2000;i<=2050;i++)
             { 
 	        Str=""+i;
@@ -403,16 +403,16 @@ function handleEnter(fieldname,frm){
         <td width="100" class="innertitle" align="left">Budget Note Number
 		<Input type = "hidden" Name= "txtsession">
 		</td>
-        <td   width="350" align="left"> <div align="right"> 
+        <td   width="350" align="left"> <div align="left"> 
              Number
           </div></td>
-        <td width="100" class="innertitle" align="left"> <div align="right">Acc No</div></td>
-		<td  class="innertitle" align="right"> <input type="text" name="txtAccNo" size="25" class="formfield" value="<%=strAccountNo%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"> 
+        <td width="100" class="innertitle" align="left"> <div align="left">Acc No</div></td>
+		<td  class="innertitle" align="left"> <input type="text" name="txtAccNo" size="25" class="formfield" value="<%=strAccountNo%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"> 
         </td>
 
       </tr>
       <tr> 
-        <td colspan="2" align="center" > <table width="65%" border="1" cellspacing="1" cellpadding="1" align="Right" bgcolor="<%=strCol2%>">
+        <td colspan="2" align="center" > <table width="65%" border="1" cellspacing="1" cellpadding="1" align="left" style="<%=strCol2%>">
             <tr> 
               <td width="64%" align="left" class="innertitle" > Allocate <font size="1">(Rs.)</font> 
               </td>
@@ -438,7 +438,7 @@ function handleEnter(fieldname,frm){
               </td>
             </tr>
           </table></td>
-        <td colspan=3 align="center"> <table width="65%" border="1" cellspacing="1" cellpadding="1" align="center">
+        <td colspan=3 align="left"> <table width="65%" border="1" cellspacing="1" cellpadding="1" align="left">
             <tr> 
               <td width="37%" align="left" class="innertitle">Amount <font size="1">(Rs.)</font> 
               </td>
@@ -477,21 +477,21 @@ function handleEnter(fieldname,frm){
       <tr> 
         <td align="left" class="innertitle" width="200"> Rupees <font size="1">(in 
           words)</font> </td>
-        <td colspan=3 class="innertitle" align="right"> <input type="text" name="txtWord" size="52" class="formfield" value="" disabled> 
+        <td colspan=3 class="innertitle" align="left"> <input type="text" name="txtWord" size="52" class="formfield" value="" disabled> 
         </td>
       </tr>
       <tr> 
         <td align="left" class="innertitle" width="200"> On Account Of </td>
-        <td colspan=3 class="innertitle" align="right"> <input type="text" name="txtAcc" size="52" class="formfield" value="<%=strToAcc%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"> 
+        <td colspan=3 class="innertitle" align="left"> <input type="text" name="txtAcc" size="52" class="formfield" value="<%=strToAcc%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"> 
         </td>
       </tr>
       <tr> 
         <td align="left" class="innertitle" width="200">TDS Narration</td>
-        <td colspan=3 class="innertitle" align="right"><input type="text" name="txtTDS" size="52" class="formfield" value="<%=strTDS%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"></td>
+        <td colspan=3 class="innertitle" align="left"><input type="text" name="txtTDS" size="52" class="formfield" value="<%=strTDS%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"></td>
       </tr>
       <tr> 
         <td width="200" height="81" align="left" class="innertitle"> Receiver </td>
-        <td colspan=3 class="innertitle" align="right"> <input type="text" name="txtReceiver" size="52" class="formfield" value="<%=strReceiverNm%>" > 
+        <td colspan=3 class="innertitle" align="left"> <input type="text" name="txtReceiver" size="52" class="formfield" value="<%=strReceiverNm%>" > 
         </td>
       </tr>
       <tr> 

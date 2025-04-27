@@ -51,8 +51,8 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	    <tr bgcolor="<%=strColHd%>"><td colspan="5" class="titles" align="center">Budget Note List</td></tr>
-	    <tr bgcolor="<%=strColHd%>">
+	    <tr style="<%=strColHd%>"><td colspan="5" class="titles" align="center">Budget Note List</td></tr>
+	    <tr style="<%=strColHd%>">
 		<td width="10%" align="center" class="titles" height="20">
 			X
 		</td>
@@ -90,7 +90,7 @@ function setAction(code,id){
 					strDD=strDt.substring(8,10);*/
 
                         %>
-			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" class="link"  height="20">
 				<%
 					out.println(j++);
@@ -130,27 +130,27 @@ function setAction(code,id){
 	    }
 	    %>
 	    
-	    <tr bgcolor="<%=strColHd%>"> 
+	    <tr style="<%=strColHd%>"> 
 	      <td colspan="5" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
-		   	<a href="#" accesskey="F" class="titles" onClick="navigation(1)">First</a>&nbsp;&nbsp;
+		   	<a href="#" accesskey="F" class="titles" onClick="navigation(1)"><i class="arrow left"></i>First</a>&nbsp;&nbsp;
 		   <%
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next</a>&nbsp;&nbsp; 
+			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next<i class="arrow right"></a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page!=1){
 		    %>
-			<a href="#" accesskey="P" class="titles" onClick="navigation(3)">Previous</a>&nbsp;&nbsp; 
+			<a href="#" accesskey="P" class="titles" onClick="navigation(3)"><i class="arrow left"></i>Previous</a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last</a> 
+			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last<i class="arrow right"></a> 
 		    <%
 		}
 		%>

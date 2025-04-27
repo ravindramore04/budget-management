@@ -46,7 +46,7 @@ alert("---->"+code);
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	    <tr bgcolor="<%=strColHd%>">
+	    <tr style="<%=strColHd%>">
 		<td width="10%" height="20">&nbsp;
 
 		</td>
@@ -63,7 +63,7 @@ alert("---->"+code);
 						String T_Year = (String)hmt.get("T_Year");
 						String DBnm    = (String)hmt.get("DBnm");
 		     %>
-			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
 				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=ID%>"> 
 				</td>
@@ -90,27 +90,27 @@ alert("---->"+code);
 	    }
 	    %>
 	    
-	    <tr bgcolor="<%=strColHd%>"> 
+	    <tr style="<%=strColHd%>"> 
 	      <td colspan="4" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
-		   	<a href="#" accesskey="F" class="titles" onClick="navigation(1)">First</a>&nbsp;&nbsp;
+		   	<a href="#" accesskey="F" class="titles ntabn" onClick="navigation(1)"><i class="arrow left"></i>First</a>&nbsp;&nbsp;
 		   <%
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next</a>&nbsp;&nbsp; 
+			<a href="#" accesskey="N" class="titles ntabn" onClick="navigation(2)">Next<i class="arrow right"></a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page!=1){
 		    %>
-			<a href="#" accesskey="P" class="titles" onClick="navigation(3)">Previous</a>&nbsp;&nbsp; 
+			<a href="#" accesskey="P" class="titles ntabn" onClick="navigation(3)"><i class="arrow left"></i>Previous</a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last</a> 
+			<a href="#" accesskey="L" class="titles ntabn" onClick="navigation(4)">Last<i class="arrow right"></a> 
 		    <%
 		}
 		%>

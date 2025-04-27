@@ -48,7 +48,7 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	    <tr bgcolor="<%=strColHd%>">
+	    <tr style="<%=strColHd%>">
 		<td width="10%" height="20">&nbsp;
 
 		</td>
@@ -67,7 +67,7 @@ function setAction(code,id){
                         String strName = (String)hmt.get("strDepartmentNm");
 			String strHeadOfDeptNm = (String)hmt.get("strHeadOfDeptNm");
                         %>
-			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
 				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
 				</td>
@@ -96,7 +96,7 @@ function setAction(code,id){
 	    }
 	    %>
 	    
-	    <tr bgcolor="<%=strColHd%>"> 
+	    <tr style="<%=strColHd%>"> 
 	      <td colspan="4" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
