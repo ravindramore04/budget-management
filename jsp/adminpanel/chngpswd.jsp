@@ -64,19 +64,19 @@
       </tr>
       <tr> 
         <td width="25%" class="innertitle"> Old Password</td>
-        <td width="75%" colspan="3"> <input type="password" name="txtOldPassword" size="40" class="formfield"  onKeyPress="handleEnter('txtPassword','ChngPswd')"> 
+        <td width="75%" colspan="3"> <input class="pwdchange" type="password" name="txtOldPassword" size="40" class="formfield"  onKeyPress="handleEnter('txtPassword','ChngPswd')"> 
         </td>
       </tr>
       <tr> 
         <td class="innertitle">New Password </td>
-        <td colspan="3"><input type="password" name="txtPassword" size="40" class="formfield"  onKeyPress="handleEnter('txtRetypePasswprd','ChngPswd')"></td>
+        <td colspan="3"><input class="pwdchange" type="password" name="txtPassword" size="40" class="formfield"  onKeyPress="handleEnter('txtRetypePasswprd','ChngPswd')"></td>
       </tr>
       <tr> 
         <td class="innertitle">Retype Password </td>
-        <td colspan="3"><input type="password" name="txtRetypePasswprd" size="40" class="formfield"></td>
+        <td colspan="3"><input class="pwdchange" type="password" name="txtRetypePasswprd" size="40" class="formfield"></td>
       </tr>
       <tr> 
-        <td colspan=4> <input type="hidden" name="txtId" value="<%=strUId%>"> 
+        <td colspan=4> <input class="pwdchange" type="hidden" name="txtId" value="<%=strUId%>"> 
         </td>
       </tr>
       <tr> 

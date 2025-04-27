@@ -49,8 +49,8 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	    <tr bgcolor="<%=strColHd%>">
-		<td width="10%" height="20">&nbsp;
+	    <tr style="<%=strColHd%>">
+		<td width="10%" height="30">&nbsp;
 
 		</td>
 		<td width="45%" align="center" class="titles" height="20"> Expense Head 
@@ -68,7 +68,7 @@ function setAction(code,id){
                         String strName = (String)hmt.get("strName");
 			String strAccNo = (String)hmt.get("strAccNo");
                         %>
-			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
 				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
 				</td>
@@ -97,27 +97,27 @@ function setAction(code,id){
 	    }
 	    %>
 	    
-	    <tr bgcolor="<%=strColHd%>"> 
-	      <td colspan="4" height="20" align="center"> 
+	    <tr bgcolor="<%=strColHd%>" style="background-color:#555555"> 
+	      <td colspan="4" height="30" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
-		   	<a href="#" accesskey="F" class="titles" onClick="navigation(1)">First</a>&nbsp;&nbsp;
+		   	<a class="ntabn" href="#" accesskey="F" class="titles" onClick="navigation(1)"><i class="arrow left"></i>First</a>&nbsp;&nbsp;
 		   <%
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next</a>&nbsp;&nbsp; 
+			<a class="ntabn" href="#" accesskey="N" class="titles" onClick="navigation(2)">Next <i class="arrow right"></i></a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page!=1){
 		    %>
-			<a href="#" accesskey="P" class="titles" onClick="navigation(3)">Previous</a>&nbsp;&nbsp; 
+			<a class="ntabn" href="#" accesskey="P" class="titles" onClick="navigation(3)"><i class="arrow left"></i>Previous </a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last</a> 
+			<a class="ntabn" href="#" accesskey="L" class="titles" onClick="navigation(4)">Last<i class="arrow right"></i></a> 
 		    <%
 		}
 		%>
@@ -143,4 +143,5 @@ function setAction(code,id){
 	</table>
     </td>		
 </form>
+
 <%@ include file="/jsp/include/footer.jsp" %>

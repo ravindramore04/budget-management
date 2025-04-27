@@ -101,22 +101,22 @@ function setAction(code,id){
 		<%
 		if(nCurrent_Page!=1){
 		   %>
-		   	<a href="#" accesskey="F" class="titles" onClick="navigation(1)">First</a>&nbsp;&nbsp;
+		   	<a class="ntabn" href="#" accesskey="F" class="titles" onClick="navigation(1)">First</a>&nbsp;&nbsp;
 		   <%
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next</a>&nbsp;&nbsp; 
+			<a class="ntabn" href="#" accesskey="N" class="titles" onClick="navigation(2)">Next</a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page!=1){
 		    %>
-			<a href="#" accesskey="P" class="titles" onClick="navigation(3)">Previous</a>&nbsp;&nbsp; 
+			<a class="ntabn" href="#" accesskey="P" class="titles" onClick="navigation(3)">Previous</a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last</a> 
+			<a class="ntabn" href="#" accesskey="L" class="titles" onClick="navigation(4)">Last</a> 
 		    <%
 		}
 		%>

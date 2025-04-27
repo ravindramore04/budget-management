@@ -2,7 +2,7 @@
 	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #818290; TEXT-DECORATION: none
 }
 .formfield {
-	BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; FONT-WEIGHT: normal; FONT-SIZE: 8pt; BORDER-LEFT: #000000 1px solid; COLOR: #000000; BORDER-BOTTOM: #000000 1px solid; FONT-STYLE: normal; FONT-FAMILY: Verdana, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+	padding:7px; BORDER-RIGHT: #868d95 1px solid; BORDER-TOP: #868d95 1px solid; FONT-WEIGHT: normal; FONT-SIZE: 8pt; BORDER-LEFT: #868d95 1px solid; COLOR: #000000; BORDER-BOTTOM: #868d95 1px solid; FONT-STYLE: normal; FONT-FAMILY: Verdana, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
 }
 .black {
 	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #000000; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; TEXT-DECORATION: none
@@ -23,7 +23,13 @@
 .grey {
 	FONT-SIZE: 11px; COLOR: #7f7f7f; FONT-STYLE: normal; FONT-FAMILY: Tahoma, Arial; TEXT-DECORATION: none
 }
-.PPRSbmtBtn{FONT-FAMILY:Tahoma, san-serif; FONT-SIZE:13px; padding:10px; BACKGROUND:#11468f; COLOR:#000066; FONT-WEIGHT:normal; TEXT-DECORATION:none; CURSOR:hand; color:#fff;}
+.PPRSbmtBtn
+{FONT-FAMILY:Tahoma, san-serif; FONT-SIZE:13px; padding:10px; background-color:#008CBA; COLOR:#000066; FONT-WEIGHT:normal; TEXT-DECORATION:none; CURSOR:hand; color:#fff; border:#008CBA;
+ }
+
+.PPRSbmtBtn:hover{background-color: #04AA6D; color: white;
+}
+
 .bor {
 	border: 1px dashed #CCCCCC
 }
@@ -39,6 +45,8 @@ input[type="checkbox"]:checked {
   box-shadow: 0 0 5px #007bff;
   transform: scale(1.1); /* Slightly enlarge when checked */
 }
+a{TEXT-DECORATION:none; display: inline; padding: 5px;}
+a:hover{color:#04AA6D;}
 
 
 .linktext {
@@ -46,6 +54,7 @@ input[type="checkbox"]:checked {
 	font-size: 11px;
 	font-weight: bold;
 	text-decoration: none;
+	color:#000;
 }
 .linktext2 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -63,4 +72,44 @@ input[type="checkbox"]:checked {
 	background-color: #006600;
 }
 .maintext {
-	FONT-SIZE: 12px; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+FONT-SIZE: 12px; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none;}
+	
+.ntabn{color:#fff; text-decoration:none; display: inline; /* the default for span */
+  width: 100px;
+  height: 30px;
+  padding: 5px;
+  border: 1px solid blue;  
+  background-color: #e4eff9; color:#3366CC; FONT-FAMILY: Tahoma, san-serif;
+FONT-SIZE: 12px; }
+
+.ntabn:hover{background-color: #fff;}
+
+.arrow {
+  border: solid blue;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.pwdchange{padding:5px 0; margin-bottom:10px;}
+.strColHd{background:#8f8f8f}
