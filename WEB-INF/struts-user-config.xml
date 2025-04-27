@@ -32,8 +32,14 @@
 		<form-property name="txtReceiver" type="java.lang.String"/>
 		<form-property name="txtChqno" type="java.lang.String"/>
 		<form-property name="page" type="java.lang.String"/>
-		
+		<form-property name="operation" type="java.lang.String"/>
+		<form-property name="NAV" type="java.lang.String"/>
+		<form-property name="current_page" type="java.lang.String"/>
+		<form-property name="Newcurrent_page" type="java.lang.String"/>
+		<form-property name="id" type="java.lang.String"/>
+		<form-property name="opr" type="java.lang.String"/>
 	</form-bean>
+	
 	<form-bean name="PurchaseForm" type="org.apache.struts.validator.DynaValidatorForm">
 		<form-property name="txtId" type="java.lang.String"/>
 		<form-property name="txtDt" type="java.lang.String"/>
@@ -110,8 +116,9 @@
 			 <forward name="failure" path="/jsp/error.jsp"/>
 		</action>
 
-		<action path="/OpenVoucher" type="struts.userpanel.OpenVoucherHandler" name="ListForm" scope="request" validate="false">
+		<action path="/OpenVoucher" type="struts.userpanel.OpenVoucherHandler" name="VoucherForm" scope="request" validate="false">
                 <forward name="success" path="/jsp/userpanel/voucher.jsp"/>
+				<forward name="budgetvoucher" path="/jsp/adminpanel/BudgetVoucher.jsp"/>
 			 	<forward name="failure" path="/jsp/error.jsp"/>
 		</action>
 

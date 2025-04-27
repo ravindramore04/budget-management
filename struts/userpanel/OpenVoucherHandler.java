@@ -113,7 +113,7 @@ public class OpenVoucherHandler extends org.apache.struts.action.Action
 
 
                 request.setAttribute("data", hmFinal);
-                FORWARD_final = Success;
+                FORWARD_final = "budgetvoucher";
             }catch(Exception e){
                 e.printStackTrace();
                 String err = eh.getError("147420");

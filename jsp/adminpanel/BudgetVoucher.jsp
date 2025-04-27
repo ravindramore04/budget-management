@@ -490,7 +490,7 @@ function handleEnter(fieldname,frm){
         <td colspan=3 class="innertitle" align="right"><input type="text" name="txtTDS" size="52" class="formfield" value="<%=strTDS%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"></td>
       </tr>
       <tr> 
-        <td align="left" class="innertitle" width="200"> Receiver </td>
+        <td width="200" height="81" align="left" class="innertitle"> Receiver </td>
         <td colspan=3 class="innertitle" align="right"> <input type="text" name="txtReceiver" size="52" class="formfield" value="<%=strReceiverNm%>" > 
         </td>
       </tr>

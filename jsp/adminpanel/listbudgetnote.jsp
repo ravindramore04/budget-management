@@ -26,6 +26,7 @@ function setAction(code,id){
             break;
         case 2:
             document.VoucherList.action = "<%=strPath+"OpenVoucher.do"%>";
+			document.VoucherList.operation.value=code;
             break;
         case 3:
             //delete done later
@@ -46,6 +47,7 @@ function setAction(code,id){
     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
+	<input type="hidden" name="operation" value="">
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
