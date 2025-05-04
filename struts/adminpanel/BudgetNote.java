@@ -92,7 +92,44 @@ public class BudgetNote extends Action
 
                     FORWARD_final = "createnote";
 
-                }else{
+                } else if ("edit".equals(operation)){
+
+                    vec.add(budgetAllocationId);
+
+                    cvdal.setSQL("checkVoucherForBudgetNote", vec);
+                    Vector vec2 = (Vector)cvdal.executeQuery();
+
+                    if(vec2 != null)
+                    {
+                        request.setAttribute("message","Voucher Created for This Note , You cant update.");
+                        FORWARD_final = "budgetnotelist";
+                    }else{
+
+                        cvdal.setSQL("budgetNoteDataWithId", vec);
+                        Vector vec1 = (Vector)cvdal.executeQuery();
+                        sop("vec1====================>" + vec1);
+                        sop("create budget note.................." + budgetAllocationId);
+                        request.setAttribute("budgetNoteInputData", vec1.get(0));
+                        FORWARD_final = "createnote";
+                    }
+
+                } else if("delete".equals(operation)){
+                    vec.clear();
+                    vec.add(budgetAllocationId);
+
+                    cvdal.setSQL("checkVoucherForBudgetNote", vec);
+                    Vector vec2 = (Vector)cvdal.executeQuery();
+
+                    if(vec2 != null)
+                    {
+                        request.setAttribute("message","Voucher Created for This Note , You cant Delete.");
+                        FORWARD_final = "budgetnotelist";
+                    }else {
+                        cvdal.setSQL("deletebudgetnote", vec);
+                        int i = cvdal.executeUpdate();
+                    }
+                }
+                else{
                     cvdal.setSQL("openAllHeadWithBalance", vec);
                     Vector vec1 = (Vector)cvdal.executeQuery();
                     sop("vec1====================>"+vec1);
@@ -177,7 +214,7 @@ public class BudgetNote extends Action
         queryParams.add(budget_note_id);
         queryParams.add(daf.get("allocationId"));
         queryParams.add(daf.get("budget_note_expense"));
-        queryParams.add(daf.get("allocation_reserved_amount"));
+        queryParams.add(daf.get("budget_note_expense"));
         queryParams.add(daf.get("allocation_balance_amount_after_expense"));
         queryParams.add(daf.get("budget_note_remark"));
         queryParams.add("DRAFT");
@@ -187,7 +224,11 @@ public class BudgetNote extends Action
         cvdal.setSQL("budget_note_INSERT", queryParams);
         cvdal.executeUpdate();
         insertBudgetNoteHistory(cvdal, user_id, daf, budget_note_id);
-
+        queryParams.clear();
+        queryParams.add(daf.get("budget_note_expense"));
+        queryParams.add(daf.get("allocationId"));
+        cvdal.setSQL("updateReservedBalance",queryParams);
+        cvdal.executeUpdate();
     }
 
     private void insertBudgetNoteHistory(CVDal cvdal, String user_id, DynaActionForm daf, String budget_note_id){
@@ -198,7 +239,7 @@ public class BudgetNote extends Action
         queryParams.add(budget_note_history_id);
         queryParams.add(budget_note_id);
         queryParams.add(daf.get("budget_note_expense"));
-        queryParams.add(daf.get("allocation_reserved_amount"));
+        queryParams.add(daf.get("budget_note_expense"));
         queryParams.add(daf.get("allocation_balance_amount_after_expense"));
         queryParams.add(daf.get("budget_note_remark"));
         queryParams.add("DRAFT");

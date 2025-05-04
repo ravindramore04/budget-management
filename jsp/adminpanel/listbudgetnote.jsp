@@ -20,23 +20,31 @@ function navigation(code){
 
 function setAction(code,id){
     document.VoucherList.id.value = id;
+	 document.VoucherList.opr.value=code;
     switch(code){
         case 1:
-            document.VoucherList.action = "<%=strPath+"OpenVoucher.do"%>";
+            document.VoucherList.action = "<%=strPath+"AllHeadForBudgetNote.do"%>";
             break;
         case 2:
             document.VoucherList.action = "<%=strPath+"OpenVoucher.do"%>";
-			document.VoucherList.operation.value=code;
+			document.VoucherList.operation.value="voucher";
             break;
         case 3:
-            //delete done later
-            document.VoucherList.action = "<%=strPath+"VoucherDelete.do"%>";
+			if(confirm("Are you sure you want delete Budget Note?")){
+              document.VoucherList.action = "<%=strPath+"AllHeadForBudgetNote.do"%>";
+			  document.VoucherList.opr.value="delete";
+			}
+            break;
+		case 5:
+              document.VoucherList.action = "<%=strPath+"AllHeadForBudgetNote.do"%>";
+			  document.VoucherList.operation.value="edit";
+			  document.VoucherList.opr.value="edit";
             break;
         case 4:
             document.VoucherList.action = "<%=strPath+"Close.do"%>";
             break;
     }
-    document.VoucherList.opr.value=code;
+   
     document.VoucherList.submit();
 }
 
@@ -51,6 +59,10 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+	   <% if((String)request.getAttribute("message") !=null){
+	   %>
+	    <tr><td colspan="5"><font color="#FF9900"><%=(String)request.getAttribute("message")%></font></td></tr>
+		<%}%>
 	    <tr style="<%=strColHd%>"><td colspan="5" class="titles" align="center">Budget Note List</td></tr>
 	    <tr style="<%=strColHd%>">
 		<td width="10%" align="center" class="titles" height="20">
@@ -95,7 +107,8 @@ function setAction(code,id){
 				<%
 					out.println(j++);
 				%>
-				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
+				    <a href="#" onClick="setAction(3,<%=strId%>)">DEL&nbsp;&nbsp;</a>
+					<a href="#" onClick="setAction(5,<%=strId%>)">EDIT</a>
 				</td>
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=dd_mm_yyyy%></a>
@@ -163,7 +176,7 @@ function setAction(code,id){
 	      <td colspan="5" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
-		    	<td> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
+		    	<td> <input type="button" name="btn1" value="Create Budget Note" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
 		    	</td>
 		    	<td> <!-- <input type="button" name="btn3" value="  Delete  " accesskey="D" onClick="setAction(3,0)" class="PPRSbmtBtn"> -->
 		    	</td>

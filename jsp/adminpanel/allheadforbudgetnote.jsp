@@ -49,7 +49,9 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center" class="tabbg">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+	  <tr style="<%=strColHd%>"><td colspan="7" class="titles" align="center"><font color="#FF9900">Click on Budget Head Name to create Budget Note</font></td></tr>
 	    <tr style="<%=strColHd%>">
+		
 		<td width="7%" height="20">&nbsp;
 
 		</td>
@@ -87,8 +89,7 @@ function setAction(code,id){
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
-				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
-				</td>
+					</td>
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=strName%></a>
 				</td>
@@ -162,7 +163,7 @@ function setAction(code,id){
 	      <td colspan="7" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
-		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new BN" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
+		    	<td colspan="2" align="right">
 		    	</td>
 		    	<td colspan="2" align="left"> <input type="button" name="btn1" value="   Close   " accesskey="C" onClick="setAction(4,0)" class="PPRSbmtBtn"> 
 		    	</td>

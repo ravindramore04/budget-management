@@ -64,13 +64,20 @@ CREATE TABLE `voucher_details`(
   `voucher_date` date default NULL,
   `amount` double(11,2) default 0.0,
   `tds_amount` double(11,2) default 0.0,
+  `strType` varchar(20) default NULL,
   `payment_mode` varchar(10) default NULL,
   `bank_name` varchar(100) default NULL,
+  `chequeno` varchar(20) default NULL,
   `receiver_name` varchar(100) default NULL,
   `narration` varchar(500) default NULL,
   `po_number` varchar(100) default NULL,
   `created_by_user_id` int(6) default NULL,
   `create_date` date default NULL,
   `updated_by_user_id` int(6) default NULL,
-  `update_date` date default NULL
+  `update_date` date default NULL,
+  `vouNumManual` varchar(20) default NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+SELECT bn.budget_note_id, bn.budget_note_expense, bn.budget_note_status, bn.create_date, ba.AllocId, ba.Dt AS allocation_date, ba.dblAmount AS allocated_amount, ba.dblReservedAmount, ba.dblUtilisedAmount,(ba.dblAmount-ba.dblUtilisedAmount) as BallanceAmount, bh.HeadId, bh.strName AS budget_head_name, bh.strBudgroupId AS budget_group_id, dp.strDepartmentNm FROM budget_note bn JOIN budgetalloc ba ON bn.AllocId = ba.AllocId JOIN budgethead bh ON ba.HeadId = bh.HeadId JOIN departments dp ON ba.strDepartmentId = dp.strDepartmentId where bn.budget_note_id="1";

@@ -33,10 +33,7 @@
 	String allocated_amount="";
 	String dblUtilisedAmount="";
 	String HeadId="";
-	String strDepartmentId="";
 	String budget_head_name="";
-	String budget_note_id="";
-	String BallanceAmount="";
 	
 	
 	
@@ -48,29 +45,21 @@
 	String sesn="";	
 	
 	
-	HashMap hmAll=(HashMap)request.getAttribute("hm"); 
-	
 	HashMap hmData=(HashMap)request.getAttribute("Voucherdata"); 
 	
 	HashMap budgetData=(HashMap)request.getAttribute("data"); 
 	
-	out.print(">>"+budgetData);
-	double remain_NoteBallance=0;
-	if(budgetData!=null && budgetData.size()>0){
-		 budget_note_id = (String)budgetData.get("budget_note_id");
-		 budgetNoteDate = (String)budgetData.get("create_date");
-		 budget_note_expense = (String)budgetData.get("budget_note_expense");
-		 budget_note_status= (String)budgetData.get("budget_note_status");
-		 AllocId= (String)budgetData.get("AllocId");
-		 allocated_amount= (String)budgetData.get("allocated_amount");
-		 dblUtilisedAmount = (String)budgetData.get("dblUtilisedAmount");
-		 HeadId= (String)budgetData.get("HeadId");
-		 budget_head_name= (String)budgetData.get("budget_head_name");
-		 strDepartmentNm =  (String)budgetData.get("strDepartmentNm"); 
-		 BallanceAmount =  (String)budgetData.get("BallanceAmount");
-		 strDepartmentId =  (String)budgetData.get("strDepartmentId");
-		 remain_NoteBallance=Double.parseDouble(budget_note_expense)-Double.parseDouble(dblUtilisedAmount);
-		  
+	if(hmData!=null && hmData.size()>0){
+		 budget_Note_Id = (String)hmData.get("budget_note_id");
+		 budgetNoteDate = (String)hmData.get("create_date");
+		 budget_note_expense = (String)hmData.get("budget_note_id");
+		 budget_note_status= (String)hmData.get("budget_note_id");
+		 AllocId= (String)hmData.get("budget_note_id");
+		 allocated_amount= (String)hmData.get("budget_note_id");
+		 dblUtilisedAmount = (String)hmData.get("budget_note_id");
+		 HeadId= (String)hmData.get("budget_note_id");
+		 budget_head_name= (String)hmData.get("budget_note_id");
+		 strDepartmentNm =  (String)hmData.get("strDepartmentNm");
 	}
 	
 	String strAllocate = "";
@@ -217,7 +206,7 @@ function changeVisible(code){
 				showText.style.visibility="hidden";
 				}
 	if(code==2)
-		document.BudgetHead.txtNo.disabled = false;
+		document.BudgetHead.txtNo.disabled = true;
 	else
 		document.BudgetHead.txtNo.disabled = false;
 }
@@ -334,13 +323,10 @@ function handleEnter(fieldname,frm){
 </script>
 
 
-   <form name="BudgetHead" method="post" action="SaveVoucher.do">
+   <form name="BudgetHead" method="post" action="../userpanel/SaveVoucher.do">
    <input type="hidden" name="txtMode" value="<%=bMode%>">
    <input type="hidden" name="txtId" value="<%=strVoucherId%>">  
    <input type="hidden" name="txtDt" value="">
-   <input  type="hidden" name="budget_note_id" value="<%=budget_note_id%>"/>
-   <input  type="hidden" name="HeadId" value="<%=HeadId%>"/>
-   <input  type="hidden" name="strDepartmentId" value="<%=strDepartmentId%>"/>
 	<td width="80%" valign="top">
     <table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" style="padding-left:20px;">
       <tr> 
@@ -408,7 +394,7 @@ function handleEnter(fieldname,frm){
 		<Input type = "hidden" Name= "txtsession">
 		</td>
         <td   width="350" align="left"> <div align="left"> 
-             <%=budget_note_id%>
+             Number
           </div></td>
         <td width="100" class="innertitle" align="left"> <div align="left">Acc No</div></td>
 		<td  class="innertitle" align="left"> <input type="text" name="txtAccNo" size="25" class="formfield" value="<%=strAccountNo%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"> 
@@ -420,22 +406,22 @@ function handleEnter(fieldname,frm){
             <tr> 
               <td width="64%" align="left" class="innertitle" > Allocate <font size="1">(Rs.)</font> 
               </td>
-              <td width="36%" align="left" class="innertitle"> <input type="text" name="allocated_amount" size="12" class="formfield" value="<%=allocated_amount%>" readonly></td>
+              <td width="36%" align="left" class="innertitle"> <input type="text" name="txtAllo" size="12" class="formfield" value="<%=allocated_amount%>" disabled></td>
             </tr>
             <tr> 
               <td align="left" class="innertitle"> Already spend <font size="1">(Rs.)</font> 
               </td>
-              <td align="left" class="innertitle"> <input type="text" name="dblUtilisedAmount" size="12" class="formfield" value="<%=dblUtilisedAmount%>" readonly></td>
+              <td align="left" class="innertitle"> <input type="text" name="txtExp" size="12" class="formfield" value="<%=dblUtilisedAmount%>" disabled></td>
             </tr>
             <tr> 
               <td align="left" class="innertitle"> Balance <font size="1">(Rs.)</font> 
               </td>
-              <td align="left" class="innertitle"> <input type="text" name="BallanceAmount" size="12" class="formfield" value="<%=BallanceAmount%>" readonly></td>
+              <td align="left" class="innertitle"> <input type="text" name="txtBal" size="12" class="formfield" value="<%=strBalance%>" disabled></td>
             </tr>
 			<tr> 
               <td align="left" class="innertitle"> Budget Note Amount <font size="1">(Rs.)</font> 
               </td>
-              <td align="left" class="innertitle"> <input type="text" name="budget_note_expense" size="12" class="formfield" value="<%=remain_NoteBallance%>" readonly>	
+              <td align="left" class="innertitle"> <input type="text" name="budgetNoteAmount" size="12" class="formfield" value="<%=budget_note_expense%>" disabled>	
               </td>
             </tr>
           </table></td>
@@ -514,8 +500,57 @@ function handleEnter(fieldname,frm){
       </tr>
       <tr> 
         <td colspan=4 align="center"> <div id="abc" style="visibility:hidden"> 
- </div>
+          <select name="headlst" class="formfield">
+            <%
+				    if(hmAll!=null && hmAll.size()>0){
+				    	for(int indx=0;indx<hmAll.size();indx++){
+				    	    HashMap hmt = (HashMap)hmAll.get(""+indx);
+				    	    String strTempId = (String)hmt.get("HeadId");
+				    	    String strAcc = (String)hmt.get("strAccNo");
+				    	    String strAllo = (String)hmt.get("allocate");
+				    	    String strExp = (String)hmt.get("exp");
+				    	    %>
+            <option value="<%=strTempId%>"><%=strAcc+"|"+strAllo+"|"+strExp%></option>
+            <%
+				    	}
+				    }
+				%>
+          </select> </div>
 		  <div id="val" style="position:relative; visibility:hidden; width: 96px; height: 60px;"> 
+            <%
+	 System.out.println("milin----> po ----> "+PONo);
+	 if(hmAll!=null && hmAll.size()>0){
+		for(int indx=0;indx<hmAll.size();indx++){
+			HashMap hmt2 = (HashMap)hmAll.get(""+indx);
+			String strTempId = (String)hmt2.get("HeadId");
+			//System.out.println("milin----"+indx+"----> "+strTempId);
+			if(PONo!=null && PONo.size()>0){
+				System.out.println("milin----"+strTempId+"----> "+PONo);
+				HashMap hmt = (HashMap)PONo.get(strTempId);
+				if(hmt!=null && hmt.size()>0){
+				System.out.println("milin----"+2+"----> inside" +hmt);
+					%>
+            <Select name="<%=strTempId%>">
+              <option value="">----Select----</option>
+              <%
+						//out.println("The Sisssion Id= "+strTempId);
+						for(int j=0;j<hmt.size();j++){
+							String nPONo = (String)hmt.get(""+j);
+							 //String nPONo = (String)hmmt.get("nPONo");
+							 System.out.println("---PO No---"+nPONo);
+							
+							%>
+              <option value="<%=strTempId%>" <%=nPONo.equals(upstrPONo)?"selected":"" %>><%=nPONo%></option>
+              <%
+						}
+					%>
+            </Select>
+            <%
+				}
+			}
+		}
+	}
+%>
           </div></td>
       </tr>
       <tr> 

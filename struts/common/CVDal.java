@@ -146,15 +146,6 @@ public class CVDal
 		ALLSQL.put("openAllHeadExpanse","select budgetHead.HeadId, sum(voucher.dblAmount + voucher.dblTds) as exp from budgetHead left join voucher on budgetHead.HeadId=voucher.HeadId Group by budgetHead.HeadId order by budgetHead.strName ");
 		ALLSQL.put("openHeadExpanse","select budgetHead.HeadId, sum(voucher.dblAmount + voucher.dblTds) as exp from budgetHead left join voucher on budgetHead.HeadId=voucher.HeadId where budgetHead.HeadId='?' Group by budgetHead.HeadId");
 
-		// Create Budget Note - Queries - Start
-		ALLSQL.put("budgetNoteInputData"," select a.AllocId as allocationId, d.strDepartmentNm as departmentName, b.strName as headName, a.dblAmount as allocatedAmount, a.dblReservedAmount as reservedAmount, a.dblUtilisedAmount as utilisedAmount, (a.dblAmount-a.dblReservedAmount-a.dblUtilisedAmount) as availableBalance from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  and a.AllocId = ?");
-		// Create Budget Note - Queries - End
-
-
-		ALLSQL.put("openAllVoucher","select *, voucher.dblAmount+voucher.dblTds as amt from voucher left join BudgetHead on voucher.HeadId = BudgetHead.HeadId order by voucher.dt desc");
-		ALLSQL.put("openAllVoucherWL","select *, voucher.dblAmount+voucher.dblTds as amt from voucher left join BudgetHead on voucher.HeadId = BudgetHead.HeadId order by voucher.dt desc limit ?,?");
-		ALLSQL.put("openVoucherWithId","select voucher.*, voucher.dblAmount+voucher.dblTds as amt,cheque.strChequeNo,BudgetHead.* from voucher left join BudgetHead on voucher.HeadId = BudgetHead.HeadId left join cheque on voucher.voucherId = cheque.voucherId where voucher.voucherId='?'");
-		ALLSQL.put("openVoucherId","select * from voucher where voucherId='?'");
 
 		ALLSQL.put("openAllHeadWithBalance","select a.HeadId, a.dblAmount, b.strName, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  order by b.strName");
 		ALLSQL.put("openAllHeadWithBalanceWL","select a.HeadId, a.dblAmount, b.strName, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  order by b.strName limit ?,?");
@@ -195,7 +186,7 @@ public class CVDal
 		ALLSQL.put("UpdateOrg","Update company set strName='?', strShortNm ='?', strAddr='?',strPh1='?', strPh2='?', strUptdBy='?', strUptdOn='?'");
 		ALLSQL.put("updateintobudgetallocation","Update budgetalloc set HeadId='?', Dt ='?', dblAmount='?',strRemark='?', strInsBy='?',strInsOn='?', strUptdBy='?', strUptdOn='?',strDepartmentId='?' where AllocId='?'");
 		ALLSQL.put("updateHeadBalance","Update headbal set dblBalance=dblBalance+'?' where HeadId='?'");
-		ALLSQL.put("minusHeadBalance","Update headbal set dblBalance=dblBalance-'?' where HeadId='?'");
+
 
 // Voucher Update
 		ALLSQL.put("updateintoVoucher","update voucher set voucherNo='?', dt='?',HeadId='?', dblAmount ='?',dblTds ='?',strType='?',strToAcc='?',bMode ='?',strBank ='?',strReceiverNm='?',strInsBy ='?', strInsOn='?', strUptdBy ='?', strUptdOn  ='?' , strTDS='?' where voucherId='?'");
@@ -247,6 +238,34 @@ public class CVDal
 
 		ALLSQL.put("listbudgetnote","SELECT bn.budget_note_id, bn.budget_note_expense, bn.budget_note_status, bn.create_date, ba.AllocId, ba.Dt AS allocation_date, ba.dblAmount AS allocated_amount, ba.dblReservedAmount, ba.dblUtilisedAmount, bh.HeadId, bh.strName AS budget_head_name, bh.strBudgroupId AS budget_group_id, dp.strDepartmentNm FROM budget_note bn JOIN budgetalloc ba ON bn.AllocId = ba.AllocId JOIN budgethead bh ON ba.HeadId = bh.HeadId JOIN departments dp ON ba.strDepartmentId = dp.strDepartmentId order by bn.create_date desc");
 		ALLSQL.put("listbudgetnotelimit","SELECT bn.budget_note_id, bn.budget_note_expense, bn.budget_note_status, bn.create_date, ba.AllocId, ba.Dt AS allocation_date, ba.dblAmount AS allocated_amount, ba.dblReservedAmount, ba.dblUtilisedAmount, bh.HeadId, bh.strName AS budget_head_name, bh.strBudgroupId AS budget_group_id, dp.strDepartmentNm FROM budget_note bn JOIN budgetalloc ba ON bn.AllocId = ba.AllocId JOIN budgethead bh ON ba.HeadId = bh.HeadId JOIN departments dp ON ba.strDepartmentId = dp.strDepartmentId order by bn.create_date desc limit ?,?");
+
+		//Voucher Detaisl by Budget Note: Start
+		ALLSQL.put("openVoucherDetailsWithBudgetNoteId","SELECT bn.budget_note_id, bn.budget_note_expense, bn.budget_note_status, bn.create_date, ba.AllocId, ba.Dt AS allocation_date, ba.dblAmount AS allocated_amount, ba.dblReservedAmount, ba.dblUtilisedAmount,(ba.dblAmount-ba.dblUtilisedAmount) as BallanceAmount, bh.HeadId, bh.strName AS budget_head_name, bh.strBudgroupId AS budget_group_id, dp.strDepartmentNm, ba.strDepartmentId FROM budget_note bn JOIN budgetalloc ba ON bn.AllocId = ba.AllocId JOIN budgethead bh ON ba.HeadId = bh.HeadId JOIN departments dp ON ba.strDepartmentId = dp.strDepartmentId where bn.budget_note_id=? ");
+		ALLSQL.put("insertintoBudgetVoucher","insert into voucher_details values('?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?')");
+		ALLSQL.put("SelectMaxVouno","select max(voucher_number) as LastId from voucher_details" );
+		ALLSQL.put("voucher_details_MAX_ID", "SELECT (COALESCE(MAX(voucher_id), 0)+1) as MAX_ID FROM voucher_details");
+		ALLSQL.put("voucher_number_MAX_ID", "SELECT (COALESCE(MAX(voucher_number), 0)+1) as MAX_ID FROM voucher_details");
+
+		ALLSQL.put("updateReservedBalance","Update budgetalloc set dblReservedAmount=dblReservedAmount+'?' where AllocId='?'");
+
+		ALLSQL.put("adjustAllocatedAndReservedAmount","Update budgetalloc set dblReservedAmount = dblReservedAmount - '?' , dblUtilisedAmount = dblUtilisedAmount + '?' where HeadId='?' and strDepartmentId = '?'");
+
+		ALLSQL.put("openAllVoucher","select v.voucher_id,v.voucher_number,b.budget_note_id,v.receiver_name,v.voucher_date,d.strDepartmentNm,bh.strName,v.amount+v.tds_amount as amt from voucher_details v left join budget_note b on  v.budget_note_id = b.budget_note_id  left join  budgetalloc ba on  b.AllocId = ba.AllocId left join BudgetHead bh on ba.HeadId = bh.HeadId left join departments d on ba.strDepartmentId=d.strDepartmentId order by v.create_date desc;");
+		ALLSQL.put("openAllVoucherWL","select v.voucher_id,v.voucher_number,b.budget_note_id,v.receiver_name,v.voucher_date,d.strDepartmentNm,bh.strName,v.amount+v.tds_amount as amt from voucher_details v left join budget_note b on  v.budget_note_id = b.budget_note_id  left join  budgetalloc ba on  b.AllocId = ba.AllocId left join BudgetHead bh on ba.HeadId = bh.HeadId left join departments d on ba.strDepartmentId=d.strDepartmentId order by v.create_date desc limit ?,?");
+
+		ALLSQL.put("openVoucherWithId","select voucher_details.*, voucher_details.amount+voucher.tds_amount as amt,BudgetHead.* from voucher_details left join BudgetHead on voucher_details.HeadId = BudgetHead.HeadId where voucher_details.voucher_id='?'");
+		ALLSQL.put("openVoucherId","select * from voucher_details where voucher_id='?'");
+		ALLSQL.put("deletebudgetnote","delete from budget_note where budget_note_id='?'");
+		ALLSQL.put("budgetNoteDataWithId","SELECT bd.AllocId AS allocationId,d.strDepartmentNm AS departmentName,b.strName AS headName,a.dblAmount AS allocatedAmount,a.dblReservedAmount AS reservedAmount,a.dblUtilisedAmount AS utilisedAmount,(a.dblAmount - a.dblReservedAmount - a.dblUtilisedAmount) AS availableBalance,bd.budget_note_id,bd.budget_note_expense,bd.allocation_reserved_amount,bd.allocation_balance_amount_after_expense,bd.budget_note_remark FROM budgetalloc a JOIN budgethead b ON a.HeadId = b.HeadId JOIN departments d ON a.strDepartmentId = d.strDepartmentId JOIN budget_note bd ON a.AllocId = bd.AllocId WHERE bd.budget_note_id = ?");
+
+		// Create Budget Note - Queries - Start
+		ALLSQL.put("budgetNoteInputData"," select a.AllocId as allocationId, d.strDepartmentNm as departmentName, b.strName as headName, a.dblAmount as allocatedAmount, a.dblReservedAmount as reservedAmount, a.dblUtilisedAmount as utilisedAmount, (a.dblAmount-a.dblReservedAmount-a.dblUtilisedAmount) as availableBalance from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  and a.AllocId = ?");
+		// Create Budget Note - Queries - End
+		ALLSQL.put("checkVoucherForBudgetNote","select * from voucher_details where budget_note_id='?'");
+
+
+
+		//End
 
 	}
 
@@ -367,7 +386,7 @@ public class CVDal
 
 		result = (String)(((Map) queryResult.get(0)).get("MAX_ID")) ;
 
-//		sop(queryName + "-------->" + result);
+		sop(queryName + "-------->" + result);
 
 		return result;
 	}

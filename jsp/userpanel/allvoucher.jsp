@@ -1,10 +1,10 @@
-<%@ include file="/jsp/userpanel/header.jsp" %>
+<%@ include file="/jsp/adminpanel/header.jsp" %>
 <%
 int i=0;
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
     HashMap hmData=(HashMap)request.getAttribute("data"); 
-	//out.println("--hmData--"+hmData);
+	out.println("--hmData--"+hmData);
     HashMap hmPage=(HashMap)request.getAttribute("page");
     if(hmPage!=null && hmPage.size()>0){
         nCurrent_Page = Integer.parseInt((String)hmPage.get("current_page"));
@@ -22,7 +22,7 @@ function setAction(code,id){
     document.VoucherList.id.value = id;
     switch(code){
         case 1:
-            document.VoucherList.action = "<%=strPath+"OpenVoucher.do"%>";
+            document.VoucherList.action = "<%=strPath+"BudgetNoteList.do"%>";
             break;
         case 2:
             document.VoucherList.action = "<%=strPath+"OpenVoucher.do"%>";
@@ -49,15 +49,18 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	    <tr bgcolor="<%=strColHd%>">
+	    <tr style="<%=strColHd%>">
 		<td width="10%" align="center" class="titles" height="20">
 			X
 		</td>
 		<td width="20%" align="center" class="titles" height="20">
 			Date
 		</td>
-		<td width="50%" align="center" class="titles" height="20">
+		<td width="25%" align="center" class="titles" height="20">
 			Budget Head
+		</td>
+		<td width="25%" align="center" class="titles" height="20">
+			Department
 		</td>
 		<td width="20%" align="center" class="titles" height="20">
 			Amount (Rs.)
@@ -72,9 +75,10 @@ function setAction(code,id){
                 for(int indx=0;indx<hmData.size();indx++){
                     HashMap hmt = (HashMap)hmData.get(""+indx);
                     if(hmt!=null && hmt.size()>0){
-                        String strId = (String)hmt.get("voucherId");
+                        String strId = (String)hmt.get("voucher_id");
                         String strName = (String)hmt.get("strName");
-			String strDt = (String)hmt.get("dt");
+						String strDepartmentNm=(String)hmt.get("strDepartmentNm");
+			String strDt = (String)hmt.get("voucher_date");
 			String strAmount = (String)hmt.get("amt");
 			dd_mm_yyyy = strDt.substring(8,10)+"-"+strDt.substring(5,7)+"-"+strDt.substring(0,4);
 			/*		strYY=strDt.substring(0,4);
@@ -82,7 +86,7 @@ function setAction(code,id){
 					strDD=strDt.substring(8,10);*/
 
                         %>
-			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" class="link"  height="20">
 				<%
 					out.println(j++);
@@ -94,6 +98,9 @@ function setAction(code,id){
 				</td>
 				<td align="left" class="link" height="20">
 					<%=strName%>
+				</td>
+				<td align="left" class="link" height="20">
+					<%=strDepartmentNm%>
 				</td>
 				<td align="left" class="link" height="20">
 					<%=strAmount%>
@@ -112,13 +119,14 @@ function setAction(code,id){
 	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
+				 <td valign="top" height="20">&nbsp; </td>
 	    	</tr>
 	    	<%        
 	    }
 	    %>
 	    
-	    <tr bgcolor="<%=strColHd%>"> 
-	      <td colspan="4" height="20" align="center"> 
+	    <tr style="<%=strColHd%>"> 
+	      <td colspan="5" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
@@ -144,10 +152,10 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	    <tr> 
-		<td colspan=4 height="20">&nbsp;</td>
+		<td colspan=5 height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
-	      <td colspan="4" valign="top" height="20" align="center">
+	      <td colspan="5" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
 		    	<td> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 

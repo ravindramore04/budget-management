@@ -15,6 +15,9 @@
     String availableBalance = "";
     String budget_note_remark = "";
     String budget_note_expense = "";
+	String balance_after_expense="";
+	String budget_note_id="";
+	String bName="Submit";
 
 
 	HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
@@ -28,11 +31,20 @@
          allocation_reserved_amount = (String)hmData.get("reservedAmount");
          utilisedAmount = (String)hmData.get("utilisedAmount");
          availableBalance = (String)hmData.get("availableBalance");
+		 budget_note_id =  (String)hmData.get("budget_note_id");
+		 if(budget_note_id !=null){
+			 bName="Update";
+			 budget_note_expense= (String)hmData.get("budget_note_expense");
+		 	budget_note_remark=(String)hmData.get("budget_note_remark");
+		 	balance_after_expense= (String)hmData.get("allocation_balance_amount_after_expense");
+		 }
+		 
 	}
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
 <script language="JavaScript">
 	function formSubmit(){
+	    calculateDifference();
 	    document.BudgetAllocationMaster.opr.value='insert_budget_note';
 		document.BudgetAllocationMaster.submit();
 	}
@@ -81,7 +93,7 @@ function calculateDifference() {
         <td width="75%" colspan="3"><%=allocatedAmount%></td>
 		</tr>
 		<tr>
-			<td width="25%" class="innertitle">Reserve Amount (Note created but PO not approved) </td>
+			<td width="25%" class="innertitle">Reserve Amount <font color="#FF6600">(Budget Note created but Voucher not Created)</font> </td>
 			
 			<td width="75%" colspan="3"><input type="text" id="allocation_reserved_amount" readonly="true" name="allocation_reserved_amount" size="25" class="formfield" value="<%=allocation_reserved_amount%>"/></td>
 		</tr>
@@ -104,7 +116,7 @@ function calculateDifference() {
 
 		<tr>
 			<td width="25%" class="innertitle">Balance after current Expenditure </td>
-			<td width="75%" colspan="3"><input type="text" id="allocation_balance_amount_after_expense" name="allocation_balance_amount_after_expense" size="25" class="formfield" value="" > </td>
+			<td width="75%" colspan="3"><input type="text" id="allocation_balance_amount_after_expense" name="allocation_balance_amount_after_expense" size="25" onBlur="calculateDifference()" class="formfield" value="<%=balance_after_expense%>" > </td>
 		</tr>
 
 		<tr>
@@ -119,9 +131,10 @@ function calculateDifference() {
 			</td>
 		</tr>
 		<tr>
-			<td colspan=4 align="center">
+		   <td class="innertitle" valign = "top"></td>
+			<td colspan=3 align="left">
 				<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">&nbsp;
-				<input name="btnSub" type="Button" value="Submit" class="PPRSbmtBtn" onClick="formSubmit()">
+				<input name="btnSub" type="Button" value="<%=bName%>" class="PPRSbmtBtn" onClick="formSubmit()">
 			</td>
 		</tr>
 	</table>

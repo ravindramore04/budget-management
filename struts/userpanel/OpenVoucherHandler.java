@@ -35,64 +35,25 @@ public class OpenVoucherHandler extends org.apache.struts.action.Action
             try{
                 CommonLogic cl = new CommonLogic();
                 CVDal cvdal = new CVDal(DBnm);
-                HashMap hmLocation = new HashMap();
                 HashMap hmFinal = new HashMap();
                 Vector vec = new Vector();
-                Vector vec2 = new Vector();
+				Vector vec1 = new Vector();
+				DynaActionForm daf = (DynaActionForm)form;
+				String operation=(String)daf.get("operation");
+				sop("Form Details >>>>>>>>>>>>>>>" + daf.getMap().entrySet());
+				sop("Operation >>>>>>>>>>>>>" + operation);
 
 				vec.clear();
-				cvdal.setSQL("openAllHead", vec);
-				Vector vec1 = (Vector)cvdal.executeQuery();
-
-				sop("--------------query----------------------------------------------------------------------"+vec1);
 				HashMap hmAll = new HashMap();
-				HashMap HmPO = new HashMap();
-				if(vec1!=null && vec1.size()>0){
-					for(int indx=0;indx<vec1.size();indx++){
-						HashMap hmt = (HashMap)vec1.elementAt(indx);
-						sop("--hmt--All heads------------------------"+hmt);
-						String strTempId = (String)hmt.get("HeadId");
-						sop("--head Id--strTempId--"+strTempId);
-
-						vec.clear();
-						vec.addElement(strTempId);
-						cvdal.setSQL("openHeadAllocation", vec);
-						vec2 = (Vector)cvdal.executeQuery();
-						sop("--vec2---"+vec2);
-						if(vec2!=null && vec2.size()>0){
-							HashMap hmmt = (HashMap)vec2.elementAt(0);
-							hmt.put("allocate",(String)hmmt.get("Allocate"));
-						}
-						cvdal.setSQL("openHeadExpanse", vec);
-						vec2 = (Vector)cvdal.executeQuery();
-						if(vec2!=null && vec2.size()>0){
-							HashMap hmmt = (HashMap)vec2.elementAt(0);
-							hmt.put("exp",(String)hmmt.get("exp"));
-						}
-
-						hmAll.put(""+indx, hmt);
-						int i=0;
-						vec.clear();
-						vec.addElement(strTempId);
-						cvdal.setSQL("OpenPONOforVoucher",vec);
-						vec2 = (Vector)cvdal.executeQuery();
-						if(vec2!=null && vec2.size()>0){
-							hmt= new HashMap();
-							for(i=0;i<vec2.size();i++){
-								HashMap hmmt = (HashMap)vec2.elementAt(i);
-								//hmt.put("nPONo",(String)hmmt.get("nPONo"));
-								hmt.put(""+i,(String)hmmt.get("nPONo"));
-
-							}
-							HmPO.put(strTempId,hmt);
-						}
-
-					}
+        		HashMap hmt= new HashMap();
+/*				cvdal.setSQL("openHeadExpanse", vec);
+				vec2 = (Vector)cvdal.executeQuery();
+				if(vec2!=null && vec2.size()>0){
+					HashMap hmmt = (HashMap)vec2.elementAt(0);
+					hmt.put("exp",(String)hmmt.get("exp"));
 				}
-				request.setAttribute("all", hmAll);
-				request.setAttribute("PONo", HmPO);
+				request.setAttribute("expense", hmt);*/
 
-                DynaActionForm daf = (DynaActionForm)form;
                 String strId = (String)daf.get("id");
                 int nOpr = Integer.parseInt((String)daf.get("opr"));
                 switch(nOpr){
@@ -102,7 +63,7 @@ public class OpenVoucherHandler extends org.apache.struts.action.Action
                         //update
                         vec.clear();
                         vec.addElement(strId);
-                        cvdal.setSQL("openVoucherWithId", vec);
+                        cvdal.setSQL("openVoucherDetailsWithBudgetNoteId", vec);
                         vec1 = (Vector)cvdal.executeQuery();
                         if(vec1!=null && vec1.size()>0){
                             hmFinal = (HashMap)vec1.elementAt(0);

@@ -20,7 +20,6 @@
 		<form-property name="txtId" type="java.lang.String"/>
 		<form-property name="txtDt" type="java.lang.String"/>
 		<form-property name="txtNo" type="java.lang.String"/>
-		<form-property name="txtHeadId" type="java.lang.String"/>
 		<form-property name="txtAmt" type="java.lang.String"/>
 		<form-property name="txtTds" type="java.lang.String"/>
 		<form-property name="txtType" type="java.lang.String"/>
@@ -38,6 +37,15 @@
 		<form-property name="Newcurrent_page" type="java.lang.String"/>
 		<form-property name="id" type="java.lang.String"/>
 		<form-property name="opr" type="java.lang.String"/>
+		
+		<form-property name="allocated_amount" type="java.lang.String"/>
+		<form-property name="dblUtilisedAmount" type="java.lang.String"/>
+		<form-property name="BallanceAmount" type="java.lang.String"/>
+		<form-property name="budget_note_expense" type="java.lang.String"/>
+		<form-property name="budget_note_id" type="java.lang.String"/>
+		<form-property name="HeadId" type="java.lang.String"/>
+		<form-property name="strDepartmentId" type="java.lang.String"/>
+		
 	</form-bean>
 	
 	<form-bean name="PurchaseForm" type="org.apache.struts.validator.DynaValidatorForm">

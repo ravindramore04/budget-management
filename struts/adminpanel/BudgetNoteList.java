@@ -33,6 +33,9 @@ public class BudgetNoteList extends Action
 
             DynaActionForm daf = (DynaActionForm)form;
             sop("DynaActionForm Details --->"+daf.getMap().entrySet());
+            String operation=(String)daf.get("operation");
+            String budget_note_id=(String)daf.get("id");
+            sop( "operation-->" + operation);
             String strPage_num ="";
             String strNavOpr = "";
             if(daf!=null){
@@ -49,7 +52,6 @@ public class BudgetNoteList extends Action
 
             if(!(strPage_num == null || strPage_num.length()==0))
                 nPage = Double.parseDouble(strPage_num);
-
             vec.clear();
             //cvdal.setSQL("openAllVoucher", vec);
             cvdal.setSQL("listbudgetnote", vec);
