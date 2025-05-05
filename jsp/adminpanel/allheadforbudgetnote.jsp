@@ -3,7 +3,7 @@
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
     HashMap hmData=(HashMap)request.getAttribute("data"); 
-    //out.println("Sanjeev<BR>"+hmData);
+    out.println("Sanjeev<BR>"+hmData);
     HashMap hmPage=(HashMap)request.getAttribute("page");
     //out.println("<BR>PAGE<BR>"+hmPage);
     if(hmPage!=null && hmPage.size()>0){
@@ -82,10 +82,12 @@ function setAction(code,id){
                     	
                         String strId = (String)hmt.get("HeadId");
                         String strName = (String)hmt.get("strName");
-			String strBalance = (String)hmt.get("dblBalance");
+			String strBalance = (String)hmt.get("dblAmount");
 			String strDepartmentNm = (String)hmt.get("strDepartmentNm");
 			String dblReservedAmount = (String)hmt.get("dblReservedAmount");
 			String dblUtilisedAmount = (String)hmt.get("dblUtilisedAmount");
+			
+			double remainAmt=Double.parseDouble(strBalance)-(Double.parseDouble(dblReservedAmount)+Double.parseDouble(dblUtilisedAmount));
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
@@ -97,16 +99,16 @@ function setAction(code,id){
 				<%=strDepartmentNm%>
 				</td>
 				<td align="left" class="link" height="20">
+					<%=strBalance%>
+				</td>
+				<td align="left" class="link" height="20">
 					<%=dblReservedAmount%>
 				</td>
 				<td align="left" class="link" height="20">
 					<%=dblUtilisedAmount%>
 				</td>
-				<td align="left" class="link" height="20">
-					<!-- TODO: Add remianing balance-->
-				</td>
 
-        <td  align="left" class="link" height="20"> <%=strBalance%></td>
+        <td  align="left" class="link" height="20"> <%=remainAmt%></td>
 			</tr>
     			<%
                     }

@@ -247,7 +247,7 @@ public class CVDal
 		ALLSQL.put("voucher_number_MAX_ID", "SELECT (COALESCE(MAX(voucher_number), 0)+1) as MAX_ID FROM voucher_details");
 
 		ALLSQL.put("updateReservedBalance","Update budgetalloc set dblReservedAmount=dblReservedAmount+'?' where AllocId='?'");
-		ALLSQL.put("MinusReservedBalance","Update budgetalloc set dblReservedAmount=dblReservedAmount-'?' where AllocId='?'");
+		ALLSQL.put("MinusReservedBalance","Update budgetalloc set dblReservedAmount=(dblReservedAmount-?) where AllocId='?'");
 
 		ALLSQL.put("adjustAllocatedAndReservedAmount","Update budgetalloc set dblReservedAmount = dblReservedAmount - '?' , dblUtilisedAmount = dblUtilisedAmount + '?' where HeadId='?' and strDepartmentId = '?'");
 

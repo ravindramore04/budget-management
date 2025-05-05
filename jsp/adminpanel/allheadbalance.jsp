@@ -85,6 +85,7 @@ function setAction(code,id){
 			String strDepartmentNm = (String)hmt.get("strDepartmentNm");
 			String dblReservedAmount = (String)hmt.get("dblReservedAmount");
 			String dblUtilisedAmount = (String)hmt.get("dblUtilisedAmount");
+			double remainAmt=Double.parseDouble(strBalance)-(Double.parseDouble(dblReservedAmount)+Double.parseDouble(dblUtilisedAmount));
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
@@ -104,7 +105,7 @@ function setAction(code,id){
 					<%=dblUtilisedAmount%>
 				</td>
 				<td align="left" class="link" height="20">
-					<!-- TODO: Add remianing balance-->
+					<%=remainAmt%>
 				</td>
 
 			</tr>
