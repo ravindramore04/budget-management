@@ -1,5 +1,6 @@
 package struts.adminpanel;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -93,13 +94,13 @@ public class BudgetNote extends Action
                     FORWARD_final = "createnote";
 
                 } else if ("edit".equals(operation)){
-
+                    //budget_note_id
                     vec.add(budgetAllocationId);
 
                     cvdal.setSQL("checkVoucherForBudgetNote", vec);
                     Vector vec2 = (Vector)cvdal.executeQuery();
 
-                    if(vec2 != null)
+                    if(vec2.size()>0)
                     {
                         request.setAttribute("message","Voucher Created for This Note , You cant update.");
                         FORWARD_final = "budgetnotelist";
@@ -120,16 +121,34 @@ public class BudgetNote extends Action
                     cvdal.setSQL("checkVoucherForBudgetNote", vec);
                     Vector vec2 = (Vector)cvdal.executeQuery();
 
-                    if(vec2 != null)
-                    {
+                    sop(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+vec2.toString());
+
+                    if(vec2.size()>0) {
+                        sop(">>>>>>>>>>>>>>>>>>>>>>Delete>>>>>>>"+vec2.size());
                         request.setAttribute("message","Voucher Created for This Note , You cant Delete.");
                         FORWARD_final = "budgetnotelist";
                     }else {
+                        cvdal.setSQL("getBudgetExpense", vec);
+                        Vector vec3 = (Vector)cvdal.executeQuery();
+
+                        String budget_note_expense=(String)(((Map) vec3.get(0)).get("budget_note_expense")) ;
+                        String AllocId=(String)(((Map) vec3.get(0)).get("AllocId")) ;
+
+                        sop("budget_note_expense >  for delete budget AllocId >  "+AllocId);
+
                         cvdal.setSQL("deletebudgetnote", vec);
                         int i = cvdal.executeUpdate();
+
+                        if(i>0){
+                            Vector queryParams=new Vector();
+                            queryParams.add(budget_note_expense);
+                            queryParams.add(AllocId);
+                            adjustReserveBallance(cvdal, queryParams);
+                            request.setAttribute("message", " Budget Note Deleted Successfully.");
+                        }
+                        FORWARD_final = "budgetnotelist";
                     }
-                }
-                else{
+                } else{
                     cvdal.setSQL("openAllHeadWithBalance", vec);
                     Vector vec1 = (Vector)cvdal.executeQuery();
                     sop("vec1====================>"+vec1);
@@ -206,6 +225,12 @@ public class BudgetNote extends Action
         return (mapping.findForward(FORWARD_final));
     }//End of execute()
 
+
+    private void adjustReserveBallance(CVDal cvdal, Vector param){
+        cvdal.setSQL("MinusReservedBalance", param);
+        int j= cvdal.executeUpdate();
+        sop("budget_note_expense >  minus ballance successfully >  "+j);
+    }
 
     private void insertBudgetNote(CVDal cvdal, String user_id, DynaActionForm daf) {
         String budget_note_id = cvdal.getMaxId("budget_note_MAX_ID");

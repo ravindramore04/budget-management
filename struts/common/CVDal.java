@@ -247,6 +247,7 @@ public class CVDal
 		ALLSQL.put("voucher_number_MAX_ID", "SELECT (COALESCE(MAX(voucher_number), 0)+1) as MAX_ID FROM voucher_details");
 
 		ALLSQL.put("updateReservedBalance","Update budgetalloc set dblReservedAmount=dblReservedAmount+'?' where AllocId='?'");
+		ALLSQL.put("MinusReservedBalance","Update budgetalloc set dblReservedAmount=dblReservedAmount-'?' where AllocId='?'");
 
 		ALLSQL.put("adjustAllocatedAndReservedAmount","Update budgetalloc set dblReservedAmount = dblReservedAmount - '?' , dblUtilisedAmount = dblUtilisedAmount + '?' where HeadId='?' and strDepartmentId = '?'");
 
@@ -262,6 +263,8 @@ public class CVDal
 		ALLSQL.put("budgetNoteInputData"," select a.AllocId as allocationId, d.strDepartmentNm as departmentName, b.strName as headName, a.dblAmount as allocatedAmount, a.dblReservedAmount as reservedAmount, a.dblUtilisedAmount as utilisedAmount, (a.dblAmount-a.dblReservedAmount-a.dblUtilisedAmount) as availableBalance from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  and a.AllocId = ?");
 		// Create Budget Note - Queries - End
 		ALLSQL.put("checkVoucherForBudgetNote","select * from voucher_details where budget_note_id='?'");
+		ALLSQL.put("getBudgetExpense","select budget_note_expense,AllocId from budget_note where budget_note_id='?'");
+
 
 
 
