@@ -104,9 +104,8 @@ function setAction(code,id){
 				<td align="left" class="link" height="20">
 					<%=dblUtilisedAmount%>
 				</td>
-				<td align="left" class="link" height="20">
-					<%=remainAmt%>
-				</td>
+				
+        <td align="left" class="link" height="20"> <%=remainAmt%></td>
 
 			</tr>
     			<%

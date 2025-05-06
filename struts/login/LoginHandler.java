@@ -1,5 +1,6 @@
 package struts.login;
 
+import login.User;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -67,11 +68,14 @@ public class LoginHandler extends org.apache.struts.action.Action
 					if(hmt!= null && hmt.size()>0){
 						strUserId = (String)hmt.get("UId");
 						String strUserName = (String)hmt.get("strName");
+						String strLogin = (String)hmt.get("strLogin");
 						iLevel = Integer.parseInt((String)hmt.get("lvl"));
+						String departmentId = (String)hmt.get("strDepartmentId");
+
 						hmFinal.put("lvl",""+iLevel);
 						hmFinal.put("UId",strUserId);
 						hmFinal.put("UNm",strUserName);
-						hmFinal.put("departmentId","100001");
+						hmFinal.put("departmentId",departmentId);
 
 						vec.clear();
 						cvdal.setSQL("openOrg",vec);
@@ -88,6 +92,9 @@ public class LoginHandler extends org.apache.struts.action.Action
 							hmFinal.put("addr","Dhanori Raod, Pune-15");
 							hmFinal.put("DBnm",DBnm1);
 						}
+						User user = new User(strUserId, strLogin, departmentId);
+						session.setAttribute("user_object", user);
+						System.out.println("user_object SET IN SESSION ========================>" + user);
 					}
 					session.setAttribute("user",hmFinal);
 				}else{

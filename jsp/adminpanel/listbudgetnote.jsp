@@ -104,10 +104,8 @@ function setAction(code,id){
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" class="link"  height="20">
-				<%
-					out.println(j++);
-				%>
-				    <a href="#" onClick="setAction(3,<%=strId%>)">DEL&nbsp;&nbsp;</a>
+				<%=strId%>
+			    <a href="#" onClick="setAction(3,<%=strId%>)">DEL&nbsp;&nbsp;</a>
 					<a href="#" onClick="setAction(5,<%=strId%>)">EDIT</a>
 				</td>
 				<td align="left" class="link" height="20">

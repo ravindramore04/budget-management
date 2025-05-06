@@ -210,7 +210,7 @@
 
 		<!-- actions from - createbudgetnote.jsp - START -->
 		<action path="/SaveBudgetNote" type="struts.adminpanel.BudgetNote" name="CreateBudgetNoteForm" scope="request" validate="false">
-			<forward name="success" path="/AllBudgetAllocation.do"/>
+			<forward name="success" path="/BudgetNoteList.do"/>
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>
 		<!-- actions from - createbudgetnote.jsp - END -->
