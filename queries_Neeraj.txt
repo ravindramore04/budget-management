@@ -88,3 +88,61 @@ UPDATE budgetalloc set hb.dblReservedAmount = hb.dblReservedAmount - tb.total, h
 select v.voucher_id,v.voucher_number,b.budget_note_id,v.receiver_name,v.voucher_date,d.strDepartmentNm,bh.strName,v.amount+v.tds_amount as amt from voucher_details v left join budget_note b on  v.budget_note_id = b.budget_note_id  left join  budgetalloc ba on  b.AllocId = ba.AllocId left join BudgetHead bh on ba.HeadId = bh.HeadId left join departments d on ba.strDepartmentId=d.strDepartmentId order by v.create_date desc;
 
 SELECT bd.AllocId AS allocationId,d.strDepartmentNm AS departmentName,b.strName AS headName,a.dblAmount AS allocatedAmount,a.dblReservedAmount AS reservedAmount,a.dblUtilisedAmount AS utilisedAmount,(a.dblAmount - a.dblReservedAmount - a.dblUtilisedAmount) AS availableBalance,bd.budget_note_id,bd.budget_note_expense,bd.allocation_reserved_amount,bd.allocation_balance_amount_after_expense,bd.budget_note_remark FROM budgetalloc a JOIN budgethead b ON a.HeadId = b.HeadId JOIN departments d ON a.strDepartmentId = d.strDepartmentId JOIN budget_note bd ON a.AllocId = bd.AllocId WHERE bd.budget_note_id = 1;
+
+
+
+//////////07/05/2025
+
+SELECT D.strDepartmentNm, H.strName, BA.* FROM
+budgetalloc BA,
+departments D,
+budgethead H
+WHERE BA.strDepartmentId = D.strDepartmentId AND
+BA.HeadId = H.HeadId
+
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+| strDepartmentNm | strName            | AllocId | HeadId | Dt         | dblAmount | strRemark | strInsBy | strInsOn   | strUptdBy | strUptdOn  | strDepartmentId | dblReservedAmount | dblUtilisedAmount |
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+| Accounts        | Test               |  100002 | 100002 | 2000-01-01 |  10000.00 |           |   100001 | 2025-05-07 |    100001 | 2025-05-07 | 100001          |              0.00 |              0.00 |
+| Accounts        | Arts Science Store |  100001 | 100001 | 2000-01-01 |  10000.00 |           |   100001 | 2025-05-07 |    100001 | 2025-05-07 | 100001          |              0.00 |              0.00 |
+| Computer        | Test               |  100004 | 100002 | 2000-01-01 |  20000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            600.00 |              0.00 |
+| Computer        | Arts Science Store |  100003 | 100001 | 2000-01-01 |  15000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            170.00 |            330.00 |
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+4 rows in set (0.02 sec)
+
+
+
+SELECT D.strDepartmentNm, H.strName, BA.*, V.* FROM
+budgetalloc BA,
+departments D,
+budgethead H,
+budget_note N,
+voucher_details V
+WHERE BA.strDepartmentId = D.strDepartmentId AND
+BA.HeadId = H.HeadId AND 
+BA.AllocId = N.AllocId AND 
+N.budget_note_id = V.budget_note_id
+// AND H.HeadId = '?'
+// and D.strDepartmentId = '?'
+
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+------------+----------------+----------------+--------------+--------+------------+---------+--------------+-----------+----------+---------------+-----------+-----------+--------------------+-------------+--------------------+-------------+--------------+
+| strDepartmentNm | strName            | AllocId | HeadId | Dt         | dblAmount | strRemark | strInsBy | strInsOn   | strUptdBy | strUptdOn  | strDepartmentId | dblReservedAmount | dblUtilisedAmount | voucher_id | voucher_number | budget_note_id | voucher_date | amount | tds_amount | strType | payment_mode | bank_name | chequeno | receiver_name | narration | po_number | created_by_user_id | create_date | updated_by_user_id | update_date | vouNumManual |
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+------------+----------------+----------------+--------------+--------+------------+---------+--------------+-----------+----------+---------------+-----------+-----------+--------------------+-------------+--------------------+-------------+--------------+
+| Computer        | Arts Science Store |  100003 | 100001 | 2000-01-01 |  15000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            170.00 |            330.00 |          2 |              2 |              1 | 2025-05-07   | 200.00 |      20.00 | TDS     | 1            |           |          | More          | 2 Mouse   | 1011      |             100003 | 2025-05-07  |             100003 | 2025-05-07  |              |
+| Computer        | Arts Science Store |  100003 | 100001 | 2000-01-01 |  15000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            170.00 |            330.00 |          1 |              1 |              1 | 2025-05-07   | 100.00 |      10.00 | TDS     | 1            |           |          | More          | Mouse     | 1011      |             100003 | 2025-05-07  |             100003 | 2025-05-07  |              |
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+------------+----------------+----------------+--------------+--------+------------+---------+--------------+-----------+----------+---------------+-----------+-----------+--------------------+-------------+--------------------+-------------+--------------+
+2 rows in set (0.01 sec)
+
+
+SELECT BA.HeadId, BA.strDepartmentId,  H.strName, D.strDepartmentNm,  BA.dblAmount, BA.dblReservedAmount, dblUtilisedAmount  FROM budgetalloc BA, departments D, budgethead H WHERE BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId ORDER BY H.HeadId
+
+SELECT H.strName, D.strDepartmentNm,  BA.* FROM budgetalloc BA, departments D, budgethead H WHERE BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId ORDER BY H.strName
+BA
++--------------------+-----------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+| strName            | strDepartmentNm | AllocId | HeadId | Dt         | dblAmount | strRemark | strInsBy | strInsOn   | strUptdBy | strUptdOn  | strDepartmentId | dblReservedAmount | dblUtilisedAmount |
++--------------------+-----------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+| Arts Science Store | Accounts        |  100001 | 100001 | 2000-01-01 |  10000.00 |           |   100001 | 2025-05-07 |    100001 | 2025-05-07 | 100001          |              0.00 |              0.00 |
+| Arts Science Store | Computer        |  100003 | 100001 | 2000-01-01 |  15000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            170.00 |            330.00 |
+| Test               | Accounts        |  100002 | 100002 | 2000-01-01 |  10000.00 |           |   100001 | 2025-05-07 |    100001 | 2025-05-07 | 100001          |              0.00 |              0.00 |
+| Test               | Computer        |  100004 | 100002 | 2000-01-01 |  20000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            600.00 |              0.00 |
++--------------------+-----------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+

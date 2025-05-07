@@ -50,6 +50,7 @@
 		<form-property name="txtName" type="java.lang.String"/>
 		<form-property name="txtLogin" type="java.lang.String"/>
 		<form-property name="txtPassword" type="java.lang.String"/>
+		<form-property name="strDepartmentId" type="java.lang.String"/>
 	</form-bean>
 
 	<form-bean name="OrganiForm" type="org.apache.struts.validator.DynaValidatorForm">

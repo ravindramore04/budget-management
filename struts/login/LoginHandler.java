@@ -1,5 +1,6 @@
 package struts.login;
 
+import login.SessionUtils;
 import login.User;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
@@ -75,7 +76,7 @@ public class LoginHandler extends org.apache.struts.action.Action
 						hmFinal.put("lvl",""+iLevel);
 						hmFinal.put("UId",strUserId);
 						hmFinal.put("UNm",strUserName);
-						hmFinal.put("departmentId",departmentId);
+						hmFinal.put("departmentId", departmentId);
 
 						vec.clear();
 						cvdal.setSQL("openOrg",vec);
@@ -92,9 +93,8 @@ public class LoginHandler extends org.apache.struts.action.Action
 							hmFinal.put("addr","Dhanori Raod, Pune-15");
 							hmFinal.put("DBnm",DBnm1);
 						}
-						User user = new User(strUserId, strLogin, departmentId);
-						session.setAttribute("user_object", user);
-						System.out.println("user_object SET IN SESSION ========================>" + user);
+
+						SessionUtils.addUserToSession(session,strUserId, strLogin, departmentId );
 					}
 					session.setAttribute("user",hmFinal);
 				}else{

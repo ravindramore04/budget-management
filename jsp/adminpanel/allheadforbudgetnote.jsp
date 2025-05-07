@@ -80,6 +80,7 @@ function setAction(code,id){
                     HashMap hmt = (HashMap)hmData.get(""+indx);
                     if(hmt!=null && hmt.size()>0){
                     	
+                        String AllocId = (String)hmt.get("AllocId");
                         String strId = (String)hmt.get("HeadId");
                         String strName = (String)hmt.get("strName");
 			String strBalance = (String)hmt.get("dblAmount");
@@ -93,7 +94,7 @@ function setAction(code,id){
 				<td align="center" height="20">
 					</td>
 				<td align="left" class="link" height="20">
-					<a href="#" onClick="setAction(2,<%=strId%>)"><%=strName%></a>
+					<a href="#" onClick="setAction(2,<%=AllocId%>)"><%=strName%></a>
 				</td>
 				<td align="left" class="link" height="20">
 				<%=strDepartmentNm%>

@@ -1,5 +1,6 @@
 package struts.adminpanel;
 
+import login.SessionUtils;
 import org.apache.struts.action.*;
 import struts.common.CVDal;
 import struts.common.ErrorHandler;
@@ -54,7 +55,15 @@ public class BudgetNoteList extends Action
                 nPage = Double.parseDouble(strPage_num);
             vec.clear();
             //cvdal.setSQL("openAllVoucher", vec);
-            cvdal.setSQL("listbudgetnote", vec);
+
+            if(SessionUtils.isAccountORStoreUser(session)){
+                cvdal.setSQL("listbudgetnoteAllDept", vec);
+            }else{
+                vec.addElement(SessionUtils.getDepartmentId(session));
+                cvdal.setSQL("listbudgetnote", vec);
+
+            }
+
             Vector vec1 = (Vector)cvdal.executeQuery();
             if(vec1!=null && vec1.size()>0){
                 nTotalPage = Math.ceil(vec1.size()/(double)nNum_Per_Page);
@@ -84,20 +93,31 @@ public class BudgetNoteList extends Action
 
             if(nPage<=nTotalPage){
                 vec.clear();
-                vec.addElement(""+nLowLimit);
-                vec.addElement(""+nNum_Per_Page);
-                cvdal.setSQL("listbudgetnotelimit", vec);
+
+                if (SessionUtils.isAccountORStoreUser(session)){
+                    vec.addElement(""+nLowLimit);
+                    vec.addElement(""+nNum_Per_Page);
+                    cvdal.setSQL("listbudgetnoteAllDeptlimit", vec);
+
+                }else{
+                    vec.addElement(SessionUtils.getDepartmentId(session));
+                    vec.addElement("" + nLowLimit);
+                    vec.addElement(""+nNum_Per_Page);
+                    cvdal.setSQL("listbudgetnotelimit", vec);
+
+                }
+
                 vec1 = (Vector)cvdal.executeQuery();
                 if(vec1!=null && vec1.size()>0){
                     for(int indx=0;indx<vec1.size();indx++){
-                        HashMap hmt = (HashMap)vec1.elementAt(indx);
+                        HashMap hmt = (HashMap) vec1.elementAt(indx);
                         hmFinal.put(""+indx, hmt);
                     }
                 }
             }
             request.setAttribute("data", hmFinal);
             HashMap hmPage = new HashMap();
-            hmPage.put("current_page", ""+(long)nPage);
+            hmPage.put("current_page", "" + (long) nPage);
             hmPage.put("total_page", ""+(long)nTotalPage);
             request.setAttribute("page", hmPage);
             FORWARD_final = Success;

@@ -36,7 +36,7 @@ public class SaveUserHandler extends org.apache.struts.action.Action
             try{
                     int nItr = Integer.parseInt((String)session.getAttribute("itr"));
                     if(nItr>0){
-						int lvl = 2;
+						int lvl = 1;
                         session.setAttribute("itr", "0");
                         HashMap hmUser = (HashMap)session.getAttribute("user");
                         String strUserId = (String)hmUser.get("UId");
@@ -53,6 +53,7 @@ public class SaveUserHandler extends org.apache.struts.action.Action
                         String strName=(String)daf.get("txtName");
                         String strLogin=(String)daf.get("txtLogin");
                         String strPwd=(String)daf.get("txtPassword");
+						String strDepartmentId=(String)daf.get("strDepartmentId");
 
 						HashMap hData = new HashMap();
 
@@ -137,21 +138,22 @@ public class SaveUserHandler extends org.apache.struts.action.Action
                         vec.addElement(strLogin);
 
                         if(strId == null || strId.length()==0){
-							//insert time
+                            //insert
+
+
 							vec.addElement(cl.encryptValue(strPwd));
 							vec.addElement(""+lvl);
 							vec.addElement(strUserId);
 							vec.addElement(strToday);
-						}
-
-                        vec.addElement(strUserId);
-                        vec.addElement(strToday);
-
-                        if(strId == null || strId.length()==0){
-                            //insert
+							vec.addElement(strUserId);
+							vec.addElement(strToday);
+							vec.addElement(strDepartmentId);
                             cvdal.setSQL("insertUser",vec);
                         }else{
                             //update record
+							vec.addElement(strUserId);
+							vec.addElement(strToday);
+							vec.addElement(strDepartmentId);
                             vec.addElement(strId);
                             cvdal.setSQL("updateUser",vec);
 							System.out.println("\n\n Updated!!!!!!!!!!!");

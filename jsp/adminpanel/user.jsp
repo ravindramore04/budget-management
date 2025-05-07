@@ -5,12 +5,17 @@
 	String strUId = "";
 	String strName = "";
 	String strLogin = "";
+	String deptId="";
 	
+	HashMap hmGroup=(HashMap)request.getAttribute("departments");
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
 	if(hmData!=null && hmData.size()>0){
 		strUId = (String)hmData.get("UId");
 		strName = (String)hmData.get("strName");
 		strLogin = (String)hmData.get("strLogin");
+		deptId=(String)hmData.get("strDepartmentId");
+		if(deptId==null)
+		deptId="";
 	}
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
@@ -78,7 +83,36 @@
 			<td colspan=4>&nbsp;</td>
 		</tr>
 		<tr> 
-			<td colspan=4>&nbsp;</td>
+			<td class="innertitle">Department&nbsp;</td>
+			<td colspan="3"><select name="strDepartmentId" class="formfield" >
+			 <option value="<%=""+0%>">-------Select---------</option>
+		<%
+			if(hmGroup!=null && hmGroup.size()>0){
+				for(int i=0;i<hmGroup.size();i++){
+					HashMap hmt=(HashMap)hmGroup.get(""+i);
+					String strDepartmentId=(String)hmt.get("strDepartmentId");
+					String strDepartmentNm=(String)hmt.get("strDepartmentNm");
+					
+				if(deptId.equals(strDepartmentId)){
+		%>	
+		
+		
+			<option value="<%=strDepartmentId%>" selected> <%=strDepartmentNm%> </option>
+		
+		
+		
+		<%
+				}else{
+		%>
+		<option value="<%=strDepartmentId%>" > <%=strDepartmentNm%> </option>
+		
+		<%
+				}
+			     }
+			}
+		
+		%>
+			</select></td>
 		</tr>
 		<tr> 
 			<td width="25%" class="innertitle">Name </td>

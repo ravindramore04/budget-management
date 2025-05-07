@@ -27,11 +27,11 @@ public class User {
     private String userName;
     private String departmentId;
 
-    private boolean isStoreUser(){
+    public boolean isStoreUser(){
         return "100002".equals(departmentId);
     }
 
-    private boolean isAccountUser(){
+    public boolean isAccountUser(){
         return "100001".equals(departmentId);
     }
 
