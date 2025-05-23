@@ -3,7 +3,7 @@
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
     HashMap hmData=(HashMap)request.getAttribute("data"); 
-    out.println("Sanjeev<BR>"+hmData);
+    //out.println("Sanjeev<BR>"+hmData);
     HashMap hmPage=(HashMap)request.getAttribute("page");
     //out.println("<BR>PAGE<BR>"+hmPage);
     if(hmPage!=null && hmPage.size()>0){
@@ -92,6 +92,7 @@ function setAction(code,id){
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
+				<a href="#" onClick="setAction(2,<%=AllocId%>)">Create</a>
 					</td>
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=AllocId%>)"><%=strName%></a>

@@ -10,7 +10,7 @@
 	String strRemark = "";
 	
 	String strVoucherId = "";
-	String strVoucherNo = "";
+	String voucher_number = "";
 	String HeadId = "";
 	double dblTds = 0;
 	String strToAcc = "";
@@ -26,6 +26,10 @@
 	double ExpAmt=0;
 	String srCvouNO="";
 	String bankName="";
+	
+	String budget_head_name="";
+	String budget_note_id="";
+	
 	HashMap hmAll=(HashMap)request.getAttribute("all"); 
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
 	//out.println(""+hmData);
@@ -35,26 +39,39 @@
 	double strBalance=0;
 	double Balancebudg=0;
 	double AvblBudg=0;
+	
+	
+	double dblUtilisedAmount=0.0;
+	double dblReservedAmount=0.0;
+	double allocatedAmount=0.0;
 	double balbudget=0;
-	int ravi=0;
+	double totVoucherAmt=0.0;
+	
 	if(hmData!=null && hmData.size()>0){
-		strVoucherId = (String)hmData.get("voucherId");
-		strVoucherNo = (String)hmData.get("VouNo");
-		Date1 = (String)hmData.get("dt");
+		strVoucherId = (String)hmData.get("voucher_id");
+		budget_note_id= (String)hmData.get("budget_note_id");
+		voucher_number = (String)hmData.get("voucher_number");
+		Date1 = (String)hmData.get("voucher_date");
 		Date= Date1.substring(8,10)+"-"+Date1.substring(5,7)+"-"+Date1.substring(0,4);
-		strAccountNo = (String)hmData.get("strAccNo");
-		amt = (String)hmData.get("amt");
-		dblAmount= Double.parseDouble((String)hmData.get("dblAmount"));
-		dblTds= Double.parseDouble((String)hmData.get("dblTds"));
-		strToAcc= (String)hmData.get("strToAcc");
-		strReceiverNm=(String)hmData.get("strReceiverNm");
-		bMode=(String)hmData.get("bMode");
+		amt = (String)hmData.get("amount");
+		dblAmount= Double.parseDouble((String)hmData.get("amount"));
+		dblTds= Double.parseDouble((String)hmData.get("tds_amount"));
+        totVoucherAmt=dblAmount+dblTds;
+		dblUtilisedAmount= Double.parseDouble((String)hmData.get("dblUtilisedAmount"));
+		dblReservedAmount= Double.parseDouble((String)hmData.get("dblReservedAmount"));
+		allocatedAmount= Double.parseDouble((String)hmData.get("dblAmount"));
+		
+		
+		strToAcc= (String)hmData.get("narration");
+		strReceiverNm=(String)hmData.get("receiver_name");
+		bMode=(String)hmData.get("payment_mode");
 		HeadId=(String)hmData.get("HeadId");
 		TDStype = (String)hmData.get("strType");
-		strCheque=(String)hmData.get("strChequeNo");
+		strCheque=(String)hmData.get("chequeno");
 		srCvouNO=(String)hmData.get("srCvouNO");
-		bankName=(String)hmData.get("strBank");
-		
+		bankName=(String)hmData.get("bank_name");
+	
+		budget_head_name=(String)hmData.get("budget_head_name");
 		
 	}
 	Balancebudg=dblAmount+dblTds;
@@ -191,7 +208,7 @@ function Num2Word(num,fmt) {
 }
 
 function setAction(){
-document.abc.action ="/budget-management/VoucherPrint.do";
+document.abc.action ="/budget-management/AllVoucher.do";
 document.abc.submit();
 }
     
@@ -205,19 +222,6 @@ document.abc.submit();
 <form name="abc">
 
   <table width="1000" height="471" border="0" align="center" cellpadding="0" cellspacing="0">
-    <!-- <tr> 
-    <td width="310" height="15">&nbsp;</td> 
-    <td width="16" height="15">&nbsp;</td>
-    <td colspan="4">&nbsp;</td>
-    <td width="67">&nbsp; </td>
-    
-    **<td colspan="6" rowspan="4"> 
-    	 <input name="imageField" type="image" src="award.gif" width="80" height="80" border="0"> 
-    	 &nbsp;
-      </td> **
-    <td width="96" height="15">&nbsp;</td>
-    <td width="119">&nbsp;</td>
-  </tr>  -->
     <tr> 
       <td width="310" height="30">&nbsp;</td>
       <td width="37" height="30">&nbsp;</td>
@@ -240,40 +244,14 @@ document.abc.submit();
       <td colspan="4">&nbsp;</td>
       <td width="67">&nbsp; </td>
       <td height="15"></td>
-      <td><div align="center"><font face="Bookman Old Style" size="3"><%=vouchq%></font></div></td>
+      <td><div align="center"><font face="Bookman Old Style" size="3"><%=voucher_number%></font></div></td>
     </tr>
     <tr> 
       <td width="310" height="15">&nbsp;</td>
       <td width="37" height="15">&nbsp;</td>
       <td colspan="4"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dr. <%
-	if(hmAll!=null && hmAll.size()>0)
-	{
-		for(int indx=0;indx<hmAll.size();indx++)
-		{
-			HashMap hmt = (HashMap)hmAll.get(""+indx);
-			String strTempId = (String)hmt.get("HeadId");
-			String strTempName = (String)hmt.get("strName");
-			if(HeadId.equals(strTempId))
-			{
-				strAllocate= (String)hmt.get("allocate");
-				strexp= (String)hmt.get("exp");
-				strBalance=Double.parseDouble(strAllocate)-Double.parseDouble(strexp);
-				String Name=strTempName;
-				String Acno=strAccountNo;
-				ExpAmt=Double.parseDouble(strexp);
-				//ravi=Integer.parseInt(strexp);
-                AvblBudg=ExpAmt-Balancebudg;
-				balbudget=Double.parseDouble(strAllocate)-AvblBudg;   
-%>              
-
-        <font face="Bookman Old Style" size="3"><%=strTempName%>-&nbsp;<%=strVoucherNo%></font> 
-        <%
-			}
-		}
-	}
-	
-%></td>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dr.
+        <font face="Bookman Old Style" size="3"><%=budget_head_name%>-&nbsp;<%=voucher_number%></font> </td>
       <td width="67">&nbsp; </td>
       <td height="15"></td>
       <td><div align="center"><font face="Bookman Old Style" size="3"><%=Date%></font></div></td>
@@ -285,7 +263,7 @@ document.abc.submit();
         Amount</font>
         
       </td>
-	  <td width="130" height="15" ><div align="center"><font face="Bookman Old Style" size="2"><%=strAllocate%></font></div>
+	  <td width="130" height="15" ><div align="center"><font face="Bookman Old Style" size="2"><%=allocatedAmount%></font></div>
         
       </td>
       <td width="82"> <div align="center"><font face="Bookman Old Style" size="3"></font></div></td>
@@ -297,7 +275,7 @@ document.abc.submit();
       <td height="15" colspan="2"><font face="Bookman Old Style" size="2">Utilized 
         Amount </font></td>
       <td width="130" height="15">
-        <div align="center"><font face="Bookman Old Style" size="2"><%=d.format(AvblBudg)%></font></div></td>
+        <div align="center"><font face="Bookman Old Style" size="2"><%=d.format(dblUtilisedAmount-totVoucherAmt)%></font></div></td>
       <td colspan="2">&nbsp;</td>
       <td height="20" colspan="2">&nbsp; 
         <% 
@@ -321,7 +299,7 @@ document.abc.submit();
       <td width="310" height="15">&nbsp;</td>
       <td height="15" colspan="2"><font size="2" face="Bookman Old Style">Budget 
         Available</font></td>
-      <td  width="130" height="15"><div align="center"><font face="Bookman Old Style" size="2"><%=d.format(balbudget)%></font></div></td>
+      <td  width="130" height="15"><div align="center"><font face="Bookman Old Style" size="2"><%=d.format(allocatedAmount-(dblUtilisedAmount-totVoucherAmt))%></font></div></td>
       <td colspan="2">&nbsp;</td>
       <td height="15" colspan="2">&nbsp; 
         <% 
@@ -350,7 +328,7 @@ document.abc.submit();
     <tr> 
       <td width="310" height="15">&nbsp;</td>
       <td height="15" colspan="2"><font face="Bookman Old Style" size="2">Voucher Amount</font></td>
-      <td  width="130" height="15"><div  align="center"><%=d.format(dblAmount+dblTds)%></div></td>
+      <td  width="130" height="15"><div  align="center"><%=d.format(totVoucherAmt)%></div></td>
       <td colspan="2">&nbsp;</td>
       <td height="15" colspan="2">&nbsp;</td>
       <td height="15"><div align="right">&nbsp;</div></td>
@@ -358,7 +336,7 @@ document.abc.submit();
     <tr> 
       <td width="310" height="15">&nbsp;</td>
       <td height="15" colspan="2"><font face="Bookman Old Style" size="2">Balance Budget</font></td>
-      <td height="15"><div  align="center"><font face="Bookman Old Style" size="2"><%=d.format(balbudget-Balancebudg)%></font></div></td>
+      <td height="15"><div  align="center"><font face="Bookman Old Style" size="2"><%=d.format(allocatedAmount-dblUtilisedAmount)%></font></div></td>
       <td colspan="2">&nbsp;</td>
       <td height="15" colspan="2">&nbsp;</td>
       <td height="15"> <div align="right">&nbsp;</div></td>

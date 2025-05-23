@@ -1,6 +1,7 @@
 <%@ include file="/jsp/adminpanel/header.jsp" %>
+
 <%
-int i=0;
+    int i=0;
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
     HashMap hmData=(HashMap)request.getAttribute("data"); 
@@ -40,6 +41,11 @@ function setAction(code,id){
 			  document.VoucherList.operation.value="edit";
 			  document.VoucherList.opr.value="edit";
             break;
+		case 6:
+              document.VoucherList.action = "<%=strPath+"AllHeadForBudgetNote.do"%>";
+			  document.VoucherList.operation.value="print";
+			  document.VoucherList.opr.value="print";
+            break;
         case 4:
             document.VoucherList.action = "<%=strPath+"Close.do"%>";
             break;
@@ -61,12 +67,15 @@ function setAction(code,id){
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	   <% if((String)request.getAttribute("message") !=null){
 	   %>
-	    <tr><td colspan="5"><font color="#FF9900"><%=(String)request.getAttribute("message")%></font></td></tr>
+	    <tr><td colspan="6"><font color="#FF9900"><%=(String)request.getAttribute("message")%></font></td></tr>
 		<%}%>
-	    <tr style="<%=strColHd%>"><td colspan="5" class="titles" align="center">Budget Note List</td></tr>
+	    <tr style="<%=strColHd%>"><td colspan="6" class="titles" align="center">Budget Note List</td></tr>
 	    <tr style="<%=strColHd%>">
-		<td width="10%" align="center" class="titles" height="20">
-			X
+		<td width="20%" align="center" class="titles" height="20">
+			Del/Update
+		</td>
+		<td width="20%" align="center" class="titles" height="20">
+			Budget Note Status
 		</td>
 		<td width="20%" align="center" class="titles" height="20">
 			Date
@@ -80,6 +89,7 @@ function setAction(code,id){
 		<td width="20%" align="center" class="titles" height="20">
 			Amount (Rs.)
 		</td>
+
 	    </tr>
     	    <%
             if(hmData!=null && hmData.size()>0){
@@ -93,6 +103,7 @@ function setAction(code,id){
                         String strId = (String)hmt.get("budget_note_id");
                         String strName = (String)hmt.get("strDepartmentNm");
 						String head_name=(String)hmt.get("budget_head_name");
+						String budget_note_status=(String)hmt.get("budget_note_status");
 			String strDt = (String)hmt.get("create_date");
 			String strAmount = (String)hmt.get("budget_note_expense");
 			
@@ -107,9 +118,20 @@ function setAction(code,id){
 				<%=strId%>
 			    <a href="#" onClick="setAction(3,<%=strId%>)">DEL&nbsp;&nbsp;</a>
 					<a href="#" onClick="setAction(5,<%=strId%>)">EDIT</a>
+					<a href="#" onClick="setAction(6,<%=strId%>)">PRINT</a>
 				</td>
 				<td align="left" class="link" height="20">
-					<a href="#" onClick="setAction(2,<%=strId%>)"><%=dd_mm_yyyy%></a>
+					<%
+					if("APPROVED".equals(budget_note_status) && isAccount){
+					%>
+					<a href="#" onClick="setAction(2,<%=strId%>)"><%=budget_note_status%> Create Voucher</a>
+					<%}else{
+					%>
+					<%=budget_note_status%>
+					<%}%>
+				</td>
+				<td align="left" class="link" height="20">
+					<%=dd_mm_yyyy%>
 				</td>
 				<td align="left" class="link" height="20">
 					<%=head_name%>
@@ -120,6 +142,7 @@ function setAction(code,id){
 				<td align="left" class="link" height="20">
 					<%=strAmount%>
 				</td>
+				
 			</tr>
     			<%
                     }
@@ -136,13 +159,14 @@ function setAction(code,id){
 	            <td valign="top" height="20">&nbsp; </td>
 				<td valign="top" height="20">&nbsp; </td>
 				<td valign="top" height="20">&nbsp; </td>
+				<td valign="top" height="20">&nbsp; </td>
 	    	</tr>
 	    	<%        
 	    }
 	    %>
 	    
 	    <tr style="<%=strColHd%>"> 
-	      <td colspan="5" height="20" align="center"> 
+	      <td colspan="6" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
@@ -168,10 +192,10 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	    <tr> 
-		<td colspan=5 height="20">&nbsp;</td>
+		<td colspan=6 height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
-	      <td colspan="5" valign="top" height="20" align="center">
+	      <td colspan="6" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
 		    	<td> <input type="button" name="btn1" value="Create Budget Note" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 

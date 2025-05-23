@@ -36,9 +36,21 @@ public class VoucherDeleteHandler extends org.apache.struts.action.Action
             HashMap My = (HashMap)session.getAttribute("user");
 			String DBnm = (String)My.get("DBnm");
             CVDal cvdal = new CVDal(DBnm);
+		    DynaActionForm daf = (DynaActionForm)form;
 	    	try
 	    	{
-				int No_Of_Row=0;
+
+				sop("I am in Vocucher Delete"+daf.getMap().entrySet());
+
+                String voucher_id=(String)daf.get("id");
+
+				Vector vec = new Vector();
+				vec.addElement(voucher_id);
+				cvdal.setSQL("VoucherDelete",vec);
+				int i=cvdal.executeUpdate();
+
+
+			/*	int No_Of_Row=0;
             	Enumeration en = request.getParameterNames();
 	            while(en.hasMoreElements())
 	            {
@@ -58,7 +70,9 @@ public class VoucherDeleteHandler extends org.apache.struts.action.Action
 						}
 					}
 	            }
-	            if(No_Of_Row>0)
+	            if(No_Of_Row>0)*/
+
+
 	            		FORWARD_final = Success;
             }catch(Exception e){
                 e.printStackTrace();

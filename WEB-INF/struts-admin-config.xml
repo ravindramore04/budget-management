@@ -28,7 +28,7 @@
 		<form-property name="txtDBName" type="java.lang.String"/>
 		<form-property name="rd" type="java.lang.String"/>
 		<form-property name="operation" type="java.lang.String"/>
-		
+		<form-property name="approval" type="java.lang.String"/>		
 	</form-bean>
 
 
@@ -42,6 +42,13 @@
 		<form-property name="budget_note_status" type="java.lang.String"/>
 		<form-property name="operation_code" type="java.lang.String"/>
 		<form-property name="user_id" type="java.lang.String"/>
+		<form-property name="id" type="java.lang.String"/>
+		<form-property name="previousBudgetNoteAmount" type="java.lang.String"/>
+		<form-property name="approval" type="java.lang.String"/>
+		
+		<form-property name="NAV" type="java.lang.String"/>
+		<form-property name="current_page" type="java.lang.String"/>
+		<form-property name="Newcurrent_page" type="java.lang.String"/>
 	</form-bean>
 
 
@@ -205,7 +212,8 @@
 		<action path="/AllHeadForBudgetNote" type="struts.adminpanel.BudgetNote" name="ListForm" scope="request" validate="false">
              <forward name="success" path="/jsp/adminpanel/allheadforbudgetnote.jsp"/>
 			<forward name="createnote" path="/jsp/adminpanel/createbudgetnote.jsp"/>
-			<forward name="budgetnotelist" path="/BudgetNoteList.do"/>			 
+			<forward name="budgetnotelist" path="/BudgetNoteList.do"/>
+			 <forward name="printnote" path="/jsp/adminpanel/printbudgetnote.jsp"/>			 
 			 <forward name="failure" path="/jsp/error.jsp"/>
 		</action>
 
@@ -313,7 +321,7 @@
 			 <forward name="success" path="/NewFinanceYear.do"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>
 		</action>
-		<action path="/RptPO" type="struts.adminpanel.ChoosePODateHandler" name="FinanceForm" scope="request" validate="false">
+		<action path="/ExcelReport" type="struts.adminpanel.ExcelReport" name="FinanceForm" scope="request" validate="false">
 			 <forward name="success" path="/jsp/adminpanel/ChooseDate.jsp"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>
 		</action>

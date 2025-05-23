@@ -76,8 +76,12 @@ function setAction(code,id){
       <tr> 
       </tr>
 	<TR><TD height="2" colspan="4"></TD></TR>
-      <tr> 
+	 <tr> 
         <td width="30%" ><strong> Name of Dept.</strong></td>
+        <td colspan="3"><strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;<%=(String)hmAllo.get("strName")%></strong></td>
+      </tr>
+      <tr> 
+        <td width="30%" ><strong> Budget Head.</strong></td>
         <td colspan="3"><strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;<%=(String)hmAllo.get("strName")%></strong></td>
       </tr>
       <tr> 
@@ -136,16 +140,16 @@ function setAction(code,id){
         <td>&nbsp;</td>
       </tr>
       <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+        <td><strong>This Expenditure</strong></td>
+        <td><strong>: Rs &nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <td align="right">&nbsp;</td>
         <td >&nbsp;</td>
       </tr>
       <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
+        <td><strong>Balance after Current Expenditure</strong></td>
+        <td><strong>: Rs &nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <td align="right">&nbsp;</td>
-        <td >SIGN. OF HOD</td>
+        <td ><strong>Head of Department</strong></td>
       </tr>
  <!--     <tr> 
         <td>&nbsp;</td>
@@ -156,14 +160,14 @@ function setAction(code,id){
       <tr> 
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td><strong>Approved: Yes / No</strong></td>
+        <td align="right"></td>
+        <td></td>
       </tr>
       <tr> 
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td align="right">&nbsp;</td>
-        <td>&nbsp;</td>
+        <td><strong>Approved: Yes / No</strong>&nbsp;</td>
       </tr>
       <tr> 
         <td>&nbsp;</td>
@@ -172,10 +176,10 @@ function setAction(code,id){
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td align="center" colspan="2"><strong>Chief Accounts &amp; Finance Officer</strong></td>
+        <td align="center" colspan="2"><strong>Store &amp; Purchase Assistant</strong></td>
         <!-- <td>&nbsp;</td> -->
         <td align="right">&nbsp;</td>
-        <td><strong>Executive Director/Principal</strong></td>
+        <td><strong>Director</strong></td>
       </tr>
     </table>
 	</TD>

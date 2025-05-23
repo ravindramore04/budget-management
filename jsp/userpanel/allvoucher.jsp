@@ -4,7 +4,7 @@ int i=0;
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
     HashMap hmData=(HashMap)request.getAttribute("data"); 
-	out.println("--hmData--"+hmData);
+	//out.println("--hmData--"+hmData);
     HashMap hmPage=(HashMap)request.getAttribute("page");
     if(hmPage!=null && hmPage.size()>0){
         nCurrent_Page = Integer.parseInt((String)hmPage.get("current_page"));
@@ -28,8 +28,14 @@ function setAction(code,id){
             document.VoucherList.action = "<%=strPath+"OpenVoucher.do"%>";
             break;
         case 3:
-            //delete done later
+  			if(confirm("Are you sure you want delete Voucher : Voucher Amount will be Reverted to Budget Note?")){
             document.VoucherList.action = "<%=strPath+"VoucherDelete.do"%>";
+			document.VoucherList.operation.value="delete";
+			}
+            break;
+	    case 5:
+            document.VoucherList.action = "<%=strPath+"PrintVoucherFromList.do"%>";
+			document.VoucherList.operation.value="print";
             break;
         case 4:
             document.VoucherList.action = "<%=strPath+"Close.do"%>";
@@ -46,12 +52,13 @@ function setAction(code,id){
     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
+	<input type="hidden" name="operation" value="">
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	    <tr style="<%=strColHd%>">
 		<td width="10%" align="center" class="titles" height="20">
-			X
+			Voucher
 		</td>
 		<td width="20%" align="center" class="titles" height="20">
 			Date
@@ -88,10 +95,8 @@ function setAction(code,id){
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" class="link"  height="20">
-				<%
-					out.println(j++);
-				%>
-				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
+				<a href="#" onClick="setAction(3,<%=strId%>)">Cancel</a>
+				<a href="#" onClick="setAction(5,<%=strId%>)">Print</a>
 				</td>
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=dd_mm_yyyy%></a>

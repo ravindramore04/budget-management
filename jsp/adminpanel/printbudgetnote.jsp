@@ -5,16 +5,34 @@
 <%
 DecimalFormat d = new DecimalFormat("##0.00");
 String strPath="/budget-management/";
-HashMap hmAllo=new HashMap();
+HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
+//out.println("budgetNoteInputData====>" + hmData);
 
-hmAllo=(HashMap)request.getAttribute("Head");
-//out.println(hmAllo);
-String strBudgroupId="";
+String departmentName = "";
+String headName = "";
+String allocatedAmount = "";
+String allocation_reserved_amount = "";
+String utilisedAmount = "";
+String availableBalance = "";
+String budget_note_remark = "";
+String budget_note_expense = "";
+String balance_after_expense="";
+String budget_note_status="";
+String budget_note_id="";
 String bal="";
 String vou="";
-if(hmAllo!=null && hmAllo.size()>0){
-	//HashMap hmt=(HashMap)hmAllo.get(""+0);
-	strBudgroupId=(String)hmAllo.get("strBudgroupId");
+if(hmData!=null && hmData.size()>0){
+         departmentName = (String)hmData.get("departmentName");
+         headName = (String)hmData.get("headName");
+         allocatedAmount = (String)hmData.get("allocatedAmount");
+         allocation_reserved_amount = (String)hmData.get("reservedAmount");
+         utilisedAmount = (String)hmData.get("utilisedAmount");
+         availableBalance = (String)hmData.get("availableBalance");
+		 budget_note_status=(String)hmData.get("budget_note_status");
+		  budget_note_expense= (String)hmData.get("budget_note_expense");
+	 	budget_note_remark=(String)hmData.get("budget_note_remark");
+	 	balance_after_expense= (String)hmData.get("allocation_balance_amount_after_expense");
+		budget_note_id=(String)hmData.get("budget_note_id");
 }
 
 
@@ -58,7 +76,7 @@ function setAction(code,id){
 <form name="HeadList" method="post" action="#">
     <input type="hidden" name="page" value="PrintList">
     <input type="hidden" name="NAV" value="">
-    <input type="hidden" name="txtBGid" value="<%=strBudgroupId%>">
+    <input type="hidden" name="txtBGid" value="<%=budget_note_id%>">
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
     
@@ -69,83 +87,56 @@ function setAction(code,id){
 	<TD>
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
       <tr class="titles"> 
-        <td height="20"  colspan="5"> <div align="center"><strong>BUDGET NOTE-2007-2008</strong></div></td>
+        <td height="20"  colspan="5"> <div align="center"><strong>BUDGET NOTE-2025-2026</strong></div></td>
 
       </tr>
 	<TR><TD height="2" colspan="4"><HR></TD></TR>
       <tr> 
       </tr>
 	<TR><TD height="2" colspan="4"></TD></TR>
-      <tr> 
+	<tr> 
+        <td width="30%" ><strong> Budget Note Number.</strong></td>
+        <td colspan="3"><strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;<%=budget_note_id%></strong></td>
+      </tr>
+	 <tr> 
         <td width="30%" ><strong> Name of Dept.</strong></td>
-        <td colspan="3"><strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;<%//=(String)hmAllo.get("strName")%></strong></td>
+        <td colspan="3"><strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;<%=departmentName%></strong></td>
+      </tr>
+      <tr> 
+        <td width="30%" ><strong> Budget Head.</strong></td>
+        <td colspan="3"><strong>:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;<%=headName%></strong></td>
       </tr>
       <tr> 
         <td width="30%"><strong>Budget Sanctioned</strong></td>
         <td width="10%"><strong>: Rs</strong></td>
-        <td width="20%" align="right"><strong><%//=(String)hmAllo.get("BSUM")%></strong></td>
+        <td width="20%" align="right"><strong><%=allocatedAmount%></strong></td>
         <td>&nbsp;</td>
       </tr>
       <tr> 
         <td width="30%"><strong>Amt. already spend</strong></td>
         <td><strong>:</strong> <strong>Rs&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <td width="20%" align="right"><strong> <%
-		 bal =(String)hmAllo.get("BSUM");
-		 vou =(String)hmAllo.get("VSUM");
-		//HashMap hr=(HashMap)hmAllo.get("rr");
-	    //System.out.print("ravindra check"+hr);
-		String POSUM=""; //=(String)hr.get("POAmt");
-	
-		if(POSUM==null || "".equals(POSUM))
-			{
-			POSUM="0";
-			}
-		
-		
-		
-		if (bal!=null)
-		{
-			//double Allresult = (Double.parseDouble(vou)+Double.parseDouble(POSUM));
-			//out.print(d.format(Allresult));
-		}	
-		%><%//=Double.parseDouble((String)hmAllo.get("VSUM"))%>0</strong></td>
+		 
+		%><%=utilisedAmount%></strong></td>
         <td>&nbsp;</td>
       </tr>
       <tr> 
         <td width="30%"><strong>Balance</strong></td>
         <td><strong>: Rs &nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp; </td>
-        <td width="20%" align="right"><strong> 
-          <%
-		 bal =(String)hmAllo.get("BSUM");
-		 vou =(String)hmAllo.get("VSUM");
-		//String tds =(String)hmAllo.get("TSUM");
-		POSUM = "";//(String)hr.get("POAmt");
-		if(POSUM==null || POSUM.equals(""))
-			{
-			POSUM="0";
-			}
-		
-		
-		if (bal!=null)
-		{
-			//double result = Double.parseDouble(bal)-(Double.parseDouble(vou)+Double.parseDouble(POSUM));
-			//out.print(d.format(result));
-		}	
-		%>
-		</strong></td>
-        <td>&nbsp;</td>
+        <td width="20%" align="right"><strong><%=availableBalance%></strong></td>
+        <td align="center"><strong>Head of Department</strong></td>
       </tr>
       <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
+        <td><strong>This Expenditure</strong></td>
+        <td><strong>: Rs &nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td align="right"><%=budget_note_expense%></strong></td>
         <td >&nbsp;</td>
       </tr>
       <tr> 
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td >SIGN. OF HOD</td>
+        <td><strong>Balance after Current Expenditure</strong></td>
+        <td><strong>: Rs &nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td align="right"><%=balance_after_expense%></strong></td>
+        <td align="center"></td>
       </tr>
  <!--     <tr> 
         <td>&nbsp;</td>
@@ -156,14 +147,20 @@ function setAction(code,id){
       <tr> 
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td><strong>Approved: Yes / No</strong></td>
+        <td align="right"></td>
+        <td align="center"><strong>
+		<%if("APPROVED".equals(budget_note_status)){%>
+		Status : APPROVED
+		<%} else{%>
+		Approved: Yes / No
+		<%}%>
+		</strong></td>
       </tr>
       <tr> 
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td align="right">&nbsp;</td>
-        <td>&nbsp;</td>
+        <td align="center">&nbsp;</td>
       </tr>
       <tr> 
         <td>&nbsp;</td>
@@ -172,10 +169,10 @@ function setAction(code,id){
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td align="center" colspan="2"><strong>Chief Accounts &amp; Finance Officer</strong></td>
+        <td align="center" colspan="2"><strong>Store &amp; Purchase Assistant</strong></td>
         <!-- <td>&nbsp;</td> -->
-        <td align="right">&nbsp;</td>
-        <td><strong>Executive Director/Principal</strong></td>
+        <td align="center"><strong>Chief Accounts &amp; Finance Officer</strong></td>
+        <td  align="center"><strong>Director</strong></td>
       </tr>
     </table>
 	</TD>

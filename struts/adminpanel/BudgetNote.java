@@ -58,7 +58,14 @@ public class BudgetNote extends Action
 
                 FORWARD_final = Success;
                 // save_budget_note - END
-            }else{
+            }else if("update_budget_note".equals(operation)){
+                // update_budget_note - START
+               updateBudgetNote(cvdal, user_id, daf);
+
+                FORWARD_final = Success;
+                // update_budget_note - END
+            }
+             else{
                 //
                 String budgetAllocationId=(String)daf.get("id");
                 sop("budgetAllocationId-->" + budgetAllocationId);
@@ -110,7 +117,6 @@ public class BudgetNote extends Action
                         cvdal.setSQL("budgetNoteDataWithId", vec);
                         Vector vec1 = (Vector)cvdal.executeQuery();
                         sop("vec1====================>" + vec1);
-                        sop("create budget note.................." + budgetAllocationId);
                         request.setAttribute("budgetNoteInputData", vec1.get(0));
                         FORWARD_final = "createnote";
                     }
@@ -149,6 +155,15 @@ public class BudgetNote extends Action
                         }
                         FORWARD_final = "budgetnotelist";
                     }
+                } else if("print".equals(operation)){
+                    vec.clear();
+                    //budget note id
+                    vec.add(budgetAllocationId);
+                    cvdal.setSQL("budgetNoteDataWithId", vec);
+                    Vector vec1 = (Vector)cvdal.executeQuery();
+                    sop("vec1====================>" + vec1);
+                    request.setAttribute("budgetNoteInputData", vec1.get(0));
+                    FORWARD_final = "printnote";
                 } else{
 
                     vec.addElement(SessionUtils.getDepartmentId(session));
@@ -259,6 +274,43 @@ public class BudgetNote extends Action
         cvdal.setSQL("updateReservedBalance",queryParams);
         cvdal.executeUpdate();
     }
+
+    private void updateBudgetNote(CVDal cvdal, String user_id, DynaActionForm daf) {
+        //update budget_note set budget_note_expense='?',allocation_reserved_amount='?',allocation_balance_amount_after_expense='?',budget_note_remark='?',updated_by_user_id='?',update_date=CURRENT_DATE where budget_note_id='?'
+        String budget_note_id = (String)daf.get("id");
+        String previousBudgetNoteAmount=(String)daf.get("previousBudgetNoteAmount");
+        String approval=(String)daf.get("approval");
+        String status="DRAFT";
+        if ("yes".equals(approval)) {
+         status="APPROVED";
+        }
+
+        Vector queryParams = new Vector();
+        queryParams.add(daf.get("budget_note_expense"));
+        queryParams.add(daf.get("budget_note_expense"));
+        queryParams.add(daf.get("allocation_balance_amount_after_expense"));
+        queryParams.add(daf.get("budget_note_remark"));
+         queryParams.add(user_id);
+        queryParams.add(status);
+        queryParams.add(budget_note_id);
+
+        cvdal.setSQL("budget_note_UPDATE", queryParams);
+        cvdal.executeUpdate();
+        insertBudgetNoteHistory(cvdal, user_id, daf, budget_note_id);
+
+        queryParams.clear();
+        queryParams.add(previousBudgetNoteAmount);
+        queryParams.add(daf.get("allocationId"));
+        adjustReserveBallance(cvdal, queryParams);
+
+        queryParams.clear();
+        queryParams.add(daf.get("budget_note_expense"));
+        queryParams.add(daf.get("allocationId"));
+        cvdal.setSQL("updateReservedBalance",queryParams);
+        cvdal.executeUpdate();
+    }
+
+
 
     private void insertBudgetNoteHistory(CVDal cvdal, String user_id, DynaActionForm daf, String budget_note_id){
         Vector queryParams = new Vector();

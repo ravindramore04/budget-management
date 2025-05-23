@@ -123,6 +123,11 @@
 			 <forward name="success" path="/jsp/userpanel/printopenvoucher.jsp"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>
 		</action>
+		
+		<action path="/PrintVoucherFromList" type="struts.userpanel.OpenVoucherHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/printopenvoucher.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
 
 		<action path="/OpenVoucher" type="struts.userpanel.OpenVoucherHandler" name="VoucherForm" scope="request" validate="false">
                 <forward name="success" path="/jsp/userpanel/voucher.jsp"/>

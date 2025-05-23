@@ -1,6 +1,8 @@
-<%@page import="javax.naming.*,java.sql.*,javax.transaction.*,java.util.*,java.io.*" errorPage="" %>
+<%@page import="javax.naming.*,java.sql.*,javax.transaction.*,java.util.*,java.io.*,login.*" errorPage="" %>
 
 <%
+    
+ 
 	HashMap MyMap = new HashMap();		
 	String strPath = "/budget-management/";
 	try{
@@ -55,7 +57,7 @@
 <body >
 <form name="login"  method="post"  action="<%=strPath+"ValidatedLogin.do"%>">
 <table width="100%" background="<%=strPath+"html/_images/login_bg.jpg no-repeat" %>">
-<TR><td align="Center"><img src="/budget0.1/html/_images/award.gif" width="100" height="100"></Td></tr>
+<TR><td align="Center"></Td></tr>
 
 <Tr>
 <td align="Center"><Strong><font face="Bookman Old Style" color="BLUE" size="3">MAEER'S</font></Strong>

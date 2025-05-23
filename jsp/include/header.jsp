@@ -1,12 +1,15 @@
-<%@ page import="java.util.*" %>
+<%@ page import="java.util.*,login.*" %>
 <%
 	String strPath = "/budget-management/";
 	String strColHd = "background-color:#555555; padding:10px 10px;";
 	String strCol1 = "background-color:#ededed";
 	String strCol2 = "background-color:#d1dde5";
 	
+	boolean isAccount=SessionUtils.isAccountUser(session);
+	boolean isDepartment=SessionUtils.isAccountUser(session);
+	boolean isStoreAccount=SessionUtils.isAccountORStoreUser(session);
 	
-        HashMap hmComp = (HashMap)session.getAttribute("user");
+    HashMap hmComp = (HashMap)session.getAttribute("user");
         //out.println("inside include header --> "+hmComp);
 	String strCompName = "Company Name";
 	String strCompAddr = "Company contact details";

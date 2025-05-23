@@ -43,6 +43,20 @@ public class SessionUtils {
         return accountUser;
     }
 
+    public static boolean isStoreUser(HttpSession session){
+
+        boolean storetUser = false;
+
+        User user = (User)session.getAttribute(USER_OBJECT_KEY);
+
+        if (null != user && ( user.isStoreUser())){
+            storetUser = true;
+        }
+
+        return storetUser;
+    }
+
+
 
     public static String getDepartmentId(HttpSession session){
         String departmentId = "100001";

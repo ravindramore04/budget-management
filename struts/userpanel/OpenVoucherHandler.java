@@ -68,13 +68,25 @@ public class OpenVoucherHandler extends org.apache.struts.action.Action
                         if(vec1!=null && vec1.size()>0){
                             hmFinal = (HashMap)vec1.elementAt(0);
                         }
-                    case 3:
-                        //delete
+                        FORWARD_final = "budgetvoucher";
+                        break;
+                    case 5:
+                        //print
+                        vec.clear();
+                        vec.addElement(strId);
+                        cvdal.setSQL("GET_VOUCHER_DETAILS_FOR_PRINT", vec);
+                        vec1 = (Vector)cvdal.executeQuery();
+                        if(vec1!=null && vec1.size()>0){
+                            hmFinal = (HashMap)vec1.elementAt(0);
+                        }
+                        FORWARD_final = Success;
+                        break;
+
                 }
 
 
                 request.setAttribute("data", hmFinal);
-                FORWARD_final = "budgetvoucher";
+
             }catch(Exception e){
                 e.printStackTrace();
                 String err = eh.getError("147420");
