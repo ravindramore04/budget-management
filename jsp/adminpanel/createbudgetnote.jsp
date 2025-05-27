@@ -26,7 +26,11 @@
 
 
 	HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
+<<<<<<< HEAD
 	//out.println("budgetNoteInputData====>" + hmData);
+=======
+	out.println("budgetNoteInputData====>" + hmData);
+>>>>>>> 545e4ad1248c93f43187eb2a82cb83be98a7094d
 
 	if(hmData!=null && hmData.size()>0){
          allocationId = (String)hmData.get("allocationId");
@@ -58,8 +62,34 @@
 <%@ include file="/jsp/adminpanel/header.jsp" %>
 <script language="JavaScript">
 	function formSubmit(){
+<<<<<<< HEAD
 	    calculateDifference();
 	   // document.BudgetAllocationMaster.opr.value='insert_budget_note';
+=======
+	    document.BudgetAllocationMaster.opr.value='save';
+		var _Head = document.BudgetAllocationMaster.Head.value;
+		var _Amount = document.BudgetAllocationMaster.txtAmount.value;
+		var _Remark = document.BudgetAllocationMaster.txtRemark.value;
+		document.BudgetAllocationMaster.txtDate.value=document.BudgetAllocationMaster.YY.value+"-"+document.BudgetAllocationMaster.MM.value+"-"+document.BudgetAllocationMaster.DD.value;
+
+		if(_Head=="0")
+		{
+			alert("Select Head Name ");
+			return false;
+		}
+		if(_Amount.toString()=="")
+		{
+			alert("Enter The Amount");
+			return false;
+		}
+		else{
+			if(isNaN(_Amount))
+			{
+				alert("Enter Numeric Value");
+				return false;
+			}
+		}
+>>>>>>> 545e4ad1248c93f43187eb2a82cb83be98a7094d
 		document.BudgetAllocationMaster.submit();
 	}
 	function handleEnter(fieldname,frm){
@@ -72,6 +102,7 @@
 function calculateDifference() {
     // Get values from the input fields
 	 var ballanceBudget = parseFloat(document.getElementById("ballanceBudget").value) || 0;
+<<<<<<< HEAD
     var thisExpenditure = parseFloat(document.getElementById("budget_note_expense").value) || 0;
 	var allocation_reserved_amount= parseFloat(document.getElementById("allocation_reserved_amount").value) || 0;
     var isUpdate=document.getElementById("btn").value;
@@ -87,6 +118,15 @@ function calculateDifference() {
 
     // Set the result in text3
     document.getElementById("allocation_balance_amount_after_expense").value = result;
+=======
+    var thisExpenditure = parseFloat(document.getElementById("thisExpenditure").value) || 0;
+   
+    // Calculate the difference
+    var result = ballanceBudget - thisExpenditure;
+
+    // Set the result in text3
+    document.getElementById("ballanceAftercurrentExpenditure").value = result;
+>>>>>>> 545e4ad1248c93f43187eb2a82cb83be98a7094d
 }
 </script>
 
@@ -99,8 +139,7 @@ function calculateDifference() {
    <input type="hidden" name="opr" value="<%=operation%>">
    <input type="hidden" name="previousBudgetNoteAmount" value="<%=previousBudgetAmount%>">
    <input type="hidden" name="id" value="<%=budget_note_id%>">
-   
-   
+     
 	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
 		<tr>
 			<td width="25%" class="innertitle">Department Name </td>

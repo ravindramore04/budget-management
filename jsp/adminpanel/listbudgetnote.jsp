@@ -1,5 +1,4 @@
 <%@ include file="/jsp/adminpanel/header.jsp" %>
-
 <%
     int i=0;
     int nCurrent_Page = 0;
@@ -50,7 +49,7 @@ function setAction(code,id){
             document.VoucherList.action = "<%=strPath+"Close.do"%>";
             break;
     }
-   
+  
     document.VoucherList.submit();
 }
 
@@ -101,7 +100,6 @@ function setAction(code,id){
 		<td width="20%" align="center" class="titles" height="20">
 			Amount (Rs.)
 		</td>
-
 	    </tr>
     	    <%
             if(hmData!=null && hmData.size()>0){
@@ -116,6 +114,7 @@ function setAction(code,id){
                         String strName = (String)hmt.get("strDepartmentNm");
 						String head_name=(String)hmt.get("budget_head_name");
 						String budget_note_status=(String)hmt.get("budget_note_status");
+
 			String strDt = (String)hmt.get("create_date");
 			String strAmount = (String)hmt.get("budget_note_expense");
 			
@@ -156,7 +155,6 @@ function setAction(code,id){
 				<td align="left" class="link" height="20">
 					<%=strAmount%>
 				</td>
-				
 			</tr>
     			<%
                     }

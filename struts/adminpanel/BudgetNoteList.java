@@ -95,7 +95,6 @@ public class BudgetNoteList extends Action
 
             if(nPage<=nTotalPage){
                 vec.clear();
-
                 if (SessionUtils.isAccountORStoreUser(session)){
                     vec.addElement(""+nLowLimit);
                     vec.addElement(""+nNum_Per_Page);

@@ -49,7 +49,6 @@ public class BudgetNote extends Action
             String strPage_num ="";
             String strNavOpr = "";
             String operation=(String)daf.get("opr");
-
             sop( "operation-->" + operation);
 
             if ("insert_budget_note".equals(operation)){
@@ -224,9 +223,6 @@ public class BudgetNote extends Action
 
                 }
             }
-
-
-
         }catch(Exception e){
             e.printStackTrace();
             String err = eh.getError("138530");

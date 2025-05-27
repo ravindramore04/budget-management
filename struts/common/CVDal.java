@@ -146,7 +146,6 @@ public class CVDal
 		ALLSQL.put("openAllHeadExpanse","select budgetHead.HeadId, sum(voucher.dblAmount + voucher.dblTds) as exp from budgetHead left join voucher on budgetHead.HeadId=voucher.HeadId Group by budgetHead.HeadId order by budgetHead.strName ");
 		ALLSQL.put("openHeadExpanse","select budgetHead.HeadId, sum(voucher.dblAmount + voucher.dblTds) as exp from budgetHead left join voucher on budgetHead.HeadId=voucher.HeadId where budgetHead.HeadId='?' Group by budgetHead.HeadId");
 
-
 		ALLSQL.put("openAllHeadWithBalance","select a.AllocId, a.HeadId, a.dblAmount, b.strName, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  and a.strDepartmentId = '?' order by b.strName");
 		ALLSQL.put("openAllHeadWithBalanceWL","select a.AllocId, a.HeadId, a.dblAmount, b.strName, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  and a.strDepartmentId = '?' order by b.strName limit ?,?");
 
