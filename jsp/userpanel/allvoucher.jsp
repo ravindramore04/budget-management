@@ -57,33 +57,41 @@ function setAction(code,id){
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	    <tr style="<%=strColHd%>">
-		<td width="10%" align="center" class="titles" height="20">
-			Voucher
+		<td width="5%" align="center" class="titles" height="20">
+			Vou. Number
+		</td>
+		<td width="5%" align="center" class="titles" height="20">
+			Cancel/Print
 		</td>
 		<td width="20%" align="center" class="titles" height="20">
 			Date
 		</td>
-		<td width="25%" align="center" class="titles" height="20">
+		<td width="20%" align="center" class="titles" height="20">
 			Budget Head
 		</td>
-		<td width="25%" align="center" class="titles" height="20">
+		<td width="20%" align="center" class="titles" height="20">
 			Department
 		</td>
 		<td width="20%" align="center" class="titles" height="20">
 			Amount (Rs.)
+		</td>
+		<td width="20%" align="center" class="titles" height="20">
+			Receiver Name
 		</td>
 	    </tr>
     	    <%
             if(hmData!=null && hmData.size()>0){
             	String dd_mm_yyyy="";
             		int j=(nCurrent_Page*10)-9;
-
             	
                 for(int indx=0;indx<hmData.size();indx++){
                     HashMap hmt = (HashMap)hmData.get(""+indx);
                     if(hmt!=null && hmt.size()>0){
                         String strId = (String)hmt.get("voucher_id");
                         String strName = (String)hmt.get("strName");
+						String voucher_number = (String)hmt.get("voucher_number");
+						
+						String receiver_name=(String)hmt.get("receiver_name");
 						String strDepartmentNm=(String)hmt.get("strDepartmentNm");
 			String strDt = (String)hmt.get("voucher_date");
 			String strAmount = (String)hmt.get("amt");
@@ -94,6 +102,7 @@ function setAction(code,id){
 
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
+			    <td align="center"><%=voucher_number%></td>
 				<td align="center" class="link"  height="20">
 				<a href="#" onClick="setAction(3,<%=strId%>)">Cancel</a>
 				<a href="#" onClick="setAction(5,<%=strId%>)">Print</a>
@@ -110,6 +119,10 @@ function setAction(code,id){
 				<td align="left" class="link" height="20">
 					<%=strAmount%>
 				</td>
+				<td align="left" class="link" height="20">
+					<%=receiver_name%>
+				</td>
+				
 			</tr>
     			<%
                     }
@@ -121,9 +134,12 @@ function setAction(code,id){
             for(int indx=0;indx<nRow;indx++){
                 %>
 	        <tr> 
+			    <td valign="top" height="20">&nbsp; </td>
 	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
+				 <td valign="top" height="20">&nbsp; </td>
+				 <td valign="top" height="20">&nbsp; </td>
 				 <td valign="top" height="20">&nbsp; </td>
 	    	</tr>
 	    	<%        
@@ -131,7 +147,7 @@ function setAction(code,id){
 	    %>
 	    
 	    <tr style="<%=strColHd%>"> 
-	      <td colspan="5" height="20" align="center"> 
+	      <td colspan="7" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
@@ -157,10 +173,10 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	    <tr> 
-		<td colspan=5 height="20">&nbsp;</td>
+		<td colspan=7 height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
-	      <td colspan="5" valign="top" height="20" align="center">
+	      <td colspan="7" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
 		    	<td> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 

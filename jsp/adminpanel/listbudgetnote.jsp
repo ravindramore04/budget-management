@@ -54,6 +54,18 @@ function setAction(code,id){
     document.VoucherList.submit();
 }
 
+	function showTooltip(event, text) {
+			let tooltip = document.getElementById("tooltip");
+			tooltip.textContent = text;
+			tooltip.style.display = "block";
+			tooltip.style.left = (event.target.getBoundingClientRect().left + window.scrollX) + "px";
+			tooltip.style.top = (event.target.getBoundingClientRect().top + window.scrollY - 30) + "px";
+	}
+
+	function hideTooltip() {
+		document.getElementById("tooltip").style.display = "none";
+	}
+
 </script>
 <form name="VoucherList" method="post" action="#">
     <input type="hidden" name="page" value="VoucherList">
@@ -62,7 +74,7 @@ function setAction(code,id){
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
 	<input type="hidden" name="operation" value="">
-    
+    <div id="tooltip" class="tooltip"></div>
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	   <% if((String)request.getAttribute("message") !=null){
@@ -121,10 +133,12 @@ function setAction(code,id){
 					<a href="#" onClick="setAction(6,<%=strId%>)">PRINT</a>
 				</td>
 				<td align="left" class="link" height="20">
-					<%
+				  <%
 					if("APPROVED".equals(budget_note_status) && isAccount){
 					%>
+					<div onMouseOver="showTooltip(event, 'Click to Create Voucher')" onMouseOut="hideTooltip()">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=budget_note_status%> Create Voucher</a>
+					</div>
 					<%}else{
 					%>
 					<%=budget_note_status%>

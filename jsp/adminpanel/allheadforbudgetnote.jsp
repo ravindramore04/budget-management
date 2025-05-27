@@ -39,6 +39,18 @@ function setAction(code,id){
     document.HeadBalanceList.submit();
 }
 
+	function showTooltip(event, text) {
+			let tooltip = document.getElementById("tooltip");
+			tooltip.textContent = text;
+			tooltip.style.display = "block";
+			tooltip.style.left = (event.target.getBoundingClientRect().left + window.scrollX) + "px";
+			tooltip.style.top = (event.target.getBoundingClientRect().top + window.scrollY - 30) + "px";
+	}
+
+	function hideTooltip() {
+		document.getElementById("tooltip").style.display = "none";
+	}
+
 </script>
 <form name="HeadBalanceList" method="post" action="#">
     <input type="hidden" name="page" value="HeadBalanceList">
@@ -46,7 +58,7 @@ function setAction(code,id){
     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
-    
+    <div id="tooltip" class="tooltip"></div>
     <td width="80%" valign="top" align="center" class="tabbg">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	  <tr style="<%=strColHd%>"><td colspan="7" class="titles" align="center"><font color="#FF9900">Click on Budget Head Name to create Budget Note</font></td></tr>
@@ -95,7 +107,9 @@ function setAction(code,id){
 				<a href="#" onClick="setAction(2,<%=AllocId%>)">Create</a>
 					</td>
 				<td align="left" class="link" height="20">
+				<div onMouseOver="showTooltip(event, 'Click to Create Budget Note')" onMouseOut="hideTooltip()">
 					<a href="#" onClick="setAction(2,<%=AllocId%>)"><%=strName%></a>
+				</div>
 				</td>
 				<td align="left" class="link" height="20">
 				<%=strDepartmentNm%>

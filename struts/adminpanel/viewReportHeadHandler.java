@@ -45,10 +45,26 @@ public class viewReportHeadHandler extends org.apache.struts.action.Action
 				vec.clear();
 				DynaActionForm daf = (DynaActionForm)form;
 
-				vec.addElement(DateUtils.getFormattedCurrentDate());
-				vec.addElement(DateUtils.getFormattedCurrentDate());
+				String fromDate = (String)daf.get("fromDate");
+				String toDate = (String)daf.get("toDate");
+				String chkCash = (String)daf.get("rd");
 
-				cvdal.setSQL("ALL_VOUCHER_REPORT", vec);
+				sop("toDatetoDatetoDate >>"+toDate);
+				sop("fromDatefromDatefromDate >>"+fromDate);
+				sop("chkCashchkCashchkCash >>" + chkCash);
+
+
+				//vec.addElement(DateUtils.getFormattedCurrentDate());
+				//vec.addElement(DateUtils.getFormattedCurrentDate());
+
+				vec.addElement(fromDate);
+				vec.addElement(toDate);
+               if("3".equals(chkCash)) {
+				   cvdal.setSQL("ALL_VOUCHER_REPORT", vec);
+			   }else{
+				   vec.addElement(chkCash);
+				   cvdal.setSQL("ALL_VOUCHER_REPORT_PAY_METHOD", vec);
+			   }
 				vec1 = (Vector) cvdal.executeQuery();
 
 				List<VoucherReportRow> createVoucherReportRows = createVoucherReportRows(vec1);

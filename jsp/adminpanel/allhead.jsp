@@ -49,10 +49,8 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+	<tr style="<%=strColHd%>"><td colspan="2" class="titles" align="center"><font color="#FF9900">Budget Head List</font></td></tr>
 	    <tr style="<%=strColHd%>">
-		<td width="10%" height="20">&nbsp;
-
-		</td>
 		<td width="45%" align="center" class="titles" height="20"> Expense Head 
         </td>
 		<td width="45%" colspan="2" align="center" class="titles" height="20">
@@ -69,9 +67,6 @@ function setAction(code,id){
 			String strAccNo = (String)hmt.get("strAccNo");
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
-				<td align="center" height="20">
-				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
-				</td>
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=strName%></a>
 				</td>
@@ -89,7 +84,6 @@ function setAction(code,id){
             for(int indx=0;indx<nRow;indx++){
                 %>
 	        <tr> 
-	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	    	</tr>
@@ -98,7 +92,7 @@ function setAction(code,id){
 	    %>
 	    
 	    <tr style="<%=strColHd%>"> 
-	      <td colspan="4" height="20" align="center"> 
+	      <td colspan="3" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
@@ -124,10 +118,10 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	    <tr> 
-		<td colspan=4 height="20">&nbsp;</td>
+		<td colspan=3 height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
-	      <td colspan="4" valign="top" height="20" align="center">
+	      <td colspan="3" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
 		    	<td> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 

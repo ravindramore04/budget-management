@@ -24,6 +24,8 @@ public class BudgetNoteList extends Action
     {
         HttpSession session = request.getSession(true);
         HashMap My = (HashMap)session.getAttribute("user");
+        sop("User Session  +  " + My.get("departmentId"));
+        SessionUtils.addUserToSession(session,(String)My.get("UId"),(String)My.get("UNm"),(String)My.get("departmentId"));
         String DBnm = (String)My.get("DBnm");
         CVDal cvdal = new CVDal(DBnm);
         ErrorHandler eh = new ErrorHandler();

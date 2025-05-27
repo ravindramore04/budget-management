@@ -28,7 +28,9 @@
 		<form-property name="txtDBName" type="java.lang.String"/>
 		<form-property name="rd" type="java.lang.String"/>
 		<form-property name="operation" type="java.lang.String"/>
-		<form-property name="approval" type="java.lang.String"/>		
+		<form-property name="approval" type="java.lang.String"/>
+		<form-property name="fromDate" type="java.lang.String"/>
+		<form-property name="toDate" type="java.lang.String"/>
 	</form-bean>
 
 

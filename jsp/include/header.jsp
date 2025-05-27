@@ -35,7 +35,7 @@
 
 <html>
 <head>
-<title>Luscious Technologies Pvt. Ltd.</title>
+<title>Budget Management System</title>
 <link href="<%=strPath+"html/ndgold.css"%>" rel="stylesheet" type="text/css">
 <link href="<%=strPath+"html/css/link.css"%>" rel="stylesheet" type="text/css">
 

@@ -11,7 +11,6 @@
         nTotal_pages = Integer.parseInt((String)hmPage.get("total_page"));
     }
 %>
-<Sanjeev>
 <script language="JavaScript">
 function navigation(code){
     document.HeadBalanceList.NAV.value = code;
@@ -39,6 +38,8 @@ function setAction(code,id){
     document.HeadBalanceList.submit();
 }
 
+
+
 </script>
 <form name="HeadBalanceList" method="post" action="#">
     <input type="hidden" name="page" value="HeadBalanceList">
@@ -50,10 +51,8 @@ function setAction(code,id){
 
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+	<tr style="<%=strColHd%>"><td colspan="7" class="titles" align="center"><font color="#FF9900">Budget Allocation List</font></td></tr>
 	    <tr style="<%=strColHd%>">
-		<td width="7%" height="20">&nbsp;
-
-		</td>
 		<td width="20%" align="center" class="titles" height="20">
 			Budget Head
 		</td>
@@ -88,11 +87,10 @@ function setAction(code,id){
 			double remainAmt=Double.parseDouble(strBalance)-(Double.parseDouble(dblReservedAmount)+Double.parseDouble(dblUtilisedAmount));
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
-				<td align="center" height="20">
-				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
-				</td>
+
 				<td align="left" class="link" height="20">
-					<a href="#" onClick="setAction(2,<%=strId%>)"><%=strName%></a>
+  
+					<a href="#"  onClick="setAction(2,<%=strId%>)"><%=strName%></a>
 				</td>
 				<td align="left" class="link" height="20">
 				<%=strDepartmentNm%>
@@ -118,7 +116,6 @@ function setAction(code,id){
             for(int indx=0;indx<nRow;indx++){
                 %>
 	        <tr> 
-	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 				<td valign="top" height="20">&nbsp; </td>
@@ -131,7 +128,7 @@ function setAction(code,id){
 	    %>
 	    
 	    <tr style="<%=strColHd%>"> 
-	      <td colspan="7" height="20" align="center"> 
+	      <td colspan="6" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
@@ -157,10 +154,10 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	    <tr> 
-		<td colspan="7" height="20">&nbsp;</td>
+		<td colspan="6" height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
-	      <td colspan="7" valign="top" height="20" align="center">
+	      <td colspan="6" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
 		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn">
@@ -172,6 +169,7 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	</table>
-    </td>		
+    </td>
+			
 </form>
 <%@ include file="/jsp/include/footer.jsp" %>
