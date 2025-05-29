@@ -72,7 +72,7 @@
 	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
 		<tr> 
 			<td width="25%" class="innertitle">Department Name </td>
-			<td width="75%" colspan="3">
+			<td colspan="3">
 			<select name="strDepartmentId" class="formfield" >
 			 <option value="<%=""+0%>">-------Select---------</option>
 		<%
@@ -108,7 +108,7 @@
 
 		<tr> 
 			<td width="25%" class="innertitle">Head Name </td>
-	    <td>		 <select name="Head" accesskey="H" class="formfield">
+	    <td width="72%">		 <select name="Head" accesskey="H" class="formfield">
                                 <OPTION value="0" selected>--------Select Head--------</option>
                                 <%
                          if(hmHead!=null && hmHead.size()>0){
@@ -129,7 +129,7 @@
 			
         <td width="25%" class="innertitle">Allocation Date </td>
 			
-        <td width="75%" colspan="3"> 
+        <td colspan="3"> 
           <input type="hidden" name="txtDate" size="25" class="formfield" value=""  >
           <!-- <%=strDate%> -->
           <select name="DD" class="formfield" >
@@ -180,7 +180,7 @@
           </select></td></tr>
 		<tr> 
 			<td width="25%" class="innertitle">Amount </td>
-			<td width="75%" colspan="3"><input type="text" name="txtAmount" size="25" class="formfield" value="<%=strAmount%>" onKeyPress="handleEnter('txtRemark','BudgetAllocationMaster')"> </td>
+			<td colspan="3"><input type="text" name="txtAmount" size="25" class="formfield" value="<%=strAmount%>" onKeyPress="handleEnter('txtRemark','BudgetAllocationMaster')"> </td>
 		</tr>
 		
 		<tr> 
@@ -194,11 +194,13 @@
 				<input type="hidden" name="txtId" value="<%=strId%>">
 			</td>
 		</tr>
-		<tr> 
-			<td colspan=4 align="center">
-				<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">&nbsp;
+		<tr> <td width="30%"></td>
+			<td colspan=3 align="left">
+			
 				<input name="btnSub" type="Button" value="Submit" class="PPRSbmtBtn" onClick="formSubmit()">
+					&nbsp;<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">
 			</td>
+			
 		</tr>
 	</table>
     </form>

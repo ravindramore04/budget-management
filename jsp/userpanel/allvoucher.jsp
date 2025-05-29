@@ -18,6 +18,22 @@ function navigation(code){
     document.VoucherList.submit();
 }
 
+function deleteVoucher(code,id,bud_id,vou_amt){
+    document.VoucherList.id.value = id;
+	document.VoucherList.budget_note_id.value = bud_id;
+	document.VoucherList.voucher_amount.value = vou_amt;
+    switch(code){
+        case 3:
+  			if(confirm("Are you sure you want delete Voucher : Voucher Amount will be Reverted to Budget Note?")){
+            document.VoucherList.action = "<%=strPath+"VoucherDelete.do"%>";
+			document.VoucherList.operation.value="delete";
+			}
+            break;
+    }
+    document.VoucherList.opr.value=code;
+    document.VoucherList.submit();
+}
+
 function setAction(code,id){
     document.VoucherList.id.value = id;
     switch(code){
@@ -53,6 +69,8 @@ function setAction(code,id){
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
 	<input type="hidden" name="operation" value="">
+	<input type="text" name="budget_note_id" value="">
+	<input type="text" name="voucher_amount" value="">
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
@@ -60,10 +78,10 @@ function setAction(code,id){
 		<td width="5%" align="center" class="titles" height="20">
 			Vou. Number
 		</td>
-		<td width="5%" align="center" class="titles" height="20">
+		<td width="10%" align="center" class="titles" height="20">
 			Cancel/Print
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="10%" align="center" class="titles" height="20">
 			Date
 		</td>
 		<td width="20%" align="center" class="titles" height="20">
@@ -90,7 +108,7 @@ function setAction(code,id){
                         String strId = (String)hmt.get("voucher_id");
                         String strName = (String)hmt.get("strName");
 						String voucher_number = (String)hmt.get("voucher_number");
-						
+						String budget_note_id= (String)hmt.get("budget_note_id");
 						String receiver_name=(String)hmt.get("receiver_name");
 						String strDepartmentNm=(String)hmt.get("strDepartmentNm");
 			String strDt = (String)hmt.get("voucher_date");
@@ -104,7 +122,7 @@ function setAction(code,id){
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 			    <td align="center"><%=voucher_number%></td>
 				<td align="center" class="link"  height="20">
-				<a href="#" onClick="setAction(3,<%=strId%>)">Cancel</a>
+				<a href="#" onClick="deleteVoucher(3,<%=strId%>,<%=budget_note_id%>,<%=strAmount%>)">Cancel</a>
 				<a href="#" onClick="setAction(5,<%=strId%>)">Print</a>
 				</td>
 				<td align="left" class="link" height="20">

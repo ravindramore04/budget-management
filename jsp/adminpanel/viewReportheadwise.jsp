@@ -51,10 +51,11 @@ function setAction(code,id){
       <tr bgcolor="#E6F3FF"> 
 	  <td width="15%" height="20" align="center" class="link">Voucher No</td>
         <td width="15%" height="20" align="center" class="link">Voucher Date</td>
+		<td width="14%" height="20" align="left" class="link"><div align="center">Department</div></td>
+        <td width="28%" height="20" align="left" class="link"><div align="center">Head</div></td>
         <td width="13%" height="20" align="left" class="link"><div align="center">Voucher Total Amount</div></td>
         <td width="30%" height="20" align="left" class="link"><div align="center">Receiver Name</div></td>
-        <td width="14%" height="20" align="left" class="link"><div align="center">Department</div></td>
-        <td width="28%" height="20" align="left" class="link"><div align="center">Head</div></td>
+
       </tr>
 	  <%
 	  for (int i=0; i<createVoucherReportRows.size(); i++){
@@ -63,10 +64,11 @@ function setAction(code,id){
       <tr bgcolor=""> 
 	    <td align="center" height="20" class="link"><%=voucherReportRow.getVoucherNumebr()%></td>
         <td align="center" height="20" class="link" ><%=voucherReportRow.getCoucherDate()%></td>
-        <td align="left" class="link" height="20"><%=voucherReportRow.getVoucherAmount()%></td>
-        <td align="left" class="link" height="20">&nbsp;<div align="center"><%=voucherReportRow.getReceiverName()%></div></td>
 		<td align="left" class="link" height="20"><div align="center"><%=voucherReportRow.getDepartmentName()%></div></td>
 		<td align="left" class="link" height="20"><div align="center"><%=voucherReportRow.getHeadName()%></div></td>
+        <td align="left" class="link" height="20"><%=voucherReportRow.getVoucherAmount()%></td>
+        <td align="left" class="link" height="20">&nbsp;<div align="center"><%=voucherReportRow.getReceiverName()%></div></td>
+
       </tr>
       <%
 	  }

@@ -257,6 +257,7 @@ public class CVDal
 
 		ALLSQL.put("updateReservedBalance","Update budgetalloc set dblReservedAmount=dblReservedAmount+'?' where AllocId='?'");
 		ALLSQL.put("MinusReservedBalance","Update budgetalloc set dblReservedAmount=(dblReservedAmount-?) where AllocId='?'");
+		ALLSQL.put("adjustAllocatedAndReservedAmountOnVoucherDelete","UPDATE budgetalloc b JOIN budget_note n ON b.AllocId = n.AllocId SET b.dblReservedAmount = b.dblReservedAmount + '?',b.dblUtilisedAmount = b.dblUtilisedAmount - '?' WHERE n.budget_note_id = '?'");
 
 		ALLSQL.put("adjustAllocatedAndReservedAmount","Update budgetalloc set dblReservedAmount = dblReservedAmount - '?' , dblUtilisedAmount = dblUtilisedAmount + '?' where HeadId='?' and strDepartmentId = '?'");
 

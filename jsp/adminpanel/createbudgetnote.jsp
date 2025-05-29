@@ -176,8 +176,10 @@ function calculateDifference() {
 		<tr>
 		   <td class="innertitle" valign = "top"></td>
 			<td colspan=3 align="left">
-				<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">&nbsp;
-				<input name="btnSub" id="btn" type="Button" value="<%=bName%>" class="PPRSbmtBtn" onClick="formSubmit()">
+			<input name="btnSub" id="btn" type="Button" value="<%=bName%>" class="PPRSbmtBtn" onClick="formSubmit()">
+				&nbsp;
+				<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">
+				
 			</td>
 		</tr>
 	</table>

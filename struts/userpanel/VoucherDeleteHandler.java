@@ -43,11 +43,24 @@ public class VoucherDeleteHandler extends org.apache.struts.action.Action
 				sop("I am in Vocucher Delete"+daf.getMap().entrySet());
 
                 String voucher_id=(String)daf.get("id");
+				String voucher_amount=(String)daf.get("voucher_amount");
+                String budget_note_id=(String)daf.get("budget_note_id");
+
 
 				Vector vec = new Vector();
 				vec.addElement(voucher_id);
 				cvdal.setSQL("VoucherDelete",vec);
 				int i=cvdal.executeUpdate();
+
+                if(i>0){
+					Vector queryParams=new Vector();
+					queryParams.add(voucher_amount);
+					queryParams.add(voucher_amount);
+					queryParams.add(budget_note_id);
+					adjustReserveUtilisedBallance(cvdal, queryParams);
+
+				}
+
 
 
 			/*	int No_Of_Row=0;
@@ -93,5 +106,11 @@ public class VoucherDeleteHandler extends org.apache.struts.action.Action
 
 	public void sop(String msg){
 		System.out.println(msg);
+	}
+
+	private void adjustReserveUtilisedBallance(CVDal cvdal, Vector param){
+		cvdal.setSQL("adjustAllocatedAndReservedAmountOnVoucherDelete", param);
+		int j= cvdal.executeUpdate();
+		sop("allocation utilised >  minus ballance successfully >  " + j);
 	}
 }

@@ -54,8 +54,8 @@
 	
 	HashMap budgetData=(HashMap)request.getAttribute("data"); 
 	
-	out.print(">>"+budgetData);
-	double remain_NoteBallance=0;
+	//out.print(">>"+budgetData);
+	double remain_NoteBallance=0.00;
 	if(budgetData!=null && budgetData.size()>0){
 		 budget_note_id = (String)budgetData.get("budget_note_id");
 		 budgetNoteDate = (String)budgetData.get("create_date");
@@ -75,7 +75,7 @@
 	
 	String strAllocate = "";
 	String strexp = "";
-	double strBalance=0;
+	double strBalance=0.00;
 	
 	if(hmData!=null && hmData.size()>0){
 		strVoucherId = (String)hmData.get("voucherId");
@@ -185,7 +185,7 @@
     	    if(n1>0  || n2 >0)
     	    	txtNetAmt.value = n1+n2;   
     
-    	    txtWord.value=Num2Word(txtNetAmt.value);
+    	    txtWord.value=numberToWordsIndian(txtNetAmt.value);
 //    	    txtNetAmt
 //    	    txtAmt
     	}
@@ -221,37 +221,49 @@ function changeVisible(code){
 	else
 		document.BudgetHead.txtNo.disabled = false;
 }
-   
 
-function Num2Word(num,fmt) {
-	num = Math.round(num).toString(); // round value
-	if (num == 0) return 'zero';
-	var wnums = [['hundred','thousand','million','billion','trillion','zillion'],['one','first','ten','','th'],['two','second','twen',0,0],['three','third','thir',0,0],['four','fourth',0,0,0],['five','fifth','fif',0,0],['six','sixth',0,0,0],['seven','seventh',0,0,0],['eight','eighth','eigh',0,0],['nine','ninth',0,0,0],['ten',],['eleven',],['twelve','twelfth'],['thirteen',],['fourteen',],['fifteen',],['sixteen',],['seventeen',],['eighteen',],['nineteen',]];
-	var dot = (num.length % 3) ? num.length % 3 : 3;
-	var sets = Math.ceil(num.length/3);
-	var rslt = '';
-	for (var i = 0; i < sets; i++) {
-		var subt = num.substring((!i) ? 0 : dot + (i - 1) * 3,(!i) ? dot : dot + i * 3);
-		if (subt != 0){
-			var hdec = (subt.length > 2) ? subt.charAt(0) : 0;
-			var ddec = subt.substring(Math.max(subt.length - 2,0),subt.length);
-			var odec = subt.charAt(subt.length - 1);
-			if (hdec != 0) rslt += ' ' + wnums[hdec][0] + '-hundred ' + ((fmt && ddec == 0) ? 'th' : '');
-			if (ddec < 20 && 9 < ddec) {
-				rslt += ' ' + ((fmt) ? ((wnums[ddec][1]) ? wnums[ddec][1] : wnums[ddec][0] + 'th') : wnums[ddec][0]);
-			} else {
-				if ((0 < hdec || 1 < sets) && i + 1 == sets && 0 < ddec && ddec < 10) rslt += 'and ';
-				if (19 < ddec) rslt += wnums[ddec.charAt(0)][(wnums[ddec.charAt(0)][2]) ? 2 : 0] + ((i + 1 == sets && odec == 0 && fmt) ? 'tieth' : 'ty') + ((0 < odec) ? '-' : ' ');
-				if (0 < odec) rslt += wnums[odec][(i + 1 == sets && fmt) ? 1 : 0];
-			}
+function numberToWordsIndian(num) {
+    num = Math.round(num); // Round to nearest whole number
 
-			if (i + 1 < sets) rslt += ' ' + wnums[0][sets - i - 1] + ' ';
-		} else if (i + 1 == sets && fmt) {
-				rslt += 'th'; // add cardinal "th"
-		}
-	}
-	return rslt
+    if (num === 0) return "zero";
+				  
+	const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+    const teens = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+    const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+
+    const parts = [];
+
+    function getTwoDigitWords(n) {
+        if (n < 10) return ones[n];
+        if (n < 20) return teens[n - 10];
+        return tens[Math.floor(n / 10)] + (n % 10 ? "-" + ones[n % 10] : "");
+    }
+
+    const crore = Math.floor(num / 10000000);
+    num %= 10000000;
+    if (crore > 0) parts.push(getTwoDigitWords(crore) + " Crore");
+
+    const lakh = Math.floor(num / 100000);
+    num %= 100000;
+    if (lakh > 0) parts.push(getTwoDigitWords(lakh) + " Lakh");
+
+    const thousand = Math.floor(num / 1000);
+    num %= 1000;
+    if (thousand > 0) parts.push(getTwoDigitWords(thousand) + " Thousand");
+
+    const hundred = Math.floor(num / 100);
+    num %= 100;
+    if (hundred > 0) parts.push(ones[hundred] + " Hundred");
+
+    if (num > 0) {
+        if (parts.length > 0) parts.push("and");
+        parts.push(getTwoDigitWords(num));
+    }
+
+    return parts.join(" ");
 }
+
+
 function ActionSet(id){
 alert(id);
 	switch(id)
@@ -435,7 +447,7 @@ function handleEnter(fieldname,frm){
 			<tr> 
               <td align="left" class="innertitle"> Budget Note Amount <font size="1">(Rs.)</font> 
               </td>
-              <td align="left" class="innertitle"> <input type="text" name="budget_note_expense" size="12" class="formfield" value="<%=remain_NoteBallance%>" readonly>	
+              <td align="left" class="innertitle"> <input type="text" name="budget_note_expense" size="12" class="formfield" value="<%=remain_NoteBallance%>0" readonly>	
               </td>
             </tr>
           </table></td>
@@ -461,9 +473,9 @@ function handleEnter(fieldname,frm){
                 </select> <input type="text" name="txtType" value="<%=Stat?strType:""%>"></td>
               <td align="left"> 
                 <% if( dblTds.length()>0){ %>
-                <input type="text" name="txtTds" size="12" class="formfield" value="<%=dblTds%>"  onKeyPress="handleEnter('txtAmt','BudgetHead')"> 
+                <input type="text" name="txtTds" size="12" class="formfield" value="<%=dblTds%>"  onBlur="calcAmount()" onKeyPress="handleEnter('txtAmt','BudgetHead')"> 
                 <% }else{ %>
-                <input type="text" name="txtTds" size="12" class="formfield" value="0" onKeyPress="handleEnter('txtAmt','BudgetHead')" >	
+                <input type="text" name="txtTds" size="12" class="formfield" value="0" onBlur="calcAmount()" onKeyPress="handleEnter('txtAmt','BudgetHead')" >	
                 <% }%>
               </td>
             </tr>
@@ -519,8 +531,9 @@ function handleEnter(fieldname,frm){
           </div></td>
       </tr>
       <tr> 
-        <td colspan=4 align="center"> <input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn"> 
-          &nbsp; <input name="btnSub" type="Button" value="Submit" class="PPRSbmtBtn" onClick="return ChkDt()"> 
+        <td colspan=4 align="center">
+           <input name="btnSub" type="Button" value="Submit" class="PPRSbmtBtn" onClick="return ChkDt()"> 
+		   &nbsp; <input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn"> 
         </td>
       </tr>
     </table>

@@ -31,6 +31,8 @@
 		<form-property name="approval" type="java.lang.String"/>
 		<form-property name="fromDate" type="java.lang.String"/>
 		<form-property name="toDate" type="java.lang.String"/>
+		<form-property name="budget_note_id" type="java.lang.String"/>
+		<form-property name="voucher_amount" type="java.lang.String"/>
 	</form-bean>
 
 
