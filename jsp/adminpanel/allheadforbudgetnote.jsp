@@ -15,7 +15,7 @@
 <script language="JavaScript">
 function navigation(code){
     document.HeadBalanceList.NAV.value = code;
-    document.HeadBalanceList.action = "<%=strPath+"AllBudgetAllocation.do"%>";
+    document.HeadBalanceList.action = "<%=strPath+"AllHeadForBudgetNote.do"%>";
     document.HeadBalanceList.submit();
 }
 
@@ -158,7 +158,7 @@ function setAction(code,id){
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next<i class="arrow right"></a>&nbsp;&nbsp; 
+			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next<i class="arrow right"></i></a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page!=1){
@@ -168,7 +168,7 @@ function setAction(code,id){
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last<i class="arrow right"></a> 
+			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last<i class="arrow right"></i></a> 
 		    <%
 		}
 		%>
