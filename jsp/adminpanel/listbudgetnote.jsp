@@ -1,4 +1,4 @@
-<%@ include file="/jsp/adminpanel/header.jsp" %>
+	<%@ include file="/jsp/adminpanel/header.jsp" %>
 
 <%
     int i=0;
@@ -83,23 +83,24 @@ function setAction(code,id){
 		<%}%>
 	    <tr style="<%=strColHd%>"><td colspan="6" class="titles" align="center">Budget Note List</td></tr>
 	    <tr style="<%=strColHd%>">
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="16%" align="center" class="titles" height="20">
 			Del/Update
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="18%" align="center" class="titles" height="20">
 			Budget Note Status
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="14%" align="center" class="titles" height="20">
 			Date
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="18%" align="center" class="titles" height="20">
 			Head Name
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
-			Department
-		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="16%" align="center" class="titles" height="20">
 			Amount (Rs.)
+		</td>
+		
+		<td width="18%" align="center" class="titles" height="20">
+			Department
 		</td>
 
 	    </tr>
@@ -150,12 +151,14 @@ function setAction(code,id){
 				<td align="left" class="link" height="20">
 					<%=head_name%>
 				</td>
-				<td align="left" class="link" height="20">
-					<%=strName%>
-				</td>
+				
 				<td align="left" class="link" height="20">
 					<%=strAmount%>
 				</td>
+				<td align="left" class="link" height="20">
+					<%=strName%>
+				</td>
+
 				
 			</tr>
     			<%

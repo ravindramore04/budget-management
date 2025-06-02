@@ -165,9 +165,13 @@ public class BudgetNote extends Action
                     request.setAttribute("budgetNoteInputData", vec1.get(0));
                     FORWARD_final = "printnote";
                 } else{
+                    if(SessionUtils.isAccountUser(session)){
+                        cvdal.setSQL("openAllHeadWithBalanceAllDept", vec);
+                    }else{
+                        vec.addElement(SessionUtils.getDepartmentId(session));
+                        cvdal.setSQL("openAllHeadWithBalance", vec);
+                    }
 
-                    vec.addElement(SessionUtils.getDepartmentId(session));
-                    cvdal.setSQL("openAllHeadWithBalance", vec);
                     Vector vec1 = (Vector)cvdal.executeQuery();
                     sop("vec1====================>"+vec1);
                     if(vec1!=null && vec1.size()>0){
@@ -198,10 +202,21 @@ public class BudgetNote extends Action
 
                     if(nPage<=nTotalPage){
                         vec.clear();
-                        vec.addElement(SessionUtils.getDepartmentId(session));
-                        vec.addElement(""+nLowLimit);
-                        vec.addElement(""+nNum_Per_Page);
-                        cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+
+                        if(SessionUtils.isAccountUser(session)){
+                            vec.addElement(""+nLowLimit);
+                            vec.addElement(""+nNum_Per_Page);
+                            cvdal.setSQL("openAllHeadWithBalanceAllDeptWL", vec);
+                        }else{
+                            vec.addElement(SessionUtils.getDepartmentId(session));
+                            vec.addElement(""+nLowLimit);
+                            vec.addElement(""+nNum_Per_Page);
+                            cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+                        }
+
+
+
+
                         vec1 = (Vector)cvdal.executeQuery();
                         if(vec1!=null && vec1.size()>0){
                             for(int indx=0;indx<vec1.size();indx++){

@@ -1,7 +1,9 @@
 <%@ include file="/jsp/adminpanel/header.jsp" %>
+<%@ page import="java.util.*,java.text.*" %>
 <%
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
+	DecimalFormat d = new DecimalFormat("##0.00");
     HashMap hmData=(HashMap)request.getAttribute("data"); 
     //out.println("Sanjeev<BR>"+hmData);
     HashMap hmPage=(HashMap)request.getAttribute("page");
@@ -103,7 +105,7 @@ function setAction(code,id){
 					<%=dblUtilisedAmount%>
 				</td>
 				
-        <td align="left" class="link" height="20"> <%=remainAmt%></td>
+        <td align="left" class="link" height="20"> <%=d.format(remainAmt)%></td>
 
 			</tr>
     			<%

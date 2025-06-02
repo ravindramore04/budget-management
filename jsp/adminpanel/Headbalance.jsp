@@ -92,7 +92,7 @@ function setAction(code,id){
 			            String strBalance = (String)hmt.get("dblAmount");
 						String strRemark = (String)hmt.get("strRemark");
                         %>
-			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
 				    <input type="hidden" name="<%="chk"+indx%>" value="<%=strId%>"> 
 				</td>

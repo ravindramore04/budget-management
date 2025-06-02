@@ -69,8 +69,8 @@ function setAction(code,id){
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
 	<input type="hidden" name="operation" value="">
-	<input type="text" name="budget_note_id" value="">
-	<input type="text" name="voucher_amount" value="">
+	<input type="hidden" name="budget_note_id" value="">
+	<input type="hidden" name="voucher_amount" value="">
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
