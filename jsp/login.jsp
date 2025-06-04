@@ -1,11 +1,13 @@
-<%@page import="javax.naming.*,java.sql.*,javax.transaction.*,java.util.*,java.io.*" errorPage="" %>
+<%@page import="javax.naming.*,java.sql.*,javax.transaction.*,java.util.*,java.io.*,login.*" errorPage="" %>
 
 <%
+    
+ 
 	HashMap MyMap = new HashMap();		
-	String strPath = "/budget0.1/";
+	String strPath = "/budget-management/";
 	try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection conn  = DriverManager.getConnection("jdbc:mysql://localhost/finance?user=root&password=");
+			Connection conn  = DriverManager.getConnection("jdbc:mysql://localhost:3306/finance?user=root&password=root");
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * from finance.Finance_Year order by F_Year");
 			ResultSetMetaData md = rs.getMetaData();
@@ -54,27 +56,34 @@
 </head>
 <body >
 <form name="login"  method="post"  action="<%=strPath+"ValidatedLogin.do"%>">
-<table width="100%" background="<%=strPath+"html/_images/login_bg.jpg" %>">
+<table width="100%" background="<%=strPath+"html/_images/login_bg.jpg no-repeat" %>">
+<TR><td align="Center"></Td></tr>
+
 <Tr>
 <td align="Center"><Strong><font face="Bookman Old Style" color="BLUE" size="3">MAEER'S</font></Strong>
 </td>
 <TR><td align="Center"><Strong><font face="Bookman Old Style" color="BLUE" size="3">MIT Arts,Commerce & Science College, Alandi Pune </font></Strong></td></TR>
-<TR><td align="Center"><Strong><font face="Bookman Old Style" color="BLUE" size="3">Annual Budget</font></Strong></Td></tr>	
+<tr>
+ <td colspan="2"></td>
+ <td colspan="2"></td>
+</tr>
+<TR><td align="Center"><Strong><font face="Bookman Old Style" color="BLUE" size="3" style="text-transform: uppercase; margin-top:20px">Annual Budget</font></Strong></Td></tr>	
 
-<tr><td><table width="50%" border="0" cellspacing="1" cellpadding="4" align="center" >
+<tr><td>
+<table width="50%" border="0" cellspacing="1" cellpadding="4" align="center" >
           <tr> 
             <td width="26%" class="link">User Name:</td>
-            <td colspan="3"><input type="text" name="txtuser" size="25" class="formfield"> 
+            <td colspan="3"><input type="text" name="txtuser" size="25" class="formfield" style="padding:10px;"> 
             </td>
           </tr>
           <tr> 
             <td width="26%"  class="link">Password:</td>
-            <td  colspan="3"><input type="password" name="txtpassword" size="25" class="formfield"></td>
+            <td  colspan="3"><input type="password" name="txtpassword" size="25" class="formfield" style="padding:10px;"></td>
           </tr>
           <tr>
             <td  class="link">Year</td>
             <td  colspan="3">
-			<select name="Year">
+			<select name="Year" class="formfield" style="padding:10px 21px; font-size:12px;">
 			<option value="0">[ Select Finance Year]</option>
 			
 			<%
@@ -99,15 +108,15 @@
         <p align="center"> 
           <input type="button" name="logintype" value="Login" class="PPRSbmtBtn" onClick="setAction()">
         </p>
-        <table width="80%" border="0" align="center" cellpadding="2" cellspacing="2">
+        <!--<table width="80%" border="0" align="center" cellpadding="2" cellspacing="2">
           <tr> 
             <td colspan="2"><div align="center"><font size="2">Concept of</font></div></td>
             <td width="51%" colspan="2"> 
               <div align="center"><font size="2">Design by </font></div></td>
           </tr>
           <tr> 
-            <td colspan="2"><HR></td>
-            <td colspan="2"><HR></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
           </tr>
           <tr> 
             <td colspan="2"><div align="center"><font size="2"><strong>&nbsp;&nbsp;Mr. 
@@ -121,7 +130,7 @@
             <td colspan="2"><div align="center"><font size="2"><strong>&nbsp;&nbsp;Our 
                 Products</strong></font></div></td>
           </tr>
-        </table>
+        </table>-->
         <p align="center">&nbsp;</p>
 <!--        <p align="center">&nbsp;</p>
         <p align="center">&nbsp;</p> 

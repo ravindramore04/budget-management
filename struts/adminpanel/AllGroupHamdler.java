@@ -41,7 +41,7 @@ public class AllGroupHamdler extends org.apache.struts.action.Action
                     CVDal cvdal = new CVDal(DBnm);
                     HashMap hmFinal = new HashMap();
                     Vector vec = new Vector();
-
+                   //sdsd
                     DynaActionForm daf = (DynaActionForm)form;
                     String strPage_num ="";
                     String strNavOpr = "";
@@ -61,6 +61,8 @@ public class AllGroupHamdler extends org.apache.struts.action.Action
 
                     if(!(strPage_num == null || strPage_num.length()==0))
                         nPage = Double.parseDouble(strPage_num);
+
+                    createExcelReport(cvdal);
 
                     vec.clear();
                     cvdal.setSQL("openAllDepartment", vec);
@@ -126,6 +128,13 @@ public class AllGroupHamdler extends org.apache.struts.action.Action
             sop("forward value is--> "+FORWARD_final);
             return (mapping.findForward(FORWARD_final));
 	}//End of execute()
+
+    private void createExcelReport( CVDal cvdal){
+
+        cvdal.setSQL("get_All_Allocation_Status_Report", new Vector());
+        Vector vec1 = (Vector)cvdal.executeQuery();
+
+    }
 
 	public void sop(String msg){
 		System.out.println(msg);

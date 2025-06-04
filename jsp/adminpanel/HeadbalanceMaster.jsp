@@ -8,10 +8,13 @@
 	String strAmount = "";
 	String strRemark = "";
 	String Str="",strDD="",strMM="",strYY="";
+	String bgNm="";
 	            	
 
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
 	HashMap hmHead=(HashMap)request.getAttribute("head"); 
+	HashMap hmGroup=(HashMap)request.getAttribute("ghead");
+	//out.print(hmGroup);
 	if(hmData!=null && hmData.size()>0){
 		strId = (String)hmData.get("AllocId");
 		strHeadId = (String)hmData.get("HeadId");
@@ -24,6 +27,7 @@
 //		alert(dd_mm_yyyy);
 		strAmount = (String)hmData.get("dblAmount");
 		strRemark = (String)hmData.get("strRemark");
+		bgNm=(String)hmData.get("strDepartmentId");
 	}
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
@@ -60,6 +64,10 @@
 		}
      }
 
+const select = document.getElementById('mySelect');
+  select.addEventListener('mousedown', function(e) {
+    e.preventDefault(); // Prevents the dropdown from opening
+  });
 
 </script>
 <td width="80%" valign="top">
@@ -67,13 +75,45 @@
    <input type="hidden" name="page" value="BudgetAllocationMaster">
 	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
 		<tr> 
-			<td colspan=4>&nbsp;</td>
+			<td width="25%" class="innertitle">Department Name </td>
+			<td colspan="3">
+			<select name="strDepartmentId" class="formfield" >
+			 <option value="<%=""+0%>">-------Select---------</option>
+		<%
+			if(hmGroup!=null && hmGroup.size()>0){
+				for(int i=0;i<hmGroup.size();i++){
+					HashMap hmt=(HashMap)hmGroup.get(""+i);
+					String strDepartmentId=(String)hmt.get("strDepartmentId");
+					String strDepartmentNm=(String)hmt.get("strDepartmentNm");
+					
+				if(bgNm.equals(strDepartmentId)){
+		%>	
+		
+		
+			<option value="<%=strDepartmentId%>" selected> <%=strDepartmentNm%> </option>
+		
+		
+		
+		<%
+				}else{
+		%>
+		<option value="<%=strDepartmentId%>" > <%=strDepartmentNm%> </option>
+		
+		<%
+				}
+			     }
+			}
+		
+		%>
+			</select>
+			</td>
 		</tr>
+
 
 		<tr> 
 			<td width="25%" class="innertitle">Head Name </td>
-	    <td>		 <select name="Head" accesskey="H" >
-                                <OPTION value="0" selected>--------Select Head--------</option>
+	    <td width="72%">		 <select id="mySelect"  name="Head" accesskey="H" class="formfield">
+                                <OPTION value="0"  selected>--------Select Head--------</option>
                                 <%
                          if(hmHead!=null && hmHead.size()>0){
                                     for(int indx=0;indx<hmHead.size();indx++){
@@ -93,10 +133,10 @@
 			
         <td width="25%" class="innertitle">Allocation Date </td>
 			
-        <td width="75%" colspan="3"> 
+        <td colspan="3"> 
           <input type="hidden" name="txtDate" size="25" class="formfield" value=""  >
           <!-- <%=strDate%> -->
-          <select name="DD">
+          <select name="DD" class="formfield" >
             <% for(int i=1;i<=31;i++)
 	            { 
 	             if(i<10)
@@ -113,7 +153,7 @@
             <option value="<%=Str%>"><%=Str%></option>
             <% } } %>
           </select>
-          <select name="MM">
+          <select name="MM" class="formfield">
             <% 
             for(int i=1;i<=12;i++)
 		    { 
@@ -130,7 +170,7 @@
             <option value="<%=Str%>"><%=Str%></option>
             <% } } %>
           </select>
-          <select name="YY">
+          <select name="YY" class="formfield" >
             <% for(int i=2000;i<=2050;i++)
             { 
 	        Str=""+i;
@@ -144,7 +184,7 @@
           </select></td></tr>
 		<tr> 
 			<td width="25%" class="innertitle">Amount </td>
-			<td width="75%" colspan="3"><input type="text" name="txtAmount" size="25" class="formfield" value="<%=strAmount%>" onKeyPress="handleEnter('txtRemark','BudgetAllocationMaster')"> </td>
+			<td colspan="3"><input type="text" name="txtAmount" size="25" class="formfield" value="<%=strAmount%>" onKeyPress="handleEnter('txtRemark','BudgetAllocationMaster')"> </td>
 		</tr>
 		
 		<tr> 
@@ -158,11 +198,13 @@
 				<input type="hidden" name="txtId" value="<%=strId%>">
 			</td>
 		</tr>
-		<tr> 
-			<td colspan=4 align="center">
-				<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">&nbsp;
+		<tr> <td width="30%"></td>
+			<td colspan=3 align="left">
+			
 				<input name="btnSub" type="Button" value="Submit" class="PPRSbmtBtn" onClick="formSubmit()">
+					&nbsp;<input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn">
 			</td>
+			
 		</tr>
 	</table>
     </form>

@@ -26,7 +26,7 @@ public class PrintviewReportHeadHandler extends org.apache.struts.action.Action
 	private static final String Success_all = "success_all";
 	public static final String GLOBAL_FORWARD_failure = "failure";
 	private static String FORWARD_final = GLOBAL_FORWARD_failure;
-	 private static final String path="..\\webapps\\budget0.1\\upload\\";
+	 private static final String path="..\\webapps\\budget-management\\upload\\";
 
 
     public ActionForward execute(ActionMapping mapping, ActionForm form,HttpServletRequest request,

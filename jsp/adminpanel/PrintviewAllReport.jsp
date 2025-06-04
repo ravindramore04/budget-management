@@ -1,6 +1,6 @@
 <%@ page import="java.util.*,java.text.*" %>
 <% DecimalFormat d = new DecimalFormat("##0.00");
-String strPath="/budget0.1/";
+String strPath="/budget-management/";
 HashMap Allo=new HashMap();
 HashMap Vouc=new HashMap();
 HashMap HMFinal=new HashMap();

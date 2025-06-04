@@ -27,14 +27,42 @@
 		<form-property name="txtYear1" type="java.lang.String"/>
 		<form-property name="txtDBName" type="java.lang.String"/>
 		<form-property name="rd" type="java.lang.String"/>
-		
-		</form-bean>
-	
+		<form-property name="operation" type="java.lang.String"/>
+		<form-property name="approval" type="java.lang.String"/>
+		<form-property name="fromDate" type="java.lang.String"/>
+		<form-property name="toDate" type="java.lang.String"/>
+		<form-property name="budget_note_id" type="java.lang.String"/>
+		<form-property name="voucher_amount" type="java.lang.String"/>
+		<form-property name="searchBN" type="java.lang.String"/>
+	</form-bean>
+
+
+	<form-bean name="CreateBudgetNoteForm" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="opr" type="java.lang.String"/>
+		<form-property name="allocationId" type="java.lang.String"/>
+		<form-property name="budget_note_expense" type="java.lang.String"/>
+		<form-property name="allocation_reserved_amount" type="java.lang.String"/>
+		<form-property name="allocation_balance_amount_after_expense" type="java.lang.String"/>
+		<form-property name="budget_note_remark" type="java.lang.String"/>
+		<form-property name="budget_note_status" type="java.lang.String"/>
+		<form-property name="operation_code" type="java.lang.String"/>
+		<form-property name="user_id" type="java.lang.String"/>
+		<form-property name="id" type="java.lang.String"/>
+		<form-property name="previousBudgetNoteAmount" type="java.lang.String"/>
+		<form-property name="approval" type="java.lang.String"/>
+		<form-property name="ponumber" type="java.lang.String"/>
+		<form-property name="NAV" type="java.lang.String"/>
+		<form-property name="current_page" type="java.lang.String"/>
+		<form-property name="Newcurrent_page" type="java.lang.String"/>
+	</form-bean>
+
+
 	<form-bean name="UserForm" type="org.apache.struts.validator.DynaValidatorForm">
 		<form-property name="txtId" type="java.lang.String"/>
 		<form-property name="txtName" type="java.lang.String"/>
 		<form-property name="txtLogin" type="java.lang.String"/>
 		<form-property name="txtPassword" type="java.lang.String"/>
+		<form-property name="strDepartmentId" type="java.lang.String"/>
 	</form-bean>
 
 	<form-bean name="OrganiForm" type="org.apache.struts.validator.DynaValidatorForm">
@@ -49,12 +77,15 @@
 		<form-property name="txtId" type="java.lang.String"/>
 		<form-property name="txtName" type="java.lang.String"/>
 		<form-property name="strHeadOfDeptNm" type="java.lang.String"/>
-		<form-property name="strDepartmentId" type="java.lang.String"/>
 		<form-property name="NAV" type="java.lang.String"/>
 		<form-property name="current_page" type="java.lang.String"/>
 		<form-property name="Newcurrent_page" type="java.lang.String"/>
-		<form-property name="txtRemark" type="java.lang.String"/>
 		
+		<form-property name="strDepartmentId" type="java.lang.String"/>
+		<form-property name="txtRemark" type="java.lang.String"/>
+		<form-property name="txtAmount" type="java.lang.String"/>
+		<form-property name="Head" type="java.lang.String"/>
+		<form-property name="txtDate" type="java.lang.String"/>
 	</form-bean>
 	
 	<form-bean name="BudgetAllocationForm" type="org.apache.struts.validator.DynaValidatorForm">
@@ -63,8 +94,20 @@
 		<form-property name="txtDate" type="java.lang.String"/>
 		<form-property name="txtAmount" type="java.lang.String"/>
 		<form-property name="txtRemark" type="java.lang.String"/>
-				
+		<form-property name="strDepartmentId" type="strDepartmentId"/>		
 	</form-bean>
+	
+	<form-bean name="BudgetAllocationMaster" type="org.apache.struts.validator.DynaValidatorForm">
+		<form-property name="txtId" type="java.lang.String"/>
+		<form-property name="Head" type="java.lang.String"/>
+		<form-property name="txtDate" type="java.lang.String"/>
+		<form-property name="txtAmount" type="java.lang.String"/>
+		<form-property name="txtRemark" type="java.lang.String"/>
+		<form-property name="strDepartmentId" type="strDepartmentId"/>		
+	</form-bean>
+	
+	
+	
 	<form-bean name="ChngPswd" type="org.apache.struts.validator.DynaValidatorForm">
 		<form-property name="txtOldPassword" type="java.lang.String"/>
 		<form-property name="txtPassword" type="java.lang.String"/>
@@ -169,8 +212,31 @@
 		<action path="/AllBudgetAllocation" type="struts.adminpanel.AllHeadBalanceHandler" name="ListForm" scope="request" validate="false">
                          <forward name="success" path="/jsp/adminpanel/allheadbalance.jsp"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>
-		</action>		
+		</action>
 		
+		<action path="/AllHeadForBudgetNote" type="struts.adminpanel.BudgetNote" name="ListForm" scope="request" validate="false">
+             <forward name="success" path="/jsp/adminpanel/allheadforbudgetnote.jsp"/>
+			<forward name="createnote" path="/jsp/adminpanel/createbudgetnote.jsp"/>
+			<forward name="budgetnotelist" path="/BudgetNoteList.do"/>
+			 <forward name="printnote" path="/jsp/adminpanel/printbudgetnote.jsp"/>			 
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+
+		<!-- actions from - createbudgetnote.jsp - START -->
+		<action path="/SaveBudgetNote" type="struts.adminpanel.BudgetNote" name="CreateBudgetNoteForm" scope="request" validate="false">
+			<forward name="success" path="/BudgetNoteList.do"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<!-- actions from - createbudgetnote.jsp - END -->
+
+		<!-- actions from - listbudgetnote.jsp - START -->
+		<action path="/BudgetNoteList" type="struts.adminpanel.BudgetNoteList" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/listbudgetnote.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		<!-- actions from - listbudgetnote.jsp - END -->
+
+
 		<action path="/openBudgetAllocation" type="struts.adminpanel.AllBudgetAllocationHandler" name="ListForm" scope="request" validate="false">
 			 <forward name="success" path="/jsp/adminpanel/Headbalance.jsp"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>
@@ -182,7 +248,7 @@
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>		
 		
-		<action path="/SaveBudgetAllocation" type="struts.adminpanel.saveBudgetAllocationHandler" name="BudgetAllocationForm" scope="request" validate="false">
+		<action path="/SaveBudgetAllocation" type="struts.adminpanel.saveBudgetAllocationHandler" name="HeadForm" scope="request" validate="false">
 			<forward name="success" path="/AllBudgetAllocation.do"/>
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>		
@@ -260,7 +326,7 @@
 			 <forward name="success" path="/NewFinanceYear.do"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>
 		</action>
-		<action path="/RptPO" type="struts.adminpanel.ChoosePODateHandler" name="FinanceForm" scope="request" validate="false">
+		<action path="/ExcelReport" type="struts.adminpanel.ExcelReport" name="FinanceForm" scope="request" validate="false">
 			 <forward name="success" path="/jsp/adminpanel/ChooseDate.jsp"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>
 		</action>

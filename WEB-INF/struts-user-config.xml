@@ -20,7 +20,6 @@
 		<form-property name="txtId" type="java.lang.String"/>
 		<form-property name="txtDt" type="java.lang.String"/>
 		<form-property name="txtNo" type="java.lang.String"/>
-		<form-property name="txtHeadId" type="java.lang.String"/>
 		<form-property name="txtAmt" type="java.lang.String"/>
 		<form-property name="txtTds" type="java.lang.String"/>
 		<form-property name="txtType" type="java.lang.String"/>
@@ -32,8 +31,23 @@
 		<form-property name="txtReceiver" type="java.lang.String"/>
 		<form-property name="txtChqno" type="java.lang.String"/>
 		<form-property name="page" type="java.lang.String"/>
+		<form-property name="operation" type="java.lang.String"/>
+		<form-property name="NAV" type="java.lang.String"/>
+		<form-property name="current_page" type="java.lang.String"/>
+		<form-property name="Newcurrent_page" type="java.lang.String"/>
+		<form-property name="id" type="java.lang.String"/>
+		<form-property name="opr" type="java.lang.String"/>
+		
+		<form-property name="allocated_amount" type="java.lang.String"/>
+		<form-property name="dblUtilisedAmount" type="java.lang.String"/>
+		<form-property name="BallanceAmount" type="java.lang.String"/>
+		<form-property name="budget_note_expense" type="java.lang.String"/>
+		<form-property name="budget_note_id" type="java.lang.String"/>
+		<form-property name="HeadId" type="java.lang.String"/>
+		<form-property name="strDepartmentId" type="java.lang.String"/>
 		
 	</form-bean>
+	
 	<form-bean name="PurchaseForm" type="org.apache.struts.validator.DynaValidatorForm">
 		<form-property name="txtId" type="java.lang.String"/>
 		<form-property name="txtDt" type="java.lang.String"/>
@@ -109,9 +123,15 @@
 			 <forward name="success" path="/jsp/userpanel/printopenvoucher.jsp"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>
 		</action>
+		
+		<action path="/PrintVoucherFromList" type="struts.userpanel.OpenVoucherHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/userpanel/printopenvoucher.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
 
-		<action path="/OpenVoucher" type="struts.userpanel.OpenVoucherHandler" name="ListForm" scope="request" validate="false">
+		<action path="/OpenVoucher" type="struts.userpanel.OpenVoucherHandler" name="VoucherForm" scope="request" validate="false">
                 <forward name="success" path="/jsp/userpanel/voucher.jsp"/>
+				<forward name="budgetvoucher" path="/jsp/adminpanel/BudgetVoucher.jsp"/>
 			 	<forward name="failure" path="/jsp/error.jsp"/>
 		</action>
 

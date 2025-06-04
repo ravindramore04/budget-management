@@ -59,6 +59,19 @@ public class OpenUserHandler extends org.apache.struts.action.Action
                         //delete
                 }
 
+                HashMap departments = new HashMap();
+                vec.clear();
+                //vec.addElement(strId);
+                cvdal.setSQL("openAllDepartment", vec);
+                Vector vec11 = (Vector)cvdal.executeQuery();
+                if(vec11!=null && vec11.size()>0){
+                    for(int i=0;i<vec11.size();i++){
+                        HashMap hm = (HashMap)vec11.elementAt(i);
+                        departments.put(""+i,hm);
+                    }
+                    request.setAttribute("departments",departments);
+                }
+
                 request.setAttribute("data", hmFinal);
                 FORWARD_final = Success;
             }catch(Exception e){

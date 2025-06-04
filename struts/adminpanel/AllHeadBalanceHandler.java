@@ -1,5 +1,6 @@
 package struts.adminpanel;
 
+import login.SessionUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -44,6 +45,7 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
                     DynaActionForm daf = (DynaActionForm)form;
                     String strPage_num ="";
                     String strNavOpr = "";
+
                     if(daf!=null){
                         strPage_num = (String)daf.get("current_page");
                         strNavOpr = (String)daf.get("NAV");
@@ -60,7 +62,14 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
                         nPage = Double.parseDouble(strPage_num);
 
                     vec.clear();
-                    cvdal.setSQL("openAllHeadWithBalance", vec);
+
+                    if (SessionUtils.isAccountORStoreUser(session)){
+                        cvdal.setSQL("openAllHeadWithBalanceAllDept", vec);
+                    }else{
+                        vec.addElement(SessionUtils.getDepartmentId(session));
+                        cvdal.setSQL("openAllHeadWithBalance", vec);
+                    }
+
                     Vector vec1 = (Vector)cvdal.executeQuery();
                     sop("vec1====================>"+vec1);
                     if(vec1!=null && vec1.size()>0){
@@ -91,9 +100,20 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
 
                     if(nPage<=nTotalPage){
                         vec.clear();
-                        vec.addElement(""+nLowLimit);
-                        vec.addElement(""+nNum_Per_Page);
-                        cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+
+                        if (SessionUtils.isAccountORStoreUser(session)){
+                            vec.addElement(""+nLowLimit);
+                            vec.addElement("" + nNum_Per_Page);
+                            cvdal.setSQL("openAllHeadWithBalanceAllDeptWL", vec);
+                        }else{
+                            vec.addElement(SessionUtils.getDepartmentId(session));
+                            vec.addElement(""+nLowLimit);
+                            vec.addElement("" + nNum_Per_Page);
+                            cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+                        }
+
+
+//                      cvdal.setSQL("openAllHeadWithBalanceAllDeptWL", vec);
                         vec1 = (Vector)cvdal.executeQuery();
                         if(vec1!=null && vec1.size()>0){
                             for(int indx=0;indx<vec1.size();indx++){

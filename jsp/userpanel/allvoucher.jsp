@@ -1,4 +1,4 @@
-<%@ include file="/jsp/userpanel/header.jsp" %>
+<%@ include file="/jsp/adminpanel/header.jsp" %>
 <%
 int i=0;
     int nCurrent_Page = 0;
@@ -18,18 +18,40 @@ function navigation(code){
     document.VoucherList.submit();
 }
 
+function deleteVoucher(code,id,bud_id,vou_amt){
+    document.VoucherList.id.value = id;
+	document.VoucherList.budget_note_id.value = bud_id;
+	document.VoucherList.voucher_amount.value = vou_amt;
+    switch(code){
+        case 3:
+  			if(confirm("Are you sure you want delete Voucher : Voucher Amount will be Reverted to Budget Note?")){
+            document.VoucherList.action = "<%=strPath+"VoucherDelete.do"%>";
+			document.VoucherList.operation.value="delete";
+			}
+            break;
+    }
+    document.VoucherList.opr.value=code;
+    document.VoucherList.submit();
+}
+
 function setAction(code,id){
     document.VoucherList.id.value = id;
     switch(code){
         case 1:
-            document.VoucherList.action = "<%=strPath+"OpenVoucher.do"%>";
+            document.VoucherList.action = "<%=strPath+"BudgetNoteList.do"%>";
             break;
         case 2:
             document.VoucherList.action = "<%=strPath+"OpenVoucher.do"%>";
             break;
         case 3:
-            //delete done later
+  			if(confirm("Are you sure you want delete Voucher : Voucher Amount will be Reverted to Budget Note?")){
             document.VoucherList.action = "<%=strPath+"VoucherDelete.do"%>";
+			document.VoucherList.operation.value="delete";
+			}
+            break;
+	    case 5:
+            document.VoucherList.action = "<%=strPath+"PrintVoucherFromList.do"%>";
+			document.VoucherList.operation.value="print";
             break;
         case 4:
             document.VoucherList.action = "<%=strPath+"Close.do"%>";
@@ -46,35 +68,50 @@ function setAction(code,id){
     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
+	<input type="hidden" name="operation" value="">
+	<input type="hidden" name="budget_note_id" value="">
+	<input type="hidden" name="voucher_amount" value="">
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	    <tr bgcolor="<%=strColHd%>">
-		<td width="10%" align="center" class="titles" height="20">
-			X
+	    <tr style="<%=strColHd%>">
+		<td width="5%" align="center" class="titles" height="20">
+			Vou. Number
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="10%" align="center" class="titles" height="20">
+			Cancel/Print
+		</td>
+		<td width="10%" align="center" class="titles" height="20">
 			Date
 		</td>
-		<td width="50%" align="center" class="titles" height="20">
+		<td width="20%" align="center" class="titles" height="20">
 			Budget Head
 		</td>
 		<td width="20%" align="center" class="titles" height="20">
+			Department
+		</td>
+		<td width="20%" align="center" class="titles" height="20">
 			Amount (Rs.)
+		</td>
+		<td width="20%" align="center" class="titles" height="20">
+			Receiver Name
 		</td>
 	    </tr>
     	    <%
             if(hmData!=null && hmData.size()>0){
             	String dd_mm_yyyy="";
             		int j=(nCurrent_Page*10)-9;
-
             	
                 for(int indx=0;indx<hmData.size();indx++){
                     HashMap hmt = (HashMap)hmData.get(""+indx);
                     if(hmt!=null && hmt.size()>0){
-                        String strId = (String)hmt.get("voucherId");
+                        String strId = (String)hmt.get("voucher_id");
                         String strName = (String)hmt.get("strName");
-			String strDt = (String)hmt.get("dt");
+						String voucher_number = (String)hmt.get("voucher_number");
+						String budget_note_id= (String)hmt.get("budget_note_id");
+						String receiver_name=(String)hmt.get("receiver_name");
+						String strDepartmentNm=(String)hmt.get("strDepartmentNm");
+			String strDt = (String)hmt.get("voucher_date");
 			String strAmount = (String)hmt.get("amt");
 			dd_mm_yyyy = strDt.substring(8,10)+"-"+strDt.substring(5,7)+"-"+strDt.substring(0,4);
 			/*		strYY=strDt.substring(0,4);
@@ -82,12 +119,11 @@ function setAction(code,id){
 					strDD=strDt.substring(8,10);*/
 
                         %>
-			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+			<tr style="<%=indx%2==0?strCol2:strCol1%>">
+			    <td align="center"><%=voucher_number%></td>
 				<td align="center" class="link"  height="20">
-				<%
-					out.println(j++);
-				%>
-				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
+				<a href="#" onClick="deleteVoucher(3,<%=strId%>,<%=budget_note_id%>,<%=strAmount%>)">Cancel</a>
+				<a href="#" onClick="setAction(5,<%=strId%>)">Print</a>
 				</td>
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=dd_mm_yyyy%></a>
@@ -96,8 +132,15 @@ function setAction(code,id){
 					<%=strName%>
 				</td>
 				<td align="left" class="link" height="20">
+					<%=strDepartmentNm%>
+				</td>
+				<td align="left" class="link" height="20">
 					<%=strAmount%>
 				</td>
+				<td align="left" class="link" height="20">
+					<%=receiver_name%>
+				</td>
+				
 			</tr>
     			<%
                     }
@@ -109,16 +152,20 @@ function setAction(code,id){
             for(int indx=0;indx<nRow;indx++){
                 %>
 	        <tr> 
+			    <td valign="top" height="20">&nbsp; </td>
 	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
+				 <td valign="top" height="20">&nbsp; </td>
+				 <td valign="top" height="20">&nbsp; </td>
+				 <td valign="top" height="20">&nbsp; </td>
 	    	</tr>
 	    	<%        
 	    }
 	    %>
 	    
-	    <tr bgcolor="<%=strColHd%>"> 
-	      <td colspan="4" height="20" align="center"> 
+	    <tr style="<%=strColHd%>"> 
+	      <td colspan="7" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
@@ -144,10 +191,10 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	    <tr> 
-		<td colspan=4 height="20">&nbsp;</td>
+		<td colspan=7 height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
-	      <td colspan="4" valign="top" height="20" align="center">
+	      <td colspan="7" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
 		    	<td> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 

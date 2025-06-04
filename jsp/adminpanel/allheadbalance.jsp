@@ -1,7 +1,9 @@
 <%@ include file="/jsp/adminpanel/header.jsp" %>
+<%@ page import="java.util.*,java.text.*" %>
 <%
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
+	DecimalFormat d = new DecimalFormat("##0.00");
     HashMap hmData=(HashMap)request.getAttribute("data"); 
     //out.println("Sanjeev<BR>"+hmData);
     HashMap hmPage=(HashMap)request.getAttribute("page");
@@ -11,7 +13,6 @@
         nTotal_pages = Integer.parseInt((String)hmPage.get("total_page"));
     }
 %>
-<Sanjeev>
 <script language="JavaScript">
 function navigation(code){
     document.HeadBalanceList.NAV.value = code;
@@ -22,7 +23,7 @@ function navigation(code){
 function setAction(code,id){
     document.HeadBalanceList.id.value = id;
 	document.HeadBalanceList.opr.value=code;
-	
+
     switch(code){
         case 1:
             document.HeadBalanceList.action = "<%=strPath+"showBudgetAllocation.do"%>";
@@ -39,6 +40,8 @@ function setAction(code,id){
     document.HeadBalanceList.submit();
 }
 
+
+
 </script>
 <form name="HeadBalanceList" method="post" action="#">
     <input type="hidden" name="page" value="HeadBalanceList">
@@ -46,18 +49,35 @@ function setAction(code,id){
     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
-    
+
+
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	    <tr bgcolor="<%=strColHd%>">
-		<td width="10%" height="20">&nbsp;
-
-		</td>
-		<td width="45%" align="center" class="titles" height="20">
+	<tr style="<%=strColHd%>"><td colspan="7" class="titles" align="center"><font color="#FF9900"><font color="#FF9900"><% String message=(String)request.getAttribute("message");
+	if(message !=null){
+	out.print(message);
+	}else{
+	out.print("Budget Allocation List");
+	}
+	%></font></font></td></tr>
+	    <tr style="<%=strColHd%>">
+		<td width="20%" align="center" class="titles" height="20">
 			Budget Head
 		</td>
-		<td width="45%" colspan="2" align="center" class="titles" height="20">
-			Current Balance
+		<td width="20%" align="center" class="titles" height="20">
+			Dept. Name
+		</td>
+		<td width="14%"  align="center" class="titles" height="20">
+			Allocated Ballance
+		</td>
+		<td width="14%"  align="center" class="titles" height="20">
+			Reservered Balance
+		</td>
+		<td width="14%"  align="center" class="titles" height="20">
+			Utilised Balance
+		</td>
+		<td width="14%"  align="center" class="titles" height="20">
+			Remaining Balance
 		</td>
 	    </tr>
     	    <%
@@ -68,18 +88,31 @@ function setAction(code,id){
                     	
                         String strId = (String)hmt.get("HeadId");
                         String strName = (String)hmt.get("strName");
-			String strBalance = (String)hmt.get("dblBalance");
+			String strBalance = (String)hmt.get("dblAmount");
+			String strDepartmentNm = (String)hmt.get("strDepartmentNm");
+			String dblReservedAmount = (String)hmt.get("dblReservedAmount");
+			String dblUtilisedAmount = (String)hmt.get("dblUtilisedAmount");
+			double remainAmt=Double.parseDouble(strBalance)-(Double.parseDouble(dblReservedAmount)+Double.parseDouble(dblUtilisedAmount));
                         %>
-			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
-				<td align="center" height="20">
-				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
+			<tr style="<%=indx%2==0?strCol2:strCol1%>">
+
+				<td align="left" class="link" height="20">
+  
+					<a href="#"  onClick="setAction(2,<%=strId%>)"><%=strName%></a>
 				</td>
 				<td align="left" class="link" height="20">
-					<a href="#" onClick="setAction(2,<%=strId%>)"><%=strName%></a>
+				<%=strDepartmentNm%>
 				</td>
-				<td colspan="2" align="left" class="link" height="20">
-					<%=strBalance%>
+		        <td  align="left" class="link" height="20"> <%=strBalance%></td>
+				<td align="left" class="link" height="20">
+					<%=dblReservedAmount%>
 				</td>
+				<td align="left" class="link" height="20">
+					<%=dblUtilisedAmount%>
+				</td>
+				
+        <td align="left" class="link" height="20"> <%=d.format(remainAmt)%></td>
+
 			</tr>
     			<%
                     }
@@ -91,16 +124,19 @@ function setAction(code,id){
             for(int indx=0;indx<nRow;indx++){
                 %>
 	        <tr> 
-	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
+				<td valign="top" height="20">&nbsp; </td>
+				<td valign="top" height="20">&nbsp; </td>
+				<td valign="top" height="20">&nbsp; </td>
+				<td valign="top" height="20">&nbsp; </td>
 	    	</tr>
 	    	<%        
 	    }
 	    %>
 	    
-	    <tr bgcolor="<%=strColHd%>"> 
-	      <td colspan="4" height="20" align="center"> 
+	    <tr style="<%=strColHd%>"> 
+	      <td colspan="6" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
@@ -126,13 +162,13 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	    <tr> 
-		<td colspan=4 height="20">&nbsp;</td>
+		<td colspan="6" height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
-	      <td colspan="4" valign="top" height="20" align="center">
+	      <td colspan="6" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
-		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
+		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn">
 		    	</td>
 		    	<td colspan="2" align="left"> <input type="button" name="btn1" value="   Close   " accesskey="C" onClick="setAction(4,0)" class="PPRSbmtBtn"> 
 		    	</td>
@@ -141,6 +177,7 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	</table>
-    </td>		
+    </td>
+			
 </form>
 <%@ include file="/jsp/include/footer.jsp" %>

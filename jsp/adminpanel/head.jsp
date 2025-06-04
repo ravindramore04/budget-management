@@ -23,21 +23,13 @@
 <script language="JavaScript">
 	function formSubmit(){
 		var _Name = document.BudgetHead.txtName.value;
-		var gid=document.BudgetHead.strDepartmentId.value;
-		//alert(gid);
-		if(gid=="0"){
-			alert("Select Department From List");
-			document.BudgetHead.strDepartmentId.focus();
-		}
-		else{
 		if(_Name.toString()==""){
-			alert("Enter The Budget Name Here");
+			alert("Enter The Head Name Here");
 			document.BudgetHead.txtName.focus();
 			return false;
 		}
 		
 		document.BudgetHead.submit();
-		}
 		
 	}
 
@@ -58,40 +50,6 @@
 		</tr>
 		<tr> 
 			<td colspan=4>&nbsp;</td>
-		</tr>
-		<tr> 
-			<td width="25%" class="innertitle">Department Name </td>
-			<td width="75%" colspan="3">
-			<select name="strDepartmentId">
-			 <option value="<%=""+0%>">-------Select---------</option>
-		<%
-			if(hmGroup!=null && hmGroup.size()>0){
-				for(int i=0;i<hmGroup.size();i++){
-					HashMap hmt=(HashMap)hmGroup.get(""+i);
-					String strDepartmentId=(String)hmt.get("strDepartmentId");
-					String strDepartmentNm=(String)hmt.get("strDepartmentNm");
-					
-				if(bgNm.equals(strDepartmentId)){
-		%>	
-		
-		
-			<option value="<%=strDepartmentId%>" selected> <%=strDepartmentNm%> </option>
-		
-		
-		
-		<%
-				}else{
-		%>
-		<option value="<%=strDepartmentId%>" > <%=strDepartmentNm%> </option>
-		
-		<%
-				}
-			     }
-			}
-		
-		%>
-			</select>
-			</td>
 		</tr>
 		<tr> 
 			<td width="25%" class="innertitle">Head Name </td>

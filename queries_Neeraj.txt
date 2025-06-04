@@ -1,0 +1,167 @@
+DROP TABLE IF EXISTS `budgetalloc`;
+CREATE TABLE `budgetalloc` (
+  `AllocId` int(6) default NULL,
+  `HeadId` int(6) default NULL,
+  `Dt` date default NULL,
+  `dblAmount` double(11,2) default 0.0,
+  `strRemark` varchar(100) default NULL,
+  `strInsBy` int(6) default NULL,
+  `strInsOn` date default NULL,
+  `strUptdBy` int(6) default NULL,
+  `strUptdOn` date default NULL,
+  `strDepartmentId` varchar(10) default NULL,
+  `dblReservedAmount` double(11,2) default 0.0,
+  `dblUtilisedAmount` double(11,2) default 0.0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+allocationId--->100001
+budget_note_expense--->1000
+allocation_reserved_amount--->11.00
+allocation_balance_amount_after_expense--->8967.8
+budget_note_remark--->AAAA
+
+DROP TABLE IF EXISTS `budget_note`;
+CREATE TABLE `budget_note`(
+  `budget_note_id` int(6) default NULL,
+  `AllocId` int(6) default NULL,
+  `budget_note_expense` double(11,2) default 0.0,
+  `allocation_reserved_amount` double(11,2) default 0.0,
+  `allocation_balance_amount_after_expense` double(11,2) default 0.0,
+  `budget_note_remark` varchar(100) default NULL,
+  `budget_note_status` varchar(10) default NULL,
+  `created_by_user_id` int(6) default NULL,
+  `create_date` date default NULL,
+  `updated_by_user_id` int(6) default NULL,
+  `update_date` date default NULL,
+  `ponumber` varchar(50) default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO budget_note values('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');
+INSERT INTO budget_note values((SELECT (COALESCE(MAX(budget_note_id), 0)+1) FROM budget_note), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+
+DROP TABLE IF EXISTS `budget_note_history`;
+CREATE TABLE `budget_note_history`(
+  `budget_note_history_id` int(6) default NULL,
+  `budget_note_id` int(6) default NULL,
+  `budget_note_expense` double(11,2) default 0.0,
+  `allocation_reserved_amount` double(11,2) default 0.0,
+  `allocation_balance_amount_after_expense` double(11,2) default 0.0,
+  `budget_note_remark` varchar(100) default NULL,
+  `budget_note_status` varchar(10) default NULL,
+  `created_by_user_id` int(6) default NULL,
+  `create_date` date default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `voucher_details`;
+CREATE TABLE `voucher_details`(
+  `voucher_id` int(6) default NULL,
+  `voucher_number` int(6) default NULL,
+  `budget_note_id` int(6) default NULL,
+  `voucher_date` date default NULL,
+  `amount` double(11,2) default 0.0,
+  `tds_amount` double(11,2) default 0.0,
+  `strType` varchar(20) default NULL,
+  `payment_mode` varchar(10) default NULL,
+  `bank_name` varchar(100) default NULL,
+  `chequeno` varchar(20) default NULL,
+  `receiver_name` varchar(100) default NULL,
+  `narration` varchar(500) default NULL,
+  `po_number` varchar(100) default NULL,
+  `created_by_user_id` int(6) default NULL,
+  `create_date` date default NULL,
+  `updated_by_user_id` int(6) default NULL,
+  `update_date` date default NULL,
+  `vouNumManual` varchar(20) default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+SELECT bn.budget_note_id, bn.budget_note_expense, bn.budget_note_status, bn.create_date, ba.AllocId, ba.Dt AS allocation_date, ba.dblAmount AS allocated_amount, ba.dblReservedAmount, ba.dblUtilisedAmount,(ba.dblAmount-ba.dblUtilisedAmount) as BallanceAmount, bh.HeadId, bh.strName AS budget_head_name, bh.strBudgroupId AS budget_group_id, dp.strDepartmentNm FROM budget_note bn JOIN budgetalloc ba ON bn.AllocId = ba.AllocId JOIN budgethead bh ON ba.HeadId = bh.HeadId JOIN departments dp ON ba.strDepartmentId = dp.strDepartmentId where bn.budget_note_id="1";
+
+UPDATE budgetalloc set hb.dblReservedAmount = hb.dblReservedAmount - tb.total, hb.dblUtilisedAmount = hb.dblUtilisedAmount + tb.total where headid =?
+
+
+select v.voucher_id,v.voucher_number,b.budget_note_id,v.receiver_name,v.voucher_date,d.strDepartmentNm,bh.strName,v.amount+v.tds_amount as amt from voucher_details v left join budget_note b on  v.budget_note_id = b.budget_note_id  left join  budgetalloc ba on  b.AllocId = ba.AllocId left join BudgetHead bh on ba.HeadId = bh.HeadId left join departments d on ba.strDepartmentId=d.strDepartmentId order by v.create_date desc;
+
+SELECT bd.AllocId AS allocationId,d.strDepartmentNm AS departmentName,b.strName AS headName,a.dblAmount AS allocatedAmount,a.dblReservedAmount AS reservedAmount,a.dblUtilisedAmount AS utilisedAmount,(a.dblAmount - a.dblReservedAmount - a.dblUtilisedAmount) AS availableBalance,bd.budget_note_id,bd.budget_note_expense,bd.allocation_reserved_amount,bd.allocation_balance_amount_after_expense,bd.budget_note_remark FROM budgetalloc a JOIN budgethead b ON a.HeadId = b.HeadId JOIN departments d ON a.strDepartmentId = d.strDepartmentId JOIN budget_note bd ON a.AllocId = bd.AllocId WHERE bd.budget_note_id = 1;
+
+
+
+//////////07/05/2025
+
+SELECT D.strDepartmentNm, H.strName, BA.* FROM
+budgetalloc BA,
+departments D,
+budgethead H
+WHERE BA.strDepartmentId = D.strDepartmentId AND
+BA.HeadId = H.HeadId
+
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+| strDepartmentNm | strName            | AllocId | HeadId | Dt         | dblAmount | strRemark | strInsBy | strInsOn   | strUptdBy | strUptdOn  | strDepartmentId | dblReservedAmount | dblUtilisedAmount |
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+| Accounts        | Test               |  100002 | 100002 | 2000-01-01 |  10000.00 |           |   100001 | 2025-05-07 |    100001 | 2025-05-07 | 100001          |              0.00 |              0.00 |
+| Accounts        | Arts Science Store |  100001 | 100001 | 2000-01-01 |  10000.00 |           |   100001 | 2025-05-07 |    100001 | 2025-05-07 | 100001          |              0.00 |              0.00 |
+| Computer        | Test               |  100004 | 100002 | 2000-01-01 |  20000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            600.00 |              0.00 |
+| Computer        | Arts Science Store |  100003 | 100001 | 2000-01-01 |  15000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            170.00 |            330.00 |
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+4 rows in set (0.02 sec)
+
+
+
+SELECT D.strDepartmentNm, H.strName, BA.*, V.* FROM
+budgetalloc BA,
+departments D,
+budgethead H,
+budget_note N,
+voucher_details V
+WHERE BA.strDepartmentId = D.strDepartmentId AND
+BA.HeadId = H.HeadId AND 
+BA.AllocId = N.AllocId AND 
+N.budget_note_id = V.budget_note_id
+// AND H.HeadId = '?'
+// and D.strDepartmentId = '?'
+
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+------------+----------------+----------------+--------------+--------+------------+---------+--------------+-----------+----------+---------------+-----------+-----------+--------------------+-------------+--------------------+-------------+--------------+
+| strDepartmentNm | strName            | AllocId | HeadId | Dt         | dblAmount | strRemark | strInsBy | strInsOn   | strUptdBy | strUptdOn  | strDepartmentId | dblReservedAmount | dblUtilisedAmount | voucher_id | voucher_number | budget_note_id | voucher_date | amount | tds_amount | strType | payment_mode | bank_name | chequeno | receiver_name | narration | po_number | created_by_user_id | create_date | updated_by_user_id | update_date | vouNumManual |
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+------------+----------------+----------------+--------------+--------+------------+---------+--------------+-----------+----------+---------------+-----------+-----------+--------------------+-------------+--------------------+-------------+--------------+
+| Computer        | Arts Science Store |  100003 | 100001 | 2000-01-01 |  15000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            170.00 |            330.00 |          2 |              2 |              1 | 2025-05-07   | 200.00 |      20.00 | TDS     | 1            |           |          | More          | 2 Mouse   | 1011      |             100003 | 2025-05-07  |             100003 | 2025-05-07  |              |
+| Computer        | Arts Science Store |  100003 | 100001 | 2000-01-01 |  15000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            170.00 |            330.00 |          1 |              1 |              1 | 2025-05-07   | 100.00 |      10.00 | TDS     | 1            |           |          | More          | Mouse     | 1011      |             100003 | 2025-05-07  |             100003 | 2025-05-07  |              |
++-----------------+--------------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+------------+----------------+----------------+--------------+--------+------------+---------+--------------+-----------+----------+---------------+-----------+-----------+--------------------+-------------+--------------------+-------------+--------------+
+2 rows in set (0.01 sec)
+
+
+SELECT BA.HeadId, BA.strDepartmentId,  H.strName, D.strDepartmentNm,  BA.dblAmount, BA.dblReservedAmount, dblUtilisedAmount  FROM budgetalloc BA, departments D, budgethead H WHERE BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId ORDER BY H.HeadId
+
+SELECT H.strName, D.strDepartmentNm,  BA.* FROM budgetalloc BA, departments D, budgethead H WHERE BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId ORDER BY H.strName
+BA
++--------------------+-----------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+| strName            | strDepartmentNm | AllocId | HeadId | Dt         | dblAmount | strRemark | strInsBy | strInsOn   | strUptdBy | strUptdOn  | strDepartmentId | dblReservedAmount | dblUtilisedAmount |
++--------------------+-----------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+| Arts Science Store | Accounts        |  100001 | 100001 | 2000-01-01 |  10000.00 |           |   100001 | 2025-05-07 |    100001 | 2025-05-07 | 100001          |              0.00 |              0.00 |
+| Arts Science Store | Computer        |  100003 | 100001 | 2000-01-01 |  15000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            170.00 |            330.00 |
+| Test               | Accounts        |  100002 | 100002 | 2000-01-01 |  10000.00 |           |   100001 | 2025-05-07 |    100001 | 2025-05-07 | 100001          |              0.00 |              0.00 |
+| Test               | Computer        |  100004 | 100002 | 2000-01-01 |  20000.00 |           |   100003 | 2025-05-07 |    100003 | 2025-05-07 | 100003          |            600.00 |              0.00 |
++--------------------+-----------------+---------+--------+------------+-----------+-----------+----------+------------+-----------+------------+-----------------+-------------------+-------------------+
+
+
+
+
+
+SELECT VD.voucher_id, VD.voucher_date, (VD.amount+VD.tds_amount) AS VOUCHER_AMOUNT, VD.receiver_name, D.strDepartmentNm, H.strName FROM VOUCHER_DETAILS VD, BUDGET_NOTE BN, budgetalloc BA, departments D, budgethead H WHERE VD.budget_note_id = BN.budget_note_id AND BN.AllocId = BA.AllocId AND BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId AND VD.voucher_date BETWEEN '?' AND '?' 
+SELECT VD.voucher_id, VD.voucher_date, (VD.amount+VD.tds_amount) AS VOUCHER_AMOUNT, VD.receiver_name, D.strDepartmentNm, H.strName FROM VOUCHER_DETAILS VD, BUDGET_NOTE BN, budgetalloc BA, departments D, budgethead H WHERE VD.budget_note_id = BN.budget_note_id AND BN.AllocId = BA.AllocId AND BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId AND VD.voucher_date BETWEEN '?' AND '?' AND BA.strDepartmentId = '?'
+SELECT VD.voucher_id, VD.voucher_date, (VD.amount+VD.tds_amount) AS VOUCHER_AMOUNT, VD.receiver_name, D.strDepartmentNm, H.strName FROM VOUCHER_DETAILS VD, BUDGET_NOTE BN, budgetalloc BA, departments D, budgethead H WHERE VD.budget_note_id = BN.budget_note_id AND BN.AllocId = BA.AllocId AND BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId AND VD.voucher_date BETWEEN '?' AND '?' AND BA.HeadId = '?'
+SELECT VD.voucher_id, VD.voucher_date, (VD.amount+VD.tds_amount) AS VOUCHER_AMOUNT, VD.receiver_name, D.strDepartmentNm, H.strName FROM VOUCHER_DETAILS VD, BUDGET_NOTE BN, budgetalloc BA, departments D, budgethead H WHERE VD.budget_note_id = BN.budget_note_id AND BN.AllocId = BA.AllocId AND BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId AND VD.voucher_date BETWEEN '?' AND '?' AND BA.strDepartmentId = '?' AND BA.HeadId = '?'
+
+
+UPDATE budgetalloc b JOIN budget_note n ON b.AllocId = n.AllocId SET b.dblReservedAmount = b.dblReservedAmount + '?',b.dblUtilisedAmount = b.dblUtilisedAmount - '?' WHERE n.budget_note_id = '?';
+
+
+DELETE FROM budgethead bh WHERE bh.HeadId = 100004 AND NOT EXISTS (SELECT 1 FROM budgetalloc ba WHERE ba.HeadId = bh.HeadId );
+
+Budget note table updated , added  `ponumber` varchar(50)
+alter table budget_note add column ponumber varchar(50);

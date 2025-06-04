@@ -21,7 +21,7 @@
 	function formSubmit(){
 		var _Name = document.BudgetHead.txtName.value;
 		if(_Name.toString()==""){
-			alert("Enter The Budget Name Here");
+			alert("Enter The Department Name Here");
 			document.BudgetHead.txtName.focus();
 			return false;
 		}
@@ -59,7 +59,7 @@
 		</tr>
 		<tr> 
 			<td colspan=4>
-				<input type="text" name="txtId" value="<%=strId%>">
+				<input type="hidden" name="txtId" value="<%=strId%>">
 			</td>
 		</tr>
 		<tr> 

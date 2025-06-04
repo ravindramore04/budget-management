@@ -65,9 +65,9 @@ function setAction(code,id){
    
     <td width="80%" valign="top" align="center">
       <div id="aa" style="position:relative;visibility:hidden;"> 
-        <select size="1" name="txtAllocId" multiple>
-        </select>
-      </div>
+      <select size="1" name="txtAllocId" multiple>
+      </select>
+    </div>
 
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	    <tr bgcolor="<%=strColHd%>">
@@ -92,9 +92,9 @@ function setAction(code,id){
 			            String strBalance = (String)hmt.get("dblAmount");
 						String strRemark = (String)hmt.get("strRemark");
                         %>
-			<tr bgcolor="<%=indx%2==0?strCol2:strCol1%>">
+			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="center" height="20">
-				    <input type="checkbox" name="<%="chk"+indx%>" value="<%=strId%>"> 
+				    <input type="hidden" name="<%="chk"+indx%>" value="<%=strId%>"> 
 				</td>
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=dd_mm_yyyy%></a>

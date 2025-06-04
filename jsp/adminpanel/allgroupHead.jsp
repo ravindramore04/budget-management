@@ -1,5 +1,16 @@
 <%@ include file="/jsp/adminpanel/header.jsp" %>
+<%@ page import="java.util.Calendar" %>
 <%
+    Calendar cal = Calendar.getInstance();
+    int year = cal.get(Calendar.YEAR);
+    int month = cal.get(Calendar.MONTH) + 1; // Months are 0-based in Calendar
+    int day = cal.get(Calendar.DAY_OF_MONTH);
+
+    // Format to yyyy-MM-dd (required for <input type="date">)
+    String today = year + "-" +
+                   (month < 10 ? "0" + month : month) + "-" +
+                   (day < 10 ? "0" + day : day);
+
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
     HashMap hmData=(HashMap)request.getAttribute("data"); 
@@ -73,19 +84,19 @@ function setAction(code,id){
 	    	    	<td width="100%">&nbsp;
 	    	    	</td>
 	    </tr>
-	    <tr>
-	    	    	<td width="100%">&nbsp;
-	    	    	</td>
-	    </tr>
+<tr>
+	    <td width="100%" align="center">
+		             <label for="dob">From Date:</label>
+                    <input type="date" id="dob" name="fromDate" value="<%= today %>">
+					<label for="dob">To Date:</label>
+                    <input type="date" id="dob1" name="toDate" value="<%= today %>">
+					</td>
+					</tr>
 	    <tr>
 	    	    	
       <td width="100%" align="center">Select The Head from List </td>
 	    </tr>
-	    <tr>
-	    	    	<td width="100%" align="center"><input type="radio" name="rd" value="1" checked>Cash
-					 <input type="radio" name="rd" value="2">Cheque  
-	    	    	</td>
-	    </tr>
+
 	    <tr>
 	    <td width="100%" align="center">
 	    <select name="txtBGid">
@@ -108,6 +119,13 @@ function setAction(code,id){
                 %>
                 </td>
                 </tr>
+					    <tr>
+	    	    	<td width="100%" align="center"><input type="radio" name="rd" value="1" checked>Cash
+					 <input type="radio" name="rd" value="2">Cheque 
+					 <input type="radio" name="rd" value="3">Both   
+	    	    	</td>
+	    </tr>
+				
 	        <tr> 
 	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>

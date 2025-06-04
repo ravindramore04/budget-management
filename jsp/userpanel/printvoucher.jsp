@@ -186,19 +186,18 @@ function setAction(code){
     
     switch(code){
         case 1:
-            document.BudgetHead.action ="/budget0.1/PrintOpenVoucher.do";
+            document.BudgetHead.action ="/budget-management/PrintOpenVoucher.do";
             break;
         case 2:
-            document.BudgetHead.action = "/budget0.1/Close.do";
+            document.BudgetHead.action = "/budget-management/Close.do";
             break;
         case 3:
-            document.BudgetHead.action = "/budget0.1/PrintTDSVoucher.do";
+            document.BudgetHead.action = "/budget-management/PrintTDSVoucher.do";
             break;            
     }
     
     document.BudgetHead.submit();
-}
-    
+}    
 </script>
 
 <td width="80%" valign="top">
@@ -229,7 +228,7 @@ function setAction(code){
 		
 			<td width="30%" class="innertitle" align="left">Dr</td>
 			
-        <td width="20%" align="left"> <font face="Georgia, Times, serif" size="3">
+        <td width="20%" align="left"> <font face="Georgia, Times, serif" size="3"> 
           <%
 				    if(hmAll!=null && hmAll.size()>0){
 				    	for(int indx=0;indx<hmAll.size();indx++)
@@ -374,13 +373,13 @@ function setAction(code){
 		<tr> 
 			
         <td colspan=4 align="center"> 
-        	<input type="button" name="btn3" value="  Print  " accesskey="D" onClick="setAction(1)" class="PPRSbmtBtn"> 
-		<%
+        	<input type="button" name="btn3" value="  Print  " accesskey="D" onClick="setAction(1)" class="PPRSbmtBtn">
+          <%
 		if(strType.equals("TDS"))
 		{ %>
-		<input type="button" name="btn1" value="<%=strType%>" accesskey="T" onClick="setAction(3)" class="PPRSbmtBtn"> 
-		<% } %>
-		<input type="button" name="btn1" value="   Close   " accesskey="C" onClick="setAction(2)" class="PPRSbmtBtn"> 
+          <input type="button" name="btn12" value="<%=strType%>" accesskey="T" onClick="setAction(3)" class="PPRSbmtBtn"> 
+          <% } %>
+          <input type="button" name="btn1" value="   Close   " accesskey="C" onClick="setAction(2)" class="PPRSbmtBtn"> 
 		    					
 			</td>
 		</tr>

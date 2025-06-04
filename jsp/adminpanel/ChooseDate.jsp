@@ -5,6 +5,7 @@ int indx = 0;*/
 //strYY=Date.substring(0,4);
 		//strMM=Date.substring(5,7);
 		//strDD=Date.substring(8,10);
+		String downloadLink=(String)request.getAttribute("downloadLink");
 			String Date="";
 	String strDD="";
 	String strMM="";
@@ -85,172 +86,15 @@ function ChkDt()
   <td width="80%" valign="top" align="center">
 
 <TABLE ALIGN=Left WIDTH="100%" BORDER=0 CELLPADDING=0 CELLSPACING=0 >
- <tr bgcolor="<%=strColHd%>">
-		<td  height="20">&nbsp;
-
+ <tr bgcolor="#99FF33">
+		<td align="center"  height="20">&nbsp;
+        <a href="<%=downloadLink%>" >Download File</a>
 		</td>
-		<td  align="center" class="titles" height="20" colspan="7">  <b><font size="4">Purchase Order Report</font></b></td>
+		<td  align="center" class="titles" height="20" colspan="7">  <b><font size="4"></font></b></td>
 		
 	    </tr>
 
-	<tr valign=top>
-	  <td width="34">&nbsp;</td>
-      <td colspan=4 align="left"> <b><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;Choose Date Range</font></b> 
-      </td>
-	</tr>
-
-	<tr valign=top>
-		<td colspan=5 align="center">&nbsp;</td>
-	</tr>
-					
-	<tr valign=top>
-	<td align="center">&nbsp;</td>
-	  <td width="97" align="center" valign="middle"> <strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><u>F</u>rom 
-        Date</font></strong> </td>
-	  <td width="150" align="left"><select name="DD">
-            <% for(int i=1;i<=31;i++)
-	            { 
-	            if(i<10)
-	           	Str="0"+(""+i).trim();
-	            else
-	             	Str=(""+i).trim();
-	             	
-	             	
-	             if(strDD.equals(Str))
-	            {
-	    		%>
-            <option value="<%=Str%>" selected><%=Str%></option>
-            <% } else { %>
-            <option value="<%=Str%>"><%=Str%></option>
-            <% } } %>
-          </select> <select name="MM">
-            <% for(int i=1;i<=12;i++)
-		    { 
-		     if(i<10)
-			Str="0"+(""+i).trim();
-		     else
-			Str=(""+i).trim();
-			
-	             if(strMM.equals(Str))
-	             {
-	    		%>
-            <option value="<%=Str%>" selected><%=Str%></option>
-            <% } else { %>
-            <option value="<%=Str%>"><%=Str%></option>
-            <% } } %>
-          </select> <select name="YY">
-            <% for(int i=2000;i<=2050;i++)
-            { 
-	        Str=""+i;
-	     	if(strYY.equals(Str.trim()))
-	     	{
-		%>
-            <option value="<%=Str%>" selected><%=Str%></option>
-            <% } else { %>
-            <option value="<%=i%>"><%=i%></option>
-            <% }  } %>
-          </select> 
-      <!-- <input type="text" name="Fromdt" size="15" class="formfield" value=""  >-->
-          
-	</td>
-	  <td width="81" align="left" valign="middle"> <strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><u>T</u>o 
-        Date</font></strong></td>
-	  <td width="256" align="left"><select name="DD1">
-            <% for(int i=1;i<=31;i++)
-	            { 
-	            if(i<10)
-	           	Str="0"+(""+i).trim();
-	            else
-	             	Str=(""+i).trim();
-	             	
-	             	
-	             if(strDD.equals(Str))
-	            {
-	    		%>
-            <option value="<%=Str%>" selected><%=Str%></option>
-            <% } else { %>
-            <option value="<%=Str%>"><%=Str%></option>
-            <% } } %>
-          </select> <select name="MM1">
-            <% for(int i=1;i<=12;i++)
-		    { 
-		     if(i<10)
-			Str="0"+(""+i).trim();
-		     else
-			Str=(""+i).trim();
-			
-	             if(strMM.equals(Str))
-	             {
-	    		%>
-            <option value="<%=Str%>" selected><%=Str%></option>
-            <% } else { %>
-            <option value="<%=Str%>"><%=Str%></option>
-            <% } } %>
-          </select> <select name="YY1">
-            <% for(int i=2000;i<=2050;i++)
-            { 
-	        Str=""+i;
-	     	if(strYY.equals(Str.trim()))
-	     	{
-		%>
-            <option value="<%=Str%>" selected><%=Str%></option>
-            <% } else { %>
-            <option value="<%=i%>"><%=i%></option>
-            <% }  } %>
-          </select> 
-
-        <!--<INPUT type="text" name="Todt" size=15 class="formfield"value="" ><strong><font size="2">
-          (YYYY-MM-DD) </font>--></td>
-	</tr>
-		
-		
-		<tr valign=top>
-		<td colspan="5">&nbsp;</td>
-		</tr>
-		
-		<tr valign=top>
-			<td colspan=5 align="center">
-				<input type="hidden" name="opr" value="1">
-			</td>
-		</tr>
-		<tr valign=top>
-			<td colspan=5 align="center">&nbsp;
-							</td>
-		</tr>
-					
-			<%%>
-		<tr valign=top>
-			
-      <td colspan=2 align="right"> <input type="checkbox"  name="con"value="1"  >
-          
-        </td>
-       <td colspan=3> &nbsp;Consumable </td>
-		</tr>
-		<tr>
-		<td colspan=2 align="right">
-		<input type="checkbox" name="Non" value="1" >
-		
-		</td>
-		  <td colspan=3> &nbsp;NonConsumable </td>
-		</tr>
-			<%
-						%>
-			
-				<tr>
-		 <td colspan=5 class="titles"> <b><font size="3">&nbsp; </font></b> </td>
-		</tr>
-		<tr>
-		 <td colspan=5 class="titles"> <b><font size="3">&nbsp;</font></b> </td>
-		</tr>
-            
-			<tr>
-      <td align=center colspan="5"><b><font size="3"> 
-        <input type="button" value=" Display " name="btnSave" onClick="setAction(1)" class="PPRSbmtBtn" accesskey="D">
-        <input type="button" value="  Close  "  name="ShowWorkPanel" onClick="setAction(2)" class="PPRSbmtBtn" accesskey="C">
-	    </font></b> </td>
-		
-			</tr>
-			</table>
+	</table>
 </td>
 	</FORM>
 

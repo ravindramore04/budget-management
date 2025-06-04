@@ -1,6 +1,6 @@
 <%@ page import="java.util.*" %>
 <%
-String strPath="/budget0.1/";
+String strPath="/budget-management/";
 HashMap hm=new HashMap();
 HashMap hm1=new HashMap();
 HashMap hmAmt=new HashMap();

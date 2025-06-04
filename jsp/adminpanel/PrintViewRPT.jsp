@@ -1,7 +1,7 @@
 <%@ page import="java.util.*,java.text.*" %>
 <%
 DecimalFormat d = new DecimalFormat("##0.00");
-String strPath="/budget0.1/";
+String strPath="/budget-management/";
 int PG=1;
 String Date="";
 String strVoucherNo="";

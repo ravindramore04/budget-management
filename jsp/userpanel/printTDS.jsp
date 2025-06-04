@@ -174,7 +174,7 @@ function Num2Word(num,fmt) {
 	return rslt
 }
 	function setAction(){
-		document.chqprn.action ="/budget0.1/ChqPrint.do";
+		document.chqprn.action ="/budget-management/ChqPrint.do";
 		document.chqprn.submit();
 	}
   

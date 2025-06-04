@@ -1,5 +1,7 @@
 package struts.adminpanel;
 
+import struts.adminpanel.beans.VoucherReportRow;
+import struts.adminpanel.utils.DateUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -35,172 +37,43 @@ public class viewReportHeadHandler extends org.apache.struts.action.Action
             HashMap My = (HashMap)session.getAttribute("user");
 			String DBnm = (String)My.get("DBnm");
             ErrorHandler eh = new ErrorHandler();
-            HashMap hmFinal=new HashMap();
-            HashMap hmAmt=new HashMap();
-            HashMap hmVoc=new HashMap();
-            HashMap hmVoc1=new HashMap();
-            HashMap hmFinal1=new HashMap();
-            HashMap hmFinal2=new HashMap();
-            String strId="";
-            Vector vec1=new Vector();
 			Vector vec = new Vector();
+			Vector vec1 = new Vector();
             try
             {
-                    int nNum_Per_Page = 10;
+				CVDal cvdal = new CVDal(DBnm);
+				vec.clear();
+				DynaActionForm daf = (DynaActionForm)form;
 
-                    CVDal cvdal = new CVDal(DBnm);
-					vec.clear();
-                    DynaActionForm daf = (DynaActionForm)form;
-                    strId=(String)daf.get("txtBGid");
-                    //String txtBGid=(String)daf.get("txtBGid");
-                    String rd=(String)daf.get("rd");
-                    //String rd=(String)request.getParameter("rd");
-            		if(!(strId.equals("0")))
-                    {
-						sop("inside The if>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		                vec.clear();
-        	            vec.addElement(strId);
-        	            cvdal.setSQL("openAmount", vec);
-        	            vec1 = (Vector)cvdal.executeQuery();
-        	            if(vec1!=null && vec1.size()>0)
-        	            {
-							 for(int j=0;j<vec1.size();j++)
-							 {
-								 HashMap hm=(HashMap)vec1.elementAt(j);
-								 hmAmt.put(""+j,hm);
-							 }
-        	                 hmFinal.put("AlloAmont",hmAmt);
-						}
-                        vec.clear();
-                        vec.addElement(strId);
-                        vec.addElement(rd);
-                        cvdal.setSQL("openVouchsebytype", vec);
-                        vec1 = (Vector)cvdal.executeQuery();
-                        if(vec1!=null && vec1.size()>0)
-                        {
-							for(int i=0;i<vec1.size();i++)
-							{
-								HashMap hmVou=(HashMap)vec1.elementAt(i);
-								hmVoc.put(""+i,hmVou);
-							}
-							hmFinal1.put("voucher",hmVoc);
-                        }
-                        vec.clear();
-						vec.addElement(strId);
-						cvdal.setSQL("openBalance", vec);
-                        vec1 = (Vector)cvdal.executeQuery();
-                        if(vec1!=null && vec1.size()>0)
-                        {
-							HashMap hmbal=(HashMap)vec1.elementAt(0);
-							hmFinal.put("bal",hmbal);
-						}
-                        vec.clear();
-                        vec1.clear();
-                        vec.addElement(strId);
-                        cvdal.setSQL("openHead", vec);
-                        vec1 = (Vector)cvdal.executeQuery();
-                        if(vec1!=null && vec1.size()>0)
-                        {
-							HashMap hmVou=(HashMap)vec1.elementAt(0);
-							hmFinal2.put("0",hmVou);
-                        }
-						request.setAttribute("Amount",hmFinal);
-                    	request.setAttribute("Voucher",hmFinal1);
-						request.setAttribute("MyHead",hmFinal2);
-						request.setAttribute("rd",rd);
-						request.setAttribute("strId",strId);
+				String fromDate = (String)daf.get("fromDate");
+				String toDate = (String)daf.get("toDate");
+				String chkCash = (String)daf.get("rd");
+
+				sop("toDatetoDatetoDate >>"+toDate);
+				sop("fromDatefromDatefromDate >>"+fromDate);
+				sop("chkCashchkCashchkCash >>" + chkCash);
 
 
-                    	FORWARD_final = Success;
-                    }
-                    else
-                    {
-						/*** case for all head ***/
-						sop("inside The else>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-						//String TDate=(String)daf.get("TDate");
-						String fyy=(String)daf.get("FYY");
-						String fmm=(String)daf.get("FMM");
-						String fdd=(String)daf.get("FDD");
-						String tyy=(String)daf.get("TYY");
-						String tmm=(String)daf.get("TMM");
-						String tdd=(String)daf.get("TDD");
-						String FDate=fyy.trim()+"-"+fmm.trim()+"-"+fdd.trim();
-						String TDate=tyy.trim()+"-"+tmm.trim()+"-"+tdd.trim();
+				//vec.addElement(DateUtils.getFormattedCurrentDate());
+				//vec.addElement(DateUtils.getFormattedCurrentDate());
 
+				vec.addElement(fromDate);
+				vec.addElement(toDate);
+               if("3".equals(chkCash)) {
+				   cvdal.setSQL("ALL_VOUCHER_REPORT", vec);
+			   }else{
+				   vec.addElement(chkCash);
+				   cvdal.setSQL("ALL_VOUCHER_REPORT_PAY_METHOD", vec);
+			   }
+				vec1 = (Vector) cvdal.executeQuery();
 
-						String FDateInd=fdd.trim()+"-"+fmm.trim()+"-"+fyy.trim();
-						String TDateInd=tdd.trim()+"-"+tmm.trim()+"-"+tyy.trim();
+				List<VoucherReportRow> createVoucherReportRows = createVoucherReportRows(vec1);
 
-						sop("==============================");
-						sop(FDate);
-						sop(TDate);
-						sop("==============================");
-						sop(FDateInd);
-						sop(TDateInd);
+				sop("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"+createVoucherReportRows);
 
-						vec.clear();
-						//vec.addElement(gid);
-                    	cvdal.setSQL("ViewAllAllocwithbgid", vec);
-                    	vec1 = (Vector)cvdal.executeQuery();
-						if(vec1!=null && vec1.size()>0)
-						{
-							for(int indx=0;indx<vec1.size();indx++)
-							{
-								HashMap hmt = (HashMap)vec1.elementAt(indx);
-								hmFinal.put(""+indx,hmt);
-							}
-						}
+				request.setAttribute("ReportDetails",createVoucherReportRows);
 
-                    	vec.clear();
-
-						//vec.addElement(FDate);
-						//vec.addElement(TDate);
-						//vec.addElement(gid);
-						cvdal.setSQL("ViewAllVouchwithgid", vec);
-						vec1.clear();
-                    	vec1 = (Vector)cvdal.executeQuery();
-                    	sop("----size of vector is---------->>>>"+vec1.size());
-
-						if(vec1==null || vec1.size()>0)
-						{
-							for(int indx=0;indx<vec1.size();indx++)
-							{
-								HashMap hmt1 = (HashMap)vec1.elementAt(indx);
-								String Headid=(String)hmt1.get("HeadId");
-								vec.clear();
-								vec.addElement(Headid);
-								cvdal.setSQL("AmtForPO",vec);
-								vec =(Vector)cvdal.executeQuery();
-
-								HashMap HMTT=new HashMap();
-								sop("-------vec-------Ravi----------"+vec);
-								if(vec!=null && vec.size()>0 )
-								{
-									//for(int ii=0; ii<vec.size();ii++)
-									//{
-									 HMTT =(HashMap)vec.elementAt(0);
-									sop("=---------HMTT------ravi------------------"+HMTT);
-									hmt1.put("rr",HMTT);
-
-									//}
-
-								}else{
-									hmt1.put("rr",HMTT);
-								}
-
-								hmFinal1.put(""+indx,hmt1);
-							}
-						}
-						request.setAttribute("FDATEi",FDateInd);
-						request.setAttribute("TDATEi",TDateInd);
-
-						request.setAttribute("FDATE",FDate);
-						request.setAttribute("TDATE",TDate);
-
-						request.setAttribute("Alloc",hmFinal);
-						request.setAttribute("Vouch",hmFinal1);
-                    	FORWARD_final = Success_all;
-					}
+				FORWARD_final = Success;
             }catch(Exception e){
                 e.printStackTrace();
                 String err = eh.getError("138530");
@@ -217,6 +90,27 @@ public class viewReportHeadHandler extends org.apache.struts.action.Action
             sop("forward value is--> "+FORWARD_final);
             return (mapping.findForward(FORWARD_final));
 	}//End of execute()
+
+	private static List<VoucherReportRow> createVoucherReportRows(Vector vec1){
+		List<VoucherReportRow> voucherReportRows = new ArrayList<VoucherReportRow>();
+
+		if (vec1.size() > 0){
+			for (int i=0; i<vec1.size(); i++){
+				HashMap<String, String> map = (HashMap<String, String>) vec1.get(i);
+				voucherReportRows.add(new VoucherReportRow((String)map.get("voucher_id"),
+						(String)map.get("voucher_date"),
+						(String)map.get("VOUCHER_AMOUNT"),
+						(String)map.get("receiver_name"),
+						(String)map.get("strDepartmentNm"),
+						(String)map.get("strName")
+				));
+			}
+		}
+
+
+		return voucherReportRows;
+
+	}
 
 	public void sop(String msg){
 		System.out.println(msg);

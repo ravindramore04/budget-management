@@ -1,5 +1,17 @@
 <%@ include file="/jsp/adminpanel/header.jsp" %>
+<%@ page import="java.util.Calendar" %>
 <%
+    Calendar cal = Calendar.getInstance();
+    int year = cal.get(Calendar.YEAR);
+    int month = cal.get(Calendar.MONTH) + 1; // Months are 0-based in Calendar
+    int day = cal.get(Calendar.DAY_OF_MONTH);
+
+    // Format to yyyy-MM-dd (required for <input type="date">)
+    String today = year + "-" +
+                   (month < 10 ? "0" + month : month) + "-" +
+                   (day < 10 ? "0" + day : day);
+				   
+				   
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
     HashMap hmData=(HashMap)request.getAttribute("data"); 
@@ -11,6 +23,7 @@
         nTotal_pages = Integer.parseInt((String)hmPage.get("total_page"));
     }
 %>
+
 <script language="JavaScript">
 function navigation(code){
     document.HeadList.NAV.value = code;
@@ -74,19 +87,26 @@ function setAction(code,id){
 	    	    	</td>
 	    </tr>
 	    <tr>
-	    	    	<td width="100%">&nbsp;
+	    	    	<td width="100%" align="center">
 	    	    	</td>
 	    </tr>
-	    <tr>
-	    	    	<td width="100%" align="center">Select The Groups from List
-	    	    	</td>
-	    </tr>
+		<tr><td></td></tr>
 	    <tr>
 	    	    	<td width="100%">&nbsp;
+					
 	    	    	</td>
 	    </tr>
 	    <tr>
 	    <td width="100%" align="center">
+		<label for="dob">From Date:</label>
+                    <input type="date" id="dob" name="fromDate" value="<%= today %>">
+					<label for="dob">To Date:</label>
+                    <input type="date" id="dob1" name="toDate" value="<%= today %>">
+					</td>
+					</tr>
+		<tr>
+					<td width="100%" align="center">
+					Select The Head from List :
 	    <select name="txtBGid">
 	    <option value="<%=""+0%>">-----------Select----------</option>
     	    <%
@@ -105,62 +125,34 @@ function setAction(code,id){
             }
             
                 %>
-                </td>
-                </tr>
-	        <tr> 
+           </td>
+           </tr>
+	       <tr> 
 	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	    	</tr>
 	    	<tr>
-			    	<td width="100%">&nbsp;
-			    	</td>
+			<td width="100%">&nbsp;
+			</td>
+	        </tr>
+	    <tr>
+		<td width="100%">&nbsp;
+		</td>
 	    </tr>
 	    <tr>
-	    	    	<td width="100%">&nbsp;
-	    	    	</td>
-	    </tr>
-	    <tr>
-	    	    	<td width="100%">&nbsp;
-	    	    	</td>
+		<td width="100%">&nbsp;
+		</td>
 	    </tr><tr>
 	    	<td width="100%">&nbsp;
 	    	</td>
-	    </tr>
-	    	
-	    
-	    <tr bgcolor="<%=strColHd%>"> 
-	      <td colspan="4" height="20" align="center"> 
-		<%
-		if(nCurrent_Page!=1){
-		   %>
-		   	<a href="#" accesskey="F" class="titles" onClick="navigation(1)">First</a>&nbsp;&nbsp;
-		   <%
-		}
-		if(nCurrent_Page<nTotal_pages){
-		    %>
-			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next</a>&nbsp;&nbsp; 
-		    <%
-		}
-		if(nCurrent_Page!=1){
-		    %>
-			<a href="#" accesskey="P" class="titles" onClick="navigation(3)">Previous</a>&nbsp;&nbsp; 
-		    <%
-		}
-		if(nCurrent_Page<nTotal_pages){
-		    %>
-			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last</a> 
-		    <%
-		}
-		%>
-	      </td>
 	    </tr>
 	    <tr> 
 		<td colspan=4 height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
 	      <td colspan="4" valign="top" height="20" align="center">
-	          <table width="50%">
+	      <table width="50%">
 		      <tr> 
 		    	<td> <input type="button" name="btn1" value="Submit" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
 		    	</td>
