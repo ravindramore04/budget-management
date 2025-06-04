@@ -49,11 +49,16 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	<tr style="<%=strColHd%>"><td colspan="2" class="titles" align="center"><font color="#FF9900">Budget Head List</font></td></tr>
+	<tr style="<%=strColHd%>"><td colspan="3" class="titles" align="left"><font color="#FF9900"><% String message=(String)request.getAttribute("message");
+	if(message !=null)
+	out.print(message);
+	%></font></td></tr>
+	<tr style="<%=strColHd%>"><td colspan="3" class="titles" align="center"><font color="#FF9900">Budget Head List</font></td></tr>
 	    <tr style="<%=strColHd%>">
-		<td width="45%" align="center" class="titles" height="20"> Expense Head 
+		<td width="20%" align="center" class="titles" height="20">Delete Head</td>
+		<td width="35%" align="center" class="titles" height="20"> Expense Head 
         </td>
-		<td width="45%" colspan="2" align="center" class="titles" height="20">
+		<td width="35%" colspan="2" align="center" class="titles" height="20">
 			Acount Number
 		</td>
 	    </tr>
@@ -67,6 +72,9 @@ function setAction(code,id){
 			String strAccNo = (String)hmt.get("strAccNo");
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
+			   <td align="center" class="link" height="20">
+			   <a href="#" onClick="setAction(3,<%=strId%>)">DEL&nbsp;&nbsp;</a>
+			   </td>
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=strName%></a>
 				</td>
@@ -84,6 +92,7 @@ function setAction(code,id){
             for(int indx=0;indx<nRow;indx++){
                 %>
 	        <tr> 
+			    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 	    	</tr>

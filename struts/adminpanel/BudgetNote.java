@@ -49,7 +49,7 @@ public class BudgetNote extends Action
             String strPage_num ="";
             String strNavOpr = "";
             String operation=(String)daf.get("opr");
-
+            sop( "Form     -->" + daf.getMap().entrySet());
             sop( "operation-->" + operation);
 
             if ("insert_budget_note".equals(operation)){
@@ -165,7 +165,7 @@ public class BudgetNote extends Action
                     request.setAttribute("budgetNoteInputData", vec1.get(0));
                     FORWARD_final = "printnote";
                 } else{
-                    if(SessionUtils.isAccountUser(session)){
+                    if(SessionUtils.isAccountORStoreUser(session)){
                         cvdal.setSQL("openAllHeadWithBalanceAllDept", vec);
                     }else{
                         vec.addElement(SessionUtils.getDepartmentId(session));
@@ -203,7 +203,7 @@ public class BudgetNote extends Action
                     if(nPage<=nTotalPage){
                         vec.clear();
 
-                        if(SessionUtils.isAccountUser(session)){
+                        if(SessionUtils.isAccountORStoreUser(session)){
                             vec.addElement(""+nLowLimit);
                             vec.addElement(""+nNum_Per_Page);
                             cvdal.setSQL("openAllHeadWithBalanceAllDeptWL", vec);
@@ -279,7 +279,7 @@ public class BudgetNote extends Action
         queryParams.add("DRAFT");
         queryParams.add(user_id);
         queryParams.add(user_id);
-
+        queryParams.add(daf.get("ponumber"));
         cvdal.setSQL("budget_note_INSERT", queryParams);
         cvdal.executeUpdate();
         insertBudgetNoteHistory(cvdal, user_id, daf, budget_note_id);
@@ -307,6 +307,7 @@ public class BudgetNote extends Action
         queryParams.add(daf.get("budget_note_remark"));
          queryParams.add(user_id);
         queryParams.add(status);
+        queryParams.add(daf.get("ponumber"));
         queryParams.add(budget_note_id);
 
         cvdal.setSQL("budget_note_UPDATE", queryParams);

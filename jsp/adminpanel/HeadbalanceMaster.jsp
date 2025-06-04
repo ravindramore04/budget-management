@@ -64,6 +64,10 @@
 		}
      }
 
+const select = document.getElementById('mySelect');
+  select.addEventListener('mousedown', function(e) {
+    e.preventDefault(); // Prevents the dropdown from opening
+  });
 
 </script>
 <td width="80%" valign="top">
@@ -108,8 +112,8 @@
 
 		<tr> 
 			<td width="25%" class="innertitle">Head Name </td>
-	    <td width="72%">		 <select name="Head" accesskey="H" class="formfield">
-                                <OPTION value="0" selected>--------Select Head--------</option>
+	    <td width="72%">		 <select id="mySelect"  name="Head" accesskey="H" class="formfield">
+                                <OPTION value="0"  selected>--------Select Head--------</option>
                                 <%
                          if(hmHead!=null && hmHead.size()>0){
                                     for(int indx=0;indx<hmHead.size();indx++){

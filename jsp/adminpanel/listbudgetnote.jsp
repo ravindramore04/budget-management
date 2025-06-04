@@ -46,6 +46,12 @@ function setAction(code,id){
 			  document.VoucherList.operation.value="print";
 			  document.VoucherList.opr.value="print";
             break;
+		case 7:
+		      document.VoucherList.action = "<%=strPath+"BudgetNoteList.do"%>";
+			  document.VoucherList.operation.value="search_BN";
+			  document.VoucherList.opr.value="search_BN";
+			  document.VoucherList.id.value = document.getElementById('searchId').value;
+			break;
         case 4:
             document.VoucherList.action = "<%=strPath+"Close.do"%>";
             break;
@@ -79,9 +85,17 @@ function setAction(code,id){
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	   <% if((String)request.getAttribute("message") !=null){
 	   %>
-	    <tr><td colspan="6"><font color="#FF9900"><%=(String)request.getAttribute("message")%></font></td></tr>
+	    <tr><td colspan="7"><font color="#FF9900"><%=(String)request.getAttribute("message")%></font></td></tr>
 		<%}%>
-	    <tr style="<%=strColHd%>"><td colspan="6" class="titles" align="center">Budget Note List</td></tr>
+	    <tr style="<%=strColHd%>">
+		<td width="16%" align="center" class="titles" height="20">
+			<input type="text" id="searchId" placeholder="Enter budget Note Number" name="searchBN" value="">
+		</td>
+		<td width="16%" align="center" class="titles" height="20">
+			<input type="button" name="btn3" value="   Search Budget Note   " accesskey="C" onClick="setAction(7,0)" class="PPRSbmtBtn"> 
+		</td>
+		<td  class="titles" width="16%"  align="center">&nbsp;</td>
+		<td colspan="4" class="titles" align="left">Budget Note List</td></tr>
 	    <tr style="<%=strColHd%>">
 		<td width="16%" align="center" class="titles" height="20">
 			Del/Update
@@ -89,7 +103,10 @@ function setAction(code,id){
 		<td width="18%" align="center" class="titles" height="20">
 			Budget Note Status
 		</td>
-		<td width="14%" align="center" class="titles" height="20">
+		<td width="8%" align="center" class="titles" height="20">
+			P.O Number
+		</td>
+		<td width="12%" align="center" class="titles" height="20">
 			Date
 		</td>
 		<td width="18%" align="center" class="titles" height="20">
@@ -117,6 +134,9 @@ function setAction(code,id){
                         String strName = (String)hmt.get("strDepartmentNm");
 						String head_name=(String)hmt.get("budget_head_name");
 						String budget_note_status=(String)hmt.get("budget_note_status");
+						String ponumber=(String)hmt.get("ponumber");
+						if(ponumber==null)
+						ponumber="";
 			String strDt = (String)hmt.get("create_date");
 			String strAmount = (String)hmt.get("budget_note_expense");
 			
@@ -146,6 +166,9 @@ function setAction(code,id){
 					<%}%>
 				</td>
 				<td align="left" class="link" height="20">
+					<%=ponumber%>
+				</td>
+				<td align="left" class="link" height="20">
 					<%=dd_mm_yyyy%>
 				</td>
 				<td align="left" class="link" height="20">
@@ -173,6 +196,7 @@ function setAction(code,id){
 	        <tr> 
 	      	    <td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
+				<td valign="top" height="20">&nbsp; </td>
 	            <td valign="top" height="20">&nbsp; </td>
 				<td valign="top" height="20">&nbsp; </td>
 				<td valign="top" height="20">&nbsp; </td>
@@ -183,7 +207,7 @@ function setAction(code,id){
 	    %>
 	    
 	    <tr style="<%=strColHd%>"> 
-	      <td colspan="6" height="20" align="center"> 
+	      <td colspan="7" height="20" align="center"> 
 		<%
 		if(nCurrent_Page!=1){
 		   %>
@@ -209,10 +233,10 @@ function setAction(code,id){
 	      </td>
 	    </tr>
 	    <tr> 
-		<td colspan=6 height="20">&nbsp;</td>
+		<td colspan=7 height="20">&nbsp;</td>
 	    </tr>
 	    <tr> 
-	      <td colspan="6" valign="top" height="20" align="center">
+	      <td colspan="7" valign="top" height="20" align="center">
 	          <table width="50%">
 		      <tr> 
 		    	<td> <input type="button" name="btn1" value="Create Budget Note" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 

@@ -53,7 +53,13 @@ function setAction(code,id){
 
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	<tr style="<%=strColHd%>"><td colspan="7" class="titles" align="center"><font color="#FF9900">Budget Allocation List</font></td></tr>
+	<tr style="<%=strColHd%>"><td colspan="7" class="titles" align="center"><font color="#FF9900"><font color="#FF9900"><% String message=(String)request.getAttribute("message");
+	if(message !=null){
+	out.print(message);
+	}else{
+	out.print("Budget Allocation List");
+	}
+	%></font></font></td></tr>
 	    <tr style="<%=strColHd%>">
 		<td width="20%" align="center" class="titles" height="20">
 			Budget Head

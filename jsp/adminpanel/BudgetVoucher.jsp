@@ -1,7 +1,9 @@
 <% //@page import="java.util.*" %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
+<%@ page import="java.util.*,java.text.*" %>
 
 <%
+    DecimalFormat d = new DecimalFormat("##0.00");
 	session.setAttribute("itr", "1");
 	String strId = "";
 	String strName = "";
@@ -447,7 +449,7 @@ function handleEnter(fieldname,frm){
 			<tr> 
               <td align="left" class="innertitle"> Budget Note Amount <font size="1">(Rs.)</font> 
               </td>
-              <td align="left" class="innertitle"> <input type="text" name="budget_note_expense" size="12" class="formfield" value="<%=remain_NoteBallance%>0" readonly>	
+              <td align="left" class="innertitle"> <input type="text" name="budget_note_expense" size="12" class="formfield" value="<%=d.format(remain_NoteBallance)%>" readonly>	
               </td>
             </tr>
           </table></td>

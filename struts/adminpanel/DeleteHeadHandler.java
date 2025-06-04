@@ -34,32 +34,22 @@ public class DeleteHeadHandler extends org.apache.struts.action.Action
             HttpSession session = request.getSession(true);
             HashMap My = (HashMap)session.getAttribute("user");
 			String DBnm = (String)My.get("DBnm");
+		    DynaActionForm daf = (DynaActionForm)form;
+		    sop("daf >>>>>>>>>>>>>"+daf.getMap().entrySet());
+		    String headId=(String)daf.get("id");
             ErrorHandler eh = new ErrorHandler();
             CVDal cvdal = new CVDal(DBnm);
 	    	try
 	    	{
-				int No_Of_Row=0;
-            	Enumeration en = request.getParameterNames();
-	            while(en.hasMoreElements())
-	            {
-	            	sop("----------------------------------- After While");
-	            	String ParamName =(String)en.nextElement();
-	            	sop("Parameter -------->   "+ ParamName);
-	            	if(ParamName.length()>2)
-	            	{
-		            	if(ParamName.substring(0,3).equals("chk"))
-		            	{
-			            		String ParamValues[] = request.getParameterValues(ParamName);
-								Vector vec = new Vector();
-								vec.addElement(ParamValues[0]);
-								cvdal.setSQL("DeleteHead",vec);
-								int i=cvdal.executeUpdate();
-								No_Of_Row =No_Of_Row+i;
-						}
-					}
-	            }
-	            if(No_Of_Row>0)
-	            		FORWARD_final = Success;
+				Vector vec = new Vector();
+				vec.addElement(headId);
+				cvdal.setSQL("DeleteHead",vec);
+				int i=cvdal.executeUpdate();
+
+				if(vec.size() >0 && i ==0)
+					request.setAttribute("message","Budget is allocated for this head , so you cant delete");
+
+				FORWARD_final = Success;
             }catch(Exception e){
                 e.printStackTrace();
                 String err = eh.getError("148621");

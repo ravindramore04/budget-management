@@ -23,6 +23,7 @@
 	String budget_note_status="DRAFT";
 	String radiocheckYes="";
 	String radiocheckNo="";
+	String ponumber="";
 
 
 	HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
@@ -38,6 +39,7 @@
          availableBalance = (String)hmData.get("availableBalance");
 		 budget_note_id =  (String)hmData.get("budget_note_id");
 		 budget_note_status=(String)hmData.get("budget_note_status");
+		 ponumber=(String)hmData.get("ponumber");
 		 if("APPROVED".equals(budget_note_status)){
 		 radiocheckYes="checked";
 		 }else{
@@ -160,6 +162,13 @@ function calculateDifference() {
 		</tr>
 		<%if(isStoreAccount){%>
 		<tr>
+			<td class="innertitle" valign = "top">Purchase Order No.</td>
+			<td colspan="3">
+				<input type="text" name="ponumber" value="<%=ponumber%>">
+			</td>
+		</tr>
+		
+		<tr>
 			<td width="25%" align="right">
 				<input type="hidden" name="txtId" value="<%=strId%>">
 				Approve Budget Note:
@@ -172,6 +181,8 @@ function calculateDifference() {
   			<label for="no">No</label>
 			</td>
 		</tr>
+		<%}else{%>
+		<input type="hidden" name="ponumber" value="<%=ponumber%>">
 		<%}%>
 		<tr>
 		   <td class="innertitle" valign = "top"></td>

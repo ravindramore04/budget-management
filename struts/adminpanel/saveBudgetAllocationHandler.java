@@ -118,32 +118,48 @@ public class saveBudgetAllocationHandler extends org.apache.struts.action.Action
 
 						}else{
 							vec.addElement(strId);
-							cvdal.setSQL("updateintobudgetallocation",vec);
-							int irow=cvdal.executeUpdate();
+							Vector note_id=new Vector();
+							note_id.addElement(strId);
+							cvdal.setSQL("get_budget_note", note_id);
+							Vector vec2 = (Vector)cvdal.executeQuery();
+
+							cvdal.setSQL("get_head_id", note_id);
+							Vector vec3 = (Vector)cvdal.executeQuery();
+							String head_ID=(String)(((Map) vec3.get(0)).get("HeadId"));
+							String departmentId=(String)(((Map) vec3.get(0)).get("strDepartmentId")) ;
+
+							if((!strHeadId.equals(head_ID) || !strDepartmentId.equals(departmentId))&& vec2.size()>0)
+							{
+								request.setAttribute("message","You Cant update Allocation, Budget Note Created");
+							}else{
+								cvdal.setSQL("updateintobudgetallocation",vec);
+								int irow=cvdal.executeUpdate();
+							}
+
 						}
 
 						sop("before test-->"+strId);
 						 cvdal = new CVDal(DBnm);
 						 if(strId == null || strId.length()==0){
-							 sop("inside if-->"+strId);
+							 sop("inside if-->" + strId);
 							vec.clear();
 							vec.addElement(strAmount);
 							vec.addElement(strHeadId);
-							cvdal.setSQL("updateHeadBalance",vec);
-							int irow1=cvdal.executeUpdate();
+							//cvdal.setSQL("updateHeadBalance",vec);
+							//int irow1=cvdal.executeUpdate();
 						 }else{
 							 if(bHead){
 								vec.clear();
 								vec.addElement(Amount);
 								vec.addElement(HeadId);
-								cvdal.setSQL("minusHeadBalance",vec);
-								int irow1=cvdal.executeUpdate();
+								//cvdal.setSQL("minusHeadBalance",vec);
+								//int irow1=cvdal.executeUpdate();
 
 								vec.clear();
 								vec.addElement(strAmount);
 								vec.addElement(strHeadId);
-								cvdal.setSQL("updateHeadBalance",vec);
-								irow1=cvdal.executeUpdate();
+								//cvdal.setSQL("updateHeadBalance",vec);
+								//irow1=cvdal.executeUpdate();
 							 }else if(bAmount){
 								 sop("inside else if-->"+strId);
 								double dblAmount= Double.parseDouble(strAmount);
@@ -154,8 +170,8 @@ public class saveBudgetAllocationHandler extends org.apache.struts.action.Action
 								vec.clear();
 								vec.addElement(""+newAmount);
 								vec.addElement(HeadId);
-								cvdal.setSQL("updateHeadBalance",vec);
-								int irow2=cvdal.executeUpdate();
+								//cvdal.setSQL("updateHeadBalance",vec);
+								//int irow2=cvdal.executeUpdate();
 							 }
 						 }
 						FORWARD_final = Success;

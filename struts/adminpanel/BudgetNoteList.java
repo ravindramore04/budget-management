@@ -37,6 +37,7 @@ public class BudgetNoteList extends Action
             DynaActionForm daf = (DynaActionForm)form;
             sop("DynaActionForm Details --->"+daf.getMap().entrySet());
             String operation=(String)daf.get("operation");
+           // String operation=(String)daf.get("opr");
             String budget_note_id=(String)daf.get("id");
             sop( "operation-->" + operation);
             String strPage_num ="";
@@ -107,6 +108,14 @@ public class BudgetNoteList extends Action
                     vec.addElement(""+nNum_Per_Page);
                     cvdal.setSQL("listbudgetnotelimit", vec);
 
+                }
+
+                if("search_BN".equals(operation)){
+                    sop("i am in search >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                    vec.clear();
+                    vec.addElement(budget_note_id);
+                    vec.addElement(SessionUtils.getDepartmentId(session));
+                    cvdal.setSQL("listbudgetnote_one", vec);
                 }
 
                 vec1 = (Vector)cvdal.executeQuery();

@@ -263,7 +263,7 @@ document.abc.submit();
         Amount</font>
         
       </td>
-	  <td width="130" height="15" ><div align="center"><font face="Bookman Old Style" size="2"><%=allocatedAmount%></font></div>
+	  <td width="130" height="15" ><div align="center"><font face="Bookman Old Style" size="2"><%=d.format(allocatedAmount)%></font></div>
         
       </td>
       <td width="82"> <div align="center"><font face="Bookman Old Style" size="3"></font></div></td>
