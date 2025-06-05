@@ -114,8 +114,12 @@ public class BudgetNoteList extends Action
                     sop("i am in search >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                     vec.clear();
                     vec.addElement(budget_note_id);
-                    vec.addElement(SessionUtils.getDepartmentId(session));
-                    cvdal.setSQL("listbudgetnote_one", vec);
+                    if(SessionUtils.isAccountORStoreUser(session)) {
+                        cvdal.setSQL("listbudgetnote_one_alldept", vec);
+                    }else{
+                        vec.addElement(SessionUtils.getDepartmentId(session));
+                        cvdal.setSQL("listbudgetnote_one", vec);
+                    }
                 }
 
                 vec1 = (Vector)cvdal.executeQuery();
