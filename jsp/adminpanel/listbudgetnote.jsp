@@ -15,7 +15,7 @@
 <script language="JavaScript">
 function navigation(code){
     document.VoucherList.NAV.value = code;
-    document.VoucherList.action = "<%=strPath+"AllVoucher.do"%>";
+    document.VoucherList.action = "<%=strPath+"BudgetNoteList.do"%>";
     document.VoucherList.submit();
 }
 
@@ -216,7 +216,7 @@ function setAction(code,id){
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next<i class="arrow right"></a>&nbsp;&nbsp; 
+			<a href="#" accesskey="N" class="titles" onClick="navigation(2)">Next<i class="arrow right"></i></a>&nbsp;&nbsp; 
 		    <%
 		}
 		if(nCurrent_Page!=1){
@@ -226,7 +226,7 @@ function setAction(code,id){
 		}
 		if(nCurrent_Page<nTotal_pages){
 		    %>
-			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last<i class="arrow right"></a> 
+			<a href="#" accesskey="L" class="titles" onClick="navigation(4)">Last<i class="arrow right"></i></a> 
 		    <%
 		}
 		%>
