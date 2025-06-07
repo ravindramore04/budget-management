@@ -86,6 +86,10 @@ function setAction(code,id){
 	<TR>
 	<TD>
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+	<tr> 
+        <td height="20"  colspan="5"> <div align="center"><img width="600" height="100" src="<%=strPath+ "html/_images/budget_note.jpg"%>"> </div></td>
+
+      </tr>
       <tr class="titles"> 
         <td height="20"  colspan="5"> <div align="center"><strong>BUDGET NOTE-2025-2026</strong></div></td>
 
