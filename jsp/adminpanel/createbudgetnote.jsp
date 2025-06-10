@@ -40,6 +40,8 @@
 		 budget_note_id =  (String)hmData.get("budget_note_id");
 		 budget_note_status=(String)hmData.get("budget_note_status");
 		 ponumber=(String)hmData.get("ponumber");
+		 if(ponumber==null)
+		 ponumber="";
 		 if("APPROVED".equals(budget_note_status)){
 		 radiocheckYes="checked";
 		 }else{

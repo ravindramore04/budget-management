@@ -49,6 +49,7 @@ public class BudgetNote extends Action
             String strPage_num ="";
             String strNavOpr = "";
             String operation=(String)daf.get("opr");
+            String searchThis=(String)daf.get("searchBN");
             sop( "Form     -->" + daf.getMap().entrySet());
             sop( "operation-->" + operation);
 
@@ -166,10 +167,23 @@ public class BudgetNote extends Action
                     FORWARD_final = "printnote";
                 } else{
                     if(SessionUtils.isAccountORStoreUser(session)){
-                        cvdal.setSQL("openAllHeadWithBalanceAllDept", vec);
+                        if("search_BN".equals(operation) || searchThis !=null){
+                            vec.addElement(searchThis);
+                            cvdal.setSQL("openAllHeadWithBalanceAllDeptSearch", vec);
+                        }else {
+                            cvdal.setSQL("openAllHeadWithBalanceAllDept", vec);
+                        }
                     }else{
-                        vec.addElement(SessionUtils.getDepartmentId(session));
-                        cvdal.setSQL("openAllHeadWithBalance", vec);
+
+                        if("search_BN".equals(operation) || searchThis !=null){
+                            vec.addElement(SessionUtils.getDepartmentId(session));
+                            vec.addElement(searchThis);
+                            cvdal.setSQL("openAllHeadWithBalanceSearch", vec);
+                        }else {
+                            vec.addElement(SessionUtils.getDepartmentId(session));
+                            cvdal.setSQL("openAllHeadWithBalance", vec);
+                        }
+
                     }
 
                     Vector vec1 = (Vector)cvdal.executeQuery();
@@ -204,14 +218,29 @@ public class BudgetNote extends Action
                         vec.clear();
 
                         if(SessionUtils.isAccountORStoreUser(session)){
-                            vec.addElement(""+nLowLimit);
-                            vec.addElement(""+nNum_Per_Page);
-                            cvdal.setSQL("openAllHeadWithBalanceAllDeptWL", vec);
+                            if("search_BN".equals(operation) || searchThis !=null){
+                                vec.addElement(searchThis);
+                                vec.addElement("" + nLowLimit);
+                                vec.addElement("" + nNum_Per_Page);
+                                cvdal.setSQL("openAllHeadWithBalanceAllDeptWLSearch", vec);
+                            }else {
+                                vec.addElement("" + nLowLimit);
+                                vec.addElement("" + nNum_Per_Page);
+                                cvdal.setSQL("openAllHeadWithBalanceAllDeptWL", vec);
+                            }
                         }else{
-                            vec.addElement(SessionUtils.getDepartmentId(session));
-                            vec.addElement(""+nLowLimit);
-                            vec.addElement(""+nNum_Per_Page);
-                            cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+                            if("search_BN".equals(operation) || searchThis !=null){
+                                vec.addElement(searchThis);
+                                vec.addElement(SessionUtils.getDepartmentId(session));
+                                vec.addElement("" + nLowLimit);
+                                vec.addElement("" + nNum_Per_Page);
+                                cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+                            }else {
+                                vec.addElement(SessionUtils.getDepartmentId(session));
+                                vec.addElement("" + nLowLimit);
+                                vec.addElement("" + nNum_Per_Page);
+                                cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+                            }
                         }
 
 
@@ -231,6 +260,7 @@ public class BudgetNote extends Action
                     sop("-------------------------------------------------");
                     sop(""+hmFinal);
                     request.setAttribute("data", hmFinal);
+                    request.setAttribute("search_BN",searchThis);
                     HashMap hmPage = new HashMap();
                     hmPage.put("current_page", ""+(long)nPage);
                     hmPage.put("total_page", ""+(long)nTotalPage);

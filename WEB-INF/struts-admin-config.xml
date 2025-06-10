@@ -54,6 +54,7 @@
 		<form-property name="NAV" type="java.lang.String"/>
 		<form-property name="current_page" type="java.lang.String"/>
 		<form-property name="Newcurrent_page" type="java.lang.String"/>
+		<form-property name="searchBN" type="java.lang.String"/>
 	</form-bean>
 
 

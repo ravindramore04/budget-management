@@ -36,6 +36,12 @@ function setAction(code,id){
         case 4:
             document.HeadBalanceList.action = "<%=strPath+"Close.do"%>";
             break;
+		case 7:
+		      document.HeadBalanceList.action = "<%=strPath+"AllHeadForBudgetNote.do"%>";
+			  document.HeadBalanceList.operation.value="search_BN";
+			  document.HeadBalanceList.opr.value="search_BN";
+			  document.HeadBalanceList.id.value = document.getElementById('searchId').value;
+			break;
     }
     
     document.HeadBalanceList.submit();
@@ -59,11 +65,27 @@ function setAction(code,id){
     <input type="hidden" name="NAV" value="">
     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
     <input type="hidden" name="id" value="">
+	<input type="hidden" name="operation" value="">
     <input type="hidden" name="opr" value="">
     <div id="tooltip" class="tooltip"></div>
     <td width="80%" valign="top" align="center" class="tabbg">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	  <tr style="<%=strColHd%>"><td colspan="7" class="titles" align="center"><font color="#FF9900">Click on Budget Head Name to create Budget Note</font></td></tr>
+	<tr style="<%=strColHd%>">
+		<td width="16%" align="center" class="titles" height="20">
+		<%
+		String searchVal=(String)request.getAttribute("search_BN");
+		if(searchVal ==null)
+		searchVal="";
+		%>
+			<input type="text" id="searchId" placeholder="Enter Head Name" name="searchBN" value="<%=searchVal%>">
+		</td>
+		<td width="16%" align="center" class="titles" height="20">
+			<input type="button" name="btn3"  value="   Search Head   " accesskey="C" onClick="setAction(7,0)" class="PPRSbmtBtn"> 
+		</td>
+		<td  class="titles" width="16%"  align="center">Budget Head List</td>
+		<td colspan="4" class="titles" align="left"></td>
+		</tr>
+		  <tr style="<%=strColHd%>"><td colspan="7" class="titles" align="center"><font color="#FF9900">Click on Budget Head Name to create Budget Note</font></td></tr>
 	    <tr style="<%=strColHd%>">
 		
 		<td width="7%" height="20">&nbsp;
