@@ -56,6 +56,12 @@ function setAction(code,id){
         case 4:
             document.VoucherList.action = "<%=strPath+"Close.do"%>";
             break;
+		case 7:
+		      document.VoucherList.action = "<%=strPath+"AllVoucher.do"%>";
+			  document.VoucherList.operation.value="search_BN";
+			  document.VoucherList.opr.value="search_BN";
+			  document.VoucherList.id.value = document.getElementById('searchId').value;
+			break;
     }
     document.VoucherList.opr.value=code;
     document.VoucherList.submit();
@@ -74,6 +80,18 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+	
+	<tr style="<%=strColHd%>">
+		<td width="16%" align="center" class="titles" height="20">
+			<input type="text" id="searchId" placeholder="Search Voucher" name="searchBN" value="">
+		</td>
+		<td width="16%" align="center" class="titles" height="20">
+			<input type="button" name="btn3"  value="   Search Voucher   " accesskey="C" onClick="setAction(7,0)" class="PPRSbmtBtn"> 
+		</td>
+		<td  class="titles" width="16%"  align="center">&nbsp;</td>
+		<td colspan="4" class="titles" align="left">Voucher List</td>
+		</tr>
+	
 	    <tr style="<%=strColHd%>">
 		<td width="5%" align="center" class="titles" height="20">
 			Vou. Number

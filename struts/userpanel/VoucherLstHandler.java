@@ -1,5 +1,6 @@
 package struts.userpanel;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -45,6 +46,9 @@ public class VoucherLstHandler extends org.apache.struts.action.Action
                     DynaActionForm daf = (DynaActionForm)form;
                     String strPage_num ="";
                     String strNavOpr = "";
+                sop("DAF"+daf.getMap().entrySet());
+                //searchBN=11, txtBGid=, opr=7, toDate=, Newcurrent_page=, fromDate=, id=11, operation=search_BN,
+                    String searchBN=(String)daf.get("searchBN");
                     if(daf!=null){
                         strPage_num = (String)daf.get("current_page");
                         strNavOpr = (String)daf.get("NAV");
@@ -61,7 +65,13 @@ public class VoucherLstHandler extends org.apache.struts.action.Action
                         nPage = Double.parseDouble(strPage_num);
 
                     vec.clear();
-                    cvdal.setSQL("openAllVoucher", vec);
+                    if(StringUtils.isNotEmpty(searchBN)) {
+                        vec.addElement(searchBN);
+                        cvdal.setSQL("openAllVoucherSearch", vec);
+                    }else{
+                        cvdal.setSQL("openAllVoucher", vec);
+                    }
+
                     Vector vec1 = (Vector)cvdal.executeQuery();
                     if(vec1!=null && vec1.size()>0){
                         nTotalPage = Math.ceil(vec1.size()/(double)nNum_Per_Page);
@@ -91,9 +101,16 @@ public class VoucherLstHandler extends org.apache.struts.action.Action
 
                     if(nPage<=nTotalPage){
                         vec.clear();
-                        vec.addElement(""+nLowLimit);
-                        vec.addElement(""+nNum_Per_Page);
-                        cvdal.setSQL("openAllVoucherWL", vec);
+                        if(StringUtils.isNotEmpty(searchBN)) {
+                            vec.addElement(searchBN);
+                            vec.addElement(""+nLowLimit);
+                            vec.addElement(""+nNum_Per_Page);
+                            cvdal.setSQL("openAllVoucherSearchWL", vec);
+                        }else {
+                            vec.addElement("" + nLowLimit);
+                            vec.addElement("" + nNum_Per_Page);
+                            cvdal.setSQL("openAllVoucherWL", vec);
+                        }
                         vec1 = (Vector)cvdal.executeQuery();
                         if(vec1!=null && vec1.size()>0){
                             for(int indx=0;indx<vec1.size();indx++){
@@ -104,7 +121,7 @@ public class VoucherLstHandler extends org.apache.struts.action.Action
                     }
                     request.setAttribute("data", hmFinal);
                     HashMap hmPage = new HashMap();
-                    hmPage.put("current_page", ""+(long)nPage);
+                    hmPage.put("current_page", "" + (long) nPage);
                     hmPage.put("total_page", ""+(long)nTotalPage);
                     request.setAttribute("page", hmPage);
                     FORWARD_final = Success;
