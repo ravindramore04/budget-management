@@ -295,6 +295,8 @@ public class CVDal
 		ALLSQL.put("VoucherDelete","Delete from voucher_details where voucher_id='?'");
 
 		ALLSQL.put("get_All_Allocation_Status_Report", "SELECT H.strName AS HEAD_NAME, D.strDepartmentNm AS DEPARTMENT_NAME, BA.dblAmount AS ALLOCATED_AMOUNT, BA.dblReservedAmount AS RESERVED_AMOUNT, BA.dblUtilisedAmount AS UTILISED_AMOUNT, (BA.dblAmount-BA.dblUtilisedAmount-BA.dblReservedAmount) AS REMAINING_AMOUNT FROM budgetalloc BA, departments D, budgethead H WHERE BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId ORDER BY H.strName");
+		ALLSQL.put("get_All_Allocation_Status_Report_Department", "SELECT H.strName AS HEAD_NAME, D.strDepartmentNm AS DEPARTMENT_NAME, BA.dblAmount AS ALLOCATED_AMOUNT, BA.dblReservedAmount AS RESERVED_AMOUNT, BA.dblUtilisedAmount AS UTILISED_AMOUNT, (BA.dblAmount-BA.dblUtilisedAmount-BA.dblReservedAmount) AS REMAINING_AMOUNT FROM budgetalloc BA, departments D, budgethead H WHERE BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId AND BA.strDepartmentId ='?' ORDER BY H.strName");
+
 
 		// Reports - START
 		ALLSQL.put("ALL_VOUCHER_REPORT", "SELECT VD.voucher_id, VD.voucher_date, (VD.amount+VD.tds_amount) AS VOUCHER_AMOUNT, VD.receiver_name, D.strDepartmentNm, H.strName FROM VOUCHER_DETAILS VD, BUDGET_NOTE BN, budgetalloc BA, departments D, budgethead H WHERE VD.budget_note_id = BN.budget_note_id AND BN.AllocId = BA.AllocId AND BA.strDepartmentId = D.strDepartmentId AND BA.HeadId = H.HeadId AND VD.voucher_date BETWEEN '?' AND '?'");

@@ -1,5 +1,6 @@
 package struts.adminpanel;
 
+import login.SessionUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.struts.action.ActionForm;
@@ -36,7 +37,13 @@ public class ExcelReport extends org.apache.struts.action.Action {
         try {
             struts.common.CVDal cvdal = new struts.common.CVDal(DBnm);
             vec.clear();
-            cvdal.setSQL("get_All_Allocation_Status_Report", vec);
+            if(SessionUtils.isAccountORStoreUser(session)) {
+                cvdal.setSQL("get_All_Allocation_Status_Report", vec);
+            }else {
+                vec.addElement(SessionUtils.getDepartmentId(session));
+                cvdal.setSQL("get_All_Allocation_Status_Report_Department", vec);
+            }
+
             vec1 = (Vector) cvdal.executeQuery();
 
             //createAllAllocationReportFile(vec1, request);
