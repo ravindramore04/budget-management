@@ -167,7 +167,7 @@ public class BudgetNote extends Action
                     FORWARD_final = "printnote";
                 } else{
                     if(SessionUtils.isAccountORStoreUser(session)){
-                        if("search_BN".equals(operation) || searchThis !=null){
+                        if("search_BN".equals(operation) || StringUtils.isNotEmpty(searchThis)){
                             vec.addElement(searchThis);
                             cvdal.setSQL("openAllHeadWithBalanceAllDeptSearch", vec);
                         }else {
@@ -175,7 +175,7 @@ public class BudgetNote extends Action
                         }
                     }else{
 
-                        if("search_BN".equals(operation) || searchThis !=null){
+                        if("search_BN".equals(operation) || StringUtils.isNotEmpty(searchThis)){
                             vec.addElement(SessionUtils.getDepartmentId(session));
                             vec.addElement(searchThis);
                             cvdal.setSQL("openAllHeadWithBalanceSearch", vec);
@@ -218,7 +218,7 @@ public class BudgetNote extends Action
                         vec.clear();
 
                         if(SessionUtils.isAccountORStoreUser(session)){
-                            if("search_BN".equals(operation) || searchThis !=null){
+                            if("search_BN".equals(operation) || StringUtils.isNotEmpty(searchThis)){
                                 vec.addElement(searchThis);
                                 vec.addElement("" + nLowLimit);
                                 vec.addElement("" + nNum_Per_Page);
@@ -229,12 +229,12 @@ public class BudgetNote extends Action
                                 cvdal.setSQL("openAllHeadWithBalanceAllDeptWL", vec);
                             }
                         }else{
-                            if("search_BN".equals(operation) || searchThis !=null){
-                                vec.addElement(searchThis);
+                            if("search_BN".equals(operation) || StringUtils.isNotEmpty(searchThis)){
                                 vec.addElement(SessionUtils.getDepartmentId(session));
+                                vec.addElement(searchThis);
                                 vec.addElement("" + nLowLimit);
                                 vec.addElement("" + nNum_Per_Page);
-                                cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+                                cvdal.setSQL("openAllHeadWithBalanceWLSearch", vec);
                             }else {
                                 vec.addElement(SessionUtils.getDepartmentId(session));
                                 vec.addElement("" + nLowLimit);
