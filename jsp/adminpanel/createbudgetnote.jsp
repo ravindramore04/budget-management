@@ -77,13 +77,14 @@ function calculateDifference() {
     // Get values from the input fields
 	 var ballanceBudget = parseFloat(document.getElementById("ballanceBudget").value) || 0;
     var thisExpenditure = parseFloat(document.getElementById("budget_note_expense").value) || 0;
-	var allocation_reserved_amount= parseFloat(document.getElementById("allocation_reserved_amount").value) || 0;
+	var previousBudgetNoteAmount= parseFloat(document.getElementById("previousBudgetNoteAmount").value) || 0;
+	//var allocation_reserved_amount= parseFloat(document.getElementById("allocation_reserved_amount").value) || 0;
     var isUpdate=document.getElementById("btn").value;
     // Calculate the difference;
     //alert(isUpdate);
 	var result;
 	if(isUpdate=="Update"){
-	  result = (ballanceBudget + allocation_reserved_amount) - thisExpenditure;
+	  result = (ballanceBudget + previousBudgetNoteAmount) - thisExpenditure;
 	}else{
 	  result = ballanceBudget - thisExpenditure;
 	}
@@ -101,7 +102,7 @@ function calculateDifference() {
    <input type="hidden" name="page" value="BudgetAllocationMaster">
    <input type="hidden" name="allocationId" value="<%=allocationId%>">
    <input type="hidden" name="opr" value="<%=operation%>">
-   <input type="hidden" name="previousBudgetNoteAmount" value="<%=previousBudgetAmount%>">
+   <input type="hidden" id="previousBudgetNoteAmount" name="previousBudgetNoteAmount" value="<%=previousBudgetAmount%>">
    <input type="hidden" name="id" value="<%=budget_note_id%>">
    
    
@@ -147,7 +148,7 @@ function calculateDifference() {
 
 		<tr>
 			<td width="25%" class="innertitle">Balance after current Expenditure </td>
-			<td width="75%" colspan="3"><input type="text" id="allocation_balance_amount_after_expense" name="allocation_balance_amount_after_expense" size="25" onBlur="calculateDifference()" class="formfield" value="<%=balance_after_expense%>" > </td>
+			<td width="75%" colspan="3"><input type="text" readonly="true" id="allocation_balance_amount_after_expense" name="allocation_balance_amount_after_expense" size="25" onBlur="calculateDifference()" class="formfield" value="<%=balance_after_expense%>" > </td>
 		</tr>
 
 		<tr>

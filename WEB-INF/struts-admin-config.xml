@@ -265,6 +265,11 @@
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>
 		
+		<action path="/allbudgetreport" type="struts.adminpanel.AllBudgetReport" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/allgroup.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
 		<action path="/CrtRptGtp" type="struts.adminpanel.AllGroupHamdler" name="ListForm" scope="request" validate="false">
 			<forward name="success" path="/jsp/adminpanel/allgroupforbud.jsp"/>
 			<forward name="failure" path="/jsp/error.jsp"/>

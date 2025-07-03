@@ -131,6 +131,7 @@ public class CVDal
 
 		ALLSQL.put("openHead","Select * from budgethead where HeadId='?'");
 		ALLSQL.put("openAllHead","select * from BudgetHead order by strName");
+		ALLSQL.put("openAllHeadDept","select * from BudgetHead where strDepartmentId='?' order by strName");
 		ALLSQL.put("openAmount","select * from BUDGETALLOC where  HeadId='?'");
 		ALLSQL.put("openVouchse","select * from VOUCHER where  HeadId='?' ");
 		ALLSQL.put("openVouchsebytype","select * from VOUCHER where  HeadId='?' and bMode='?'");
@@ -261,7 +262,9 @@ public class CVDal
 
 		//Voucher Detaisl by Budget Note: Start
 		ALLSQL.put("openVoucherDetailsWithBudgetNoteId","SELECT bn.budget_note_id, bn.budget_note_expense, bn.budget_note_status, bn.create_date, bn.ponumber, ba.AllocId, ba.Dt AS allocation_date, ba.dblAmount AS allocated_amount, ba.dblReservedAmount, ba.dblUtilisedAmount,(ba.dblAmount-ba.dblUtilisedAmount) as BallanceAmount, bh.HeadId, bh.strName AS budget_head_name, bh.strBudgroupId AS budget_group_id, dp.strDepartmentNm, ba.strDepartmentId FROM budget_note bn JOIN budgetalloc ba ON bn.AllocId = ba.AllocId JOIN budgethead bh ON ba.HeadId = bh.HeadId JOIN departments dp ON ba.strDepartmentId = dp.strDepartmentId where bn.budget_note_id=? ");
-		ALLSQL.put("insertintoBudgetVoucher","insert into voucher_details values('?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?')");
+		ALLSQL.put("openVoucherDetailsWithVoucherId","SELECT bn.budget_note_id, bn.budget_note_expense, bn.budget_note_status, bn.create_date, bn.ponumber, ba.AllocId, ba.Dt AS allocation_date, ba.dblAmount AS allocated_amount, ba.dblReservedAmount, ba.dblUtilisedAmount, (ba.dblAmount - ba.dblUtilisedAmount) AS BallanceAmount,(bn.budget_note_expense - (vd.amount+vd.tds_amount)) AS RemainingBudgetNoteAmount, bh.HeadId, bh.strName AS budget_head_name, bh.strBudgroupId AS budget_group_id, dp.strDepartmentNm, ba.strDepartmentId, vd.* FROM budget_note AS bn JOIN budgetalloc AS ba ON bn.AllocId = ba.AllocId JOIN budgethead AS bh ON ba.HeadId = bh.HeadId JOIN departments AS dp ON ba.strDepartmentId = dp.strDepartmentId LEFT JOIN voucher_details AS vd ON vd.budget_note_id = bn.budget_note_id WHERE vd.voucher_id = ?");
+		ALLSQL.put("getTotalVoucherAmoutForBudgetNote","SELECT SUM(vd.amount + vd.tds_amount) AS BudgetNoteVoucherAmount FROM  voucher_details AS vd JOIN budget_note AS bn ON vd.budget_note_id = bn.budget_note_id WHERE vd.budget_note_id = ? GROUP BY  vd.budget_note_id");
+		ALLSQL.put("insertintoBudgetVoucher","insert into voucher_details values('?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?')");
 		ALLSQL.put("SelectMaxVouno","select max(voucher_number) as LastId from voucher_details" );
 		ALLSQL.put("voucher_details_MAX_ID", "SELECT (COALESCE(MAX(voucher_id), 0)+1) as MAX_ID FROM voucher_details");
 		ALLSQL.put("voucher_number_MAX_ID", "SELECT (COALESCE(MAX(voucher_number), 0)+1) as MAX_ID FROM voucher_details");

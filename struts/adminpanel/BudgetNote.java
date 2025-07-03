@@ -55,7 +55,7 @@ public class BudgetNote extends Action
 
             if ("insert_budget_note".equals(operation)){
                 // save_budget_note - START
-                insertBudgetNote(cvdal, user_id, daf);
+                insertBudgetNote(cvdal, user_id, daf,session);
 
                 FORWARD_final = Success;
                 // save_budget_note - END
@@ -296,9 +296,13 @@ public class BudgetNote extends Action
         sop("budget_note_expense >  minus ballance successfully >  "+j);
     }
 
-    private void insertBudgetNote(CVDal cvdal, String user_id, DynaActionForm daf) {
+    private void insertBudgetNote(CVDal cvdal, String user_id, DynaActionForm daf,HttpSession session) {
         String budget_note_id = cvdal.getMaxId("budget_note_MAX_ID");
-
+        String approval=(String)daf.get("approval");
+        String status="DRAFT";
+        if (SessionUtils.isAccountORStoreUser(session) && "yes".equals(approval)) {
+            status="APPROVED";
+        }
         Vector queryParams = new Vector();
         queryParams.add(budget_note_id);
         queryParams.add(daf.get("allocationId"));
@@ -306,7 +310,7 @@ public class BudgetNote extends Action
         queryParams.add(daf.get("budget_note_expense"));
         queryParams.add(daf.get("allocation_balance_amount_after_expense"));
         queryParams.add(daf.get("budget_note_remark"));
-        queryParams.add("DRAFT");
+        queryParams.add(status);
         queryParams.add(user_id);
         queryParams.add(user_id);
         queryParams.add(daf.get("ponumber"));
@@ -335,7 +339,7 @@ public class BudgetNote extends Action
         queryParams.add(daf.get("budget_note_expense"));
         queryParams.add(daf.get("allocation_balance_amount_after_expense"));
         queryParams.add(daf.get("budget_note_remark"));
-         queryParams.add(user_id);
+        queryParams.add(user_id);
         queryParams.add(status);
         queryParams.add(daf.get("ponumber"));
         queryParams.add(budget_note_id);

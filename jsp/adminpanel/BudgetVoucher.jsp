@@ -40,6 +40,10 @@
 	String budget_note_id="";
 	String BallanceAmount="";
 	
+	//Voucher Details
+	String voucher_id="";
+	String vou_amount="";
+	String vou_tds="";
 	
 	
 	
@@ -55,8 +59,12 @@
 	HashMap hmData=(HashMap)request.getAttribute("Voucherdata"); 
 	
 	HashMap budgetData=(HashMap)request.getAttribute("data"); 
-	
-	//out.print(">>"+budgetData);
+	String budgetnoteRemainAmt="";
+	String budgetNoteVoucherAmount=(String)request.getAttribute("budgetNoteVoucherAmount"); 
+	if(budgetNoteVoucherAmount==null)
+	   budgetNoteVoucherAmount="0.0";
+	//out.print("budgetData>>"+budgetData);
+	//out.println("Voucherdata>>"+hmData);
 	double remain_NoteBallance=0.00;
 	if(budgetData!=null && budgetData.size()>0){
 		 budget_note_id = (String)budgetData.get("budget_note_id");
@@ -71,31 +79,34 @@
 		 strDepartmentNm =  (String)budgetData.get("strDepartmentNm"); 
 		 BallanceAmount =  (String)budgetData.get("BallanceAmount");
 		 strDepartmentId =  (String)budgetData.get("strDepartmentId");
-		 remain_NoteBallance=Double.parseDouble(budget_note_expense)-Double.parseDouble(dblUtilisedAmount);
+		 strVoucherId = (String)budgetData.get("voucher_id");
+		 
+		 remain_NoteBallance=Double.parseDouble(budget_note_expense)-Double.parseDouble(budgetNoteVoucherAmount);
 		  
 	}
 	
 	String strAllocate = "";
 	String strexp = "";
 	double strBalance=0.00;
-	
-	if(hmData!=null && hmData.size()>0){
-		strVoucherId = (String)hmData.get("voucherId");
-		strVoucherNo = (String)hmData.get("voucherNo");
-		Date = (String)hmData.get("dt");
-		strAccountNo = (String)hmData.get("strAccNo");
-		amt = (String)hmData.get("amt");
-		dblAmount= (String)hmData.get("dblAmount");
-		dblTds= (String)hmData.get("dblTds");
-		strType=(String)hmData.get("strType");
-		strToAcc= (String)hmData.get("strToAcc");
-		strReceiverNm=(String)hmData.get("strReceiverNm");
-		bMode=(String)hmData.get("bMode");
-		strBank=(String)hmData.get("strBank");
-		HeadId=(String)hmData.get("HeadId");
-		strTDS=(String)hmData.get("strTDS");
-		strCheque=(String)hmData.get("strChequeNo");
-		upstrPONo=(String)hmData.get("strPONo");
+	double netAmt=0.00;
+	if(strVoucherId!=null){
+		strVoucherNo = (String)budgetData.get("voucher_number");
+		Date = (String)budgetData.get("voucher_date");
+		//strAccountNo = (String)budgetData.get("strAccNo");
+		remain_NoteBallance=Double.parseDouble((String)budgetData.get("budgetnoteRemainAmt"));
+		amt = (String)budgetData.get("amount");
+		dblAmount= (String)budgetData.get("amount");
+		dblTds= (String)budgetData.get("tds_amount");
+		netAmt=Double.parseDouble(dblAmount)+Double.parseDouble(dblTds);
+		strType=(String)budgetData.get("strType");
+		strToAcc= (String)budgetData.get("narration");
+		strReceiverNm=(String)budgetData.get("receiver_name");
+		bMode=(String)budgetData.get("payment_mode");
+		strBank=(String)budgetData.get("bank_name");
+		HeadId=(String)budgetData.get("HeadId");
+		strTDS=(String)budgetData.get("tdsnarration");
+		strCheque=(String)budgetData.get("chequeno");
+		upstrPONo=(String)budgetData.get("po_number");
 		strYY=Date.substring(0,4);
 		strMM=Date.substring(5,7);
 		strDD=Date.substring(8,10);
@@ -186,8 +197,12 @@
     	    n2 = isNaN(parseFloat(txtTds.value))?0:parseFloat(txtTds.value);
     	    if(n1>0  || n2 >0)
     	    	txtNetAmt.value = n1+n2;   
-    
+            //alert('<%=strVoucherId%>');
     	    txtWord.value=numberToWordsIndian(txtNetAmt.value);
+			
+			if('<%=strVoucherId%>'=='null'){
+			budget_note_expense.value=parseFloat('<%=remain_NoteBallance%>')-(n1+n2);
+			}
 //    	    txtNetAmt
 //    	    txtAmt
     	}
@@ -266,14 +281,11 @@ function numberToWordsIndian(num) {
 }
 
 
-function ActionSet(id){
-alert(id);
+function setAction(id){
 	switch(id)
 	{
 		case 1:
-				alert(document.BudgetHead.id);
-				//alert(document.OpenVehicleAvailForm.Lorry_Id.value);
-				document.BudgetHead.action="<%=strPath%>OpenVoucher.do";
+				document.BudgetHead.action="<%=strPath+"Close.do"%>";
 				break;
 	}
 	document.BudgetHead.submit();
@@ -335,6 +347,7 @@ function ChkDt()
 	}
 	
 	//BudgetHead.txtsession.value = BudgetHead.session(BudgetHead.session.selectedIndex).text;
+	document.BudgetHead.action="<%=strPath+"SaveVoucher.do"%>";
 	document.BudgetHead.submit();
 }
     
@@ -348,7 +361,7 @@ function handleEnter(fieldname,frm){
 </script>
 
 
-   <form name="BudgetHead" method="post" action="SaveVoucher.do">
+   <form name="BudgetHead" method="post" action="#">
    <input type="hidden" name="txtMode" value="<%=bMode%>">
    <input type="hidden" name="txtId" value="<%=strVoucherId%>">  
    <input type="hidden" name="txtDt" value="">
@@ -410,7 +423,7 @@ function handleEnter(fieldname,frm){
 	        Str=""+i;
 	     	if(strYY.equals(Str.trim()))
 	     	{
-		%>
+		  %>
             <option value="<%=Str%>" selected><%=Str%></option>
             <% } else { %>
             <option value="<%=i%>"><%=i%></option>
@@ -425,7 +438,7 @@ function handleEnter(fieldname,frm){
              <%=budget_note_id%>
           </div></td>
         <td width="100" class="innertitle" align="left"> <div align="left">Acc No</div></td>
-		<td  class="innertitle" align="left"> <input type="text" name="txtAccNo" size="25" class="formfield" value="<%=strAccountNo%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"> 
+		<td  class="innertitle" align="left"> <input type="text" name="txtAccNo" size="25" class="formfield" value="<%//=strAccountNo%>" onKeyPress="handleEnter('txtReceiver','BudgetHead')"> 
         </td>
 
       </tr>
@@ -447,9 +460,15 @@ function handleEnter(fieldname,frm){
               <td align="left" class="innertitle"> <input type="text" name="BallanceAmount" size="12" class="formfield" value="<%=BallanceAmount%>" readonly></td>
             </tr>
 			<tr> 
-              <td align="left" class="innertitle"> Budget Note Amount <font size="1">(Rs.)</font> 
+              <td align="left" class="innertitle"> Budget Note Expense <font size="1">(Rs.)</font> 
               </td>
-              <td align="left" class="innertitle"> <input type="text" name="budget_note_expense" size="12" class="formfield" value="<%=d.format(remain_NoteBallance)%>" readonly>	
+              <td align="left" class="innertitle"> <input type="text" name="budget_note_amount" size="12" class="formfield" value="<%=budget_note_expense%>" readonly>	
+              </td>
+            </tr>
+			<tr> 
+              <td align="left" class="innertitle"> Budget Note Balance <font size="1">(Rs.)</font> 
+              </td>
+              <td align="left" class="innertitle"> <input type="text" name="budget_note_expense" size="12" class="formfield" value="<%=d.format(remain_NoteBallance)%>">	
               </td>
             </tr>
           </table></td>
@@ -457,7 +476,7 @@ function handleEnter(fieldname,frm){
             <tr> 
               <td width="37%" align="left" class="innertitle">Amount <font size="1">(Rs.)</font> 
               </td>
-              <td width="63%" align="left" class="innertitle"> <input type="text" name="txtAmt" size="12" class="formfield" value="<%=bMode.equals("1")?"0.00":dblAmount%>" onKeyPress="handleEnter('txtAcc','BudgetHead')" > 
+              <td width="63%" align="left" class="innertitle"> <input type="text" name="txtAmt" size="12" class="formfield" value="<%=dblAmount%>" onKeyPress="handleEnter('txtAcc','BudgetHead')" > 
               </td>
             </tr>
             <tr> 
@@ -484,7 +503,7 @@ function handleEnter(fieldname,frm){
             <tr> 
               <td align="left" class="heading"><font size="2">Net Amount </font><font size="1">(Rs.)</font> 
               </td>
-              <td align="left"> <input type="text" name="txtNetAmt" size="12" class="formfield" value="<%=bMode.equals("1")?dblAmount:amt%>" onKeyPress="handleEnter('txtTds','BudgetHead')" onBlur="calcAmount()"> 
+              <td align="left"> <input type="text" name="txtNetAmt" size="12" class="formfield" value="<%=netAmt%>" onKeyPress="handleEnter('txtTds','BudgetHead')" onBlur="calcAmount()"> 
               </td>
             </tr>
           </table></td>
@@ -534,8 +553,9 @@ function handleEnter(fieldname,frm){
       </tr>
       <tr> 
         <td colspan=4 align="center">
+		<%if(strVoucherId==null){%>
            <input name="btnSub" type="Button" value="Submit" class="PPRSbmtBtn" onClick="return ChkDt()"> 
-		   &nbsp; <input name="btnSub" type="Reset" value=" Reset " class="PPRSbmtBtn"> 
+		<%}%>  
         </td>
       </tr>
     </table>

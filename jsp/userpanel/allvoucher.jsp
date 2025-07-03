@@ -42,6 +42,7 @@ function setAction(code,id){
             break;
         case 2:
             document.VoucherList.action = "<%=strPath+"OpenVoucher.do"%>";
+			document.VoucherList.operation.value="view";
             break;
         case 3:
   			if(confirm("Are you sure you want delete Voucher : Voucher Amount will be Reverted to Budget Note?")){

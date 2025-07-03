@@ -1,5 +1,6 @@
 package struts.userpanel;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -70,6 +71,7 @@ public class SaveVoucherHandler extends org.apache.struts.action.Action
             String strBank= (String)daf.get("txtBank");
             String strReceiverNm= (String)daf.get("txtReceiver");
             String strChequeNo= (String)daf.get("txtChqno");
+			String budget_note_expense=	(String)daf.get("budget_note_expense");
             String strInsertBy=strUserId;
             String strInsertOn=strToday;
             double dbBalance=0;
@@ -117,8 +119,10 @@ public class SaveVoucherHandler extends org.apache.struts.action.Action
 				 vec.add(strInsertBy);
 				 vec.add(strInsertOn);
 				 vec.add(strVoucherNo);
+				 vec.add(strTDS);
+				 vec.add(budget_note_expense);
 
-				 if(strId == null || strId.length()==0){
+			if("null".equals(strId)){
 				cvdal.setSQL("insertintoBudgetVoucher",vec);
 				int irow=cvdal.executeUpdate();
 			}else{

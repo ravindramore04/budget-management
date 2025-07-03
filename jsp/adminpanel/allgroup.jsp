@@ -14,8 +14,20 @@
 				   
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
-    HashMap hmData=(HashMap)request.getAttribute("data"); 
-   // out.println("hmData-->"+hmData);
+    HashMap hmData=(HashMap)request.getAttribute("head"); 
+    //out.println("hmData-->"+hmData);
+	//out.println("hmData-Size->"+hmData.size());
+	
+	if(hmData!=null && hmData.size()>0){
+                for(int indx=0;indx<hmData.size();indx++){
+                    HashMap hmt = (HashMap)hmData.get(""+indx);
+                    if(hmt!=null && hmt.size()>0){
+					//out.print(">>>>"+hmt.get("HeadId"));
+					}
+				}
+	 }
+	
+	
 	HashMap hmPage=(HashMap)request.getAttribute("page");
    //out.println(hmPage);
     if(hmPage!=null && hmPage.size()>0){
@@ -110,12 +122,12 @@ function setAction(code,id){
 	    <select name="txtBGid">
 	    <option value="<%=""+0%>">-----------Select----------</option>
     	    <%
-            if(hmData!=null && hmData.size()>0){
+			  if(hmData!=null && hmData.size()>0){
                 for(int indx=0;indx<hmData.size();indx++){
                     HashMap hmt = (HashMap)hmData.get(""+indx);
                     if(hmt!=null && hmt.size()>0){
-                        String strId = (String)hmt.get("strBudgroupId");
-                        String strName = (String)hmt.get("strBudgroupNm");
+                        String strId = (String)hmt.get("HeadId");
+                        String strName = (String)hmt.get("strName");
 						String strAccNo = (String)hmt.get("strRmrk");
                         %>
 			<option value="<%=strId%>"><%=strName%></option>

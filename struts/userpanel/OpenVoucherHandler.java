@@ -35,6 +35,7 @@ public class OpenVoucherHandler extends org.apache.struts.action.Action
             try{
                 CommonLogic cl = new CommonLogic();
                 CVDal cvdal = new CVDal(DBnm);
+                CVDal cvdalBn = new CVDal(DBnm);
                 HashMap hmFinal = new HashMap();
                 Vector vec = new Vector();
 				Vector vec1 = new Vector();
@@ -63,11 +64,29 @@ public class OpenVoucherHandler extends org.apache.struts.action.Action
                         //update
                         vec.clear();
                         vec.addElement(strId);
-                        cvdal.setSQL("openVoucherDetailsWithBudgetNoteId", vec);
+                        if("view".equals(operation)){
+                            cvdal.setSQL("openVoucherDetailsWithVoucherId", vec);
+                        }else{
+                            cvdal.setSQL("openVoucherDetailsWithBudgetNoteId", vec);
+
+                            cvdalBn.setSQL("getTotalVoucherAmoutForBudgetNote",vec);
+
+                            vec1 = (Vector)cvdalBn.executeQuery();
+                            if(vec1!=null && vec1.size()>0){
+                               HashMap noteAmount = (HashMap)vec1.elementAt(0);
+                                String budgetNoteVoucherAmount=(String)noteAmount.get("BudgetNoteVoucherAmount");
+                                request.setAttribute("budgetNoteVoucherAmount", budgetNoteVoucherAmount);
+                            }
+
+                        }
+                        vec1.clear();
                         vec1 = (Vector)cvdal.executeQuery();
                         if(vec1!=null && vec1.size()>0){
                             hmFinal = (HashMap)vec1.elementAt(0);
                         }
+
+
+
                         FORWARD_final = "budgetvoucher";
                         break;
                     case 5:

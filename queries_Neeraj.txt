@@ -76,7 +76,9 @@ CREATE TABLE `voucher_details`(
   `create_date` date default NULL,
   `updated_by_user_id` int(6) default NULL,
   `update_date` date default NULL,
-  `vouNumManual` varchar(20) default NULL
+  `vouNumManual` varchar(20) default NULL,
+  `tds_amount` double(11,2) default 0.0,
+  `tdsnarration` varchar(500) default NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -165,3 +167,6 @@ DELETE FROM budgethead bh WHERE bh.HeadId = 100004 AND NOT EXISTS (SELECT 1 FROM
 
 Budget note table updated , added  `ponumber` varchar(50)
 alter table budget_note add column ponumber varchar(50);
+
+alter table budget25_26.VOUCHER_DETAILS add column `tdsnarration` varchar(500) default NULL;
+alter table budget25_26.VOUCHER_DETAILS add column `budgetnoteRemainAmt` double(11,2) default 0.00;
