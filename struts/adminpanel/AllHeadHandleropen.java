@@ -1,5 +1,6 @@
 package struts.adminpanel;
 
+import login.SessionUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -40,6 +41,7 @@ public class AllHeadHandleropen extends org.apache.struts.action.Action
                     CommonLogic cl = new CommonLogic();
                     CVDal cvdal = new CVDal(DBnm);
                     HashMap hmFinal = new HashMap();
+                    HashMap departmentMap = new HashMap();
                     Vector vec = new Vector();
 
                     DynaActionForm daf = (DynaActionForm)form;
@@ -47,7 +49,12 @@ public class AllHeadHandleropen extends org.apache.struts.action.Action
                     String strNavOpr = "";
 
                     vec.clear();
-                    cvdal.setSQL("openAllHead", vec);
+                    if(SessionUtils.isAccountUser(session)){
+                        cvdal.setSQL("openAllHead", vec);
+                    }else{
+                        vec.addElement(SessionUtils.getDepartmentId(session));
+                        cvdal.setSQL("openAllHeadDept", vec);
+                    }
                     Vector vec1 = (Vector)cvdal.executeQuery();
                     vec1 = (Vector)cvdal.executeQuery();
 					 if(vec1!=null && vec1.size()>0){
@@ -56,7 +63,19 @@ public class AllHeadHandleropen extends org.apache.struts.action.Action
 							hmFinal.put(""+indx, hmt);
 						 }
                      }
+
+                    cvdal.setSQL("openAllDepartment", vec);
+                    vec1 = (Vector)cvdal.executeQuery();
+                    if(vec1!=null && vec1.size()>0){
+                            for(int indx=0;indx<vec1.size();indx++){
+                                    HashMap hmt = (HashMap)vec1.elementAt(indx);
+                                    departmentMap.put(""+indx, hmt);
+                            }
+                    }
+
                     request.setAttribute("data", hmFinal);
+                    request.setAttribute("department", departmentMap);
+                    request.setAttribute("deptId", SessionUtils.getDepartmentId(session));
                     FORWARD_final = Success;
             }catch(Exception e){
                 e.printStackTrace();

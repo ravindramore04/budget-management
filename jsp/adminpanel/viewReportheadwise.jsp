@@ -4,7 +4,41 @@
 //response.setContentType("application/vnd.ms-excel");
 DecimalFormat d = new DecimalFormat("##0.00");
 List<VoucherReportRow> createVoucherReportRows = (List<VoucherReportRow>) request.getAttribute("ReportDetails");
+
+       String toDate=(String)request.getAttribute("toDate");
+	   String fromDate=(String)request.getAttribute("fromDate");
+	   String chkCash=(String)request.getAttribute("chkCash");
+	   String headId=(String)request.getAttribute("headId");
+       String strDepartmentId=(String)request.getAttribute("strDepartmentId");
+	   
+	   String PayMethod="";
+	   if("1".equals(chkCash)){
+	      PayMethod="CASH";
+	   } else  if("2".equals(chkCash)){
+	      PayMethod="Cheque";
+	   } else{
+	      PayMethod="CASH/Cheque";
+	   }
+
 %>
+<%!
+  /**
+   * Reformats "yyyy-MM-dd" ? "dd-MM-yyyy"
+   */
+  public String formatIsoToEuropean(String isoDate) {
+    try {
+      SimpleDateFormat inFmt  = new SimpleDateFormat("yyyy-MM-dd");
+      SimpleDateFormat outFmt = new SimpleDateFormat("dd-MM-yyyy");
+      Date date = inFmt.parse(isoDate);
+      return outFmt.format(date);
+    } catch (Exception e) {
+      return isoDate; // fallback on parse error
+    }
+  }
+  
+  double totalAmount = 0.0;
+%>
+
 <script language="JavaScript">
 function navigation(code){
     document.HeadList.NAV.value = code;
@@ -28,6 +62,10 @@ function setAction(code,id){
         case 4:
             document.HeadList.action = "<%=strPath+"RptParam.do"%>";
             break;
+		case 5:
+            document.HeadList.action = "<%=strPath + "jsp/adminpanel/panel.jsp"%>";
+            break;	
+			
     }
     document.HeadList.opr.value=code;
     document.HeadList.submit();
@@ -38,16 +76,26 @@ function setAction(code,id){
 <form name="HeadList" method="post" action="#">
     <input type="hidden" name="page" value="ParamRpt">
     <input type="hidden" name="NAV" value="">
-    <input type="hidden" name="txtBGid" value="<%//=strId%>">
-    <input type="hidden" name="txtBudgroupId" value="<%//=strBudgroupId%>">
-    
+    <input type="hidden" name="txtBGid" value="<%=headId%>">
+    <input type="text" name="strDepartmentId" value="<%=strDepartmentId%>">
+    <input type="hidden" name="rd" value="<%=chkCash%>">
+	<input type="hidden" name="toDate" value="<%=toDate%>">
+	<input type="hidden" name="fromDate" value="<%=fromDate%>">
+	
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
-	<input type="hidden" name="rd" value="<%//=rd%>">
+	
 	
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="1" cellspacing="1" cellpadding="1" align="center" >
+	
+	<tr bgcolor="#E6F3FF"> 
+	<td width="15%" height="20" align="center" class="link">Payment Method: </td>
+	<td width="15%" height="20" align="center" class="link"><%=PayMethod%> </td>
+    <td width="15%" height="20" align="center" colspan="4" class="link">Report From : <%= formatIsoToEuropean(fromDate) %>  To : <%= formatIsoToEuropean(toDate) %></td>
+    </tr>
+	
       <tr bgcolor="#E6F3FF"> 
 	  <td width="15%" height="20" align="center" class="link">Voucher No</td>
         <td width="15%" height="20" align="center" class="link">Voucher Date</td>
@@ -60,6 +108,8 @@ function setAction(code,id){
 	  <%
 	  for (int i=0; i<createVoucherReportRows.size(); i++){
 		  VoucherReportRow voucherReportRow = (VoucherReportRow) createVoucherReportRows.get(i);
+		  double amt = Double.parseDouble(voucherReportRow.getVoucherAmount()); // or parse from String
+          totalAmount += amt;
 	  %>
       <tr bgcolor=""> 
 	    <td align="center" height="20" class="link"><%=voucherReportRow.getVoucherNumebr()%></td>
@@ -87,13 +137,14 @@ function setAction(code,id){
         <td height="20" bgcolor="#FFFFFF" align="center">&nbsp;</td>
         <td height="20" bgcolor="#CCFFCC" align="center"><strong><%//=d.format(alloc)%></strong></td>
 		        <td height="20" bgcolor="#CCCCFF" align="center">&nbsp;</td>
-        <td height="20" bgcolor="#CCCCFF" align="center"><strong><%//=exp%>0</strong></td>
+        <td height="20" bgcolor="#CCCCFF" align="center"><strong><%=d.format(totalAmount)%></strong></td>
 		 <!--<td height="20" bgcolor="#FFCC99" align="center"><strong>&nbsp;</strong></td>-->
-        <td height="20" bgcolor="#FFCC99" align="center"><strong><%//=d.format(MyBal)%></strong></td>
+        <td height="20" bgcolor="#FFCC99" align="center"><strong><%//=d.format(totalAmount)%></strong></td>
       </tr>
     </table>
-    <input type="submit" accesskey="P" name="Print" value=" Print " onClick="setAction(2,<%//=(String)hmBal.get("HeadId")%>)"> 
-    <input type="submit" accesskey="C" name="Close" value="Close" onClick="setAction(4,0)"> 
+   <!-- <input type="submit" accesskey="P" name="Print" value=" Print " onClick="setAction(5,<%//=(String)hmBal.get("HeadId")%>)"> -->
+	
+    <input type="submit" accesskey="C" name="Close" value="Close" onClick="setAction(5,0)"> 
     </td>
 </form>
 <%@ include file="/jsp/include/footer.jsp"%>

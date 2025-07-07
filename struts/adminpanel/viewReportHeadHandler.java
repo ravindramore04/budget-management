@@ -1,5 +1,6 @@
 package struts.adminpanel;
 
+import login.SessionUtils;
 import struts.adminpanel.beans.VoucherReportRow;
 import struts.adminpanel.utils.DateUtils;
 import org.apache.struts.action.Action;
@@ -44,36 +45,63 @@ public class viewReportHeadHandler extends org.apache.struts.action.Action
 				CVDal cvdal = new CVDal(DBnm);
 				vec.clear();
 				DynaActionForm daf = (DynaActionForm)form;
-
+				sop("Daf   >>"+daf.getMap().entrySet());
 				String fromDate = (String)daf.get("fromDate");
 				String toDate = (String)daf.get("toDate");
 				String chkCash = (String)daf.get("rd");
+				String headId = (String)daf.get("txtBGid");
+				String strDepartmentId=(String)daf.get("strDepartmentId");
+				String operation=(String)daf.get("opr");
 
-				sop("toDatetoDatetoDate >>"+toDate);
-				sop("fromDatefromDatefromDate >>"+fromDate);
-				sop("chkCashchkCashchkCash >>" + chkCash);
-
+                String payMethod=chkCash;
+				if("3".equals(chkCash)){
+					payMethod="1,2";
+				}
 
 				//vec.addElement(DateUtils.getFormattedCurrentDate());
 				//vec.addElement(DateUtils.getFormattedCurrentDate());
-
 				vec.addElement(fromDate);
 				vec.addElement(toDate);
-               if("3".equals(chkCash)) {
-				   cvdal.setSQL("ALL_VOUCHER_REPORT", vec);
-			   }else{
-				   vec.addElement(chkCash);
-				   cvdal.setSQL("ALL_VOUCHER_REPORT_PAY_METHOD", vec);
-			   }
+
+				if (!SessionUtils.isAccountUser(session)) {
+					strDepartmentId=SessionUtils.getDepartmentId(session);
+					sop("Department ID>>"+strDepartmentId);
+				}
+
+					if("0".equals(strDepartmentId) && "0".equals(headId)){
+						vec.addElement(payMethod);
+						cvdal.setSQL("ALL_VOUCHER_REPORT_PAY_METHOD", vec);
+					}else if("0".equals(strDepartmentId) && !"0".equals(headId)){
+						vec.addElement(headId);
+						vec.addElement(payMethod);
+						cvdal.setSQL("ALL_VOUCHER_REPORT_BY_HEAD_PAY_METHOD", vec);
+					}else if(!"0".equals(strDepartmentId) && "0".equals(headId)) {
+						vec.addElement(strDepartmentId);
+						vec.addElement(payMethod);
+						cvdal.setSQL("ALL_VOUCHER_REPORT_BY_ALL_HEAD_DEPT_PAY_METHOD", vec);
+					}else{
+						vec.addElement(strDepartmentId);
+						vec.addElement(headId);
+						vec.addElement(payMethod);
+						cvdal.setSQL("ALL_VOUCHER_REPORT_BY_DEPT_AND_HEAD", vec);
+					}
+
 				vec1 = (Vector) cvdal.executeQuery();
 
 				List<VoucherReportRow> createVoucherReportRows = createVoucherReportRows(vec1);
 
-				sop("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"+createVoucherReportRows);
+				sop("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" + createVoucherReportRows);
 
-				request.setAttribute("ReportDetails",createVoucherReportRows);
+				request.setAttribute("ReportDetails", createVoucherReportRows);
+
+				request.setAttribute("toDate",toDate);
+				request.setAttribute("fromDate",fromDate);
+				request.setAttribute("chkCash",chkCash);
+				request.setAttribute("headId",headId);
+				request.setAttribute("strDepartmentId",strDepartmentId);
 
 				FORWARD_final = Success;
+
             }catch(Exception e){
                 e.printStackTrace();
                 String err = eh.getError("138530");
