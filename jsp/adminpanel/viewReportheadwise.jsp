@@ -77,7 +77,7 @@ function setAction(code,id){
     <input type="hidden" name="page" value="ParamRpt">
     <input type="hidden" name="NAV" value="">
     <input type="hidden" name="txtBGid" value="<%=headId%>">
-    <input type="text" name="strDepartmentId" value="<%=strDepartmentId%>">
+    <input type="hidden" name="strDepartmentId" value="<%=strDepartmentId%>">
     <input type="hidden" name="rd" value="<%=chkCash%>">
 	<input type="hidden" name="toDate" value="<%=toDate%>">
 	<input type="hidden" name="fromDate" value="<%=fromDate%>">
@@ -113,7 +113,7 @@ function setAction(code,id){
 	  %>
       <tr bgcolor=""> 
 	    <td align="center" height="20" class="link"><%=voucherReportRow.getVoucherNumebr()%></td>
-        <td align="center" height="20" class="link" ><%=voucherReportRow.getCoucherDate()%></td>
+        <td align="center" height="20" class="link" ><%=formatIsoToEuropean(voucherReportRow.getCoucherDate())%></td>
 		<td align="left" class="link" height="20"><div align="center"><%=voucherReportRow.getDepartmentName()%></div></td>
 		<td align="left" class="link" height="20"><div align="center"><%=voucherReportRow.getHeadName()%></div></td>
         <td align="left" class="link" height="20"><%=voucherReportRow.getVoucherAmount()%></td>
