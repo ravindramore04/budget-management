@@ -6,17 +6,19 @@
         body {
             font-family: Arial, sans-serif;
             line-height: 1.5;
-            margin: 30px;
+            margin-left: 50px;
+			margin-left: 30px;
         }
         .header {
             text-align: center;
+			margin-bottom: -20px;
         }
         .header img {
-            width: 600px;
-            height: 100px;
+            width: 450px;
+            height: 80px;
         }
         .title {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
         }
         table {
@@ -25,7 +27,7 @@
             margin-top: 20px;
         }
         td {
-            padding: 10px;
+            padding: 5px;
         }
         .section-header {
             font-weight: bold;
@@ -43,7 +45,8 @@
             text-align: center;
         }
         .signature-title {
-            margin-top: 10px;
+            margin-top: 0px;
+			margin-bottom: 0px;
             font-weight: bold;
         }
     </style>
@@ -69,6 +72,7 @@ String budget_note_id="";
 String bal="";
 String vou="";
 String create_date="";
+double expafterCurrentExpense=0.00;
 if(hmData!=null && hmData.size()>0){
          departmentName = (String)hmData.get("departmentName");
          headName = (String)hmData.get("headName");
@@ -82,6 +86,7 @@ if(hmData!=null && hmData.size()>0){
 	 	balance_after_expense= (String)hmData.get("allocation_balance_amount_after_expense");
 		budget_note_id=(String)hmData.get("budget_note_id");
 		create_date=(String)hmData.get("create_date");
+		expafterCurrentExpense=Double.parseDouble(availableBalance)-Double.parseDouble(budget_note_expense);
 }
 
 
@@ -149,9 +154,8 @@ function setAction(code,id){
 
         <table border="1">
             <tr>
-                <td class="section-header">Sr.No.</td>
-                <td><%=budget_note_id%></td>
-				<td class="section-header">Date.</td>
+                <td class="section-header">Budget Note No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=budget_note_id%></td>
+                <td class="section-header" colspan="2">Date.</td>
                 <td><%=formatIsoToEuropean(create_date)%></td>
             </tr>
             <tr>
@@ -185,39 +189,38 @@ function setAction(code,id){
             <tr>
                 <td class="section-header">Balance after Current Expenditure</td>
                 <td>Rs</td>
-                <td class="value" colspan="2"><%=balance_after_expense%></td>
+                <td class="value" colspan="2"><%=expafterCurrentExpense%></td>
               </tr>
 			<tr>
-                <td class="section-header" colspan="3">&nbsp;</td>
-				<td class="section-header" align="center">
+                <td style="height: 50px; border: none;" valign="bottom" class="section-header" colspan="2" align="center">
+				<div class="signature-title">Store &amp; PurchaseAssistant</div></td>
+				<td style="height: 50px; border: none;" valign="bottom" class="section-header" colspan="2" align="right">
+				<div class="signature-title">Head of Department</div>
+				</td>
+            </tr>
+		 <tr>
+            <td style="height: 50px; border-bottom: none;"  colspan="2">
+                <div class="signature-title">&nbsp;</div>
+            </td>
+            <td valign="middle" style="border-bottom: none;"  colspan="2">
+                <div class="signature-title">
 				<% if("APPROVED".equals(budget_note_status)){ %>
                         APPROVED: Yes
                     <% } else { %>
                         APPROVED: Yes / No
-                    <% } %></td>
-            </tr>
-        </table>
-		        
-  <div class="signature-section">
-    <table border="1" style="border-collapse: collapse; width:100%;">
-		 <tr>
-            <td style="height: 100px; border-bottom: none;" >
-                <div class="signature-title">Store &amp; Purchase Assistant</div>
-            </td>
-            <td valign="middle" style="border-bottom: none;">
-                <div class="signature-title">Head of Department</div>
+                    <% } %>
+				</div>
             </td>
         </tr>
 		 <tr style="border-top: none;">
-            <td style="border-top: none;">
+            <td style="border-top: none;" colspan="2" align="center">
                 <div class="signature-title">Chief Accounts &amp; Finance Officer</div>
             </td>
-            <td style="border-top: none;">
+            <td style="border-top: none;"  colspan="2" align="right">
                 <div class="signature-title">Director</div>
             </td>
         </tr>
     </table>
-</div>
     </form>
 </body>
 </html>

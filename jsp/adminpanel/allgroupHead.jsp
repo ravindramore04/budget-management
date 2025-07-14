@@ -40,13 +40,17 @@ function setAction(code, id) {
       document.HeadList.action = "<%=strPath + "viewheadrept.do"%>";
       break;
     case 2:
-      document.HeadList.action = "<%=strPath + "RptParam.do"%>";
+      document.HeadList.action = "<%=strPath + "viewheadrept.do"%>";
+	  document.HeadList.NAV.value = "print";
       break;
     case 3:
       document.HeadList.action = "<%=strPath + "DeleteHead.do"%>";
       break;
     case 4:
       document.HeadList.action = "<%=strPath + "jsp/adminpanel/panel.jsp"%>";
+      break;
+	case 5:
+      document.HeadList.action = "<%=strPath + "RptParam.do"%>";
       break;
   }
   document.HeadList.submit();
@@ -143,6 +147,8 @@ function setAction(code, id) {
       <td colspan="4" align="center">
         <input type="button" name="btnSubmit" value="Submit" onClick="setAction(1,0)" class="PPRSbmtBtn" />
         &nbsp;
+		<input type="button" name="btnSubmit" value="Print" onClick="setAction(2,0)" class="PPRSbmtBtn" />
+		&nbsp;
         <input type="button" name="btnClose"  value="Close"  onClick="setAction(4,0)" class="PPRSbmtBtn" />
       </td>
     </tr>

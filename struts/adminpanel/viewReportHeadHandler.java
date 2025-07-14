@@ -26,7 +26,7 @@ public class viewReportHeadHandler extends org.apache.struts.action.Action
 {
 
 	private static final String Success = "success";
-	private static final String Success_all = "success_all";
+	private static final String Print = "print";
 	public static final String GLOBAL_FORWARD_failure = "failure";
 	private static String FORWARD_final = GLOBAL_FORWARD_failure;
 
@@ -101,6 +101,8 @@ public class viewReportHeadHandler extends org.apache.struts.action.Action
 				request.setAttribute("strDepartmentId",strDepartmentId);
 
 				FORWARD_final = Success;
+				if("2".equals(operation))
+					FORWARD_final = Print;
 
             }catch(Exception e){
                 e.printStackTrace();
