@@ -193,7 +193,7 @@ public class CVDal
 		ALLSQL.put("DeleteFromCheque","Delete From cheque Where voucherId='?'");
 
 
-		ALLSQL.put("updateUser","Update userLst set strName='?',strLogin='?', strUptdBy='?',strUptdOn='?',strDepartmentId='?' where UId='?'");
+		ALLSQL.put("updateUser","Update userLst set strName='?',strLogin='?',strPwd='?', strUptdBy='?',strUptdOn='?',strDepartmentId='?' where UId='?'");
 		//ALLSQL.put("updateHead","Update BudgetHead set strName='?',strRemark='?', strUptdBy='?',strUptdOn='?' where HeadId='?'");
 		ALLSQL.put("UpdateOrg","Update company set strName='?', strShortNm ='?', strAddr='?',strPh1='?', strPh2='?', strUptdBy='?', strUptdOn='?'");
 		ALLSQL.put("updateintobudgetallocation","Update budgetalloc set HeadId='?', Dt ='?', dblAmount='?',strRemark='?', strInsBy='?',strInsOn='?', strUptdBy='?', strUptdOn='?',strDepartmentId='?' where AllocId='?'");

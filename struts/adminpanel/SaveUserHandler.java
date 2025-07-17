@@ -151,6 +151,7 @@ public class SaveUserHandler extends org.apache.struts.action.Action
                             cvdal.setSQL("insertUser",vec);
                         }else{
                             //update record
+							vec.addElement(cl.encryptValue(strPwd));
 							vec.addElement(strUserId);
 							vec.addElement(strToday);
 							vec.addElement(strDepartmentId);
