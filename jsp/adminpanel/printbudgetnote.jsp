@@ -171,6 +171,11 @@ function setAction(code,id){
                 <td>Rs</td>
                 <td class="value" colspan="2"><%=allocatedAmount%></td>
             </tr>
+			<tr>
+                <td class="section-header">Reserved Amount</td>
+                <td>Rs</td>
+                <td class="value" colspan="2"><%=allocation_reserved_amount%></td>
+            </tr>
             <tr>
                 <td class="section-header">Budget Already spend</td>
                 <td>Rs</td>
@@ -192,9 +197,9 @@ function setAction(code,id){
                 <td class="value" colspan="2"><%=expafterCurrentExpense%></td>
               </tr>
 			<tr>
-                <td style="height: 50px; border: none;" valign="bottom" class="section-header" colspan="2" align="center">
-				<div class="signature-title">Store &amp; PurchaseAssistant</div></td>
-				<td style="height: 50px; border: none;" valign="bottom" class="section-header" colspan="2" align="right">
+                <td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="2" align="center">
+				<div class="signature-title">Store &amp; Purchase Assistant</div></td>
+				<td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="2" align="right">
 				<div class="signature-title">Head of Department</div>
 				</td>
             </tr>
