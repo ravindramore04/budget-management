@@ -18,7 +18,7 @@
             height: 80px;
         }
         .title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
         }
         table {
@@ -31,7 +31,7 @@
         }
         .section-header {
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
         }
         .value {
             font-weight: bold;
@@ -154,7 +154,7 @@ function setAction(code,id){
 
         <table border="1">
             <tr>
-                <td class="section-header">Budget Note No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=budget_note_id%></td>
+                <td  style="width: 350px;" class="section-header">Budget Note No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=budget_note_id%></td>
                 <td class="section-header" colspan="2">Date.</td>
                 <td><%=formatIsoToEuropean(create_date)%></td>
             </tr>
@@ -204,10 +204,10 @@ function setAction(code,id){
 				</td>
             </tr>
 		 <tr>
-            <td style="height: 50px; border-bottom: none;"  colspan="2">
+            <td style="height: 50px;border-bottom: none;"  colspan="1">
                 <div class="signature-title">&nbsp;</div>
             </td>
-            <td valign="middle" style="border-bottom: none;"  colspan="2">
+            <td valign="middle" style="border-bottom: none;"  colspan="3">
                 <div class="signature-title">
 				<% if("APPROVED".equals(budget_note_status)){ %>
                         APPROVED: Yes
@@ -218,10 +218,10 @@ function setAction(code,id){
             </td>
         </tr>
 		 <tr style="border-top: none;">
-            <td style="border-top: none;" colspan="2" align="center">
+            <td style="border-top: none;" colspan="1" align="center">
                 <div class="signature-title">Chief Accounts &amp; Finance Officer</div>
             </td>
-            <td style="border-top: none;"  colspan="2" align="right">
+            <td style="border-top: none;"  colspan="3" align="right">
                 <div class="signature-title">Director</div>
             </td>
         </tr>

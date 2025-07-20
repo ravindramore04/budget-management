@@ -4,7 +4,7 @@
   //response.setHeader("Content-Disposition", "attachment; filename=VoucherReport.xls"); // Prompt to download as Excel file
 DecimalFormat d = new DecimalFormat("##0.00");
 List<VoucherReportRow> createVoucherReportRows = (List<VoucherReportRow>) request.getAttribute("ReportDetails");
-
+out.print(createVoucherReportRows);
 String toDate = (String) request.getAttribute("toDate");
 String fromDate = (String) request.getAttribute("fromDate");
 String chkCash = (String) request.getAttribute("chkCash");
