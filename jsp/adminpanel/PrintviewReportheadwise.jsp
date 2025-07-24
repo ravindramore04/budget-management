@@ -4,7 +4,7 @@
   //response.setHeader("Content-Disposition", "attachment; filename=VoucherReport.xls"); // Prompt to download as Excel file
 DecimalFormat d = new DecimalFormat("##0.00");
 List<VoucherReportRow> createVoucherReportRows = (List<VoucherReportRow>) request.getAttribute("ReportDetails");
-out.print(createVoucherReportRows);
+//out.print(createVoucherReportRows);
 String toDate = (String) request.getAttribute("toDate");
 String fromDate = (String) request.getAttribute("fromDate");
 String chkCash = (String) request.getAttribute("chkCash");
@@ -93,9 +93,9 @@ function printPage() {
             for (int i = 0; i < createVoucherReportRows.size(); i++) {
                 if (rowCount == 25) {
                     // Insert 7 rows of space before repeating header for the next page
-                    for (int j = 0; j < 7; j++) {
-                        out.print("<tr style='border: none;'><td colspan='6' style='height: 20px; '></td></tr>"); // Add 7 empty rows
-                    }
+                    //for (int j = 0; j < 7; j++) {
+                      //  out.print("<tr style='border: none;'><td colspan='6' style='height: 20px; '></td></tr>"); // Add 7 empty rows
+                    //}
                     out.print("<tr>"); // Repeat header
                     out.print("<td width='15%' align='center' class='link'>Voucher No</td>");
                     out.print("<td width='15%' align='center' class='link'>Voucher Date</td>");

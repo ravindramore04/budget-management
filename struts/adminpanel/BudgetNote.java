@@ -307,7 +307,7 @@ public class BudgetNote extends Action
         queryParams.add(budget_note_id);
         queryParams.add(daf.get("allocationId"));
         queryParams.add(daf.get("budget_note_expense"));
-        queryParams.add(daf.get("budget_note_expense"));
+        queryParams.add(daf.get("allocation_reserved_amount"));
         queryParams.add(daf.get("allocation_balance_amount_after_expense"));
         queryParams.add(daf.get("budget_note_remark"));
         queryParams.add(status);
@@ -336,7 +336,7 @@ public class BudgetNote extends Action
 
         Vector queryParams = new Vector();
         queryParams.add(daf.get("budget_note_expense"));
-        queryParams.add(daf.get("budget_note_expense"));
+        queryParams.add(daf.get("allocation_reserved_amount"));
         queryParams.add(daf.get("allocation_balance_amount_after_expense"));
         queryParams.add(daf.get("budget_note_remark"));
         queryParams.add(user_id);
@@ -370,7 +370,7 @@ public class BudgetNote extends Action
         queryParams.add(budget_note_history_id);
         queryParams.add(budget_note_id);
         queryParams.add(daf.get("budget_note_expense"));
-        queryParams.add(daf.get("budget_note_expense"));
+        queryParams.add(daf.get("allocation_reserved_amount"));
         queryParams.add(daf.get("allocation_balance_amount_after_expense"));
         queryParams.add(daf.get("budget_note_remark"));
         queryParams.add("DRAFT");

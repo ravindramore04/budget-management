@@ -2,4 +2,5 @@
 .idea
 ./struts/.idea
 ./struts/.idea/*
+reports/*
 *.iml

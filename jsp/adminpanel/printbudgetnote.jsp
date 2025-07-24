@@ -73,6 +73,9 @@ String bal="";
 String vou="";
 String create_date="";
 double expafterCurrentExpense=0.00;
+double reverveAmt=0.00;
+double balAmt=0.00;
+
 if(hmData!=null && hmData.size()>0){
          departmentName = (String)hmData.get("departmentName");
          headName = (String)hmData.get("headName");
@@ -86,7 +89,10 @@ if(hmData!=null && hmData.size()>0){
 	 	balance_after_expense= (String)hmData.get("allocation_balance_amount_after_expense");
 		budget_note_id=(String)hmData.get("budget_note_id");
 		create_date=(String)hmData.get("create_date");
-		expafterCurrentExpense=Double.parseDouble(availableBalance)-Double.parseDouble(budget_note_expense);
+		
+		reverveAmt=Double.parseDouble(allocation_reserved_amount)-Double.parseDouble(budget_note_expense);
+		balAmt=Double.parseDouble(allocatedAmount)-reverveAmt-Double.parseDouble(utilisedAmount);
+		expafterCurrentExpense=balAmt-Double.parseDouble(budget_note_expense);
 }
 
 
@@ -148,7 +154,7 @@ function setAction(code,id){
         <input type="hidden" name="opr" value="">
 
         <div class="header">
-            <img src="<%=strPath+ "html/_images/budget_note.jpg"%>" alt="Budget Note Logo">
+            <img width="421" height="80" src="<%=strPath+ "html/_images/budget_note.jpg"%>" alt="Budget Note Logo">
             <div class="title">BUDGET NOTE 2025-2026</div>
         </div>
 
@@ -156,15 +162,15 @@ function setAction(code,id){
             <tr>
                 <td  style="width: 350px;" class="section-header">Budget Note No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=budget_note_id%></td>
                 <td class="section-header" colspan="2">Date.</td>
-                <td><%=formatIsoToEuropean(create_date)%></td>
+                <td class="section-header"><%=formatIsoToEuropean(create_date)%></td>
             </tr>
             <tr>
                 <td class="section-header">Department.</td>
-                <td colspan="3"><%=departmentName%></td>
+                <td class="section-header" colspan="3"><%=departmentName%></td>
             </tr>
             <tr>
                 <td class="section-header">Budget Head</td>
-                <td colspan="3"><%=headName%></td>
+                <td class="section-header" colspan="3"><%=headName%></td>
             </tr>
             <tr>
                 <td class="section-header">Budget Sanctioned</td>
@@ -174,7 +180,7 @@ function setAction(code,id){
 			<tr>
                 <td class="section-header">Reserved Amount</td>
                 <td>Rs</td>
-                <td class="value" colspan="2"><%=allocation_reserved_amount%></td>
+                <td class="value" colspan="2"><%=reverveAmt%></td>
             </tr>
             <tr>
                 <td class="section-header">Budget Already spend</td>
@@ -184,7 +190,7 @@ function setAction(code,id){
             <tr>
                 <td class="section-header">Balance Budget</td>
                 <td>Rs</td>
-                <td class="value" colspan="2"><%=availableBalance%></td>
+                <td class="value" colspan="2"><%=balAmt%></td>
             </tr>
             <tr>
                 <td class="section-header">This Expenditure</td>
@@ -197,9 +203,9 @@ function setAction(code,id){
                 <td class="value" colspan="2"><%=expafterCurrentExpense%></td>
               </tr>
 			<tr>
-                <td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="2" align="center">
+                <td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="1" align="center">
 				<div class="signature-title">Store &amp; Purchase Assistant</div></td>
-				<td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="2" align="right">
+				<td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="3" align="center">
 				<div class="signature-title">Head of Department</div>
 				</td>
             </tr>
@@ -210,9 +216,9 @@ function setAction(code,id){
             <td valign="middle" style="border-bottom: none;"  colspan="3">
                 <div class="signature-title">
 				<% if("APPROVED".equals(budget_note_status)){ %>
-                        APPROVED: Yes
+                        Approved: Yes
                     <% } else { %>
-                        APPROVED: Yes / No
+                        Approved: Yes / No
                     <% } %>
 				</div>
             </td>
@@ -221,7 +227,7 @@ function setAction(code,id){
             <td style="border-top: none;" colspan="1" align="center">
                 <div class="signature-title">Chief Accounts &amp; Finance Officer</div>
             </td>
-            <td style="border-top: none;"  colspan="3" align="right">
+            <td style="border-top: none;"  colspan="3" align="center">
                 <div class="signature-title">Director</div>
             </td>
         </tr>

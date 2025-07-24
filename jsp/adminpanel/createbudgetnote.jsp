@@ -24,6 +24,7 @@
 	String radiocheckYes="";
 	String radiocheckNo="";
 	String ponumber="";
+	String thisExpMsg="";
 
 
 	HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
@@ -51,6 +52,7 @@
 		 if(budget_note_id !=null){
 			 bName="Update";
 			 operation="update_budget_note";
+			 thisExpMsg="(Included in Reserve Amount)";
 			 budget_note_expense= (String)hmData.get("budget_note_expense");
 			 previousBudgetAmount=budget_note_expense;
 		 	budget_note_remark=(String)hmData.get("budget_note_remark");
@@ -93,12 +95,15 @@ function calculateDifference() {
     // Set the result in text3
     document.getElementById("allocation_balance_amount_after_expense").value = result;
 }
+
+window.onload = function() {
+        calculateDifference();
+    }
+
 </script>
 
-
-</script>
 <td width="80%" valign="top">
-   <form name="BudgetAllocationMaster" method="post" action="SaveBudgetNote.do">
+   <form name="BudgetAllocationMaster"  method="post" action="SaveBudgetNote.do">
    <input type="hidden" name="page" value="BudgetAllocationMaster">
    <input type="hidden" name="allocationId" value="<%=allocationId%>">
    <input type="hidden" name="opr" value="<%=operation%>">
@@ -142,7 +147,7 @@ function calculateDifference() {
 
 
 		<tr>
-			<td width="25%" class="innertitle">This Expenditure </td>
+			<td width="25%" class="innertitle">This Expenditure <font color="#FF6600"><%=thisExpMsg%></font></td>
 			<td width="75%" colspan="3"><input type="text" id="budget_note_expense" name="budget_note_expense" size="25" class="formfield" value="<%=budget_note_expense%>" onBlur="calculateDifference()" onKeyPress="handleEnter('budget_note_remark','BudgetAllocationMaster')"> </td>
 		</tr>
 
