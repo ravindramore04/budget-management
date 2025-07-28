@@ -91,7 +91,12 @@ if(hmData!=null && hmData.size()>0){
 		create_date=(String)hmData.get("create_date");
 		
 		reverveAmt=Double.parseDouble(allocation_reserved_amount)-Double.parseDouble(budget_note_expense);
+			
+		if(reverveAmt<0){
+		reverveAmt=Double.parseDouble(allocation_reserved_amount);
+		}
 		balAmt=Double.parseDouble(allocatedAmount)-reverveAmt-Double.parseDouble(utilisedAmount);
+		
 		expafterCurrentExpense=balAmt-Double.parseDouble(budget_note_expense);
 }
 
@@ -175,32 +180,33 @@ function setAction(code,id){
             <tr>
                 <td class="section-header">Budget Sanctioned</td>
                 <td>Rs</td>
-                <td class="value" colspan="2"><%=allocatedAmount%></td>
+                <td class="value" colspan="2"><%=d.format(Double.parseDouble(allocatedAmount))%></td>
             </tr>
 			<tr>
                 <td class="section-header">Reserved Amount</td>
                 <td>Rs</td>
-                <td class="value" colspan="2"><%=reverveAmt%></td>
+                
+      <td class="value" colspan="2"><%=d.format(reverveAmt)%></td>
             </tr>
             <tr>
                 <td class="section-header">Budget Already spend</td>
                 <td>Rs</td>
-                <td class="value" colspan="2"><%=utilisedAmount%></td>
+                <td class="value" colspan="2"><%=d.format(Double.parseDouble(utilisedAmount))%></td>
             </tr>
             <tr>
                 <td class="section-header">Balance Budget</td>
                 <td>Rs</td>
-                <td class="value" colspan="2"><%=balAmt%></td>
+                <td class="value" colspan="2"><%=d.format(balAmt)%></td>
             </tr>
             <tr>
                 <td class="section-header">This Expenditure</td>
                 <td>Rs</td>
-                <td class="value" colspan="2"><%=budget_note_expense%></td>
+                <td class="value" colspan="2"><%=d.format(Double.parseDouble(budget_note_expense))%></td>
             </tr>
             <tr>
                 <td class="section-header">Balance after Current Expenditure</td>
                 <td>Rs</td>
-                <td class="value" colspan="2"><%=expafterCurrentExpense%></td>
+                <td class="value" colspan="2"><%=availableBalance%></td>
               </tr>
 			<tr>
                 <td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="1" align="center">
