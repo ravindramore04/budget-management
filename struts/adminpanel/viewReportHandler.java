@@ -1,5 +1,6 @@
 package struts.adminpanel;
 
+import login.SessionUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -31,181 +32,51 @@ public class viewReportHandler extends org.apache.struts.action.Action
     public ActionForward execute(ActionMapping mapping, ActionForm form,HttpServletRequest request,
 	HttpServletResponse response) throws RuntimeException,Exception
 	{
-            HttpSession session = request.getSession(true);
-            HashMap My = (HashMap)session.getAttribute("user");
-			String DBnm = (String)My.get("DBnm");
-            ErrorHandler eh = new ErrorHandler();
-            HashMap hmFinal=new HashMap();
-            HashMap hmAmt=new HashMap();
-            HashMap hmVoc=new HashMap();
-            HashMap hmVoc1=new HashMap();
-            HashMap hmFinal1=new HashMap();
-            HashMap hmFinal2=new HashMap();
-            String strId="";
-            Vector vec1=new Vector();
+		HttpSession session = request.getSession(true);
+		HashMap My = (HashMap)session.getAttribute("user");
+		String DBnm = (String)My.get("DBnm");
+		ErrorHandler eh = new ErrorHandler();
+		try{
+			CVDal cvdal = new CVDal(DBnm);
+			HashMap hmFinal = new HashMap();
 			Vector vec = new Vector();
-            try
-            {
-                    int nNum_Per_Page = 10;
+			Vector vec1 = new Vector();
 
-                    CVDal cvdal = new CVDal(DBnm);
-					vec.clear();
-                    DynaActionForm daf = (DynaActionForm)form;
-                    strId=(String)daf.get("id");
-                    //String txtBGid=(String)daf.get("txtBGid");
-                    String gid=(String)daf.get("txtBudgroupId");
-                    //String txtPOID=(String)request.getParameter("txtPONo");
-            		if(!(strId.equals("0")))
-                    {
-						sop("inside The if>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		                vec.clear();
-        	            vec.addElement(strId);
-        	            cvdal.setSQL("openAmount", vec);
-        	            vec1 = (Vector)cvdal.executeQuery();
-        	            if(vec1!=null && vec1.size()>0)
-        	            {
-							 for(int j=0;j<vec1.size();j++)
-							 {
-								 HashMap hm=(HashMap)vec1.elementAt(j);
-								 hmAmt.put(""+j,hm);
-							 }
-        	                 hmFinal.put("AlloAmont",hmAmt);
-						}
-                        vec.clear();
-                        vec.addElement(strId);
-                        //vec.addElement(txtPOID);
-                        cvdal.setSQL("openVouchse", vec);
-                        vec1 = (Vector)cvdal.executeQuery();
-                        if(vec1!=null && vec1.size()>0)
-                        {
-							for(int i=0;i<vec1.size();i++)
-							{
-								HashMap hmVou=(HashMap)vec1.elementAt(i);
-								hmVoc.put(""+i,hmVou);
-							}
-							hmFinal1.put("voucher",hmVoc);
-                        }
-                        vec.clear();
-						vec.addElement(strId);
-						cvdal.setSQL("openBalance", vec);
-                        vec1 = (Vector)cvdal.executeQuery();
-                        if(vec1!=null && vec1.size()>0)
-                        {
-							HashMap hmbal=(HashMap)vec1.elementAt(0);
-							hmFinal.put("bal",hmbal);
-						}
-                        vec.clear();
-                        vec1.clear();
-                        vec.addElement(strId);
-                        cvdal.setSQL("openHead", vec);
-                        vec1 = (Vector)cvdal.executeQuery();
-                        if(vec1!=null && vec1.size()>0)
-                        {
-							HashMap hmVou=(HashMap)vec1.elementAt(0);
-							hmFinal2.put("0",hmVou);
-                        }
-						request.setAttribute("Amount",hmFinal);
-                    	request.setAttribute("Voucher",hmFinal1);
-						request.setAttribute("MyHead",hmFinal2);
-                    	FORWARD_final = Success;
-                    }
-                    else
-                    {
-						/*** case for all head ***/
-						sop("inside The else>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-						//String TDate=(String)daf.get("TDate");
-						String fyy=(String)daf.get("FYY");
-						String fmm=(String)daf.get("FMM");
-						String fdd=(String)daf.get("FDD");
-						String tyy=(String)daf.get("TYY");
-						String tmm=(String)daf.get("TMM");
-						String tdd=(String)daf.get("TDD");
-						String FDate=fyy.trim()+"-"+fmm.trim()+"-"+fdd.trim();
-						String TDate=tyy.trim()+"-"+tmm.trim()+"-"+tdd.trim();
+			DynaActionForm daf = (DynaActionForm)form;
+			sop("DAF>>>>>>>"+daf.getMap().entrySet());
+			String code=(String)daf.get("opr");
+			vec.clear();
 
+			vec.clear();
 
-						String FDateInd=fdd.trim()+"-"+fmm.trim()+"-"+fyy.trim();
-						String TDateInd=tdd.trim()+"-"+tmm.trim()+"-"+tyy.trim();
-
-						sop("==============================");
-						sop(FDate);
-						sop(TDate);
-						sop("==============================");
-						sop(FDateInd);
-						sop(TDateInd);
-
-						vec.clear();
-						vec.addElement(gid);
-                    	cvdal.setSQL("ViewAllAllocwithbgid", vec);
-                    	vec1 = (Vector)cvdal.executeQuery();
-						if(vec1!=null && vec1.size()>0)
-						{
-							for(int indx=0;indx<vec1.size();indx++)
-							{
-								HashMap hmt = (HashMap)vec1.elementAt(indx);
-								hmFinal.put(""+indx,hmt);
-							}
-						}
-
-                    	vec.clear();
-
-						//vec.addElement(FDate);
-						//vec.addElement(TDate);
-						sop("Ravindra More GID-"+hmFinal);
-						sop("Ravindra More GID-"+gid);
-						vec.addElement(gid);
-						cvdal.setSQL("ViewAllVouchwithgid", vec);
-						vec1.clear();
-                    	vec1 = (Vector)cvdal.executeQuery();
-                    	sop("----size of vector is---------->>>>"+vec1.size());
-
-						if(vec1==null || vec1.size()>0)
-						{
-							for(int indx=0;indx<vec1.size();indx++)
-							{
-								HashMap hmt1 = (HashMap)vec1.elementAt(indx);
-								/*String Headid=(String)hmt1.get("HeadId");
-								vec.clear();
-								vec.addElement(Headid);
-								cvdal.setSQL("AmtForPO",vec);
-								vec =(Vector)cvdal.executeQuery();
-
-								HashMap HMTT=new HashMap();
-								sop("-------vec-------Ravi----------"+vec);
-								if(vec!=null && vec.size()>0 )
-								{
-									//for(int ii=0; ii<vec.size();ii++)
-									//{
-									 HMTT =(HashMap)vec.elementAt(0);
-									sop("=---------HMTT------ravi------------------"+HMTT);
-									hmt1.put("rr",HMTT);
-
-									//}
-
-								}else{
-									hmt1.put("rr",HMTT);
-								}*/
-
-								hmFinal1.put(""+indx,hmt1);
-							}
-						}
-						request.setAttribute("FDATEi",FDateInd);
-						request.setAttribute("TDATEi",TDateInd);
-
-						request.setAttribute("FDATE",FDate);
-						request.setAttribute("TDATE",TDate);
-
-						request.setAttribute("Alloc",hmFinal);
-						request.setAttribute("Vouch",hmFinal1);
-                    	FORWARD_final = Success_all;
+				if (SessionUtils.isAccountUser(session)){
+					cvdal.setSQL("openAllHeadWithBalanceAllDept", vec);
+				}else{
+					vec.addElement(SessionUtils.getDepartmentId(session));
+					cvdal.setSQL("openAllHeadWithBalance", vec);
+				}
+				vec1 = (Vector)cvdal.executeQuery();
+				if(vec1!=null && vec1.size()>0){
+					for(int indx=0;indx<vec1.size();indx++){
+						HashMap hmt = (HashMap)vec1.elementAt(indx);
+						hmFinal.put(""+indx, hmt);
 					}
+				}
+			request.setAttribute("data", hmFinal);
+			HashMap hmPage = new HashMap();
+			request.setAttribute("page", hmPage);
+			if(code.equals("2")){
+				FORWARD_final = Success;
+			}else {
+				FORWARD_final = Success_all;
+			}
             }catch(Exception e){
                 e.printStackTrace();
                 String err = eh.getError("138530");
-				String nxtpg = "ValidatedLogin.do";
+				String nxtpg = "viewRpt.do";
 				HashMap hmErr = new HashMap();
 				hmErr.put("no","138530");
-				hmErr.put("Source","AllHeadHandler");
+				hmErr.put("Source","viewReportHandler");
 				hmErr.put("err",err);
 				hmErr.put("nxtpg",nxtpg);
 				request.setAttribute("err",hmErr);

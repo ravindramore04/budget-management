@@ -283,11 +283,12 @@
 		</action>		
 		
 		
-		<action path="/ViewRpt" type="struts.adminpanel.viewReportHandler" name="rptParam" scope="request" validate="false">
-			<forward name="success" path="/jsp/adminpanel/viewReport.jsp"/>
+		<action path="/ViewRpt" type="struts.adminpanel.viewReportHandler" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/PrintviewAllReport.jsp"/>
 			<forward name="success_all" path="/jsp/adminpanel/viewAllReport.jsp"/>
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>
+		
 		<action path="/POViewRpt" type="struts.adminpanel.POviewReportHandler" name="rptParam" scope="request" validate="false">
 			<forward name="success" path="/jsp/adminpanel/POviewReport.jsp"/>
 			<forward name="success_all" path="/jsp/adminpanel/viewAllReport.jsp"/>
