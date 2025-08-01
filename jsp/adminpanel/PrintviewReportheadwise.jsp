@@ -19,6 +19,7 @@ if ("1".equals(chkCash)) {
 } else {
     PayMethod = "CASH/Cheque";
 }
+double totalAmount = 0.0;
 %>
 <%!
 /**
@@ -35,7 +36,6 @@ public String formatIsoToEuropean(String isoDate) {
     }
 }
 
-double totalAmount = 0.0;
 %>
 
 <script language="JavaScript">
@@ -113,9 +113,9 @@ function printPage() {
             <tr>
                 <td align="center" class="link"><%=voucherReportRow.getVoucherNumebr()%></td>
                 <td align="center" class="link"><%=formatIsoToEuropean(voucherReportRow.getCoucherDate())%></td>
-                <td align="center" class="link"><%=voucherReportRow.getDepartmentName()%></td>
-                <td align="center" class="link"><%=voucherReportRow.getHeadName()%></td>
-                <td align="center" class="link"><%=voucherReportRow.getVoucherAmount()%></td>
+                <td align="left" class="link"><%=voucherReportRow.getDepartmentName()%></td>
+                <td align="left" class="link"><%=voucherReportRow.getHeadName()%></td>
+                <td align="right" class="link"><%=voucherReportRow.getVoucherAmount()%></td>
                 <td align="center" class="link"><%=voucherReportRow.getReceiverName()%></td>
             </tr>
             <%

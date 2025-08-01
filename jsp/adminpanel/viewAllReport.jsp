@@ -66,15 +66,16 @@ function setAction(code,id){
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
       <tr bgcolor="#33CC99" class="titles"> 
-        <td height="20" colspan="6" >Report</font></td>
+        <td height="20" colspan="7" >Report</font></td>
       </tr>
       <tr bgcolor="#99CCFF" class="link"> 
-        <td width="5%" height="20" > <div align="center">S.No.</div></td>
-        <td width="20%"  height="20" align="center">Head Name</td>
-        <td width="25%"  height="20" align="center">Budget Allocation</td>
-		 <td width="20%"  height="20" align="center">Utilized</td>
-        <td width="20%"  height="20" align="center">Reserved</td>
-        <td width="15%"  height="20" align="center">Remaning</td>
+        <td width="4%" height="20" > <div align="center">S.No.</div></td>
+        <td width="16%"  height="20" align="center">Head Name</td>
+		<td width="18%"  height="20" align="center">Department</td>
+        <td width="13%"  height="20" align="center">Budget Allocation</td>
+		 <td width="12%"  height="20" align="center">Utilized</td>
+        <td width="17%"  height="20" align="center">PO/Reserved(In Progress)</td>
+        <td width="20%"  height="20" align="center">Remaning</td>
       </tr>
       <%
 	  if(data!=null && data.size()>0){
@@ -86,6 +87,7 @@ function setAction(code,id){
 		String hid=(String)hmt.get("HeadId");
 		String sname=(String)hmt.get("strName");
 		String Allocated=(String)hmt.get("dblAmount");
+		String departMent=(String)hmt.get("strDepartmentNm");
 		String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
 		String dblReservedAmount=(String)hmt.get("dblReservedAmount");
 		if(Allocated==null)
@@ -97,12 +99,13 @@ function setAction(code,id){
  		totUtilized+=Double.parseDouble(dblUtilisedAmount);
 		%>
 			<tr  class="link"  bgcolor="#cccccc"> 
-				<td width="5%" height="20" > <div align="center"><%=(i+1)%></div></td>
-				<td width="20%" align="center" height="20"><%=sname%></a></td>
-				<td width="25%" align="center" height="20"><%=Allocated%></td>
-				<td width="15%" align="center" height="20"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-				<td width="20%" align="center" height="20"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
-				<td width="15%" align="center" height="20"><%=d.format(remaining)%></td>
+				<td width="4%" height="20" > <div align="center"><%=(i+1)%></div></td>
+				<td width="16%" align="left" height="20"><%=sname%></a></td>
+				<td width="18%" align="left" height="20"><%=departMent%></a></td>
+				<td width="13%" align="right" height="20"><%=Allocated%></td>
+				<td width="12%" align="right" height="20"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
+				<td width="17%" align="right" height="20"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
+				<td width="20%" align="right" height="20"><%=d.format(remaining)%></td>
 			</tr>
 		      	<% 
 		}
@@ -110,24 +113,25 @@ function setAction(code,id){
 	}
 	 %>
      
-		<tr  class="link"> 
-		<td width="5%" height="20" > </td>
-		<td width="20%" align="center" height="20">Total : </a></td>
+		<tr bgcolor="#cccccc" class="link"> 
+		<td width="4%" height="20" > </td>
+		<td width="16%" height="20" > </td>
+		<td width="18%" align="center" height="20">Total : </a></td>
 		
-		<td width="25%" align="center" height="20"><%=d.format(totAllocated)%></td>
-		<td width="20%" align="center" height="20"><%=d.format(totUtilized)%></td>
-		<td width="20%" align="center" height="20"><%=d.format(totResearved)%></td>
-		<td width="15%" align="center" height="20"><%=d.format(totRemaning)%></td>
+		<td width="13%" align="right" height="20"><%=d.format(totAllocated)%></td>
+		<td width="12%" align="right" height="20"><%=d.format(totUtilized)%></td>
+		<td width="17%" align="right" height="20"><%=d.format(totResearved)%></td>
+		<td width="20%" align="right" height="20"><%=d.format(totRemaning)%></td>
 		</tr>		
 
       <tr bgcolor="#99CCFF"> 
         <td height="20" colspan=7>&nbsp;</td>
       </tr>
       <tr> 
-        <td colspan="6" valign="top" height="20" align="center">&nbsp; </td>
+        <td colspan="7" valign="top" height="20" align="center">&nbsp; </td>
       </tr>
 	    <tr> 
-		<td colspan=6 height="20">&nbsp;</td>
+		<td colspan="7" height="20">&nbsp;</td>
 	    </tr>
       
     </table>

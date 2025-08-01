@@ -83,36 +83,36 @@ function setAction(code,id){
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	
 	<tr style="<%=strColHd%>">
-		<td width="16%" align="center" class="titles" height="20">
+		<td width="12%" align="center" class="titles" height="20">
 			<input type="text" id="searchId" placeholder="Search Voucher" name="searchBN" value="">
 		</td>
-		<td width="16%" align="center" class="titles" height="20">
+		<td width="12%" align="center" class="titles" height="20">
 			<input type="button" name="btn3"  value="   Search Voucher   " accesskey="C" onClick="setAction(7,0)" class="PPRSbmtBtn"> 
 		</td>
-		<td  class="titles" width="16%"  align="center">&nbsp;</td>
+		<td  class="titles" width="10%"  align="center">&nbsp;</td>
 		<td colspan="4" class="titles" align="left">Voucher List</td>
 		</tr>
 	
 	    <tr style="<%=strColHd%>">
-		<td width="5%" align="center" class="titles" height="20">
+		<td width="12%" align="center" class="titles" height="20">
 			Vou. Number
 		</td>
-		<td width="10%" align="center" class="titles" height="20">
+		<td width="12%" align="center" class="titles" height="20">
 			Cancel/Print
 		</td>
 		<td width="10%" align="center" class="titles" height="20">
 			Date
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="15%" align="center" class="titles" height="20">
 			Budget Head
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="13%" align="center" class="titles" height="20">
 			Department
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="11%" align="center" class="titles" height="20">
 			Amount (Rs.)
 		</td>
-		<td width="20%" align="center" class="titles" height="20">
+		<td width="27%" align="center" class="titles" height="20">
 			Receiver Name
 		</td>
 	    </tr>
@@ -153,11 +153,11 @@ function setAction(code,id){
 				<td align="left" class="link" height="20">
 					<%=strDepartmentNm%>
 				</td>
-				<td align="left" class="link" height="20">
+				<td align="right" class="link" height="20">
 					<%=strAmount%>
 				</td>
 				<td align="left" class="link" height="20">
-					<%=receiver_name%>
+					&nbsp;&nbsp;<%=receiver_name%>
 				</td>
 				
 			</tr>

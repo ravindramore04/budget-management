@@ -45,14 +45,15 @@ function setAction(code,id){
   	  Budget Status</strong></center>
   	  <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bgcolor="#666666" >
       <tr height="50%" bgcolor="#99CCFF" class="link"> 
-        <td width="5%" height="20" bgcolor="#FFFFFF" > 
+        <td width="3%" height="20" bgcolor="#FFFFFF" > 
 <div align="center"><strong>S.No.</strong></div></td>
-        <td width="30%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Head Name</strong></td>
-        <td width="20%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Budget 
+        <td width="16%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Head Name</strong></td>
+		<td width="16%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Department</strong></td>
+        <td width="13%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Budget 
           Allocation</strong></td>
-        <td width="17%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Utilized</strong></td>
-		<td width="17%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Researved</strong></td>
-        <td width="17%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Remaning</strong></td>
+        <td width="12%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Utilized</strong></td>
+		<td width="20%"  height="20" align="center" bgcolor="#FFFFFF"><strong>PO/Reserved(In Progress)</strong></td>
+        <td width="20%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Remaning</strong></td>
       </tr>
       <%
     int j=1;
@@ -63,6 +64,7 @@ function setAction(code,id){
 	  	HashMap hmt = (HashMap)data.get(""+i);
 		String hid=(String)hmt.get("HeadId");
 		String sname=(String)hmt.get("strName");
+		String departMent=(String)hmt.get("strDepartmentNm");
 		String Allocated=(String)hmt.get("dblAmount");
 		String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
 		String dblReservedAmount=(String)hmt.get("dblReservedAmount");
@@ -77,25 +79,27 @@ function setAction(code,id){
 		%>
 		
 		<tr height="50" class="link"> 
-		<td width="5%" height="43" bgcolor="#FFFFFF" > 
+		<td width="3%" height="43" bgcolor="#FFFFFF" > 
 		<div align="center"><%=(i+1)%></div></td>
-		<td width="30%" height="40" align="left" bgcolor="#FFFFFF"><%=sname%></td>
-		<td width="20%" height="40" align="center" bgcolor="#FFFFFF"><%=Allocated%></td>
-		<td width="17%" height="40" align="right" bgcolor="#FFFFFF"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-		<td width="17%" height="40" align="right" bgcolor="#FFFFFF"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
-		<td width="17%" height="43" align="right" bgcolor="#FFFFFF"><%=d.format(remaining)%></td>
+		<td width="16%" height="40" align="left" bgcolor="#FFFFFF"><%=sname%></td>
+		<td width="16%" align="left" height="20" bgcolor="#FFFFFF"><%=departMent%></td>
+		<td width="13%" height="40" align="right" bgcolor="#FFFFFF"><%=Allocated%></td>
+		<td width="12%" height="40" align="right" bgcolor="#FFFFFF"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
+		<td width="20%" height="40" align="right" bgcolor="#FFFFFF"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
+		<td width="20%" height="43" align="right" bgcolor="#FFFFFF"><%=d.format(remaining)%></td>
 		</tr>
  	<%
 	}
 	%>
 	<tr bgcolor="#FFFFFF"> 
-		<td width="5%" height="20" > </td>
-		<td width="20%" align="center" height="20"><strong>Total : </strong></a></td>
+		<td width="3%" height="20" > </td>
+		<td width="16%" height="20" > </td>
+		<td width="16%" align="center" height="20"><strong>Total : </strong></a></td>
 		
-		<td width="25%" align="center" height="20"><strong><%=d.format(totAllocated)%></strong></td>
-		<td width="20%" align="center" height="20"><strong><%=d.format(totUtilized)%></strong></td>
-		<td width="20%" align="center" height="20"><strong><%=d.format(totResearved)%></strong></td>
-		<td width="15%" align="center" height="20"><strong><%=d.format(totRemaning)%></strong></td>
+		<td width="13%" align="right" height="20"><strong><%=d.format(totAllocated)%></strong></td>
+		<td width="12%" align="right" height="20"><strong><%=d.format(totUtilized)%></strong></td>
+		<td width="20%" align="right" height="20"><strong><%=d.format(totResearved)%></strong></td>
+		<td width="20%" align="right" height="20"><strong><%=d.format(totRemaning)%></strong></td>
 		</tr>		
 
 	

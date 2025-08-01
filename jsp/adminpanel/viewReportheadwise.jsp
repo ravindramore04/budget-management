@@ -19,7 +19,7 @@ List<VoucherReportRow> createVoucherReportRows = (List<VoucherReportRow>) reques
 	   } else{
 	      PayMethod="CASH/Cheque";
 	   }
-
+ double totalAmount = 0.0;
 %>
 <%!
   /**
@@ -35,9 +35,7 @@ List<VoucherReportRow> createVoucherReportRows = (List<VoucherReportRow>) reques
       return isoDate; // fallback on parse error
     }
   }
-  
-  double totalAmount = 0.0;
-%>
+ %>
 
 <script language="JavaScript">
 function navigation(code){
@@ -135,7 +133,9 @@ function setAction(code,id){
       <tr class="link" >
 	    <td height="20" bgcolor="#FFFFFF" align="center"><strong>Total</strong></td> 
         <td height="20" bgcolor="#FFFFFF" align="center">&nbsp;</td>
-        <td height="20" bgcolor="#CCFFCC" align="center"><strong><%//=d.format(alloc)%></strong></td>
+        <td height="20" bgcolor="#CCFFCC" align="center"><strong>
+          <%//=d.format(alloc)%>
+          </strong></td>
 		        <td height="20" bgcolor="#CCCCFF" align="center">&nbsp;</td>
         <td height="20" bgcolor="#CCCCFF" align="center"><strong><%=d.format(totalAmount)%></strong></td>
 		 <!--<td height="20" bgcolor="#FFCC99" align="center"><strong>&nbsp;</strong></td>-->
