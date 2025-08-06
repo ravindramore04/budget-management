@@ -27,6 +27,7 @@ public class LoginHandler extends org.apache.struts.action.Action
 	private static final String Success_Comp = "success_comp";
 	private static final String Success_Admin = "success_admin";
 	private static final String Success_User = "success_user";
+	private static final String Success_Director = "success_director";
 
 	public static final String GLOBAL_FORWARD_failure = "failure";
 	private static String FORWARD_final = GLOBAL_FORWARD_failure;
@@ -120,7 +121,7 @@ public class LoginHandler extends org.apache.struts.action.Action
 					FORWARD_final = Success_Admin;
 					break;
 				case 2:
-					FORWARD_final = Success_User;
+					FORWARD_final = Success_Director;
 			}
 
 		}catch(Exception e){

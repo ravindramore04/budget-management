@@ -1,85 +1,21 @@
-*<%@ include file="/jsp/include/header.jsp" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%
-    HashMap hmUser = (HashMap)session.getAttribute("user");
-    String User="Not Define";
-   // out.println("hmUser--"+hmUser);
-	if(hmUser!=null && hmUser.size()>0){
-    	User = (String)hmUser.get("UNm");
-    }
+   	String strPath = "/budget-management/";
+    pageContext.setAttribute("strPath", strPath);
 %>
-<td width="20%" class="innertitle" bgcolor="#fff" height="100%" valign="top" >
-	<table width="100%" bgcolor="#e2e2e2" cellspacing="1">
-		<tr valign="top">
-			<td width="100%" class="heading" bgcolor="#d4dae2" style="padding:8px 7px; text-transform: capitalize;"><b>
-				<%=User%></b>
-			</td>
-		</tr>
-		<%if(isAccount){%>
-		<tr valign="top">
 
-		    <td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;"><a class="linktext" href="<%=strPath+"Organisation.do"%>">Organisation
-		      </a> </td>
-		</tr>
-		<tr valign="top" >
-
-		    <td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;"><a class="linktext" href="<%=strPath+"AllUser.do"%>">Users
-		      </a> </td>
-		</tr>
-		<tr valign="top">
-			<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;">
-				<a class="linktext" href="<%=strPath+"AllGroup.do"%>">Department</a>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;">
-				<a class="linktext" href="<%=strPath+"AllHead.do"%>">Budget Heads</a>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;">
-				<a class="linktext" href="<%=strPath+"AllBudgetAllocation.do"%>">Budget Allocation</a>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;">
-				<a class="linktext" href="<%=strPath+"ChngPswd.do"%>">Change Password</a>
-			</td>
-		</tr>
-		<!--tr valign="top">
-        <td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;"> <a class="linktext" href="<%=strPath+"NewFinanceYear.do"%>">Finance Year</a> </td>
-		</tr-->
-		<%}%>
-		<tr>
-		<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;"> <a class="linktext" href="<%=strPath+"AllHeadForBudgetNote.do"%>">Create
-        Budget Note</a> </td>
-		</tr>
-		<tr>
-		<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;"><a class="linktext" href="<%=strPath+"BudgetNoteList.do"%>">Budget Note List</a> </td>
-		</tr>
-		<%if(isAccount){%>
-		<tr>
-		<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;"><a class="linktext" href="<%=strPath+"AllVoucher.do"%>">Voucher</a> </td>
-		</tr>
-		<%}%>
-		<tr valign="top">
-			<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;">
-				<a class="linktext" href="<%=strPath+"ViewRpt.do"%>">View Reports</a>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;">
-				<a class="linktext" href="<%=strPath+"ExcelReport.do"%>">Excel Report</a>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;">
-				<a class="linktext" href="<%=strPath+"RptHeadWise.do"%>">View Head Wise Reports</a>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;">
-				<a class="linktext" href="<%=strPath+"Logout.do"%>">Logout</a>
-			</td>
-		</tr>
-	</table>
-</td>
+<%@ include file="/jsp/include/header.jsp" %>
+<%
+    HashMap hmUser1 = (HashMap)session.getAttribute("user");
+    //out.println("hmUser1--"+hmUser1);
+	String lvl="1";
+	if(hmUser1!=null && hmUser1.size()>0){
+    	lvl = (String)hmUser1.get("lvl");
+    }
+	//out.println("lvl--"+lvl);
+%>
+<%if("2".equals(lvl)){%>
+<%@ include file="/jsp/adminpanel/headerdir.jsp" %>
+<%}else{%>
+<%@ include file="/jsp/adminpanel/headermain.jsp" %>
+<%}%>

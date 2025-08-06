@@ -1,4 +1,4 @@
-	<%@ include file="/jsp/adminpanel/header.jsp" %>
+<%@ include file="/jsp/adminpanel/header.jsp" %>
 
 <%
     int i=0;
@@ -175,10 +175,10 @@ function setAction(code,id){
 					<%=head_name%>
 				</td>
 				
-				<td align="left" class="link" height="20">
+				<td align="right" class="link" height="20">
 					<%=strAmount%>
 				</td>
-				<td align="left" class="link" height="20">
+				<td align="center" class="link" height="20">
 					<%=strName%>
 				</td>
 

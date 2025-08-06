@@ -74,7 +74,7 @@ function setAction(code,id){
 		<td width="18%"  height="20" align="center">Department</td>
         <td width="13%"  height="20" align="center">Budget Allocation</td>
 		 <td width="12%"  height="20" align="center">Utilized</td>
-        <td width="17%"  height="20" align="center">PO/Reserved(In Progress)</td>
+        <td width="17%"  height="20" align="center">PO/Reserved(In Process)</td>
         <td width="20%"  height="20" align="center">Remaning</td>
       </tr>
       <%

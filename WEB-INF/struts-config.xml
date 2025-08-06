@@ -54,6 +54,7 @@
 			<forward name="success_comp" path="/jsp/comppanel/panel.jsp"/>
 			<forward name="success_admin" path="/jsp/adminpanel/panel.jsp"/>
 			<forward name="success_user" path="/jsp/userpanel/panel.jsp"/>
+			<forward name="success_director" path="/jsp/adminpanel/paneldir.jsp"/>
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>
                 

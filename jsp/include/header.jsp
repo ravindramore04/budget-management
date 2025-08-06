@@ -1,6 +1,7 @@
 <%@ page import="java.util.*,login.*" %>
 <%
-	String strPath = "/budget-management/";
+    strPath = (String) pageContext.getAttribute("strPath");
+	//out.print("strPath>>>"+strPath);
 	String strColHd = "background-color:#555555; padding:10px 10px;";
 	String strCol1 = "background-color:#ededed";
 	String strCol2 = "background-color:#d1dde5";

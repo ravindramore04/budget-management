@@ -52,7 +52,7 @@ function setAction(code,id){
         <td width="13%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Budget 
           Allocation</strong></td>
         <td width="12%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Utilized</strong></td>
-		<td width="20%"  height="20" align="center" bgcolor="#FFFFFF"><strong>PO/Reserved(In Progress)</strong></td>
+		<td width="20%"  height="20" align="center" bgcolor="#FFFFFF"><strong>PO/Reserved(In Process)</strong></td>
         <td width="20%"  height="20" align="center" bgcolor="#FFFFFF"><strong>Remaning</strong></td>
       </tr>
       <%
