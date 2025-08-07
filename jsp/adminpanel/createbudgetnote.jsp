@@ -126,34 +126,36 @@ window.onload = function() {
 		<tr>
 			<td width="25%" class="innertitle">Budget Sanctioned </td>
 			
-        <td width="75%" colspan="3"><%=allocatedAmount%></td>
+        <td width="75%" colspan="3"><input style="text-align: right;" type="text" id="allocation_sanction_amount" readonly="true" name="allocation_sanction_amount" size="25" class="formfield" value="<%=allocatedAmount%>"/></td>
 		</tr>
 		<tr>
-			<td width="25%" class="innertitle">Reserve Amount <font color="#FF6600">(Budget Note created but Voucher not Created)</font> </td>
+			
+        <td width="25%" class="innertitle">Reserve Amount <font color="#FF6600">(Budget 
+          Note Created but Expense Voucher not Created)</font> </td>
 			
 			
-        <td width="75%" colspan="3"><input type="text" id="allocation_reserved_amount" readonly="true" name="allocation_reserved_amount" size="25" class="formfield" value="<%=allocation_reserved_amount%>"/></td>
+        <td width="75%" colspan="3"><input style="text-align: right;" type="text" id="allocation_reserved_amount" readonly="true" name="allocation_reserved_amount" size="25" class="formfield" value="<%=allocation_reserved_amount%>"/></td>
 		</tr>
 		<tr>
 			<td width="25%" class="innertitle">Budget Already Spent </td>
-			<td width="75%" colspan="3"><%=utilisedAmount%></td>
+			<td width="75%" colspan="3"><input style="text-align: right;"  type="text" id="allocation_utilized_amount" readonly="true" name="allocation_utilized_amount" size="25" class="formfield" value="<%=utilisedAmount%>"/></td>
 		</tr>
 		<tr>
 			<td width="25%" class="innertitle">Balance Budget </td>
-			<td width="75%" colspan="3"><input type="text" id="ballanceBudget" readonly="true" name="ballanceBudget" size="25" class="formfield" value="<%=availableBalance%>"/></td>
+			<td width="75%" colspan="3"><input style="text-align: right;" type="text" id="ballanceBudget" readonly="true" name="ballanceBudget" size="25" class="formfield" value="<%=availableBalance%>"/></td>
 		</tr>
 
 
 
 
 		<tr>
-			<td width="25%" class="innertitle">This Expenditure <font color="#FF6600"><%=thisExpMsg%></font></td>
-			<td width="75%" colspan="3"><input type="text" id="budget_note_expense" name="budget_note_expense" size="25" class="formfield" value="<%=budget_note_expense%>" onBlur="calculateDifference()" onKeyPress="handleEnter('budget_note_remark','BudgetAllocationMaster')"> </td>
+			<td width="25%" class="innertitle">This Expenditure <font color="#FF6600"><%//=thisExpMsg%></font></td>
+			<td width="75%" colspan="3"><input style="text-align: right;" type="text" id="budget_note_expense" name="budget_note_expense" size="25" class="formfield" value="<%=budget_note_expense%>" onBlur="calculateDifference()" onKeyPress="handleEnter('budget_note_remark','BudgetAllocationMaster')"> </td>
 		</tr>
 
 		<tr>
 			<td width="25%" class="innertitle">Balance after current Expenditure </td>
-			<td width="75%" colspan="3"><input type="text" readonly="true" id="allocation_balance_amount_after_expense" name="allocation_balance_amount_after_expense" size="25" onBlur="calculateDifference()" class="formfield" value="<%=balance_after_expense%>" > </td>
+			<td width="75%" colspan="3"><input style="text-align: right;" type="text" readonly="true" id="allocation_balance_amount_after_expense" name="allocation_balance_amount_after_expense" size="25" onBlur="calculateDifference()" class="formfield" value="<%=balance_after_expense%>" > </td>
 		</tr>
 
 		<tr>
@@ -170,7 +172,7 @@ window.onload = function() {
 		</tr>
 		<%if(isStoreAccount){%>
 		<tr>
-			<td class="innertitle" valign = "top">Purchase Order No.</td>
+			<td class="innertitle" valign = "top">Purchase Order/Ref. No.</td>
 			<td colspan="3">
 				<input type="text" name="ponumber" value="<%=ponumber%>">
 			</td>

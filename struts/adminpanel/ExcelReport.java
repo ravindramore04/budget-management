@@ -50,8 +50,8 @@ public class ExcelReport extends org.apache.struts.action.Action {
 
             vec1 = (Vector) cvdal.executeQuery();
 
-            createAllAllocationReportFile(vec1, request);
-           //createAllAllocationReport(vec1, request);
+            //createAllAllocationReportFile(vec1, request);
+              createAllAllocationReport(vec1, request);
 
             FORWARD_final = Success;
 
@@ -77,8 +77,8 @@ public class ExcelReport extends org.apache.struts.action.Action {
         Map<String, BudgetAllocationState> budgetAllocationStateMap = new HashMap<String, BudgetAllocationState>();
 
         String excelFileName = getReportFullPath(request);
-       // request.setAttribute("downloadLink", excelFileName);
-        request.setAttribute("downloadLink",request.getContextPath() + "/reports/allocation_report.xls");
+        String fileName = new File(excelFileName).getName();
+        request.setAttribute("downloadLink",request.getContextPath() + "/reports/"+fileName);
 
 
 
@@ -113,15 +113,39 @@ public class ExcelReport extends org.apache.struts.action.Action {
         HSSFSheet sheet = workbook.createSheet("Sheet1");
         int rowIndex = 0;
         int cellIndex = 0;
-        HSSFRow row = sheet.createRow(rowIndex++);
-
         HSSFCellStyle CS_BOLD_GREEN = createCellStyle(workbook);
 
-        System.out.print("Head,");
-        HSSFCell cell =  row.createCell(cellIndex++);
-        cell.setCellValue("Head ? / Department ?");
-        cell.setCellStyle(CS_BOLD_GREEN);
 
+        HSSFRow titleRow = sheet.createRow(rowIndex++);
+
+// Create bold centered style for the title
+        HSSFCellStyle titleStyle = workbook.createCellStyle();
+        HSSFFont titleFont = workbook.createFont();
+        titleFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        titleFont.setFontHeightInPoints((short) 14);
+        titleStyle.setFont(titleFont);
+        titleStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        titleStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+        titleStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
+// Set foreground (not background) color — this is the visible background in Excel
+        titleStyle.setFillForegroundColor(HSSFColor.LIGHT_YELLOW.index);
+
+// Set title in first cell
+        HSSFCell titleCell = titleRow.createCell(0);
+        titleCell.setCellValue("Utilization Report for All Heads");
+        titleCell.setCellStyle(titleStyle);
+
+// Merge first row across multiple columns (adjust 0 to N based on column count, example here: 5)
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+
+        HSSFRow row = sheet.createRow(rowIndex++);
+        System.out.print("Head,");
+        HSSFCell cell = row.createCell(cellIndex++);
+        cell.setCellValue("Head V / Department ->");
+        cell.setCellStyle(CS_BOLD_GREEN);
+        HSSFCellStyle numericStyle = workbook.createCellStyle();
+        numericStyle.setDataFormat(workbook.createDataFormat().getFormat("#,##0.00"));
 
 
         for (String department : sortedDepartments) {
@@ -138,7 +162,7 @@ public class ExcelReport extends org.apache.struts.action.Action {
 
         System.out.print(",");
         for (String department : sortedDepartments) {
-            System.out.print("Allocated Amount" + ", " + "Utilised Amount" + ",");
+            System.out.print("Allocated Amount" + ", " + "Reserved Amount" + ","+ "Utilised Amount" + ","+ "Remaining Amount" + ",");
         }
         System.out.print("\n");
 
@@ -152,20 +176,26 @@ public class ExcelReport extends org.apache.struts.action.Action {
                 BudgetAllocationState budgetAllocationState = budgetAllocationStateMap.get(head + "-I_AM_MAK-" + department);
 
                 if (null == budgetAllocationState) {
-                    System.out.print(0 + "," + 0 + ",");
-                    row.createCell(cellIndex++).setCellValue("0.00");
-                    row.createCell(cellIndex++).setCellValue("0.00");
+                    System.out.print(0 + "," + 0 + "," + 0 + "," + 0 + ",");
+                    row.createCell(cellIndex++).setCellValue(Double.parseDouble("0.00"));
+                    row.createCell(cellIndex++).setCellValue(Double.parseDouble("0.00"));
 
                 } else {
-                    System.out.print(budgetAllocationState.getAllocatedAmount() + "," + budgetAllocationState.getUtilisedAmount() + ",");
-                    row.createCell(cellIndex++).setCellValue(budgetAllocationState.getAllocatedAmount());
-                    row.createCell(cellIndex++).setCellValue(budgetAllocationState.getUtilisedAmount());
+                    System.out.print(budgetAllocationState.getAllocatedAmount() + "," + budgetAllocationState.getReservedAmount() + "," + budgetAllocationState.getUtilisedAmount() + "," + budgetAllocationState.getRemainingAmount() + ",");
+                    HSSFCell cell1 = row.createCell(cellIndex++);
+                    cell1.setCellValue(Double.parseDouble(budgetAllocationState.getAllocatedAmount()));
+                    cell1.setCellStyle(numericStyle);
+
+                    HSSFCell cell2 = row.createCell(cellIndex++);
+                    cell2.setCellValue(Double.parseDouble(budgetAllocationState.getReservedAmount()) + Double.parseDouble(budgetAllocationState.getUtilisedAmount()));
+                    cell2.setCellStyle(numericStyle);
+
                 }
             }
             System.out.print("\n");
         }
 
-        for (int i = 0; i < ( (sortedDepartments.size()*2 ) + 1); i++) {
+        for (int i = 0; i < ( (sortedDepartments.size()*4 ) + 1); i++) {
             sheet.autoSizeColumn(i);
         }
 
