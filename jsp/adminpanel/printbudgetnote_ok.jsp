@@ -76,10 +76,6 @@ double expafterCurrentExpense=0.00;
 double reverveAmt=0.00;
 double balAmt=0.00;
 
-String narration="";
-String advanceReceiverName="";
-String advance="0";
-
 if(hmData!=null && hmData.size()>0){
          departmentName = (String)hmData.get("departmentName");
          headName = (String)hmData.get("headName");
@@ -93,9 +89,6 @@ if(hmData!=null && hmData.size()>0){
 	 	balance_after_expense= (String)hmData.get("allocation_balance_amount_after_expense");
 		budget_note_id=(String)hmData.get("budget_note_id");
 		create_date=(String)hmData.get("create_date");
-		narration=(String)hmData.get("narration");
-		advanceReceiverName=(String)hmData.get("advanceReceiverName");
-		advance=(String)hmData.get("advance");
 		
 		reverveAmt=Double.parseDouble(allocation_reserved_amount)-Double.parseDouble(budget_note_expense);
 			
@@ -245,19 +238,14 @@ function setAction(code,id){
             </td>
         </tr>
     </table>
-	<%
-	if(advance != null && "1".equals(advance)){
-	%>
-	<br>
-	<br>
-	<br>
-	<br>
 	
+	<br>
+	<br>
 	<div class="header">
             <div class="title">ADVANCE REQUISITION NOTE<br>
 (Expenditure details to be submitted and advance cleared within a week)</div>
         </div>
-	<table border="1">
+	<table border="0">
             <tr>
                 <td  style="width: 350px;" class="section-header">&nbsp;</td>
                 <td class="section-header" colspan="2">&nbsp;</td>
@@ -269,11 +257,11 @@ function setAction(code,id){
             </tr>
             <tr>
                 <td class="section-header">Mr./Mrs.</td>
-                <td class="section-header" colspan="3"><%=advanceReceiverName%></td>
+                <td class="section-header" colspan="3"><%=headName%></td>
             </tr>
             <tr>
                 <td class="section-header">As an Advance for the perpose of</td>
-               <td class="value" colspan="3"><%=narration%></td>
+               <td class="value" colspan="3">&nbsp;</td>
             </tr>
 			<tr>
                 <td class="section-header">Paid by Cash/Cheque No.</td>
@@ -320,9 +308,8 @@ function setAction(code,id){
             </td>
         </tr>
     </table>
-	<%
-	}
-	%>
+	
+	
     </form>
 </body>
 </html>

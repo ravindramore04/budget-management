@@ -314,6 +314,9 @@ public class BudgetNote extends Action
         queryParams.add(user_id);
         queryParams.add(user_id);
         queryParams.add(daf.get("ponumber"));
+        queryParams.add(daf.get("advance"));
+        queryParams.add(daf.get("advanceReceiverName"));
+        queryParams.add(daf.get("narration"));
         cvdal.setSQL("budget_note_INSERT", queryParams);
         cvdal.executeUpdate();
         insertBudgetNoteHistory(cvdal, user_id, daf, budget_note_id);
@@ -342,6 +345,9 @@ public class BudgetNote extends Action
         queryParams.add(user_id);
         queryParams.add(status);
         queryParams.add(daf.get("ponumber"));
+        queryParams.add(daf.get("advance"));
+        queryParams.add(daf.get("advanceReceiverName"));
+        queryParams.add(daf.get("narration"));
         queryParams.add(budget_note_id);
 
         cvdal.setSQL("budget_note_UPDATE", queryParams);

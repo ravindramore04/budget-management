@@ -57,6 +57,10 @@
 		<form-property name="current_page" type="java.lang.String"/>
 		<form-property name="Newcurrent_page" type="java.lang.String"/>
 		<form-property name="searchBN" type="java.lang.String"/>
+		
+		<form-property name="advance" type="java.lang.String"/>
+		<form-property name="advanceReceiverName" type="java.lang.String"/>
+		<form-property name="narration" type="java.lang.String"/>
 	</form-bean>
 
 

@@ -170,3 +170,6 @@ alter table budget_note add column ponumber varchar(50);
 
 alter table budget25_26.VOUCHER_DETAILS add column `tdsnarration` varchar(500) default NULL;
 alter table budget25_26.VOUCHER_DETAILS add column `budgetnoteRemainAmt` double(11,2) default 0.00;
+
+updated on : 19082025
+ALTER TABLE budget_note ADD COLUMN advance TINYINT(1),ADD COLUMN advanceReceiverName VARCHAR(100),ADD COLUMN narration VARCHAR(250);

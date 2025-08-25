@@ -25,6 +25,11 @@
 	String radiocheckNo="";
 	String ponumber="";
 	String thisExpMsg="";
+	String advance="0";
+	String advRadioY="";
+	String advRadioN="";
+	String advanceReceiverName="";
+	String narration="";
 
 
 	HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
@@ -49,6 +54,23 @@
 		 radiocheckNo="checked";
 		 budget_note_status="DRAFT";
 		 }
+		 
+		 advance=(String)hmData.get("advance");
+		 if("1".equals(advance)){
+		 advRadioY="checked";
+		 advRadioN="";
+		 }else{
+		  advRadioN="checked";
+		 }
+		 narration=(String)hmData.get("narration");
+		 if(narration==null){
+		 narration="";
+		 }
+		 advanceReceiverName=(String)hmData.get("advanceReceiverName");
+		 if(advanceReceiverName==null){
+		 advanceReceiverName="";
+		 }
+		 
 		 if(budget_note_id !=null){
 			 bName="Update";
 			 operation="update_budget_note";
@@ -98,6 +120,24 @@ function calculateDifference() {
 
 window.onload = function() {
         calculateDifference();
+		
+		var yesRadio = document.getElementById("adyes");
+    var noRadio = document.getElementById("adno");
+
+    // Check attribute as fallback
+	//alert(yesRadio.hasAttribute("checked"));
+    if (yesRadio.hasAttribute("checked")) {
+        yesRadio.checked = true;  // enforce it
+    }
+
+    // Now toggle table
+    if (yesRadio.checked) {
+        toggleAdvanceTable(true);
+    } 
+    }
+	
+function toggleAdvanceTable(show) {
+        document.getElementById("advanceTable").style.display = show ? "" : "none";
     }
 
 </script>
@@ -194,6 +234,44 @@ window.onload = function() {
 		<%}else{%>
 		<input type="hidden" name="ponumber" value="<%=ponumber%>">
 		<%}%>
+		
+		<tr>
+			<td width="100%" colspan="2">
+<table border="1" cellspacing="0" cellpadding="5" width="100%">
+    <!-- Radio Button Row -->
+    <tr>
+        <td width="25%" align="right">
+            Advance Requisition:
+        </td>
+        <td width="75%">
+            <input type="radio" id="adyes" name="advance" value="1" <%=advRadioY%> onclick="toggleAdvanceTable(true)">
+            <label for="yes">Yes</label><br>
+            <input type="radio" id="adno" name="advance" value="0" <%=advRadioN%> onclick="toggleAdvanceTable(false)">
+            <label for="no">No</label>
+        </td>
+    </tr>
+
+    <!-- Hidden Table (toggles on Yes/No) -->
+    <tr id="advanceTable" style="display: none;">
+        <td colspan="2">
+            <table border="1" cellspacing="0" cellpadding="5" width="100%">
+                <tr>
+                    <td width="25%" align="right">Advance Receiver Name:</td>
+                    <td width="75%"><input type="text" value="<%=advanceReceiverName%>" name="advanceReceiverName"></td>
+                </tr>
+                <tr>
+                    <td width="25%" align="right">Narration:</td>
+                    <td width="75%">
+					<textarea name="narration" class="formfield" cols="50" rows="3"><%=narration%></textarea>
+					</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+			</td>
+		</tr>
+		
 		<tr>
 		   <td class="innertitle" valign = "top"></td>
 			<td colspan=3 align="left">
