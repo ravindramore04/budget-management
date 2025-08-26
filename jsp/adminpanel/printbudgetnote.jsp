@@ -272,8 +272,8 @@ function setAction(code,id){
                 <td class="section-header" colspan="3"><%=advanceReceiverName%></td>
             </tr>
             <tr>
-                <td class="section-header">As an Advance for the perpose of</td>
-               <td class="value" colspan="3"><%=narration%></td>
+                <td class="section-header">As an Advance for the purpose  of</td>
+               <td class="section-header" colspan="3"><%=narration%></td>
             </tr>
 			<tr>
                 <td class="section-header">Paid by Cash/Cheque No.</td>
@@ -283,24 +283,27 @@ function setAction(code,id){
             <tr>
                 <td class="section-header">Advance of Rs</td>
                 <td>&nbsp;</td>
-                <td class="value" colspan="2">is sanctioned</td>
+                <td class="section-header" colspan="2">is sanctioned</td>
             </tr>
-           
-             <tr>
+           <tr>
                 <td class="section-header">&nbsp;</td>
+               <td class="value" colspan="3">&nbsp;</td>
+            </tr>
+             <tr>
+                <td class="section-header" align="center">Signature Head of Dept.</td>
                <td class="value" colspan="3">&nbsp;</td>
             </tr> <tr>
                 <td class="section-header">&nbsp;</td>
                <td class="value" colspan="3">&nbsp;</td>
             </tr>
 			<tr>
-                <td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="1" align="center">
+                <td style="height: 60px; border: none;" valign="bottom"  colspan="1" align="center">
 				<div class="signature-title">Signature of Receiver </div></td>
-				<td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="1" align="center">
+				<td style="height: 60px; border: none;" valign="bottom"  colspan="1" align="center">
 				<div class="signature-title">Accountant</div>
 				</td>
-				<td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="1" align="center">
-				<div class="signature-title">Registarar</div>
+				<td style="height: 60px; border: none;" valign="bottom"  colspan="1" align="center">
+				<div class="signature-title">Registrar</div>
 				</td>
             </tr>
 		 <tr>
