@@ -31,7 +31,7 @@
         }
         .section-header {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
         }
         .value {
             font-weight: bold;
@@ -48,6 +48,7 @@
             margin-top: 0px;
 			margin-bottom: 0px;
             font-weight: bold;
+			font-size: 12px;
         }
     </style>
 </head>
@@ -76,6 +77,7 @@ double expafterCurrentExpense=0.00;
 double reverveAmt=0.00;
 double balAmt=0.00;
 
+String ponumber="";
 String narration="";
 String advanceReceiverName="";
 String advance="0";
@@ -96,6 +98,7 @@ if(hmData!=null && hmData.size()>0){
 		narration=(String)hmData.get("narration");
 		advanceReceiverName=(String)hmData.get("advanceReceiverName");
 		advance=(String)hmData.get("advance");
+		ponumber=(String)hmData.get("ponumber");
 		
 		reverveAmt=Double.parseDouble(allocation_reserved_amount)-Double.parseDouble(budget_note_expense);
 			
@@ -217,7 +220,13 @@ function setAction(code,id){
               </tr>
 			<tr>
                 <td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="1" align="center">
-				<div class="signature-title">Store &amp; Purchase Assistant</div></td>
+				<div class="signature-title">
+				<%
+	if(ponumber != null){
+	%>
+	 Store &amp; Purchase Assistant
+	<%}%>
+				&nbsp;</div></td>
 				<td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="3" align="center">
 				<div class="signature-title">Head of Department</div>
 				</td>
@@ -259,7 +268,7 @@ function setAction(code,id){
         </div>
 	<table border="1">
             <tr>
-                <td  style="width: 350px;" class="section-header">&nbsp;</td>
+                <td  style="width: 300px;" class="section-header">Contact No.</td>
                 <td class="section-header" colspan="2">&nbsp;</td>
                 <td class="section-header">&nbsp;</td>
             </tr>
@@ -276,7 +285,7 @@ function setAction(code,id){
                <td class="section-header" colspan="3"><%=narration%></td>
             </tr>
 			<tr>
-                <td class="section-header">Paid by Cash/Cheque No.</td>
+                <td class="section-header">To Be Paid by Cash/Cheque No.</td>
               
       <td class="value" colspan="3">&nbsp;</td>
             </tr>
@@ -300,10 +309,10 @@ function setAction(code,id){
                 <td style="height: 60px; border: none;" valign="bottom"  colspan="1" align="center">
 				<div class="signature-title">Signature of Receiver </div></td>
 				<td style="height: 60px; border: none;" valign="bottom"  colspan="1" align="center">
-				<div class="signature-title">Accountant</div>
+				<div class="signature-title">&nbsp;</div>
 				</td>
 				<td style="height: 60px; border: none;" valign="bottom"  colspan="1" align="center">
-				<div class="signature-title">Registrar</div>
+				<div class="signature-title">I/C Registrar</div>
 				</td>
             </tr>
 		 <tr>

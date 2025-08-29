@@ -212,7 +212,7 @@ function toggleAdvanceTable(show) {
 		</tr>
 		<%if(isStoreAccount){%>
 		<tr>
-			<td class="innertitle" valign = "top">Purchase Order/Ref. No.</td>
+			<td class="innertitle" valign = "top">Purchase Order.</td>
 			<td colspan="3">
 				<input type="text" name="ponumber" value="<%=ponumber%>">
 			</td>
