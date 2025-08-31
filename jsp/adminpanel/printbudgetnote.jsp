@@ -35,6 +35,7 @@
         }
         .value {
             font-weight: bold;
+			font-size: 12px;
         }
         .signature-section {
             margin-top: 50px;
@@ -299,19 +300,16 @@ function setAction(code,id){
                <td class="value" colspan="3">&nbsp;</td>
             </tr>
              <tr>
-                <td class="section-header" align="center">Signature Head of Dept.</td>
+                <td class="section-header" align="center">&nbsp;</td>
                <td class="value" colspan="3">&nbsp;</td>
             </tr> <tr>
-                <td class="section-header">&nbsp;</td>
+                <td class="section-header" style="height: 60px;" valign="bottom"  colspan="1"  rowspan="" align="center">Signature Head of Dept.</td>
                <td class="value" colspan="3">&nbsp;</td>
             </tr>
 			<tr>
-                <td style="height: 60px; border: none;" valign="bottom"  colspan="1" align="center">
+                <td style="height: 60px;" valign="bottom"  colspan="1" align="center">
 				<div class="signature-title">Signature of Receiver </div></td>
-				<td style="height: 60px; border: none;" valign="bottom"  colspan="1" align="center">
-				<div class="signature-title">&nbsp;</div>
-				</td>
-				<td style="height: 60px; border: none;" valign="bottom"  colspan="1" align="center">
+				<td style="height: 60px;" valign="bottom"  colspan="3" align="center">
 				<div class="signature-title">I/C Registrar</div>
 				</td>
             </tr>

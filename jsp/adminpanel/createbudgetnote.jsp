@@ -256,12 +256,12 @@ function toggleAdvanceTable(show) {
         <td colspan="2">
             <table border="1" cellspacing="0" cellpadding="5" width="100%">
                 <tr>
-                    <td width="25%" align="right">Advance Receiver Name:</td>
-                    <td width="75%"><input type="text" value="<%=advanceReceiverName%>" name="advanceReceiverName"></td>
+                    <td width="27%" align="right">Advance Receiver Name:</td>
+                    <td width="73%"><input type="text" value="<%=advanceReceiverName%>" name="advanceReceiverName"></td>
                 </tr>
                 <tr>
-                    <td width="25%" align="right">Narration:</td>
-                    <td width="75%">
+                    <td width="27%" align="right">As and Advance for the purpose of:</td>
+                    <td width="73%">
 					<textarea name="narration" class="formfield" cols="50" rows="3"><%=narration%></textarea>
 					</td>
                 </tr>
