@@ -50,7 +50,8 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
                         strPage_num = (String)daf.get("current_page");
                         strNavOpr = (String)daf.get("NAV");
                     }
-
+                String opr=(String)daf.get("opr");
+                sop("DynaActionForm Details --->"+daf.getMap().entrySet());
                     double nPage = 1;
                     double nTotalPage = 0;
                     int nOpr = 0;
@@ -64,10 +65,22 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
                     vec.clear();
 
                     if (SessionUtils.isAccountORStoreUser(session)){
-                        cvdal.setSQL("openAllHeadWithBalanceAllDept", vec);
+                        if("7".equals(opr)){
+                            vec.add((String)daf.get("id"));
+                            cvdal.setSQL("openAllHeadWithBalanceAllDeptSearch", vec);
+                        }else {
+                            cvdal.setSQL("openAllHeadWithBalanceAllDept", vec);
+                        }
                     }else{
                         vec.addElement(SessionUtils.getDepartmentId(session));
-                        cvdal.setSQL("openAllHeadWithBalance", vec);
+
+                        if("7".equals(opr)){
+                            vec.add((String)daf.get("id"));
+                            cvdal.setSQL("openAllHeadWithBalanceSearch", vec);
+                        }else {
+                            cvdal.setSQL("openAllHeadWithBalance", vec);
+                        }
+
                     }
 
                     Vector vec1 = (Vector)cvdal.executeQuery();
@@ -102,14 +115,32 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
                         vec.clear();
 
                         if (SessionUtils.isAccountORStoreUser(session)){
-                            vec.addElement(""+nLowLimit);
-                            vec.addElement("" + nNum_Per_Page);
-                            cvdal.setSQL("openAllHeadWithBalanceAllDeptWL", vec);
+                            if("7".equals(opr)) {
+                                vec.add((String) daf.get("id"));
+                                vec.addElement(""+nLowLimit);
+                                vec.addElement("" + nNum_Per_Page);
+                                cvdal.setSQL("openAllHeadWithBalanceAllDeptWLSearch", vec);
+                            }else{
+                                vec.addElement(""+nLowLimit);
+                                vec.addElement("" + nNum_Per_Page);
+                                cvdal.setSQL("openAllHeadWithBalanceAllDeptWL", vec);
+                            }
+
                         }else{
-                            vec.addElement(SessionUtils.getDepartmentId(session));
-                            vec.addElement(""+nLowLimit);
-                            vec.addElement("" + nNum_Per_Page);
-                            cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+
+                            if("7".equals(opr)) {
+                                vec.addElement(SessionUtils.getDepartmentId(session));
+                                vec.add((String) daf.get("id"));
+                                vec.addElement(""+nLowLimit);
+                                vec.addElement("" + nNum_Per_Page);
+                                cvdal.setSQL("openAllHeadWithBalanceWLSearch", vec);
+                            }else{
+                                vec.addElement(SessionUtils.getDepartmentId(session));
+                                vec.addElement(""+nLowLimit);
+                                vec.addElement("" + nNum_Per_Page);
+                                cvdal.setSQL("openAllHeadWithBalanceWL", vec);
+                            }
+
                         }
 
 
@@ -124,7 +155,8 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
                     }
                     sop("-------------------------------------------------");
                     sop("-------------------------------------------------");
-                    sop(""+hmFinal);
+                    sop("" + hmFinal);
+                    request.setAttribute("search",daf.get("id"));
                     request.setAttribute("data", hmFinal);
                     HashMap hmPage = new HashMap();
                     hmPage.put("current_page", ""+(long)nPage);

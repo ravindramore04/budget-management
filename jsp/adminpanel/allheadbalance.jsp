@@ -17,6 +17,7 @@
 function navigation(code){
     document.HeadBalanceList.NAV.value = code;
     document.HeadBalanceList.action = "<%=strPath+"AllBudgetAllocation.do"%>";
+	document.HeadBalanceList.id.value = document.getElementById('searchId').value;
     document.HeadBalanceList.submit();
 }
 
@@ -31,10 +32,13 @@ function setAction(code,id){
         case 2:
             document.HeadBalanceList.action = "<%=strPath+"openBudgetAllocation.do"%>";
             break;
-       
         case 4:
             document.HeadBalanceList.action = "<%=strPath+"Close.do"%>";
             break;
+		case 7:
+		      document.HeadBalanceList.action = "<%=strPath+"AllBudgetAllocation.do"%>";
+			  document.HeadBalanceList.id.value = document.getElementById('searchId').value;
+			break;
     }
     
     document.HeadBalanceList.submit();
@@ -48,12 +52,20 @@ function setAction(code,id){
     <input type="hidden" name="NAV" value="">
     <input type="hidden" name="current_page" value="<%=nCurrent_Page%>">
     <input type="hidden" name="id" value="">
-    <input type="hidden" name="opr" value="">
-
+	<input type="hidden" name="opr" value="">
 
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	<tr style="<%=strColHd%>"><td colspan="7" class="titles" align="center"><font color="#FF9900"><font color="#FF9900"><% String message=(String)request.getAttribute("message");
+	<tr style="<%=strColHd%>">
+	
+	<td width="16%" align="center" class="titles" height="20">
+			<input type="text" id="searchId" placeholder="Enter budget head name" name="searchAllocation" value="<%=(String)request.getAttribute("search")%>">
+		</td>
+		<td width="16%" align="center" class="titles" height="20">
+			<input type="button" name="btn3" value="   Search Allocation Head  " accesskey="C" onClick="setAction(7,0)" class="PPRSbmtBtn"> 
+		</td>
+	
+	<td colspan="5" class="titles" align="left"><font color="#FF9900"><font color="#FF9900"><% String message=(String)request.getAttribute("message");
 	if(message !=null){
 	out.print(message);
 	}else{
