@@ -10,14 +10,25 @@
 	
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
 	HashMap hmGroup=(HashMap)request.getAttribute("ghead"); 
-	//out.println("dghfjgsjdgf"+bgNm);
+	//out.println("dghfjgsjdgf"+hmData);
 	if(hmData!=null && hmData.size()>0){
 		strId = (String)hmData.get("HeadId");
 		strName = (String)hmData.get("strName");
 		strAccNo = (String)hmData.get("strAccNo");
 		strRemark = (String)hmData.get("strRemark");
-		bgNm=(String)hmData.get("strDepartmentId");
-	}//out.println("dghfjgsjdgf"+bgNm);
+		bgNm=(String)hmData.get("strBudgroupId");
+	}
+	//out.println("hmGrouphmGroup>>"+hmGroup);
+	String bugGroupChkY="checked";
+	String bugGroupChkN="";
+	if("1".equals(bgNm)){
+		 bugGroupChkY="checked";
+		 bugGroupChkN="";
+		 }else{
+		  bugGroupChkY="";
+		 bugGroupChkN="checked";
+		 }
+	
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
 <script language="JavaScript">
@@ -60,6 +71,18 @@
 			<td width="75%" colspan="3"><input type="text" name="txtAccNo" size="40" class="formfield" value="<%//=strAccNo%>" ReadOnly  onKeyPress="handleEnter('txtRemark','BudgetHead')"> </td>
 		</tr--%>
 		<input type="hidden" name="txtAccNo" size="40" class="formfield" value="">
+		
+
+		<tr> 
+			<td width="25%" class="innertitle">Budget Group: </td>
+			<td width="75%" colspan="3">
+			<input type="radio" id="adyes" name="strBudgroupId" value="1" <%=bugGroupChkY%> onclick="toggleAdvanceTable(true)">
+            <label for="yes">Recurring</label>
+            <input type="radio" id="adno" name="strBudgroupId" value="0" <%=bugGroupChkN%> onclick="toggleAdvanceTable(false)">
+            <label for="no">Non Recurring</label>
+			
+			</td
+		></tr>
 		
 		<tr> 
 			<td class="innertitle" valign = "top">Remark</td>

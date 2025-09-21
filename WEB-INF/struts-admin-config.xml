@@ -35,6 +35,7 @@
 		<form-property name="voucher_amount" type="java.lang.String"/>
 		<form-property name="searchBN" type="java.lang.String"/>
 		<form-property name="strDepartmentId" type="java.lang.String"/>
+		<form-property name="strBudgroupId" type="java.lang.String"/>
 		<form-property name="strDepartmentIdOtherDept" type="java.lang.String"/>
 	</form-bean>
 
@@ -93,6 +94,7 @@
 		<form-property name="txtAmount" type="java.lang.String"/>
 		<form-property name="Head" type="java.lang.String"/>
 		<form-property name="txtDate" type="java.lang.String"/>
+		<form-property name="strBudgroupId" type="java.lang.String"/>
 	</form-bean>
 	
 	<form-bean name="BudgetAllocationForm" type="org.apache.struts.validator.DynaValidatorForm">

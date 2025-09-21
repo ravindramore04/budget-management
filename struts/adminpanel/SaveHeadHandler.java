@@ -50,6 +50,7 @@ public class SaveHeadHandler extends org.apache.struts.action.Action
 
                        	String strId=(String)daf.get("txtId");
                        	String strDepartmentId=(String)daf.get("strDepartmentId");
+						String strBudGroupId=(String)daf.get("strBudgroupId");
                         String strName=(String)daf.get("txtName");
                         String strRemark=(String)daf.get("txtRemark");
 
@@ -132,7 +133,7 @@ public class SaveHeadHandler extends org.apache.struts.action.Action
 
                             vec.addElement(""+iNewId);
                         }
-						vec.addElement(strDepartmentId);
+						vec.addElement(strBudGroupId);
                         vec.addElement(strName);
                         sop("vec000================================="+vec);
 
@@ -160,6 +161,7 @@ public class SaveHeadHandler extends org.apache.struts.action.Action
                             cvdal.setSQL("insertHead",vec);
                         }else{
                             //update record
+							vec.addElement(strBudGroupId);
                             vec.addElement(strId);
                             cvdal.setSQL("updateHead",vec);
                         }
