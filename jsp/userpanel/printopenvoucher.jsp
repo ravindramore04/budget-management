@@ -286,7 +286,7 @@ document.abc.submit();
 	} %>
         <font face="Bookman Old Style" size="3"><%=ASD%></font> </td>
       <td height="15"> 
-        <div align="right"><font face="Bookman Old Style" size="3"> 1212
+        <div align="right"><font face="Bookman Old Style" size="3">
           <%
 		if(bMode.equals("1"))
 		{
