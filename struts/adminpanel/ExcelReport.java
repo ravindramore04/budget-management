@@ -110,7 +110,7 @@ public class ExcelReport extends org.apache.struts.action.Action {
         }
 
         HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("Sheet1");
+        HSSFSheet sheet = workbook.createSheet("Report");
         int rowIndex = 0;
         int cellIndex = 0;
         HSSFCellStyle CS_BOLD_GREEN = createCellStyle(workbook);
@@ -133,11 +133,11 @@ public class ExcelReport extends org.apache.struts.action.Action {
 
 // Set title in first cell
         HSSFCell titleCell = titleRow.createCell(0);
-        titleCell.setCellValue("Utilization Report for All Heads");
+        titleCell.setCellValue("Allocation Utilization Report for All Heads");
         titleCell.setCellStyle(titleStyle);
 
 // Merge first row across multiple columns (adjust 0 to N based on column count, example here: 5)
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 20));
 
         HSSFRow row = sheet.createRow(rowIndex++);
         System.out.print("Head,");
@@ -147,6 +147,9 @@ public class ExcelReport extends org.apache.struts.action.Action {
         HSSFCellStyle numericStyle = workbook.createCellStyle();
         numericStyle.setDataFormat(workbook.createDataFormat().getFormat("#,##0.00"));
 
+        cell = row.createCell(cellIndex++);
+        cell.setCellValue("Total - Allocated");
+        cell.setCellStyle(CS_BOLD_GREEN);
 
         for (String department : sortedDepartments) {
             System.out.print(department + ", " + department + ",");
@@ -155,23 +158,24 @@ public class ExcelReport extends org.apache.struts.action.Action {
             cell.setCellStyle(CS_BOLD_GREEN);
 
             cell = row.createCell(cellIndex++);
+            cell.setCellValue(department + " - Reserved");
+            cell.setCellStyle(CS_BOLD_GREEN);
+
+            cell = row.createCell(cellIndex++);
             cell.setCellValue(department + " - Utilised");
             cell.setCellStyle(CS_BOLD_GREEN);
         }
 
-        cell = row.createCell(cellIndex++);
-        cell.setCellValue("Total - Allocated");
-        cell.setCellStyle(CS_BOLD_GREEN);
 
         cell = row.createCell(cellIndex++);
-        cell.setCellValue("Total - Utilised");
+        cell.setCellValue("Total - Ballance");
         cell.setCellStyle(CS_BOLD_GREEN);
 
         System.out.print("\n");
 
         System.out.print(",");
         for (String department : sortedDepartments) {
-            System.out.print("Allocated Amount" + ", " + "Reserved Amount" + ","+ "Utilised Amount" + ","+ "Remaining Amount" + ",");
+            System.out.print("Allocated Amount" + ", " + "Reserved Amount" + ","+ "Utilised Amount" + ",");
         }
         System.out.print("\n");
 
@@ -185,9 +189,21 @@ public class ExcelReport extends org.apache.struts.action.Action {
 
             for (String department : sortedDepartments) {
                 BudgetAllocationState budgetAllocationState = budgetAllocationStateMap.get(head + "-I_AM_MAK-" + department);
+                if (null != budgetAllocationState) {
+                    totalAllocated += Double.parseDouble(budgetAllocationState.getAllocatedAmount());
+                }
+            }
+
+            HSSFCell cellTot = row.createCell(cellIndex++);
+            cellTot.setCellValue(totalAllocated);
+            cellTot.setCellStyle(numericStyle);
+
+            for (String department : sortedDepartments) {
+                BudgetAllocationState budgetAllocationState = budgetAllocationStateMap.get(head + "-I_AM_MAK-" + department);
 
                 if (null == budgetAllocationState) {
                     System.out.print(0 + "," + 0 + "," + 0 + "," + 0 + ",");
+                    row.createCell(cellIndex++).setCellValue(Double.parseDouble("0.00"));
                     row.createCell(cellIndex++).setCellValue(Double.parseDouble("0.00"));
                     row.createCell(cellIndex++).setCellValue(Double.parseDouble("0.00"));
 
@@ -196,20 +212,20 @@ public class ExcelReport extends org.apache.struts.action.Action {
                     HSSFCell cell1 = row.createCell(cellIndex++);
                     cell1.setCellValue(Double.parseDouble(budgetAllocationState.getAllocatedAmount()));
                     cell1.setCellStyle(numericStyle);
-                    totalAllocated +=Double.parseDouble(budgetAllocationState.getAllocatedAmount());
 
                     HSSFCell cell2 = row.createCell(cellIndex++);
-                    cell2.setCellValue(Double.parseDouble(budgetAllocationState.getReservedAmount()) + Double.parseDouble(budgetAllocationState.getUtilisedAmount()));
+                    cell2.setCellValue(Double.parseDouble(budgetAllocationState.getReservedAmount()));
                     cell2.setCellStyle(numericStyle);
+
+                    HSSFCell cell3 = row.createCell(cellIndex++);
+                    cell3.setCellValue(Double.parseDouble(budgetAllocationState.getUtilisedAmount()));
+                    cell3.setCellStyle(numericStyle);
                     totalUtilized +=(Double.parseDouble(budgetAllocationState.getReservedAmount()) + Double.parseDouble(budgetAllocationState.getUtilisedAmount()));
                 }
             }
-            HSSFCell cell2 = row.createCell(cellIndex++);
-            cell2.setCellValue(totalAllocated);
-            cell2.setCellStyle(numericStyle);
 
             HSSFCell cell3 = row.createCell(cellIndex++);
-            cell3.setCellValue(totalUtilized);
+            cell3.setCellValue(totalAllocated-totalUtilized);
             cell3.setCellStyle(numericStyle);
 
             System.out.print("\n");
