@@ -290,10 +290,11 @@ public class BudgetNote extends Action
     }//End of execute()
 
 
-    private void adjustReserveBallance(CVDal cvdal, Vector param){
+    private int adjustReserveBallance(CVDal cvdal, Vector param){
         cvdal.setSQL("MinusReservedBalance", param);
         int j= cvdal.executeUpdate();
         sop("budget_note_expense >  minus ballance successfully >  "+j);
+        return j;
     }
 
     private void insertBudgetNote(CVDal cvdal, String user_id, DynaActionForm daf,HttpSession session) {
@@ -318,13 +319,15 @@ public class BudgetNote extends Action
         queryParams.add(daf.get("advanceReceiverName"));
         queryParams.add(daf.get("narration"));
         cvdal.setSQL("budget_note_INSERT", queryParams);
-        cvdal.executeUpdate();
-        insertBudgetNoteHistory(cvdal, user_id, daf, budget_note_id);
-        queryParams.clear();
-        queryParams.add(daf.get("budget_note_expense"));
-        queryParams.add(daf.get("allocationId"));
-        cvdal.setSQL("updateReservedBalance",queryParams);
-        cvdal.executeUpdate();
+       int i= cvdal.executeUpdate();
+       if(i>0) {
+           insertBudgetNoteHistory(cvdal, user_id, daf, budget_note_id);
+           queryParams.clear();
+           queryParams.add(daf.get("budget_note_expense"));
+           queryParams.add(daf.get("allocationId"));
+           cvdal.setSQL("updateReservedBalance", queryParams);
+           cvdal.executeUpdate();
+       }
     }
 
     private void updateBudgetNote(CVDal cvdal, String user_id, DynaActionForm daf) {
@@ -351,19 +354,23 @@ public class BudgetNote extends Action
         queryParams.add(budget_note_id);
 
         cvdal.setSQL("budget_note_UPDATE", queryParams);
-        cvdal.executeUpdate();
-        insertBudgetNoteHistory(cvdal, user_id, daf, budget_note_id);
+        int i=cvdal.executeUpdate();
+        if(i >0) {
+          insertBudgetNoteHistory(cvdal, user_id, daf, budget_note_id);
 
-        queryParams.clear();
-        queryParams.add(previousBudgetNoteAmount);
-        queryParams.add(daf.get("allocationId"));
-        adjustReserveBallance(cvdal, queryParams);
+          queryParams.clear();
+          queryParams.add(previousBudgetNoteAmount);
+          queryParams.add(daf.get("allocationId"));
+          int j=adjustReserveBallance(cvdal, queryParams);
 
-        queryParams.clear();
-        queryParams.add(daf.get("budget_note_expense"));
-        queryParams.add(daf.get("allocationId"));
-        cvdal.setSQL("updateReservedBalance",queryParams);
-        cvdal.executeUpdate();
+          queryParams.clear();
+          queryParams.add(daf.get("budget_note_expense"));
+          queryParams.add(daf.get("allocationId"));
+         if(j > 0) {
+             cvdal.setSQL("updateReservedBalance", queryParams);
+             cvdal.executeUpdate();
+         }
+        }
     }
 
 
