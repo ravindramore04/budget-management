@@ -1,22 +1,36 @@
+<!-- JSP File: viewAllReport.jsp -->
 <%@ page import="java.util.*,java.text.*" %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
+
 <%	DecimalFormat d = new DecimalFormat("##0.00");
 
+String strBudgroupId="";
 HashMap data=(HashMap)request.getAttribute("data");
 //out.println("data"+data); //{dblAmount=115000.00, AllocId=100007, strDepartmentNm=Computer Application, HeadId=100004, dblReservedAmount=0.00, dblUtilisedAmount=0.00, strName=Research Expenses}
 HashMap Allo=new HashMap();
 HashMap Vouc=new HashMap();
+
+if (data != null) {
+        Iterator it = data.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            HashMap record = (HashMap) entry.getValue();
+            String budGroupId = (String) record.get("strBudgroupId");
+
+            if ("1".equals(budGroupId)) {
+                Allo.put(entry.getKey(), record);
+            } else {
+                Vouc.put(entry.getKey(), record);
+            }
+        }
+    }
+	
+//out.println("Allo  >>"+Allo);
+
+//out.println("Vouc  >>"+Vouc);
 HashMap HMFinal=new HashMap();
 
-Allo=(HashMap)request.getAttribute("Alloc");
-//out.println(Allo); 
-Vouc=(HashMap)request.getAttribute("Vouch");
-//out.println("Vouc"+Vouc);
-String strBudgroupId="";
-if(Allo!=null && Allo.size()>0){
-	HashMap hmt=(HashMap)Allo.get(""+0);
-	strBudgroupId=(String)hmt.get("strBudgroupId");
-}
+
 double totRemaning=0;
 double totAllocated=0;
 double totResearved=0;
@@ -90,6 +104,10 @@ function setAction(code,id){
 		String departMent=(String)hmt.get("strDepartmentNm");
 		String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
 		String dblReservedAmount=(String)hmt.get("dblReservedAmount");
+		strBudgroupId=(String)hmt.get("strBudgroupId");
+		
+		if(strBudgroupId !=null)
+		
 		if(Allocated==null)
 		Allocated="0.00";
 		remaining=Double.parseDouble( Allocated ) - (Double.parseDouble(dblUtilisedAmount)+ Double.parseDouble(dblReservedAmount));
