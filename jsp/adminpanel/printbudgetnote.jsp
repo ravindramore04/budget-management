@@ -274,7 +274,7 @@ function setAction(code,id){
                 <td class="section-header">&nbsp;</td>
             </tr>
             <tr>
-                <td class="section-header">Please Pay RS.</td>
+                <td class="section-header">Please Pay Rs.</td>
                 <td class="section-header" colspan="3"><%=d.format(Double.parseDouble(budget_note_expense))%></td>
             </tr>
             <tr>
@@ -310,7 +310,7 @@ function setAction(code,id){
                 <td style="height: 60px;" valign="bottom"  colspan="1" align="center">
 				<div class="signature-title">Signature of Receiver </div></td>
 				<td style="height: 60px;" valign="bottom"  colspan="3" align="center">
-				<div class="signature-title">I/C Registrar</div>
+				<div class="signature-title">Registrar</div>
 				</td>
             </tr>
 		 <tr>
