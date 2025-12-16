@@ -25,9 +25,9 @@ if (data != null) {
         }
     }
 	
-//out.println("Allo  >>"+Allo);
+out.println("Recurring  >>"+Allo);
 
-//out.println("Vouc  >>"+Vouc);
+out.println("Non Recurring  >>"+Vouc);
 HashMap HMFinal=new HashMap();
 
 
@@ -35,6 +35,7 @@ double totRemaning=0;
 double totAllocated=0;
 double totResearved=0;
 double totUtilized=0;
+int indx=0;
 
 String HeadId="";
 
@@ -91,6 +92,9 @@ function setAction(code,id){
         <td width="17%"  height="20" align="center">PO/Reserved(In Process)</td>
         <td width="20%"  height="20" align="center">Remaning</td>
       </tr>
+	  <tr  class="link"  bgcolor="#cccccc"> 
+				<td colspan="7" height="20" > <div align="left">Recurring</div></td>
+	  </tr>
       <%
 	  if(data!=null && data.size()>0){
 	   for(int i=0;i<data.size();i++)
@@ -106,8 +110,8 @@ function setAction(code,id){
 		String dblReservedAmount=(String)hmt.get("dblReservedAmount");
 		strBudgroupId=(String)hmt.get("strBudgroupId");
 		
-		if(strBudgroupId !=null)
-		
+		if("1".equals(strBudgroupId)){
+		indx++;
 		if(Allocated==null)
 		Allocated="0.00";
 		remaining=Double.parseDouble( Allocated ) - (Double.parseDouble(dblUtilisedAmount)+ Double.parseDouble(dblReservedAmount));
@@ -116,8 +120,9 @@ function setAction(code,id){
  		totResearved+=Double.parseDouble(dblReservedAmount);
  		totUtilized+=Double.parseDouble(dblUtilisedAmount);
 		%>
+		    
 			<tr  class="link"  bgcolor="#cccccc"> 
-				<td width="4%" height="20" > <div align="center"><%=(i+1)%></div></td>
+				<td width="4%" height="20" > <div align="center"><%=indx%></div></td>
 				<td width="16%" align="left" height="20"><%=sname%></a></td>
 				<td width="18%" align="left" height="20"><%=departMent%></a></td>
 				<td width="13%" align="right" height="20"><%=Allocated%></td>
@@ -126,6 +131,51 @@ function setAction(code,id){
 				<td width="20%" align="right" height="20"><%=d.format(remaining)%></td>
 			</tr>
 		      	<% 
+		 }
+		}
+		
+	}
+	 %>
+	 <tr  class="link"  bgcolor="#cccccc"> 
+				<td colspan="7" height="20" > <div align="left">Non Recurring</div></td>
+			</tr>
+	 <%
+	  if(data!=null && data.size()>0){
+	  
+	   for(int i=0;i<data.size();i++)
+	  {
+	    //{dblAmount=115000.00, AllocId=100007, strDepartmentNm=Computer Application, HeadId=100004, dblReservedAmount=0.00, dblUtilisedAmount=0.00, strName=Research Expenses}
+	  	double remaining=0;
+	  	HashMap hmt = (HashMap)data.get(""+i);
+		String hid=(String)hmt.get("HeadId");
+		String sname=(String)hmt.get("strName");
+		String Allocated=(String)hmt.get("dblAmount");
+		String departMent=(String)hmt.get("strDepartmentNm");
+		String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
+		String dblReservedAmount=(String)hmt.get("dblReservedAmount");
+		strBudgroupId=(String)hmt.get("strBudgroupId");
+		
+		if("0".equals(strBudgroupId)){
+		indx++;
+		if(Allocated==null)
+		Allocated="0.00";
+		remaining=Double.parseDouble( Allocated ) - (Double.parseDouble(dblUtilisedAmount)+ Double.parseDouble(dblReservedAmount));
+		totRemaning+=remaining;
+		totAllocated+=Double.parseDouble( Allocated );
+ 		totResearved+=Double.parseDouble(dblReservedAmount);
+ 		totUtilized+=Double.parseDouble(dblUtilisedAmount);
+		%>
+				<tr  class="link"  bgcolor="#cccccc"> 
+				<td width="4%" height="20" > <div align="center"><%=indx%></div></td>
+				<td width="16%" align="left" height="20"><%=sname%></a></td>
+				<td width="18%" align="left" height="20"><%=departMent%></a></td>
+				<td width="13%" align="right" height="20"><%=Allocated%></td>
+				<td width="12%" align="right" height="20"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
+				<td width="17%" align="right" height="20"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
+				<td width="20%" align="right" height="20"><%=d.format(remaining)%></td>
+			</tr>
+		      	<% 
+		 }
 		}
 		
 	}
