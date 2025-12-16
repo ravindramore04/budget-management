@@ -25,9 +25,9 @@ if (data != null) {
         }
     }
 	
-out.println("Recurring  >>"+Allo);
+//out.println("Recurring  >>"+Allo);
 
-out.println("Non Recurring  >>"+Vouc);
+//out.println("Non Recurring  >>"+Vouc);
 HashMap HMFinal=new HashMap();
 
 
