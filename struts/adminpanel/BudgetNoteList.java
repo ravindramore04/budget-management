@@ -1,6 +1,7 @@
 package struts.adminpanel;
 
 import login.SessionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.*;
 import struts.common.CVDal;
 import struts.common.ErrorHandler;
@@ -37,7 +38,7 @@ public class BudgetNoteList extends Action
             DynaActionForm daf = (DynaActionForm)form;
             sop("DynaActionForm Details --->"+daf.getMap().entrySet());
             String operation=(String)daf.get("operation");
-           // String operation=(String)daf.get("opr");
+            String searchHead=(String)daf.get("searchHead");
             String budget_note_id=(String)daf.get("id");
             sop( "operation-->" + operation);
             String strPage_num ="";
@@ -111,15 +112,27 @@ public class BudgetNoteList extends Action
                 }
 
                 if("search_BN".equals(operation)){
-                    sop("i am in search >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                    sop("i am in search >>>>>>>>>>>>>>>>>>>budget_note_id>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+budget_note_id); //listbudgetnote_headsearch_alldept  // listbudgetnote_headsearch_dept
                     vec.clear();
-                    vec.addElement(budget_note_id);
-                    if(SessionUtils.isAccountORStoreUser(session)) {
-                        cvdal.setSQL("listbudgetnote_one_alldept", vec);
-                    }else{
-                        vec.addElement(SessionUtils.getDepartmentId(session));
-                        cvdal.setSQL("listbudgetnote_one", vec);
-                    }
+                   if(StringUtils.isNotEmpty(budget_note_id)) {
+                       vec.addElement(budget_note_id);
+                       if (SessionUtils.isAccountORStoreUser(session)) {
+                           cvdal.setSQL("listbudgetnote_one_alldept", vec);
+                       } else {
+                           vec.addElement(SessionUtils.getDepartmentId(session));
+                           cvdal.setSQL("listbudgetnote_one", vec);
+                       }
+                   }else{
+                       sop("i am in search else part>>>>>>>>>>>>>>>>>>>searchHead>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+searchHead); //listbudgetnote_headsearch_alldept  // listbudgetnote_headsearch_dept
+                       vec.addElement(searchHead);
+                       if (SessionUtils.isAccountORStoreUser(session)) {
+                           cvdal.setSQL("listbudgetnote_headsearch_alldept", vec);
+                       } else {
+                           vec.addElement(SessionUtils.getDepartmentId(session));
+                           cvdal.setSQL("listbudgetnote_headsearch_dept", vec);
+                       }
+
+                   }
                 }
 
                 vec1 = (Vector)cvdal.executeQuery();

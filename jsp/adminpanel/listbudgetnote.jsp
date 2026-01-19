@@ -51,6 +51,7 @@ function setAction(code,id){
 			  document.VoucherList.operation.value="search_BN";
 			  document.VoucherList.opr.value="search_BN";
 			  document.VoucherList.id.value = document.getElementById('searchId').value;
+			  document.VoucherList.searchHead.value = document.getElementById('searchHeadId').value;
 			break;
         case 4:
             document.VoucherList.action = "<%=strPath+"Close.do"%>";
@@ -80,6 +81,7 @@ function setAction(code,id){
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
 	<input type="hidden" name="operation" value="">
+	<input type="hidden" name="searchHead" value="">
     <div id="tooltip" class="tooltip"></div>
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
@@ -91,11 +93,15 @@ function setAction(code,id){
 		<td width="16%" align="center" class="titles" height="20">
 			<input type="text" id="searchId" placeholder="Enter budget Note Number" name="searchBN" value="">
 		</td>
-		<td width="16%" align="center" class="titles" height="20">
-			<input type="button" name="btn3" value="   Search Budget Note   " accesskey="C" onClick="setAction(7,0)" class="PPRSbmtBtn"> 
+		<td width="16%" align="center" class="titles" height="20">&nbsp;
+			
 		</td>
-		<td  class="titles" width="16%"  align="center">&nbsp;</td>
-		<td colspan="4" class="titles" align="left">Budget Note List</td></tr>
+		<td class="titles" colspan="2" align="left">Budget Note List
+		</td>
+		<td colspan="3" class="titles" align="left">
+		<input type="text" id="searchHeadId" placeholder="Enter Budget Head Name" name="searchBN" value="">
+		</td>
+		</tr>
 	    <tr style="<%=strColHd%>">
 		<td width="16%" align="center" class="titles" height="20">
 			Del/Update
@@ -241,7 +247,9 @@ function setAction(code,id){
 		      <tr> 
 		    	<td> <input type="button" name="btn1" value="Create Budget Note" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn"> 
 		    	</td>
-		    	<td> <!-- <input type="button" name="btn3" value="  Delete  " accesskey="D" onClick="setAction(3,0)" class="PPRSbmtBtn"> -->
+		    	<td> 
+				<input type="button" name="btn3" value="   Search Budget Note   " accesskey="C" onClick="setAction(7,0)" class="PPRSbmtBtn"> 
+				<!-- <input type="button" name="btn3" value="  Delete  " accesskey="D" onClick="setAction(3,0)" class="PPRSbmtBtn"> -->
 		    	</td>
 		    	<td> <input type="button" name="btn1" value="   Close   " accesskey="C" onClick="setAction(4,0)" class="PPRSbmtBtn"> 
 		    	</td>
