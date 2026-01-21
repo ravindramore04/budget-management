@@ -21,10 +21,10 @@ function setAction(code,id){
     document.HeadForm.id.value = id;
     switch(code){
         case 1:
-            document.HeadForm.action = "<%=strPath+"OpenGroupHead.do"%>";
+            document.HeadForm.action = "<%=strPath+"OpenDepartment.do"%>";
             break;
         case 2:
-            document.HeadForm.action = "<%=strPath+"OpenGroupHead.do"%>";
+            document.HeadForm.action = "<%=strPath+"OpenDepartment.do"%>";
             break;
         case 3:
             //delete done later
@@ -48,10 +48,10 @@ function setAction(code,id){
     
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
-	<tr style="<%=strColHd%>"><td colspan="2" class="titles" align="center"><font color="#FF9900">Budget Group List</font></td></tr>
+	<tr style="<%=strColHd%>"><td colspan="2" class="titles" align="center"><font color="#FF9900">Department List</font></td></tr>
 	    <tr style="<%=strColHd%>">
 
-		<td width="45%" align="center" class="titles" height="20"> Group Name 
+		<td width="45%" align="center" class="titles" height="20"> Department Name 
         </td>
 		<td width="45%" colspan="2" align="center" class="titles" height="20">
 			Head of Department

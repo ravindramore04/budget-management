@@ -25,7 +25,7 @@
 			document.BudgetHead.txtName.focus();
 			return false;
 		}
-		//document.BudgetHead.submit();
+		document.BudgetHead.submit();
 	}
 
 	function handleEnter(fieldname,frm){
@@ -47,7 +47,7 @@
 			<td colspan=4>&nbsp;</td>
 		</tr>
 		<tr> 
-			<td width="40%" class="innertitle"> Budget Group Name </td>
+			<td width="40%" class="innertitle"> Department Name </td>
 			<td width="60%" colspan="3"><input type="text" name="txtName" size="40" class="formfield" value="<%=strName%>"  onKeyPress="handleEnter('strHeadOfDeptNm','BudgetHead')"></td>
 		</tr>
 		

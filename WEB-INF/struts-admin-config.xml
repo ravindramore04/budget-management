@@ -199,6 +199,16 @@
 			 <forward name="failure" path="/jsp/error.jsp"/>
 		</action>
 		
+		<action path="/AllDepartment" type="struts.adminpanel.AllGroupHamdler" name="HeadForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/department.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
+		<action path="/OpenDepartment" type="struts.adminpanel.OpenGroupHeadHandler" name="ListForm" scope="request" validate="false">
+			 <forward name="success" path="/jsp/adminpanel/opendepartment.jsp"/>
+			 <forward name="failure" path="/jsp/error.jsp"/>
+		</action>
+		
 		<action path="/OpenGroupHead" type="struts.adminpanel.OpenGroupHeadHandler" name="ListForm" scope="request" validate="false">
 			 <forward name="success" path="/jsp/adminpanel/opengroup.jsp"/>
 			 <forward name="failure" path="/jsp/error.jsp"/>
