@@ -5,27 +5,37 @@
 	String strId = "";
 	String strName = "";
 	String strAccNo = "";
-	String strHeadOfDeptNm = "";
+	String bgNm = "";
 	
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
-	
+	out.print(hmData);
 	if(hmData!=null && hmData.size()>0){
-		strId = (String)hmData.get("strDepartmentId");
-		strName = (String)hmData.get("strDepartmentNm");
+		strId = (String)hmData.get("strBudgroupId");
+		strName = (String)hmData.get("strBudgroupNm");
 		//strAccNo = (String)hmData.get("strAccNo");
-		strHeadOfDeptNm = (String)hmData.get("strHeadOfDeptNm");
+		bgNm = (String)hmData.get("strRmrk");
 	}
+	
+	String bugGroupChkY="checked";
+	String bugGroupChkN="";
+	if("1".equals(bgNm)){
+		 bugGroupChkY="checked";
+		 bugGroupChkN="";
+		 }else{
+		  bugGroupChkY="";
+		 bugGroupChkN="checked";
+		 }
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
 <script language="JavaScript">
 	function formSubmit(){
 		var _Name = document.BudgetHead.txtName.value;
 		if(_Name.toString()==""){
-			alert("Enter The Department Name Here");
+			alert("Enter The Group Name Here");
 			document.BudgetHead.txtName.focus();
 			return false;
 		}
-		//document.BudgetHead.submit();
+		document.BudgetHead.submit();
 	}
 
 	function handleEnter(fieldname,frm){
@@ -48,13 +58,16 @@
 		</tr>
 		<tr> 
 			<td width="40%" class="innertitle"> Budget Group Name </td>
-			<td width="60%" colspan="3"><input type="text" name="txtName" size="40" class="formfield" value="<%=strName%>"  onKeyPress="handleEnter('strHeadOfDeptNm','BudgetHead')"></td>
+			<td width="60%" colspan="3"><input type="text" name="txtName" size="40" class="formfield" value="<%=strName%>"  onKeyPress="handleEnter('strGroupType','BudgetHead')"></td>
 		</tr>
 		
 		<tr> 
-			<td class="innertitle" valign = "top">Head of Department</td>
+			<td class="innertitle" valign = "top">Group Type</td>
 			<td colspan="3">
-				<input tyep="text" name="strHeadOfDeptNm" class="formfield" size="40" value="<%=strHeadOfDeptNm%>">
+				<input type="radio" id="adyes" name="strGroupType" value="1" <%=bugGroupChkY%> onclick="toggleAdvanceTable(true)">
+            <label for="yes">Recurring</label>
+            <input type="radio" id="adno" name="strGroupType" value="0" <%=bugGroupChkN%> onclick="toggleAdvanceTable(false)">
+            <label for="no">Non Recurring</label>
 			</td>
 		</tr>
 		<tr> 

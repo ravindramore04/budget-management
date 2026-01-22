@@ -38,7 +38,7 @@
 </script>
 
 <td width="80%" valign="top">
-   <form name="BudgetHead" method="post" action="SaveBudGroupHead.do">
+   <form name="BudgetHead" method="post" action="SaveDepartment.do">
 	<table width="70%" border="0" cellspacing="1" cellpadding="1" align="center" >
 		<tr> 
 			<td colspan=4>&nbsp;</td>

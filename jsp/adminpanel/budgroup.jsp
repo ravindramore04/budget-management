@@ -54,7 +54,7 @@ function setAction(code,id){
 		<td width="45%" align="center" class="titles" height="20"> Group Name 
         </td>
 		<td width="45%" colspan="2" align="center" class="titles" height="20">
-			Head of Department
+			Group Type
 		</td>
 	    </tr>
     	    <%
@@ -62,16 +62,20 @@ function setAction(code,id){
                 for(int indx=0;indx<hmData.size();indx++){
                     HashMap hmt = (HashMap)hmData.get(""+indx);
                     if(hmt!=null && hmt.size()>0){
-                        String strId = (String)hmt.get("strDepartmentId");
-                        String strName = (String)hmt.get("strDepartmentNm");
-			String strHeadOfDeptNm = (String)hmt.get("strHeadOfDeptNm");
+                        String strId = (String)hmt.get("strBudgroupId");
+                        String strName = (String)hmt.get("strBudgroupNm");
+			String bgNm = (String)hmt.get("strRmrk");
+			String groupType="Recurring";
+			if("0".equals(bgNm)){
+		 groupType="Non-Recurring";
+		 }
                         %>
 			<tr style="<%=indx%2==0?strCol2:strCol1%>">
 				<td align="left" class="link" height="20">
 					<a href="#" onClick="setAction(2,<%=strId%>)"><%=strName%></a>
 				</td>
 				<td colspan="2" align="left" class="link" height="20">
-					<%=strHeadOfDeptNm%>
+					<%=groupType%>
 				</td>
 			</tr>
     			<%

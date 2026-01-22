@@ -51,7 +51,7 @@ public class OpenGroupHeadHandler extends org.apache.struts.action.Action
                         //update
                         vec.clear();
                         vec.addElement(strId);
-                        cvdal.setSQL("openDepartmentWithId", vec);
+                        cvdal.setSQL("openBudGroupHeadWithId", vec);
                         Vector vec1 = (Vector)cvdal.executeQuery();
                         if(vec1!=null && vec1.size()>0){
                             hmFinal = (HashMap)vec1.elementAt(0);

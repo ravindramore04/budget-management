@@ -13,7 +13,7 @@
 <script language="JavaScript">
 function navigation(code){
     document.HeadForm.NAV.value = code;
-    document.HeadForm.action = "<%=strPath+"AllGroup.do"%>";
+    document.HeadForm.action = "<%=strPath+"AllDepartment.do"%>";
     document.HeadForm.submit();
 }
 

@@ -65,7 +65,7 @@ public class AllGroupHamdler extends org.apache.struts.action.Action
                     createExcelReport(cvdal);
 
                     vec.clear();
-                    cvdal.setSQL("openAllDepartment", vec);
+                    cvdal.setSQL("openAllGroup", vec);
                     Vector vec1 = (Vector)cvdal.executeQuery();
                     if(vec1!=null && vec1.size()>0){
                         nTotalPage = Math.ceil(vec1.size()/(double)nNum_Per_Page);
@@ -97,7 +97,7 @@ public class AllGroupHamdler extends org.apache.struts.action.Action
                         vec.clear();
                         vec.addElement(""+nLowLimit);
                         vec.addElement(""+nNum_Per_Page);
-                        cvdal.setSQL("openAllDepartmentWL", vec);
+                        cvdal.setSQL("openAllGroupWL", vec);
                         vec1 = (Vector)cvdal.executeQuery();
                         if(vec1!=null && vec1.size()>0){
                             for(int indx=0;indx<vec1.size();indx++){
