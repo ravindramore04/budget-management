@@ -48,6 +48,8 @@ public class VoucherLstHandler extends org.apache.struts.action.Action
                     String strNavOpr = "";
                 sop("DAF"+daf.getMap().entrySet());
                 //searchBN=11, txtBGid=, opr=7, toDate=, Newcurrent_page=, fromDate=, id=11, operation=search_BN,
+                String toDate=(String)daf.get("toDate");
+                    String fromDate=(String)daf.get("fromDate");
                     String searchBN=(String)daf.get("searchBN");
                     if(daf!=null){
                         strPage_num = (String)daf.get("current_page");
@@ -65,7 +67,10 @@ public class VoucherLstHandler extends org.apache.struts.action.Action
                         nPage = Double.parseDouble(strPage_num);
 
                     vec.clear();
+
                     if(StringUtils.isNotEmpty(searchBN)) {
+                        vec.addElement(fromDate);
+                        vec.addElement(toDate);
                         vec.addElement(searchBN);
                         cvdal.setSQL("openAllVoucherSearch", vec);
                     }else{
@@ -102,6 +107,8 @@ public class VoucherLstHandler extends org.apache.struts.action.Action
                     if(nPage<=nTotalPage){
                         vec.clear();
                         if(StringUtils.isNotEmpty(searchBN)) {
+                            vec.addElement(fromDate);
+                            vec.addElement(toDate);
                             vec.addElement(searchBN);
                             vec.addElement(""+nLowLimit);
                             vec.addElement(""+nNum_Per_Page);
@@ -120,6 +127,7 @@ public class VoucherLstHandler extends org.apache.struts.action.Action
                         }
                     }
                     request.setAttribute("data", hmFinal);
+                    request.setAttribute("searchVal",searchBN);
                     HashMap hmPage = new HashMap();
                     hmPage.put("current_page", "" + (long) nPage);
                     hmPage.put("total_page", ""+(long)nTotalPage);

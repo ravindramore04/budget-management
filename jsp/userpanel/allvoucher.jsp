@@ -1,9 +1,16 @@
 <%@ include file="/jsp/adminpanel/header.jsp" %>
 <%
-int i=0;
+     Calendar cal = Calendar.getInstance();
+    int year  = cal.get(Calendar.YEAR);
+    int month = cal.get(Calendar.MONTH) + 1;
+    int day   = cal.get(Calendar.DAY_OF_MONTH);
+    String today = String.format("%04d-%02d-%02d", year, month, day);
+	 
+    int i=0;
     int nCurrent_Page = 0;
     int nTotal_pages = 0;
     HashMap hmData=(HashMap)request.getAttribute("data"); 
+	String searchVal=(String)request.getAttribute("searchVal"); 
 	//out.println("--hmData--"+hmData);
     HashMap hmPage=(HashMap)request.getAttribute("page");
     if(hmPage!=null && hmPage.size()>0){
@@ -83,14 +90,21 @@ function setAction(code,id){
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
 	
 	<tr style="<%=strColHd%>">
-		<td width="12%" align="center" class="titles" height="20">
-			<input type="text" id="searchId" placeholder="Search Voucher" name="searchBN" value="">
+		<td width="100%" align="center" class="titles" height="20">
+			Receiver Name<input type="text" id="searchId" placeholder="Receiver Name" name="searchBN" value="<%=searchVal%>">
+					<label for="fromDate" class="innertitle">From Date:</label>
+        <input type="date" class="formfield" id="fromDate" name="fromDate" value="<%=today%>" />
+        &nbsp;&nbsp;
+        <label for="toDate" class="innertitle">To Date:</label>
+        <input type="date" class="formfield" id="toDate" name="toDate" value="<%=today%>" />
+		<input type="button" name="btn3"  value="   Search Voucher   " accesskey="C" onClick="setAction(7,0)" class="PPRSbmtBtn"> 
 		</td>
-		<td width="12%" align="center" class="titles" height="20">
-			<input type="button" name="btn3"  value="   Search Voucher   " accesskey="C" onClick="setAction(7,0)" class="PPRSbmtBtn"> 
-		</td>
-		<td  class="titles" width="10%"  align="center">&nbsp;</td>
-		<td colspan="4" class="titles" align="left">Voucher List</td>
+		</tr>
+	</table>
+	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
+	
+	<tr style="<%=strColHd%>">
+		<td colspan="7" class="titles" align="center">Voucher List</td>
 		</tr>
 	
 	    <tr style="<%=strColHd%>">
