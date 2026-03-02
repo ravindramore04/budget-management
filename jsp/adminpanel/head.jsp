@@ -14,25 +14,17 @@
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
 	//HashMap hmGroup=(HashMap)request.getAttribute("ghead"); 
 	HashMap hmHead=(HashMap)request.getAttribute("ghead"); 
-	//out.println("dghfjgsjdgf"+hmHead);
+	out.println("dghfjgsjdgf"+hmHead);
 	if(hmData!=null && hmData.size()>0){
 		strId = (String)hmData.get("HeadId");
 		strName = (String)hmData.get("strName");
 		strAccNo = (String)hmData.get("strAccNo");
 		strRemark = (String)hmData.get("strRemark");
 		bgNm=(String)hmData.get("strBudgroupId");
+		if(bgNm==null)
+		bgNm="";
 	}
-	//out.println("hmGrouphmGroup>>"+hmGroup);
-	String bugGroupChkY="checked";
-	String bugGroupChkN="";
-	if("1".equals(bgNm)){
-		 bugGroupChkY="checked";
-		 bugGroupChkN="";
-		 }else{
-		  bugGroupChkY="";
-		 bugGroupChkN="checked";
-		 }
-	
+	out.println("hmGrouphmGroup>>"+hmData);
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
 <script language="JavaScript">
