@@ -8,9 +8,13 @@
 	String strRemark = "";
 	String bgNm="";
 	
+	//For Budget Group
+	String strHeadId = "";
+	
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
-	HashMap hmGroup=(HashMap)request.getAttribute("ghead"); 
-	//out.println("dghfjgsjdgf"+hmData);
+	//HashMap hmGroup=(HashMap)request.getAttribute("ghead"); 
+	HashMap hmHead=(HashMap)request.getAttribute("ghead"); 
+	//out.println("dghfjgsjdgf"+hmHead);
 	if(hmData!=null && hmData.size()>0){
 		strId = (String)hmData.get("HeadId");
 		strName = (String)hmData.get("strName");
@@ -50,6 +54,11 @@
 		 	eval('document.'+frm+'.'+fieldname+'.focus()');
 		}
      }
+	 
+	 const select = document.getElementById('mySelect');
+  select.addEventListener('mousedown', function(e) {
+    e.preventDefault(); // Prevents the dropdown from opening
+  });
 
 </script>
 
@@ -72,18 +81,27 @@
 		</tr--%>
 		<input type="hidden" name="txtAccNo" size="40" class="formfield" value="">
 		
-
-		<tr> 
-			<td width="25%" class="innertitle">Budget Group: </td>
-			<td width="75%" colspan="3">
-			<input type="radio" id="adyes" name="strBudgroupId" value="1" <%=bugGroupChkY%> onclick="toggleAdvanceTable(true)">
-            <label for="yes">Recurring</label>
-            <input type="radio" id="adno" name="strBudgroupId" value="0" <%=bugGroupChkN%> onclick="toggleAdvanceTable(false)">
-            <label for="no">Non Recurring</label>
-			
-			</td
-		></tr>
 		
+		<tr> 
+			<td width="25%" class="innertitle">Group Head Name </td>
+	    <td width="75%" colspan="3">		 <select id="mySelect"  name="Head" accesskey="H" class="formfield">
+                                <OPTION value="0"  selected>--------Select Group--------</option>
+                                <%
+                         if(hmHead!=null && hmHead.size()>0){
+                                    for(int indx=0;indx<hmHead.size();indx++){
+                                        HashMap hmt = (HashMap)hmHead.get(""+indx);
+                                        String strBudgroupId = (String)hmt.get("strBudgroupId");
+                                        String strBudgroupNm = (String)hmt.get("strBudgroupNm");
+                                        %>
+                                        <OPTION value="<%=strBudgroupId%>" <%=strBudgroupId.equals(bgNm)?"selected":"" %> ><%=strBudgroupNm%></option>
+                                        <%
+                                    }
+                                }
+                                %>
+                            </select>
+					</td>		
+		</tr>
+	
 		<tr> 
 			<td class="innertitle" valign = "top">Remark</td>
 			<td colspan="3">

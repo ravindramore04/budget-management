@@ -71,7 +71,7 @@ public class OpenHeadHandler extends org.apache.struts.action.Action
                         }
                         vec.clear();
 						vec.addElement(strId);
-						cvdal.setSQL("openAllDepartment", vec);
+						cvdal.setSQL("openAllGroup", vec);
 						Vector vec21 = (Vector)cvdal.executeQuery();
 						if(vec21!=null && vec21.size()>0){
 							for(int i=0;i<vec21.size();i++){
