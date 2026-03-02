@@ -14,7 +14,7 @@
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
 	//HashMap hmGroup=(HashMap)request.getAttribute("ghead"); 
 	HashMap hmHead=(HashMap)request.getAttribute("ghead"); 
-	out.println("dghfjgsjdgf"+hmHead);
+	//out.println("dghfjgsjdgf"+hmHead);
 	if(hmData!=null && hmData.size()>0){
 		strId = (String)hmData.get("HeadId");
 		strName = (String)hmData.get("strName");
