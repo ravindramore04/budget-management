@@ -24,7 +24,7 @@
 		if(bgNm==null)
 		bgNm="";
 	}
-	out.println("hmGrouphmGroup>>"+hmData);
+	//out.println("hmGrouphmGroup>>"+hmData);
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
 <script language="JavaScript">
