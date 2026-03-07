@@ -70,7 +70,7 @@ public class viewReportHandler extends org.apache.struts.action.Action
 		String DBnm = (String)My.get("DBnm");
 		CVDal cvdal = new CVDal(DBnm);
 
-		HashMap hmFinalData = new HashMap();
+		LinkedHashMap hmFinalData = new LinkedHashMap();
 		Vector vec = new Vector();
 		Vector vec1 = new Vector();
 		Vector bugGrp = new Vector();
