@@ -7,23 +7,12 @@
 String strBudgroupId="";
 HashMap data=(HashMap)request.getAttribute("data");
 //out.println("data"+data); //{dblAmount=115000.00, AllocId=100007, strDepartmentNm=Computer Application, HeadId=100004, dblReservedAmount=0.00, dblUtilisedAmount=0.00, strName=Research Expenses}
+
+HashMap data1=(HashMap)request.getAttribute("data1");
+//out.println("data1"+data1);
+
 HashMap Allo=new HashMap();
 HashMap Vouc=new HashMap();
-
-if (data != null) {
-        Iterator it = data.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            HashMap record = (HashMap) entry.getValue();
-            String budGroupId = (String) record.get("strBudgroupId");
-
-            if ("1".equals(budGroupId)) {
-                Allo.put(entry.getKey(), record);
-            } else {
-                Vouc.put(entry.getKey(), record);
-            }
-        }
-    }
 	
 //out.println("Recurring  >>"+Allo);
 
@@ -74,7 +63,6 @@ function setAction(code,id){
     <input type="hidden" name="page" value="ParamRpt">
     <input type="hidden" name="NAV" value="">
     <input type="hidden" name="txtBGid" value="<%//=strBudgroupId%>">
-
     <input type="hidden" name="id" value="">
     <input type="hidden" name="opr" value="">
     
@@ -96,90 +84,148 @@ function setAction(code,id){
 				<td colspan="7" height="20" > <div align="left">Recurring</div></td>
 	  </tr>
       <%
-	  if(data!=null && data.size()>0){
-	   for(int i=0;i<data.size();i++)
-	  {
-	    //{dblAmount=115000.00, AllocId=100007, strDepartmentNm=Computer Application, HeadId=100004, dblReservedAmount=0.00, dblUtilisedAmount=0.00, strName=Research Expenses}
-	  	double remaining=0;
-	  	HashMap hmt = (HashMap)data.get(""+i);
-		String hid=(String)hmt.get("HeadId");
-		String sname=(String)hmt.get("strName");
-		String Allocated=(String)hmt.get("dblAmount");
-		String departMent=(String)hmt.get("strDepartmentNm");
-		String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
-		String dblReservedAmount=(String)hmt.get("dblReservedAmount");
-		strBudgroupId=(String)hmt.get("strBudgroupId");
-		
-		if("1".equals(strBudgroupId)){
-		indx++;
-		if(Allocated==null)
-		Allocated="0.00";
-		remaining=Double.parseDouble( Allocated ) - (Double.parseDouble(dblUtilisedAmount)+ Double.parseDouble(dblReservedAmount));
-		totRemaning+=remaining;
-		totAllocated+=Double.parseDouble( Allocated );
- 		totResearved+=Double.parseDouble(dblReservedAmount);
- 		totUtilized+=Double.parseDouble(dblUtilisedAmount);
-		%>
-		    
-			<tr  class="link"  bgcolor="#cccccc"> 
-				<td width="4%" height="20" > <div align="center"><%=indx%></div></td>
-				<td width="16%" align="left" height="20"><%=sname%></a></td>
-				<td width="18%" align="left" height="20"><%=departMent%></a></td>
-				<td width="13%" align="right" height="20"><%=Allocated%></td>
-				<td width="12%" align="right" height="20"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-				<td width="17%" align="right" height="20"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
-				<td width="20%" align="right" height="20"><%=d.format(remaining)%></td>
-			</tr>
-		      	<% 
-		 }
-		}
-		
-	}
-	 %>
-	 <tr  class="link"  bgcolor="#cccccc"> 
+if(data!=null && data.size()>0){
+
+    Iterator groupItr = data.keySet().iterator();
+
+    while(groupItr.hasNext()){
+
+        String grpId = (String)groupItr.next();
+        HashMap groupData = (HashMap)data.get(grpId);
+
+        if(groupData!=null && groupData.size()>0){
+
+            HashMap firstRow = (HashMap)groupData.get("0");
+            String grpName = (String)firstRow.get("strBudgroupNm");
+%>
+
+<tr bgcolor="#999999">
+<td colspan="7"><b><%=grpName%></b></td>
+</tr>
+
+<%
+        Iterator rowItr = groupData.keySet().iterator();
+
+        while(rowItr.hasNext()){
+
+            String key = (String)rowItr.next();
+            HashMap hmt = (HashMap)groupData.get(key);
+
+            double remaining=0;
+
+            String hid=(String)hmt.get("HeadId");
+            String sname=(String)hmt.get("strName");
+            String Allocated=(String)hmt.get("dblAmount");
+            String departMent=(String)hmt.get("strDepartmentNm");
+            String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
+            String dblReservedAmount=(String)hmt.get("dblReservedAmount");
+
+            indx++;
+
+            if(Allocated==null)
+                Allocated="0.00";
+
+            remaining=Double.parseDouble(Allocated) - 
+                     (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+
+            totRemaning+=remaining;
+            totAllocated+=Double.parseDouble(Allocated);
+            totResearved+=Double.parseDouble(dblReservedAmount);
+            totUtilized+=Double.parseDouble(dblUtilisedAmount);
+%>
+
+<tr class="link" bgcolor="#cccccc"> 
+<td width="4%" height="20"><div align="center"><%=indx%></div></td>
+<td width="16%" align="left"><%=sname%></td>
+<td width="18%" align="left"><%=departMent%></td>
+<td width="13%" align="right"><%=Allocated%></td>
+<td width="12%" align="right"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
+<td width="17%" align="right"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
+<td width="20%" align="right"><%=d.format(remaining)%></td>
+</tr>
+
+<%
+        }
+    }
+}
+}
+%>
+	
+	
+	
+		  <tr  class="link"  bgcolor="#cccccc"> 
 				<td colspan="7" height="20" > <div align="left">Non Recurring</div></td>
-			</tr>
-	 <%
-	  if(data!=null && data.size()>0){
-	  
-	   for(int i=0;i<data.size();i++)
-	  {
-	    //{dblAmount=115000.00, AllocId=100007, strDepartmentNm=Computer Application, HeadId=100004, dblReservedAmount=0.00, dblUtilisedAmount=0.00, strName=Research Expenses}
-	  	double remaining=0;
-	  	HashMap hmt = (HashMap)data.get(""+i);
-		String hid=(String)hmt.get("HeadId");
-		String sname=(String)hmt.get("strName");
-		String Allocated=(String)hmt.get("dblAmount");
-		String departMent=(String)hmt.get("strDepartmentNm");
-		String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
-		String dblReservedAmount=(String)hmt.get("dblReservedAmount");
-		strBudgroupId=(String)hmt.get("strBudgroupId");
-		
-		if("0".equals(strBudgroupId)){
-		indx++;
-		if(Allocated==null)
-		Allocated="0.00";
-		remaining=Double.parseDouble( Allocated ) - (Double.parseDouble(dblUtilisedAmount)+ Double.parseDouble(dblReservedAmount));
-		totRemaning+=remaining;
-		totAllocated+=Double.parseDouble( Allocated );
- 		totResearved+=Double.parseDouble(dblReservedAmount);
- 		totUtilized+=Double.parseDouble(dblUtilisedAmount);
-		%>
-				<tr  class="link"  bgcolor="#cccccc"> 
-				<td width="4%" height="20" > <div align="center"><%=indx%></div></td>
-				<td width="16%" align="left" height="20"><%=sname%></a></td>
-				<td width="18%" align="left" height="20"><%=departMent%></a></td>
-				<td width="13%" align="right" height="20"><%=Allocated%></td>
-				<td width="12%" align="right" height="20"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-				<td width="17%" align="right" height="20"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
-				<td width="20%" align="right" height="20"><%=d.format(remaining)%></td>
-			</tr>
-		      	<% 
-		 }
-		}
-		
-	}
-	 %>
+	  </tr>
+      <%
+if(data1!=null && data1.size()>0){
+
+    Iterator groupItr = data1.keySet().iterator();
+
+    while(groupItr.hasNext()){
+
+        String grpId = (String)groupItr.next();
+        HashMap groupData = (HashMap)data1.get(grpId);
+
+        if(groupData!=null && groupData.size()>0){
+
+            HashMap firstRow = (HashMap)groupData.get("0");
+            String grpName = (String)firstRow.get("strBudgroupNm");
+%>
+
+<tr bgcolor="#999999">
+<td colspan="7"><b><%=grpName%></b></td>
+</tr>
+
+<%
+        Iterator rowItr = groupData.keySet().iterator();
+
+        while(rowItr.hasNext()){
+
+            String key = (String)rowItr.next();
+            HashMap hmt = (HashMap)groupData.get(key);
+
+            double remaining=0;
+
+            String hid=(String)hmt.get("HeadId");
+            String sname=(String)hmt.get("strName");
+            String Allocated=(String)hmt.get("dblAmount");
+            String departMent=(String)hmt.get("strDepartmentNm");
+            String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
+            String dblReservedAmount=(String)hmt.get("dblReservedAmount");
+
+            indx++;
+
+            if(Allocated==null)
+                Allocated="0.00";
+
+            remaining=Double.parseDouble(Allocated) - 
+                     (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+
+            totRemaning+=remaining;
+            totAllocated+=Double.parseDouble(Allocated);
+            totResearved+=Double.parseDouble(dblReservedAmount);
+            totUtilized+=Double.parseDouble(dblUtilisedAmount);
+%>
+
+<tr class="link" bgcolor="#cccccc"> 
+<td width="4%" height="20"><div align="center"><%=indx%></div></td>
+<td width="16%" align="left"><%=sname%></td>
+<td width="18%" align="left"><%=departMent%></td>
+<td width="13%" align="right"><%=Allocated%></td>
+<td width="12%" align="right"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
+<td width="17%" align="right"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
+<td width="20%" align="right"><%=d.format(remaining)%></td>
+</tr>
+
+<%
+        }
+    }
+}
+}
+%>
+	
+	
+	
      
 		<tr bgcolor="#cccccc" class="link"> 
 		<td width="4%" height="20" > </td>

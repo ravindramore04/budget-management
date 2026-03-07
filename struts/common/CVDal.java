@@ -154,11 +154,21 @@ public class CVDal
 		ALLSQL.put("openAllHeadWithBalanceWLSearch","select a.AllocId, a.HeadId, a.dblAmount, b.strName,b.strBudgroupId, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  and a.strDepartmentId = '?' and b.strName like '%?%' order by b.strName limit ?,?");
 
 
-
+         //view all report
 		ALLSQL.put("openAllHeadWithBalanceAllDept","select a.AllocId, a.HeadId, a.dblAmount, b.strName,b.strBudgroupId, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  order by d.strDepartmentNm");
 		ALLSQL.put("openAllHeadWithBalanceAllDeptSearch","select a.AllocId, a.HeadId, a.dblAmount, b.strName,b.strBudgroupId, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId and b.strName like '%?%'  order by b.strName");
 		ALLSQL.put("openAllHeadWithBalanceAllDeptWL","select a.AllocId, a.HeadId, a.dblAmount, b.strName,b.strBudgroupId, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId  order by b.strName limit ?,?");
 		ALLSQL.put("openAllHeadWithBalanceAllDeptWLSearch","select a.AllocId, a.HeadId, a.dblAmount, b.strName,b.strBudgroupId, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount from budgetalloc a, budgethead b, departments d where a.HeadId = b.HeadId and a.strDepartmentId = d.strDepartmentId and b.strName like '%?%'  order by b.strName limit ?,?");
+
+
+
+		//new view report group wise
+		ALLSQL.put("getAllHeadGroupWiseBallance","SELECT a.AllocId, a.HeadId, a.dblAmount, b.strName, b.strBudgroupId, g.strBudgroupNm, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount FROM budgetalloc a JOIN budgethead b ON a.HeadId = b.HeadId JOIN budgroup g ON b.strBudgroupId = g.strBudgroupId JOIN departments d ON a.strDepartmentId = d.strDepartmentId WHERE b.strBudgroupId = '?' ORDER BY g.strBudgroupNm, b.strName");
+		ALLSQL.put("getAllHeadGroupWiseBallanceDept","SELECT a.AllocId, a.HeadId, a.dblAmount, b.strName, b.strBudgroupId, g.strBudgroupNm, d.strDepartmentNm, a.dblReservedAmount, a.dblUtilisedAmount FROM budgetalloc a JOIN budgethead b ON a.HeadId = b.HeadId JOIN budgroup g ON b.strBudgroupId = g.strBudgroupId JOIN departments d ON a.strDepartmentId = d.strDepartmentId WHERE b.strBudgroupId = '?' and a.strDepartmentId = '?' ORDER BY g.strBudgroupNm, b.strName");
+
+		ALLSQL.put("getAllGroupId","select strBudgroupId from budgroup where strRmrk='?' order by strBudgroupNm");
+
+
 
 
 		ALLSQL.put("openHeadBalanceWithId","select * from headbal where HeadId='?'");
@@ -402,6 +412,46 @@ public class CVDal
 			}
 			return null;
 		}
+
+
+	public Vector executeQueryGetList()
+	{
+		sop("inside executeQueryGetList---");
+		try
+		{
+			Vector vec = new Vector();
+			ResultSet rs = stmt.executeQuery(finalSql);
+
+			ResultSetMetaData md = rs.getMetaData();
+
+
+			int cc = md.getColumnCount();
+			while (rs.next())
+			{
+				HashMap hm = new HashMap();
+				for(int i=0;i<cc;i++)
+				{
+					int ii = i+1;
+
+					String strData = rs.getString(ii);
+					//String strColumn = md.getColumnName(ii);
+					//hm.put(strColumn, strData);
+					vec.add(strData);
+				}
+
+
+
+			}
+			return vec;
+
+
+		} catch(Exception e)
+		{
+			sop("Failed while Executing Query");
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 
 	public int executeUpdate()

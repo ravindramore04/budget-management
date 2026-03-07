@@ -33,36 +33,14 @@ public class viewReportHandler extends org.apache.struts.action.Action
 	HttpServletResponse response) throws RuntimeException,Exception
 	{
 		HttpSession session = request.getSession(true);
-		HashMap My = (HashMap)session.getAttribute("user");
-		String DBnm = (String)My.get("DBnm");
 		ErrorHandler eh = new ErrorHandler();
 		try{
-			CVDal cvdal = new CVDal(DBnm);
-			HashMap hmFinal = new HashMap();
-			Vector vec = new Vector();
-			Vector vec1 = new Vector();
-
 			DynaActionForm daf = (DynaActionForm)form;
-			sop("DAF>>>>>>>"+daf.getMap().entrySet());
+			sop("DAF>>>>>>>" + daf.getMap().entrySet());
 			String code=(String)daf.get("opr");
-			vec.clear();
 
-			vec.clear();
-
-				if (SessionUtils.isAccountUser(session)){
-					cvdal.setSQL("openAllHeadWithBalanceAllDept", vec);
-				}else{
-					vec.addElement(SessionUtils.getDepartmentId(session));
-					cvdal.setSQL("openAllHeadWithBalance", vec);
-				}
-				vec1 = (Vector)cvdal.executeQuery();
-				if(vec1!=null && vec1.size()>0){
-					for(int indx=0;indx<vec1.size();indx++){
-						HashMap hmt = (HashMap)vec1.elementAt(indx);
-						hmFinal.put(""+indx, hmt);
-					}
-				}
-			request.setAttribute("data", hmFinal);
+			request.setAttribute("data", getGroupWiseData("1",session));
+			request.setAttribute("data1", getGroupWiseData("0",session));
 			HashMap hmPage = new HashMap();
 			request.setAttribute("page", hmPage);
 			if(code.equals("2")){
@@ -86,6 +64,61 @@ public class viewReportHandler extends org.apache.struts.action.Action
             sop("forward value is--> "+FORWARD_final);
             return (mapping.findForward(FORWARD_final));
 	}//End of execute()
+
+	public HashMap getGroupWiseData(String grpId,HttpSession session){
+		HashMap My = (HashMap)session.getAttribute("user");
+		String DBnm = (String)My.get("DBnm");
+		CVDal cvdal = new CVDal(DBnm);
+
+		HashMap hmFinalData = new HashMap();
+		Vector vec = new Vector();
+		Vector vec1 = new Vector();
+		Vector bugGrp = new Vector();
+		vec.addElement(grpId);
+		cvdal.setSQL("getAllGroupId", vec);
+		bugGrp = cvdal.executeQueryGetList();
+
+		sop("Group Id List >>>> " + bugGrp);
+
+		if (bugGrp != null && bugGrp.size() > 0) {
+
+			for (int indx1 = 0; indx1 < bugGrp.size(); indx1++) {
+
+				String budGrpId = (String) bugGrp.elementAt(indx1);
+
+				Vector grp = new Vector();
+				grp.addElement(budGrpId);
+
+				if (SessionUtils.isAccountUser(session)) {
+					cvdal.setSQL("getAllHeadGroupWiseBallance", grp);
+				}
+				else {
+					grp.addElement(SessionUtils.getDepartmentId(session));
+					cvdal.setSQL("getAllHeadGroupWiseBallanceDept", grp);
+				}
+
+				HashMap hmFinal = new HashMap();
+
+				vec1 = (Vector) cvdal.executeQuery();
+
+				if (vec1 != null && vec1.size() > 0) {
+
+					for (int indx = 0; indx < vec1.size(); indx++) {
+
+						HashMap hmt = (HashMap) vec1.elementAt(indx);
+						hmFinal.put("" + indx, hmt);
+
+					}
+				}
+
+				hmFinalData.put(budGrpId, hmFinal);
+			}
+		}
+
+
+		return 	hmFinalData;
+	}
+
 
 	public void sop(String msg){
 		System.out.println(msg);
