@@ -88,27 +88,28 @@ if(data!=null && data.size()>0){
             String key = (String)rowItr.next();
             HashMap hmt = (HashMap)groupData.get(key);
 
-            double remaining=0;
-
-            String hid=(String)hmt.get("HeadId");
+            double remaining=0.00;
+			double reserved=0.00;
             String sname=(String)hmt.get("strName");
             String Allocated=(String)hmt.get("dblAmount");
             String departMent=(String)hmt.get("strDepartmentNm");
             String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
             String dblReservedAmount=(String)hmt.get("dblReservedAmount");
-
+			String remainingAmt=(String)hmt.get("Remaining");
+			String budget_note_amt_tot=(String)hmt.get("Budget_Note_Amount");
+            //out.print(dblUtilisedAmount);
             indx++;
 
             if(Allocated==null)
                 Allocated="0.00";
 
-            remaining=Double.parseDouble(Allocated) - 
-                     (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
-
+            remaining=Double.parseDouble(remainingAmt);//Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+            reserved=(Double.parseDouble(budget_note_amt_tot)) - (Double.parseDouble(dblUtilisedAmount));
             totRemaning+=remaining;
             totAllocated+=Double.parseDouble(Allocated);
-            totResearved+=Double.parseDouble(dblReservedAmount);
+            totResearved+=reserved;
             totUtilized+=Double.parseDouble(dblUtilisedAmount);
+
 %>
 
 <tr class="link" bgcolor="#FFFFFF"> 
@@ -117,7 +118,7 @@ if(data!=null && data.size()>0){
 <td width="18%" align="left"><%=departMent%></td>
 <td width="13%" align="right"><%=Allocated%></td>
 <td width="12%" align="right"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-<td width="17%" align="right"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
+<td width="17%" align="right"><%=d.format(reserved)%></td>
 <td width="20%" align="right"><%=d.format(remaining)%></td>
 </tr>
 
@@ -160,25 +161,26 @@ if(data1!=null && data1.size()>0){
             HashMap hmt = (HashMap)groupData.get(key);
 
             double remaining=0;
-
-            String hid=(String)hmt.get("HeadId");
+            double reserved=0.00;
+            //String hid=(String)hmt.get("HeadId");
             String sname=(String)hmt.get("strName");
             String Allocated=(String)hmt.get("dblAmount");
             String departMent=(String)hmt.get("strDepartmentNm");
             String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
             String dblReservedAmount=(String)hmt.get("dblReservedAmount");
-
+            String remainingAmt=(String)hmt.get("Remaining");
+			String budget_note_amt_tot=(String)hmt.get("Budget_Note_Amount");
+            //out.print(dblUtilisedAmount);
             indx++;
 
             if(Allocated==null)
                 Allocated="0.00";
 
-            remaining=Double.parseDouble(Allocated) - 
-                     (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
-
+            remaining=Double.parseDouble(remainingAmt);//Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+            reserved=(Double.parseDouble(budget_note_amt_tot)) - (Double.parseDouble(dblUtilisedAmount));
             totRemaning+=remaining;
             totAllocated+=Double.parseDouble(Allocated);
-            totResearved+=Double.parseDouble(dblReservedAmount);
+            totResearved+=reserved;
             totUtilized+=Double.parseDouble(dblUtilisedAmount);
 %>
 
@@ -188,7 +190,7 @@ if(data1!=null && data1.size()>0){
 <td width="18%" align="left"><%=departMent%></td>
 <td width="13%" align="right"><%=Allocated%></td>
 <td width="12%" align="right"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-<td width="17%" align="right"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
+<td width="17%" align="right"><%=d.format(reserved)%></td>
 <td width="20%" align="right"><%=d.format(remaining)%></td>
 </tr>
 

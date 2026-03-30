@@ -4,12 +4,26 @@
 
 <%	DecimalFormat d = new DecimalFormat("##0.00");
 
+Calendar cal = Calendar.getInstance();
+    int year  = cal.get(Calendar.YEAR);
+    int month = cal.get(Calendar.MONTH) + 1;
+    int day   = cal.get(Calendar.DAY_OF_MONTH);
+    String today = String.format("%04d-%02d-%02d", year, month, day);
+
 String strBudgroupId="";
 HashMap data=(HashMap)request.getAttribute("data");
 //out.println("data"+data); //{dblAmount=115000.00, AllocId=100007, strDepartmentNm=Computer Application, HeadId=100004, dblReservedAmount=0.00, dblUtilisedAmount=0.00, strName=Research Expenses}
 
 HashMap data1=(HashMap)request.getAttribute("data1");
 //out.println("data1"+data1);
+
+String fromDate=(String)request.getAttribute("fromDate");
+String toDate=(String)request.getAttribute("toDate");
+
+out.println("fromDate"+fromDate);
+out.println("toDate"+toDate);
+
+
 
 HashMap Allo=new HashMap();
 HashMap Vouc=new HashMap();
@@ -47,12 +61,12 @@ function setAction(code,id){
 	document.HeadList.action = "<%=strPath+"ViewRpt.do"%>";
 	break;
 
-        case 2:
-            document.HeadList.action = "<%=strPath+"ViewRpt.do"%>";
-            break;
-        case 4:
-            document.HeadList.action = "<%=strPath+"/jsp/adminpanel/panel.jsp"%>";
-            break;
+	case 2:
+		document.HeadList.action = "<%=strPath+"ViewRpt.do"%>";
+		break;
+	case 4:
+		document.HeadList.action = "<%=strPath+"/jsp/adminpanel/panel.jsp"%>";
+		break;
     }
     document.HeadList.opr.value=code;
     document.HeadList.submit();
@@ -69,7 +83,17 @@ function setAction(code,id){
     <td width="80%" valign="top" align="center">
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center" >
       <tr bgcolor="#33CC99" class="titles"> 
-        <td height="20" colspan="7" >Report</font></td>
+        <td height="20" colspan="2" >Report</font></td>
+      <td colspan="5" align="center">
+        <label for="fromDate" class="innertitle">From Date:</label>
+        <input type="date" class="formfield" id="fromDate" name="fromDate" value="<%=fromDate%>" />
+        &nbsp;&nbsp;
+        <label for="toDate" class="innertitle">To Date:</label>
+        <input type="date" class="formfield" id="toDate" name="toDate" value="<%=toDate%>" />
+		
+		 <input type="button" accesskey="P" name="Submit" value=" Submit " onClick="setAction(1,0)"> 
+      </td>
+  
       </tr>
       <tr bgcolor="#99CCFF" class="link"> 
         <td width="4%" height="20" > <div align="center">S.No.</div></td>
@@ -111,26 +135,26 @@ if(data!=null && data.size()>0){
             String key = (String)rowItr.next();
             HashMap hmt = (HashMap)groupData.get(key);
 
-            double remaining=0;
-
-            String hid=(String)hmt.get("HeadId");
+            double remaining=0.00;
+			double reserved=0.00;
             String sname=(String)hmt.get("strName");
             String Allocated=(String)hmt.get("dblAmount");
             String departMent=(String)hmt.get("strDepartmentNm");
             String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
             String dblReservedAmount=(String)hmt.get("dblReservedAmount");
-
+			String remainingAmt=(String)hmt.get("Remaining");
+			String budget_note_amt_tot=(String)hmt.get("Budget_Note_Amount");
+            //out.print(dblUtilisedAmount);
             indx++;
 
             if(Allocated==null)
                 Allocated="0.00";
 
-            remaining=Double.parseDouble(Allocated) - 
-                     (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
-
+            remaining=Double.parseDouble(remainingAmt);//Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+            reserved=(Double.parseDouble(budget_note_amt_tot)) - (Double.parseDouble(dblUtilisedAmount));
             totRemaning+=remaining;
             totAllocated+=Double.parseDouble(Allocated);
-            totResearved+=Double.parseDouble(dblReservedAmount);
+            totResearved+=reserved;
             totUtilized+=Double.parseDouble(dblUtilisedAmount);
 %>
 
@@ -140,7 +164,7 @@ if(data!=null && data.size()>0){
 <td width="18%" align="left"><%=departMent%></td>
 <td width="13%" align="right"><%=Allocated%></td>
 <td width="12%" align="right"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-<td width="17%" align="right"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
+<td width="17%" align="right"><%=d.format(reserved)%></td>
 <td width="20%" align="right"><%=d.format(remaining)%></td>
 </tr>
 
@@ -185,25 +209,26 @@ if(data1!=null && data1.size()>0){
             HashMap hmt = (HashMap)groupData.get(key);
 
             double remaining=0;
-
-            String hid=(String)hmt.get("HeadId");
+            double reserved=0.00;
+            //String hid=(String)hmt.get("HeadId");
             String sname=(String)hmt.get("strName");
             String Allocated=(String)hmt.get("dblAmount");
             String departMent=(String)hmt.get("strDepartmentNm");
             String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
             String dblReservedAmount=(String)hmt.get("dblReservedAmount");
-
+            String remainingAmt=(String)hmt.get("Remaining");
+			String budget_note_amt_tot=(String)hmt.get("Budget_Note_Amount");
+            //out.print(dblUtilisedAmount);
             indx++;
 
             if(Allocated==null)
                 Allocated="0.00";
 
-            remaining=Double.parseDouble(Allocated) - 
-                     (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
-
+            remaining=Double.parseDouble(remainingAmt);//Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+            reserved=(Double.parseDouble(budget_note_amt_tot)) - (Double.parseDouble(dblUtilisedAmount));
             totRemaning+=remaining;
             totAllocated+=Double.parseDouble(Allocated);
-            totResearved+=Double.parseDouble(dblReservedAmount);
+            totResearved+=reserved;
             totUtilized+=Double.parseDouble(dblUtilisedAmount);
 %>
 
@@ -213,7 +238,7 @@ if(data1!=null && data1.size()>0){
 <td width="18%" align="left"><%=departMent%></td>
 <td width="13%" align="right"><%=Allocated%></td>
 <td width="12%" align="right"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-<td width="17%" align="right"><%=d.format(Double.parseDouble(dblReservedAmount))%></td>
+<td width="17%" align="right"><%=d.format(reserved)%></td>
 <td width="20%" align="right"><%=d.format(remaining)%></td>
 </tr>
 

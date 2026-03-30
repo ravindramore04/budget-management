@@ -39,15 +39,33 @@ public class viewReportHandler extends org.apache.struts.action.Action
 			sop("DAF>>>>>>>" + daf.getMap().entrySet());
 			String code=(String)daf.get("opr");
 
-			request.setAttribute("data", getGroupWiseData("1",session));
-			request.setAttribute("data1", getGroupWiseData("0",session));
+			String fromDate=(String)daf.get("fromDate");
+			String toDate=(String)daf.get("toDate");
+
+			String report=(String)request.getParameter("report");
+			sop("reportreportreport>>>>>>>" + report);
+
 			HashMap hmPage = new HashMap();
 			request.setAttribute("page", hmPage);
-			if(code.equals("2")){
+			if(code.equals("1")){
+				request.setAttribute("data", getGroupWiseData("1",session,report,fromDate,toDate));
+				request.setAttribute("data1", getGroupWiseData("0",session,report,fromDate,toDate));
+				request.setAttribute("fromDate",fromDate);
+				request.setAttribute("toDate",toDate);
+
+				FORWARD_final = Success_all;
+			} else if(code.equals("2")){
+				request.setAttribute("data", getGroupWiseData("1",session,report,fromDate,toDate));
+				request.setAttribute("data1", getGroupWiseData("0",session,report,fromDate,toDate));
+				request.setAttribute("fromDate",fromDate);
+				request.setAttribute("toDate",toDate);
 				FORWARD_final = Success;
 			}else {
 				FORWARD_final = Success_all;
 			}
+
+
+
             }catch(Exception e){
                 e.printStackTrace();
                 String err = eh.getError("138530");
@@ -65,7 +83,7 @@ public class viewReportHandler extends org.apache.struts.action.Action
             return (mapping.findForward(FORWARD_final));
 	}//End of execute()
 
-	public HashMap getGroupWiseData(String grpId,HttpSession session){
+	public HashMap getGroupWiseData(String grpId,HttpSession session,String report,String fromDate,String toDate){
 		HashMap My = (HashMap)session.getAttribute("user");
 		String DBnm = (String)My.get("DBnm");
 		CVDal cvdal = new CVDal(DBnm);
@@ -87,14 +105,21 @@ public class viewReportHandler extends org.apache.struts.action.Action
 				String budGrpId = (String) bugGrp.elementAt(indx1);
 
 				Vector grp = new Vector();
+				grp.addElement(fromDate);
+				grp.addElement(toDate);
 				grp.addElement(budGrpId);
 
+
 				if (SessionUtils.isAccountUser(session)) {
-					cvdal.setSQL("getAllHeadGroupWiseBallance", grp);
+					if("old".equals(report)) {
+						cvdal.setSQL("getAllHeadGroupWiseBallance", grp);
+					}else {
+						cvdal.setSQL("getAllHeadGroupWiseBallanceWithDate", grp);
+					}
 				}
 				else {
 					grp.addElement(SessionUtils.getDepartmentId(session));
-					cvdal.setSQL("getAllHeadGroupWiseBallanceDept", grp);
+					cvdal.setSQL("getAllHeadGroupWiseBallanceWithDateDept", grp);
 				}
 
 				HashMap hmFinal = new HashMap();
