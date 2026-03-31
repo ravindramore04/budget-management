@@ -20,8 +20,8 @@ HashMap data1=(HashMap)request.getAttribute("data1");
 String fromDate=(String)request.getAttribute("fromDate");
 String toDate=(String)request.getAttribute("toDate");
 
-out.println("fromDate"+fromDate);
-out.println("toDate"+toDate);
+//out.println("fromDate"+fromDate);
+//out.println("toDate"+toDate);
 
 
 
@@ -164,7 +164,7 @@ if(data!=null && data.size()>0){
 <td width="18%" align="left"><%=departMent%></td>
 <td width="13%" align="right"><%=Allocated%></td>
 <td width="12%" align="right"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-<td width="17%" align="right"><%=d.format(reserved)%></td>
+<td width="17%" align="right"><%//=d.format(reserved)%></td>
 <td width="20%" align="right"><%=d.format(remaining)%></td>
 </tr>
 
@@ -238,7 +238,7 @@ if(data1!=null && data1.size()>0){
 <td width="18%" align="left"><%=departMent%></td>
 <td width="13%" align="right"><%=Allocated%></td>
 <td width="12%" align="right"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
-<td width="17%" align="right"><%=d.format(reserved)%></td>
+<td width="17%" align="right"><%//=d.format(reserved)%></td>
 <td width="20%" align="right"><%=d.format(remaining)%></td>
 </tr>
 
@@ -259,7 +259,7 @@ if(data1!=null && data1.size()>0){
 		
 		<td width="13%" align="right" height="20"><%=d.format(totAllocated)%></td>
 		<td width="12%" align="right" height="20"><%=d.format(totUtilized)%></td>
-		<td width="17%" align="right" height="20"><%=d.format(totResearved)%></td>
+		<td width="17%" align="right" height="20"><%//=d.format(totResearved)%></td>
 		<td width="20%" align="right" height="20"><%=d.format(totRemaning)%></td>
 		</tr>		
 
