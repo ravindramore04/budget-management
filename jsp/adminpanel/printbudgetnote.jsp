@@ -171,7 +171,7 @@ function setAction(code,id){
 
         <div class="header">
             <img width="421" height="80" src="<%=strPath+ "html/_images/budget_note.jpg"%>" alt="Budget Note Logo">
-            <div class="title">BUDGET NOTE 2025-2026</div>
+            <div class="title">BUDGET NOTE 2026-2027</div>
         </div>
 
         <table border="1">

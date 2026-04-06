@@ -277,48 +277,6 @@ body {
         margin: 0;
     }
 }
-
-/* MAIN VOUCHER BOX */
-.voucher-box {
-    border: 2px solid black;
-    border-collapse: collapse;
-}
-
-/* INNER GRID */
-.voucher-box td {
-    padding: 6px;
-    vertical-align: middle;
-}
-
-/* LEFT SECTION BORDER */
-.left-section {
-    border-right: 2px solid black;
-}
-
-/* RIGHT SECTION BORDER (Amount Box) */
-.right-section {
-    border-left: 2px solid black;
-}
-
-/* TOP RIGHT BOX (Payment / Voucher Info) */
-.top-box {
-    border: 2px solid black;
-}
-
-/* ROW SEPARATORS */
-.row-line td {
-    border-top: 1px solid black;
-}
-
-/* BOTTOM STRONG LINE */
-.bottom-line td {
-    border-top: 2px solid black;
-}
-
-.no-border {
-    border: none !important;
-}
-
 </style>
 
 </head>
@@ -350,97 +308,99 @@ body {
 </div>
 
     <!-- MAIN CONTENT -->
+ <table class="main-table" border="0">
 
-  <table class="main-table voucher-box">
-
-    <!-- TOP RIGHT BOX -->
-    <tr>
-        <td colspan="4" class="no-border">Payment Date:</td>
-        <td colspan="2"></td>
-        <td class="top-box">Voucher No:</td>
-        <td class="top-box text-center"><%=voucher_number%></td>
+    <tr> 
+      <td width="473">&nbsp;</td>
+      <td colspan="5">&nbsp;</td>
+      <td width ="223"></td>
+      <td width="189">&nbsp;</td>
     </tr>
 
-    <!-- HEADER ROW -->
-    <tr class="row-line">
-        <td colspan="6" class="left-section">
-            Dr. <%=budget_head_name%> - <%=voucher_number%>
-        </td>
-
-        <td class="top-box">Voucher Date:</td>
-        <td class="top-box text-center"><%=Date%></td>
+    <tr> 
+      <td></td>
+      <td colspan="5"></td>
+      <td>Payment Date:</td>
+      <td></td>
     </tr>
 
-    <!-- DATA SECTION -->
-    <tr class="row-line">
-        <td colspan="2" style="border:none; border-top:2px solid black; border-right:2px solid black;">Allocated Amount</td>
-        <td class="text-center" style="border-top:2px solid black;"><%=d.format(allocatedAmount)%></td>
-        <td colspan="4" class="right-section"></td>
-        <td class="right-section"></td>
+    <tr> 
+      <td></td>
+      <td colspan="5"></td>
+      <td>Voucher No:</td>
+      <td class="text-center"><%=voucher_number%></td>
     </tr>
 
-    <tr class="row-line">
-        <td colspan="2" class="left-section">Utilized Amount</td>
-        <td class="left-section text-center"><%=d.format(dblUtilisedAmount-totVoucherAmt)%></td>
-
-        <td colspan="4" class="right-section">
-            <%
-            String ASD="";
-            if(bMode.equals("2")) ASD="Amount";
-            %>
-            <%=ASD%>
-        </td>
-
-        <td class="right-section text-right">
-            <% if(!bMode.equals("1")) out.println(d.format(dblAmount)); %>
-        </td>
+    <tr> 
+      <td colspan="6">Dr.
+        <font size="3"><%=budget_head_name%>-&nbsp;<%=voucher_number%></font>
+      </td>
+      <td>Voucher Date:</td>
+      <td class="text-center"><%=Date%></td>
     </tr>
 
-    <tr class="row-line">
-        <td colspan="2" class="left-section">Budget Available</td>
-        <td class="left-section text-center">
-            <%=d.format(allocatedAmount-(dblUtilisedAmount-totVoucherAmt))%>
-        </td>
-
-        <td colspan="4" class="right-section">
-            <% if(!bMode.equals("1")) out.println(TDStype); %>
-        </td>
-
-        <td class="right-section text-right">
-            <% if(!bMode.equals("1")) out.println(dblTds+"0"); %>
-        </td>
+    <tr> 
+      <td colspan="2">Allocated Amount</td>
+      <td width="356" class="text-center"><%=d.format(allocatedAmount)%></td>
+      <td colspan="5"></td>
     </tr>
 
-    <tr class="row-line">
-        <td colspan="2" class="left-section">Voucher Amount</td>
-        <td class="left-section text-center"><%=d.format(totVoucherAmt)%></td>
-        <td colspan="5" rowspan="2" class="right-section"></td>
+    <tr> 
+      <td colspan="2">Utilized Amount</td>
+      <td class="text-center"><%=d.format(dblUtilisedAmount-totVoucherAmt)%></td>
+      <td colspan="4">
+        <%
+        String ASD="";
+        if(bMode.equals("2")) ASD="Amount";
+        %>
+        <%=ASD%>
+      </td>
+      <td class="text-right">
+        <% if(!bMode.equals("1")) out.println(d.format(dblAmount)); %>
+      </td>
     </tr>
 
-    <tr class="row-line">
-        <td colspan="2" class="left-section">Balance Budget</td>
-        <td class="left-section text-center">
-            <%=d.format(allocatedAmount-dblUtilisedAmount)%>
-        </td>
+    <tr> 
+      <td colspan="2">Budget Available</td>
+      <td class="text-center"><%=d.format(allocatedAmount-(dblUtilisedAmount-totVoucherAmt))%></td>
+      <td colspan="4">
+        <% if(!bMode.equals("1")) out.println(TDStype); %>
+      </td>
+      <td class="text-right">
+        <% if(!bMode.equals("1")) out.println(dblTds+"0"); %>
+      </td>
     </tr>
 
-    <!-- TOTAL SECTION -->
-    <tr class="bottom-line">
-        <td></td>
-        <td colspan="5" class="text-center">Received the sum of Rs.</td>
-        <td>Total Rs:</td>
-        <td class="text-center"><%=d.format(dblAmount+dblTds)%></td>
+    <tr> 
+      <td colspan="2">Voucher Amount</td>
+      <td class="text-center"><%=d.format(totVoucherAmt)%></td>
+      <td colspan="5"></td>
     </tr>
 
-    <tr class="row-line">
-        <td>Rupees(in words)</td>
-        <td colspan="7">
-            <script>
-                document.write(ChkWord(<%=dblAmount+dblTds%>));
-            </script>
-        </td>
+    <tr> 
+      <td colspan="2">Balance Budget</td>
+      <td class="text-center"><%=d.format(allocatedAmount-dblUtilisedAmount)%></td>
+      <td colspan="5"></td>
     </tr>
- <%
+
+    <tr> 
+      <td></td>
+      <td colspan="5" class="text-center">
+        Received the sum of Rs.
+      </td>
+      <td>Total Rs:</td>
+      <td class="text-center"><%=d.format(dblAmount+dblTds)%></td>
+    </tr>
+
+    <tr> 
+      <td>Rupees(in words)</td>
+      <td colspan="7">
+        <script>
+          document.write(ChkWord(<%=dblAmount+dblTds%>));
+        </script>
+      </td>
+    </tr>
+  <%
   int i=0;
 if(strToAcc.length()>215)
 {
@@ -488,40 +448,39 @@ if(strToAcc.length()>140 && strToAcc.length()< 220)
 	Str3=strToAcc.substring(Ar[1],strToAcc.length());
 }
 %>
-    <!-- ACCOUNT SECTION -->
-    <tr class="row-line">
-        <td>On Account Of</td>
-        <td colspan="7"><%=Str1%></td>
+    <tr> 
+      <td>On Account Of</td>
+      <td colspan="7"><%=Str1%></td>
     </tr>
 
     <% if(Str2 != null && Str2.trim().length() > 0){ %>
-    <tr>
-        <td></td>
-        <td colspan="7"><%=Str2%></td>
-    </tr>
+		<tr> 
+		  <td></td>
+		  <td colspan="7"><%=Str2%></td>
+		</tr>
     <% } %>
 
     <% if(Str3 != null && Str3.trim().length() > 0){ %>
-    <tr>
-        <td></td>
-        <td colspan="7"><%=Str3%></td>
-    </tr>
+		<tr> 
+		  <td></td>
+		  <td colspan="7"><%=Str3%></td>
+		</tr>
     <% } %>
-
-    <tr class="row-line">
-        <td>By Cheque/Cash</td>
-        <td colspan="7">
-            <%=bMode.equals("1")?"Cash": "Cheque ("+strCheque+")"%>
-            <%=bMode.equals("1")?"":"("+bankName+")"%>
-        </td>
+    <tr> 
+      <td>By Cheque/Cash</td>
+      <td colspan="7">
+        <%=bMode.equals("1")?"Cash": "Cheque ("+strCheque+")"%>
+        <%=bMode.equals("1")?"":"("+bankName+")"%>
+      </td>
     </tr>
 
-    <tr class="row-line">
-        <td>Receiver's Name</td>
-        <td colspan="7"><%=strReceiverNm%></td>
+    <tr> 
+      <td>Receiver's Name</td>
+      <td colspan="7"><%=strReceiverNm%></td>
     </tr>
 
 </table>
+  
   
   <div style="margin-top: 80px; width: 100%;">
 
