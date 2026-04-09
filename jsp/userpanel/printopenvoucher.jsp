@@ -376,7 +376,7 @@ body {
         <td colspan="2" style="border:none; border-top:2px solid black; border-right:2px solid black;">Allocated Amount</td>
         <td class="text-center" style="border-top:2px solid black;"><%=d.format(allocatedAmount)%></td>
         <td colspan="4" class="right-section"></td>
-        <td class="right-section"></td>
+        <td class="right-section text-center">Amount</td>
     </tr>
 
     <tr class="row-line">
@@ -414,7 +414,13 @@ body {
     <tr class="row-line">
         <td colspan="2" class="left-section">Voucher Amount</td>
         <td class="left-section text-center"><%=d.format(totVoucherAmt)%></td>
-        <td colspan="5" rowspan="2" class="right-section"></td>
+        <td colspan="4" rowspan="2" class="right-section">
+            
+        </td>
+
+        <td rowspan="2" class="right-section text-right">
+            
+        </td>
     </tr>
 
     <tr class="row-line">
@@ -429,7 +435,7 @@ body {
         <td></td>
         <td colspan="5" class="text-center">Received the sum of Rs.</td>
         <td>Total Rs:</td>
-        <td class="text-center"><%=d.format(dblAmount+dblTds)%></td>
+        <td class="text-right"><%=d.format(dblAmount+dblTds)%></td>
     </tr>
 
     <tr class="row-line">
