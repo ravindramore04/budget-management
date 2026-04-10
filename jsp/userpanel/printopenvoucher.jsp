@@ -388,7 +388,7 @@ body {
         </td>
 
         <td class="right-section text-right">
-            <% if(!bMode.equals("1")) out.println(d.format(dblAmount)); %>
+            <% out.println(d.format(dblAmount)); %>
         </td>
     </tr>
 

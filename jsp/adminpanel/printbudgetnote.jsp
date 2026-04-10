@@ -273,8 +273,8 @@ function setAction(code,id){
 	<table border="1">
             <tr>
                 <td  style="width: 300px;" class="section-header">Contact No.</td>
-                <td class="section-header" colspan="2">&nbsp;</td>
-                <td class="section-header">&nbsp;Paid Date :</td>
+                <td class="section-header" colspan="2">&nbsp;Paid Date :</td>
+                <td class="section-header">&nbsp;</td>
             </tr>
             <tr>
                 <td class="section-header">Please Pay Rs.</td>
