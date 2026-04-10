@@ -59,6 +59,9 @@ DecimalFormat d = new DecimalFormat("##0.00");
 String strPath="/budget-management/";
 HashMap hmData=(HashMap)request.getAttribute("budgetNoteInputData");
 //out.println("budgetNoteInputData====>" + hmData);
+String finance_year=(String)session.getAttribute("financeYear");
+
+
 
 String departmentName = "";
 String headName = "";
@@ -171,7 +174,7 @@ function setAction(code,id){
 
         <div class="header">
             <img width="421" height="80" src="<%=strPath+ "html/_images/budget_note.jpg"%>" alt="Budget Note Logo">
-            <div class="title">BUDGET NOTE 2026-2027</div>
+            <div class="title">BUDGET NOTE <%=finance_year%></div>
         </div>
 
         <table border="1">
@@ -271,7 +274,7 @@ function setAction(code,id){
             <tr>
                 <td  style="width: 300px;" class="section-header">Contact No.</td>
                 <td class="section-header" colspan="2">&nbsp;</td>
-                <td class="section-header">&nbsp;</td>
+                <td class="section-header">&nbsp;Paid Date :</td>
             </tr>
             <tr>
                 <td class="section-header">Please Pay Rs.</td>
@@ -300,7 +303,7 @@ function setAction(code,id){
                <td class="value" colspan="3">&nbsp;</td>
             </tr>
              <tr>
-                <td class="section-header" align="center">&nbsp;</td>
+                <td class="section-header" align="center">Advance Settlement Date&nbsp;</td>
                <td class="value" colspan="3">&nbsp;</td>
             </tr> <tr>
                 <td class="section-header" style="height: 60px;" valign="bottom"  colspan="1"  rowspan="" align="center">Signature Head of Dept.</td>

@@ -97,7 +97,11 @@ public class LoginHandler extends org.apache.struts.action.Action
 
 						SessionUtils.addUserToSession(session,strUserId, strLogin, departmentId );
 					}
+
 					session.setAttribute("user",hmFinal);
+					String financeYear=(String)getFinancialYear(DBnm1);
+					session.setAttribute("financeYear",financeYear);
+					sop(financeYear);
 				}else{
 					String err = eh.getError("146430");
 					String nxtpg = "Startpage.do";
@@ -142,6 +146,34 @@ public class LoginHandler extends org.apache.struts.action.Action
 	}//End of execute()
 
 	public void sop(String msg){
-		System.out.println(msg);
+		System.out.println("Print Value>>>"+msg);
+	}
+
+	public static String getFinancialYear(String budget) {
+		if (budget == null || !budget.contains("_")) {
+			return "";
+		}
+
+		try {
+			// Remove prefix "budget"
+			String yearPart = budget.replace("budget", "");
+
+			// Split years
+			String[] parts = yearPart.split("_");
+
+			if (parts.length != 2) return "";
+
+			int startYear = Integer.parseInt(parts[0]);
+			int endYear = Integer.parseInt(parts[1]);
+
+			// Convert to full year (2000 + year)
+			int fullStartYear = 2000 + startYear;
+			int fullEndYear = 2000 + endYear;
+
+			return fullStartYear + "-" + fullEndYear;
+
+		} catch (Exception e) {
+			return "";
+		}
 	}
 }

@@ -355,9 +355,9 @@ body {
 
     <!-- TOP RIGHT BOX -->
     <tr>
-        <td colspan="4" class="no-border">Payment Date:</td>
+        <td colspan="4" class="no-border"><strong>Payment Date:</strong></td>
         <td colspan="2"></td>
-        <td class="top-box">Voucher No:</td>
+        <td class="top-box"><strong>Voucher No:</strong></td>
         <td class="top-box text-center"><%=voucher_number%></td>
     </tr>
 
@@ -367,7 +367,7 @@ body {
             Dr. <%=budget_head_name%> - <%=voucher_number%>
         </td>
 
-        <td class="top-box">Voucher Date:</td>
+        <td class="top-box"><strong>Voucher Date:</strong></td>
         <td class="top-box text-center"><%=Date%></td>
     </tr>
 
@@ -384,11 +384,7 @@ body {
         <td class="left-section text-center"><%=d.format(dblUtilisedAmount-totVoucherAmt)%></td>
 
         <td colspan="4" class="right-section">
-            <%
-            String ASD="";
-            if(bMode.equals("2")) ASD="Amount";
-            %>
-            <%=ASD%>
+            Net Pay
         </td>
 
         <td class="right-section text-right">
@@ -414,11 +410,11 @@ body {
     <tr class="row-line">
         <td colspan="2" class="left-section">Voucher Amount</td>
         <td class="left-section text-center"><%=d.format(totVoucherAmt)%></td>
-        <td colspan="4" rowspan="2" class="right-section">
+        <td colspan="4" class="right-section">
             
         </td>
 
-        <td rowspan="2" class="right-section text-right">
+        <td class="right-section text-right">
             
         </td>
     </tr>
@@ -428,18 +424,26 @@ body {
         <td class="left-section text-center">
             <%=d.format(allocatedAmount-dblUtilisedAmount)%>
         </td>
+		<td colspan="4" class="right-section">
+          </td>
+        <td class="right-section text-right">
+         </td>
     </tr>
-
-    <!-- TOTAL SECTION -->
-    <tr class="bottom-line">
-        <td></td>
-        <td colspan="5" class="text-center">Received the sum of Rs.</td>
-        <td>Total Rs:</td>
-        <td class="text-right"><%=d.format(dblAmount+dblTds)%></td>
+	 <!-- TOTAL SECTION -->
+	 <tr class="bottom-line">
+        <td colspan="2" class="left-section"></td>
+        <td class="left-section text-center">
+            <strong>Received the sum of Rs.</strong>
+        </td>
+		<td colspan="4" class="right-section"><strong>Total Rs:</strong>
+          </td>
+        <td class="right-section text-right"><strong><%=d.format(dblAmount+dblTds)%></strong>
+         </td>
     </tr>
-
+   
+ 
     <tr class="row-line">
-        <td>Rupees(in words)</td>
+        <td><strong>Rupees(in words)</strong></td>
         <td colspan="7">
             <script>
                 document.write(ChkWord(<%=dblAmount+dblTds%>));
@@ -496,7 +500,7 @@ if(strToAcc.length()>140 && strToAcc.length()< 220)
 %>
     <!-- ACCOUNT SECTION -->
     <tr class="row-line">
-        <td>On Account Of</td>
+        <td><strong>On Account Of</strong></td>
         <td colspan="7"><%=Str1%></td>
     </tr>
 
@@ -515,7 +519,7 @@ if(strToAcc.length()>140 && strToAcc.length()< 220)
     <% } %>
 
     <tr class="row-line">
-        <td>By Cheque/Cash</td>
+        <td><strong>By Cheque/Cash</strong></td>
         <td colspan="7">
             <%=bMode.equals("1")?"Cash": "Cheque ("+strCheque+")"%>
             <%=bMode.equals("1")?"":"("+bankName+")"%>
@@ -523,7 +527,7 @@ if(strToAcc.length()>140 && strToAcc.length()< 220)
     </tr>
 
     <tr class="row-line">
-        <td>Receiver's Name</td>
+        <td><strong>Receiver's Name</strong></td>
         <td colspan="7"><%=strReceiverNm%></td>
     </tr>
 
@@ -557,7 +561,7 @@ if(strToAcc.length()>140 && strToAcc.length()< 220)
             <!-- Receiver Signature with box -->
             <td width="16%" style="width:16%;">
                 <div style="height:80px; width:80px; border:1px solid #000; margin:auto;"></div>
-                <div style="margin-top:5px;">Receiver's Signature</div>
+                <div style="margin-top:5px;">Receiver's Signature & Date</div>
             </td>
 
             <!-- CA & FO -->
