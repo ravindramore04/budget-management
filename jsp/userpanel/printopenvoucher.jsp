@@ -255,6 +255,7 @@ body {
 .main-table {
     width: 100%;
     border-collapse: collapse;
+	font-size: 17px !important;
 }
 
 .main-table td {
@@ -364,7 +365,7 @@ body {
     <!-- HEADER ROW -->
     <tr class="row-line">
         <td colspan="6" class="left-section">
-            Dr. <%=budget_head_name%> - <%=voucher_number%>
+            <b>Dr. <%=budget_head_name%> - <%=voucher_number%></b>
         </td>
 
         <td class="top-box"><strong>Voucher Date:</strong></td>
@@ -535,7 +536,7 @@ if(strToAcc.length()>140 && strToAcc.length()< 220)
   
   <div style="margin-top: 80px; width: 100%;">
 
-    <table style="width:100%; text-align:center; border-collapse: collapse;">
+    <table style="width:100%; text-align:center; border-collapse: collapse; font-size:17px; font-weight:bold;">
 
         <!-- ROW 1 (CENTERED) -->
         <tr>
