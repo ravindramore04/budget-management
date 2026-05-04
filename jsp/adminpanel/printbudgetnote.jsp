@@ -228,7 +228,7 @@ function setAction(code,id){
 				<%
 	if(ponumber != null){
 	%>
-	 Store &amp; Purchase Assistant
+	  Prepared By &amp; Name
 	<%}%>
 				&nbsp;</div></td>
 				<td style="height: 60px; border: none;" valign="bottom" class="section-header" colspan="3" align="center">
