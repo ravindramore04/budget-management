@@ -453,9 +453,9 @@ body {
     </tr>
  <%
   int i=0;
-if(strToAcc.length()>215)
+if(strToAcc.length()>300)
 {
-	strToAcc=strToAcc.substring(0,215);
+	strToAcc=strToAcc.substring(0,300);
 }
 
 String Str1=" ";
@@ -502,20 +502,20 @@ if(strToAcc.length()>140 && strToAcc.length()< 220)
     <!-- ACCOUNT SECTION -->
     <tr class="row-line">
         <td><strong>On Account Of</strong></td>
-        <td colspan="7"><%=Str1%></td>
+        <td colspan="7"><%=strToAcc%></td>
     </tr>
 
     <% if(Str2 != null && Str2.trim().length() > 0){ %>
     <tr>
         <td></td>
-        <td colspan="7"><%=Str2%></td>
+        <td colspan="7"><%//=Str2%></td>
     </tr>
     <% } %>
 
     <% if(Str3 != null && Str3.trim().length() > 0){ %>
     <tr>
         <td></td>
-        <td colspan="7"><%=Str3%></td>
+        <td colspan="7"><%//=Str3%></td>
     </tr>
     <% } %>
 

@@ -166,7 +166,7 @@ public class BudgetNote extends Action
                     request.setAttribute("budgetNoteInputData", vec1.get(0));
                     FORWARD_final = "printnote";
                 } else{
-                    if(SessionUtils.isAccountORStoreUser(session)){
+                    if(SessionUtils.isAccountUser(session)){
                         if("search_BN".equals(operation) || StringUtils.isNotEmpty(searchThis)){
                             vec.addElement(searchThis);
                             cvdal.setSQL("openAllHeadWithBalanceAllDeptSearch", vec);
@@ -217,7 +217,7 @@ public class BudgetNote extends Action
                     if(nPage<=nTotalPage){
                         vec.clear();
 
-                        if(SessionUtils.isAccountORStoreUser(session)){
+                        if(SessionUtils.isAccountUser(session)){
                             if("search_BN".equals(operation) || StringUtils.isNotEmpty(searchThis)){
                                 vec.addElement(searchThis);
                                 vec.addElement("" + nLowLimit);
@@ -301,7 +301,7 @@ public class BudgetNote extends Action
         String budget_note_id = cvdal.getMaxId("budget_note_MAX_ID");
         String approval=(String)daf.get("approval");
         String status="DRAFT";
-        if (SessionUtils.isAccountORStoreUser(session) && "yes".equals(approval)) {
+        if (SessionUtils.isAccountUser(session) && "yes".equals(approval)) {
             status="APPROVED";
         }
         Vector queryParams = new Vector();

@@ -64,7 +64,7 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
 
                     vec.clear();
 
-                    if (SessionUtils.isAccountORStoreUser(session)){
+                    if (SessionUtils.isAccountUser(session)){
                         if("7".equals(opr)){
                             vec.add((String)daf.get("id"));
                             cvdal.setSQL("openAllHeadWithBalanceAllDeptSearch", vec);
@@ -114,7 +114,7 @@ public class AllHeadBalanceHandler extends org.apache.struts.action.Action
                     if(nPage<=nTotalPage){
                         vec.clear();
 
-                        if (SessionUtils.isAccountORStoreUser(session)){
+                        if (SessionUtils.isAccountUser(session)){
                             if("7".equals(opr)) {
                                 vec.add((String) daf.get("id"));
                                 vec.addElement(""+nLowLimit);
