@@ -4,6 +4,7 @@ String strPath="/budget-management/";
 
 HashMap data=(HashMap)request.getAttribute("data");
 HashMap data1=(HashMap)request.getAttribute("data1");
+HashMap OthersGrp=(HashMap)request.getAttribute("OthersGrp");
 //out.println("data"+data); //{dblAmount=115000.00, AllocId=100007, strDepartmentNm=Computer Application, HeadId=100004, dblReservedAmount=0.00, dblUtilisedAmount=0.00, strName=Research Expenses}
 double totRemaning=0;
 double totAllocated=0;
@@ -141,6 +142,78 @@ if(data1!=null && data1.size()>0){
 
         String grpId = (String)groupItr.next();
         HashMap groupData = (HashMap)data1.get(grpId);
+
+        if(groupData!=null && groupData.size()>0){
+
+            HashMap firstRow = (HashMap)groupData.get("0");
+            String grpName = (String)firstRow.get("strBudgroupNm");
+%>
+
+<tr bgcolor="#FFFFFF">
+<td colspan="7"><b><%=grpName%></b></td>
+</tr>
+
+<%
+        Iterator rowItr = groupData.keySet().iterator();
+
+        while(rowItr.hasNext()){
+
+            String key = (String)rowItr.next();
+            HashMap hmt = (HashMap)groupData.get(key);
+
+            double remaining=0;
+            double reserved=0.00;
+            //String hid=(String)hmt.get("HeadId");
+            String sname=(String)hmt.get("strName");
+            String Allocated=(String)hmt.get("dblAmount");
+            String departMent=(String)hmt.get("strDepartmentNm");
+            String dblUtilisedAmount=(String)hmt.get("dblUtilisedAmount");
+            String dblReservedAmount=(String)hmt.get("dblReservedAmount");
+            String remainingAmt=(String)hmt.get("Remaining");
+			String budget_note_amt_tot=(String)hmt.get("Budget_Note_Amount");
+            //out.print(dblUtilisedAmount);
+            indx++;
+
+            if(Allocated==null)
+                Allocated="0.00";
+
+            remaining=Double.parseDouble(remainingAmt);//Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+            reserved=(Double.parseDouble(budget_note_amt_tot)) - (Double.parseDouble(dblUtilisedAmount));
+            totRemaning+=remaining;
+            totAllocated+=Double.parseDouble(Allocated);
+            totResearved+=reserved;
+            totUtilized+=Double.parseDouble(dblUtilisedAmount);
+%>
+
+<tr class="link" bgcolor="#FFFFFF"> 
+<td width="4%" height="20"><div align="center"><%=indx%></div></td>
+<td width="16%" align="left"><%=sname%></td>
+<td width="18%" align="left"><%=departMent%></td>
+<td width="13%" align="right"><%=Allocated%></td>
+<td width="12%" align="right"><%=d.format(Double.parseDouble(dblUtilisedAmount))%></td>
+<td width="17%" align="right"><%//=d.format(reserved)%></td>
+<td width="20%" align="right"><%=d.format(remaining)%></td>
+</tr>
+
+<%
+        }
+    }
+}
+}
+%>
+
+		  <tr  class="link"  bgcolor="#FFFFFF"> 
+				<td colspan="7" height="20" > <div align="left">Others Group</div></td>
+	  </tr>
+      <%
+if(OthersGrp!=null && OthersGrp.size()>0){
+
+    Iterator groupItr = OthersGrp.keySet().iterator();
+
+    while(groupItr.hasNext()){
+
+        String grpId = (String)groupItr.next();
+        HashMap groupData = (HashMap)OthersGrp.get(grpId);
 
         if(groupData!=null && groupData.size()>0){
 
