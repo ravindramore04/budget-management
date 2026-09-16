@@ -274,11 +274,19 @@
 			<forward name="delete" path="/AllBudgetAllocation.do"/>
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>		
+		<action path="/showBudgetRequisition" type="struts.adminpanel.showBudgetAllocationHandler" name="ListForm" scope="request" validate="false">
+			<forward name="success" path="/jsp/adminpanel/BudgetRequisitionMaster.jsp"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
 		
 		<action path="/SaveBudgetAllocation" type="struts.adminpanel.saveBudgetAllocationHandler" name="HeadForm" scope="request" validate="false">
 			<forward name="success" path="/AllBudgetAllocation.do"/>
 			<forward name="failure" path="/jsp/error.jsp"/>
 		</action>		
+		<action path="/SaveBudgetRequisition" type="struts.adminpanel.saveBudgetRequisitionHandler" name="HeadForm" scope="request" validate="false">
+			<forward name="success" path="/AllBudgetAllocation.do"/>
+			<forward name="failure" path="/jsp/error.jsp"/>
+		</action>
 		
 
 		<action path="/RptParam" type="struts.adminpanel.reportParamHandler" name="ListForm" scope="request" validate="false">

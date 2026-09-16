@@ -210,6 +210,7 @@ public class CVDal
 		ALLSQL.put("insertHeadBalance","insert into headbal values('?','?')");
 		ALLSQL.put("InsertOrg","insert into company values('?','?','?','?','?',?,'?',?,'?')");
 		ALLSQL.put("insertintobudgetallocation","insert into budgetalloc values('?','?','?','?','?',?,'?',?,'?','?',0.0,0.0)");
+		ALLSQL.put("insertintobudgetrequisition","insert into budgetrequisition (HeadId,Dt,dblRequestedAmount,dblApprovedAmount,strRemark,strStatus,strInsBy,strInsOn,strUptdBy,strUptdOn,strDepartmentId) values('?','?','?',0.00,'?','Pending','?','?',NULL,NULL,'?')");
 		ALLSQL.put("InsertintoHeadBalance","insert into headbal values('?','?')");
 		ALLSQL.put("insertintoVoucher","insert into voucher values('?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?')");
 		ALLSQL.put("insertintoCheque","insert into cheque values('?','?','?')");

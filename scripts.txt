@@ -1,0 +1,15 @@
+// new table script for budget requisition
+CREATE TABLE budgetrequisition (
+    RequisitionId INT AUTO_INCREMENT PRIMARY KEY,
+    HeadId INT DEFAULT NULL,
+    Dt DATE DEFAULT NULL,
+    dblRequestedAmount DOUBLE(11,2) DEFAULT 0.00,
+    dblApprovedAmount DOUBLE(11,2) DEFAULT 0.00,
+    strRemark VARCHAR(100) DEFAULT NULL,
+    strStatus VARCHAR(20) DEFAULT 'Pending', -- Tracks workflow: Pending, Approved, Rejected
+    strInsBy INT DEFAULT NULL,
+    strInsOn DATE DEFAULT NULL,
+    strUptdBy INT DEFAULT NULL,
+    strUptdOn DATE DEFAULT NULL,
+    strDepartmentId VARCHAR(10) DEFAULT NULL
+);

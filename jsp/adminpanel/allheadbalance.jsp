@@ -35,6 +35,10 @@ function setAction(code,id){
         case 4:
             document.HeadBalanceList.action = "<%=strPath+"Close.do"%>";
             break;
+		case 8:
+		      document.HeadBalanceList.action = "<%=strPath+"showBudgetRequisition.do"%>";
+		      document.HeadBalanceList.opr.value = 1;
+			break;
 		case 7:
 		      document.HeadBalanceList.action = "<%=strPath+"AllBudgetAllocation.do"%>";
 			  document.HeadBalanceList.id.value = document.getElementById('searchId').value;
@@ -182,6 +186,8 @@ function setAction(code,id){
 		      <tr> 
 		    	<td colspan="2" align="right"> <input type="button" name="btn1" value="Add new" accesskey="N" onClick="setAction(1,0)" class="PPRSbmtBtn">
 		    	</td>
+			<td colspan="2" align="center"> <input type="button" name="btnRequisition" value="Budget Requisition" accesskey="R" onClick="setAction(8,0)" class="PPRSbmtBtn">
+			</td>
 		    	<td colspan="2" align="left"> <input type="button" name="btn1" value="   Close   " accesskey="C" onClick="setAction(4,0)" class="PPRSbmtBtn"> 
 		    	</td>
 		      </tr>
