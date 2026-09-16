@@ -54,6 +54,11 @@
         <td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;"> <a class="linktext" href="<%=strPath+"NewFinanceYear.do"%>">Finance Year</a> </td>
 		</tr-->
 		<%}%>
+		<tr valign="top">
+			<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;">
+				<a class="linktext" href="<%=strPath+"showBudgetRequisition.do?opr=1&amp;id=0"%>">Budget Requisition</a>
+			</td>
+		</tr>
 		<tr>
 		<td width="100%" bgcolor="#95A5A6" onMouseOver="this.style.backgroundColor='#d4dae2'" onMouseOut="this.style.backgroundColor='#95A5A6'" style="padding:7px 10px;"> <a class="linktext" href="<%=strPath+"AllHeadForBudgetNote.do"%>">Create
         Budget Note</a> </td>
