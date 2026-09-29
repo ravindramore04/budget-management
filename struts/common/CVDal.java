@@ -1,7 +1,6 @@
 package struts.common;
 import javax.naming.*;
 import java.sql.*;
-import javax.transaction.*;
 import java.util.*;
 import java.io.*;
 
@@ -211,6 +210,12 @@ public class CVDal
 		ALLSQL.put("InsertOrg","insert into company values('?','?','?','?','?',?,'?',?,'?')");
 		ALLSQL.put("insertintobudgetallocation","insert into budgetalloc values('?','?','?','?','?',?,'?',?,'?','?',0.0,0.0)");
 		ALLSQL.put("insertintobudgetrequisition","insert into budgetrequisition (HeadId,Dt,dblRequestedAmount,dblApprovedAmount,strRemark,strStatus,strInsBy,strInsOn,strUptdBy,strUptdOn,strDepartmentId) values('?','?','?',0.00,'?','Pending','?','?',NULL,NULL,'?')");
+		ALLSQL.put("budgetRequisitionCountAll","SELECT COUNT(*) AS total_rows FROM budgetrequisition");
+		ALLSQL.put("budgetRequisitionCountDept","SELECT COUNT(*) AS total_rows FROM budgetrequisition WHERE strDepartmentId='?'");
+		ALLSQL.put("budgetRequisitionListAll","SELECT br.RequisitionId, br.HeadId, br.Dt, br.dblRequestedAmount, br.dblApprovedAmount, br.strRemark, br.strStatus, br.strInsBy, br.strInsOn, br.strDepartmentId, bh.strName AS budget_head_name, d.strDepartmentNm AS department_name, u.strName AS created_by_name FROM budgetrequisition br LEFT JOIN budgethead bh ON br.HeadId=bh.HeadId LEFT JOIN departments d ON br.strDepartmentId=d.strDepartmentId LEFT JOIN userlst u ON br.strInsBy=u.UId ORDER BY br.RequisitionId DESC LIMIT ?,?");
+		ALLSQL.put("budgetRequisitionListDept","SELECT br.RequisitionId, br.HeadId, br.Dt, br.dblRequestedAmount, br.dblApprovedAmount, br.strRemark, br.strStatus, br.strInsBy, br.strInsOn, br.strDepartmentId, bh.strName AS budget_head_name, d.strDepartmentNm AS department_name, u.strName AS created_by_name FROM budgetrequisition br LEFT JOIN budgethead bh ON br.HeadId=bh.HeadId LEFT JOIN departments d ON br.strDepartmentId=d.strDepartmentId LEFT JOIN userlst u ON br.strInsBy=u.UId WHERE br.strDepartmentId='?' ORDER BY br.RequisitionId DESC LIMIT ?,?");
+		ALLSQL.put("budgetRequisitionExportAll","SELECT br.RequisitionId, br.HeadId, br.Dt, br.dblRequestedAmount, br.dblApprovedAmount, br.strRemark, br.strStatus, br.strInsBy, br.strInsOn, br.strDepartmentId, bh.strName AS budget_head_name, d.strDepartmentNm AS department_name, u.strName AS created_by_name FROM budgetrequisition br LEFT JOIN budgethead bh ON br.HeadId=bh.HeadId LEFT JOIN departments d ON br.strDepartmentId=d.strDepartmentId LEFT JOIN userlst u ON br.strInsBy=u.UId ORDER BY br.RequisitionId DESC");
+		ALLSQL.put("budgetRequisitionExportDept","SELECT br.RequisitionId, br.HeadId, br.Dt, br.dblRequestedAmount, br.dblApprovedAmount, br.strRemark, br.strStatus, br.strInsBy, br.strInsOn, br.strDepartmentId, bh.strName AS budget_head_name, d.strDepartmentNm AS department_name, u.strName AS created_by_name FROM budgetrequisition br LEFT JOIN budgethead bh ON br.HeadId=bh.HeadId LEFT JOIN departments d ON br.strDepartmentId=d.strDepartmentId LEFT JOIN userlst u ON br.strInsBy=u.UId WHERE br.strDepartmentId='?' ORDER BY br.RequisitionId DESC");
 		ALLSQL.put("InsertintoHeadBalance","insert into headbal values('?','?')");
 		ALLSQL.put("insertintoVoucher","insert into voucher values('?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?')");
 		ALLSQL.put("insertintoCheque","insert into cheque values('?','?','?')");

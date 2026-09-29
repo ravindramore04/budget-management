@@ -79,6 +79,7 @@ public class saveBudgetRequisitionHandler extends Action
             }
 
             session.setAttribute("itr", "0");
+            session.setAttribute("requisitionSaved", "Budget requisition saved successfully.");
             return mapping.findForward(Success);
         }catch(Exception e){
             e.printStackTrace();
