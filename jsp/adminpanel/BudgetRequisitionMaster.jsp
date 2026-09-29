@@ -31,6 +31,12 @@
 	}
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
+<%
+	boolean departmentUser = !SessionUtils.isAccountUser(session);
+	if(bgNm.length()==0 && departmentUser && request.getAttribute("deptId")!=null){
+		bgNm=(String)request.getAttribute("deptId");
+	}
+%>
 <script language="JavaScript">
 	function formSubmit(){
 		var _Head = document.BudgetRequisitionMaster.Head.value;
@@ -72,7 +78,7 @@
 		<tr> 
 			<td width="25%" class="innertitle">Department Name </td>
 			<td colspan="3">
-			<select name="strDepartmentId" class="formfield" >
+			<select name="strDepartmentId" class="formfield" <%=departmentUser?"disabled":""%>>
 			 <option value="<%=""+0%>">-------Select---------</option>
 		<%
 			if(hmGroup!=null && hmGroup.size()>0){
@@ -101,6 +107,9 @@
 		
 		%>
 			</select>
+			<%if(departmentUser){%>
+			<input type="hidden" name="strDepartmentId" value="<%=bgNm%>">
+			<%}%>
 			</td>
 		</tr>
 
