@@ -172,19 +172,15 @@ public class BudgetRequisitionList extends Action
         response.setHeader("Content-Disposition", "attachment; filename=budget-requisitions.csv");
         PrintWriter writer = response.getWriter();
         writer.write("\uFEFF");
-        writer.println("Requisition ID,Requisition Date,Saved On,Budget Head,Requested Amount,Approved Amount,Status,Remark,Created By,Department");
+        writer.println("Requisition ID,Requisition Date,Budget Head,Requested Amount,Remark,Department");
         if(rows != null){
             for(int index = 0; index < rows.size(); index++){
                 HashMap row = (HashMap)rows.elementAt(index);
                 writer.println(csv(row.get("RequisitionId")) + "," +
                         csv(row.get("Dt")) + "," +
-                        csv(row.get("strInsOn")) + "," +
                         csv(row.get("budget_head_name")) + "," +
                         csv(row.get("dblRequestedAmount")) + "," +
-                        csv(row.get("dblApprovedAmount")) + "," +
-                        csv(row.get("strStatus")) + "," +
                         csv(row.get("strRemark")) + "," +
-                        csv(row.get("created_by_name")) + "," +
                         csv(row.get("department_name")));
             }
         }

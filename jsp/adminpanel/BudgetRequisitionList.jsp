@@ -51,11 +51,11 @@ window.onload = function(){ window.print(); };
     <input type="hidden" name="current_page" value="<%=currentPage%>">
     <td width="80%" valign="top" align="center">
         <table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
-            <tr><td colspan="10" class="titles" align="left">Budget Requisition Report</td></tr>
+            <tr><td colspan="6" class="titles" align="left">Budget Requisition Report</td></tr>
             <% if(savedMessage != null){ %>
-            <tr><td colspan="10" class="link"><%=escapeHtml(savedMessage)%></td></tr>
+            <tr><td colspan="6" class="link"><%=escapeHtml(savedMessage)%></td></tr>
             <% } %>
-            <tr><td colspan="10" class="link">
+            <tr><td colspan="6" class="link">
                 <span>Total requisitions: <%=totalRows%></span>
                 <div class="requisition-actions">
                     <a href="<%=strPath%>BudgetRequisitionList.do?export=csv">Download CSV</a>
@@ -64,12 +64,12 @@ window.onload = function(){ window.print(); };
                 </div>
             </td></tr>
             <tr>
-                <td colspan="10">
+                <td colspan="6">
                     <table class="requisition-report">
                         <thead><tr>
-                            <th>ID</th><th>Requisition Date</th><th>Saved On</th><th>Budget Head</th>
-                            <th>Requested Amount</th><th>Approved Amount</th><th>Status</th>
-                            <th>Remark</th><th>Created By</th><th>Department</th>
+                            <th>ID</th><th>Requisition Date</th><th>Budget Head</th>
+                            <th>Requested Amount</th>
+                            <th>Remark</th><th>Department</th>
                         </tr></thead>
                         <tbody>
                         <%
@@ -81,13 +81,9 @@ window.onload = function(){ window.print(); };
                         <tr>
                             <td><%=escapeHtml(row.get("RequisitionId"))%></td>
                             <td><%=escapeHtml(row.get("Dt"))%></td>
-                            <td><%=escapeHtml(row.get("strInsOn"))%></td>
                             <td><%=escapeHtml(row.get("budget_head_name"))%></td>
                             <td align="right"><%=escapeHtml(row.get("dblRequestedAmount"))%></td>
-                            <td align="right"><%=escapeHtml(row.get("dblApprovedAmount"))%></td>
-                            <td><%=escapeHtml(row.get("strStatus"))%></td>
                             <td><%=escapeHtml(row.get("strRemark"))%></td>
-                            <td><%=escapeHtml(row.get("created_by_name"))%></td>
                             <td><%=escapeHtml(row.get("department_name"))%></td>
                         </tr>
                         <%
@@ -95,13 +91,13 @@ window.onload = function(){ window.print(); };
                                 }
                             }else{
                         %>
-                        <tr><td colspan="10" class="requisition-empty">No requisitions found.</td></tr>
+                        <tr><td colspan="6" class="requisition-empty">No requisitions found.</td></tr>
                         <% } %>
                         </tbody>
                     </table>
                 </td>
             </tr>
-            <tr class="requisition-pagination"><td colspan="10" align="center">
+            <tr class="requisition-pagination"><td colspan="6" align="center">
                 <% if(currentPage > 1){ %>
                     <input type="button" value="First" onclick="requisitionNavigation('1')">
                     <input type="button" value="Previous" onclick="requisitionNavigation('3')">
