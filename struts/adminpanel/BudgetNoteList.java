@@ -60,7 +60,7 @@ public class BudgetNoteList extends Action
             vec.clear();
             //cvdal.setSQL("openAllVoucher", vec);
 
-            if(SessionUtils.isAccountORStoreUser(session)){
+            if(SessionUtils.isAccountUser(session)){
                 cvdal.setSQL("listbudgetnoteAllDept", vec);
             }else{
                 vec.addElement(SessionUtils.getDepartmentId(session));
@@ -98,7 +98,7 @@ public class BudgetNoteList extends Action
             if(nPage<=nTotalPage){
                 vec.clear();
 
-                if (SessionUtils.isAccountORStoreUser(session)){
+                if (SessionUtils.isAccountUser(session)){
                     vec.addElement(""+nLowLimit);
                     vec.addElement(""+nNum_Per_Page);
                     cvdal.setSQL("listbudgetnoteAllDeptlimit", vec);
@@ -116,7 +116,7 @@ public class BudgetNoteList extends Action
                     vec.clear();
                    if(StringUtils.isNotEmpty(budget_note_id)) {
                        vec.addElement(budget_note_id);
-                       if (SessionUtils.isAccountORStoreUser(session)) {
+                       if (SessionUtils.isAccountUser(session)) {
                            cvdal.setSQL("listbudgetnote_one_alldept", vec);
                        } else {
                            vec.addElement(SessionUtils.getDepartmentId(session));
@@ -125,7 +125,7 @@ public class BudgetNoteList extends Action
                    }else{
                        sop("i am in search else part>>>>>>>>>>>>>>>>>>>searchHead>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+searchHead); //listbudgetnote_headsearch_alldept  // listbudgetnote_headsearch_dept
                        vec.addElement(searchHead);
-                       if (SessionUtils.isAccountORStoreUser(session)) {
+                       if (SessionUtils.isAccountUser(session)) {
                            cvdal.setSQL("listbudgetnote_headsearch_alldept", vec);
                        } else {
                            vec.addElement(SessionUtils.getDepartmentId(session));

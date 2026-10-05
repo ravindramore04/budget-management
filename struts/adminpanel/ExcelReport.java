@@ -41,7 +41,7 @@ public class ExcelReport extends org.apache.struts.action.Action {
         try {
             struts.common.CVDal cvdal = new struts.common.CVDal(DBnm);
             vec.clear();
-            if(SessionUtils.isAccountORStoreUser(session)) {
+            if(SessionUtils.isAccountUser(session)) {
                 cvdal.setSQL("get_All_Allocation_Status_Report", vec);
             }else {
                 vec.addElement(SessionUtils.getDepartmentId(session));

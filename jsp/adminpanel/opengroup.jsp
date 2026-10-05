@@ -8,7 +8,7 @@
 	String bgNm = "";
 	
 	HashMap hmData=(HashMap)request.getAttribute("data"); 
-	out.print(hmData);
+	//out.print(hmData);
 	if(hmData!=null && hmData.size()>0){
 		strId = (String)hmData.get("strBudgroupId");
 		strName = (String)hmData.get("strBudgroupNm");
@@ -18,12 +18,17 @@
 	
 	String bugGroupChkY="checked";
 	String bugGroupChkN="";
+	String bugGroupChkOth="";
 	if("1".equals(bgNm)){
 		 bugGroupChkY="checked";
 		 bugGroupChkN="";
-		 }else{
+		 bugGroupChkOth="";
+		 }else if("0".equals(bgNm)){
 		  bugGroupChkY="";
 		 bugGroupChkN="checked";
+		 bugGroupChkOth="";
+		 } else {
+		  bugGroupChkOth="checked";
 		 }
 %>
 <%@ include file="/jsp/adminpanel/header.jsp" %>
@@ -68,6 +73,8 @@
             <label for="yes">Recurring</label>
             <input type="radio" id="adno" name="strGroupType" value="0" <%=bugGroupChkN%> onclick="toggleAdvanceTable(false)">
             <label for="no">Non Recurring</label>
+			<input type="radio" id="adoth" name="strGroupType" value="2" <%=bugGroupChkOth%> onclick="toggleAdvanceTable(false)">
+            <label for="no">Others</label>
 			</td>
 		</tr>
 		<tr> 

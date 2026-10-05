@@ -50,6 +50,7 @@ public class viewReportHandler extends org.apache.struts.action.Action
 			if(code.equals("1")){
 				request.setAttribute("data", getGroupWiseData("1",session,report,fromDate,toDate));
 				request.setAttribute("data1", getGroupWiseData("0",session,report,fromDate,toDate));
+				request.setAttribute("OthersGrp", getGroupWiseData("2",session,report,fromDate,toDate));
 				request.setAttribute("fromDate",fromDate);
 				request.setAttribute("toDate",toDate);
 
@@ -57,6 +58,7 @@ public class viewReportHandler extends org.apache.struts.action.Action
 			} else if(code.equals("2")){
 				request.setAttribute("data", getGroupWiseData("1",session,report,fromDate,toDate));
 				request.setAttribute("data1", getGroupWiseData("0",session,report,fromDate,toDate));
+				request.setAttribute("OthersGrp", getGroupWiseData("2",session,report,fromDate,toDate));
 				request.setAttribute("fromDate",fromDate);
 				request.setAttribute("toDate",toDate);
 				FORWARD_final = Success;
