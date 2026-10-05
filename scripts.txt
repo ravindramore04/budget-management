@@ -5,7 +5,7 @@ CREATE TABLE budgetrequisition (
     Dt DATE DEFAULT NULL,
     dblRequestedAmount DOUBLE(11,2) DEFAULT 0.00,
     dblApprovedAmount DOUBLE(11,2) DEFAULT 0.00,
-    strRemark VARCHAR(100) DEFAULT NULL,
+    strRemark VARCHAR(500) DEFAULT NULL,
     strStatus VARCHAR(20) DEFAULT 'Pending', -- Tracks workflow: Pending, Approved, Rejected
     strInsBy INT DEFAULT NULL,
     strInsOn DATE DEFAULT NULL,
