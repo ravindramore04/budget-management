@@ -23,11 +23,16 @@
     }
     String savedMessage = (String)request.getAttribute("requisitionSaved");
     boolean printMode = Boolean.TRUE.equals(request.getAttribute("printMode"));
+    String totalAmount = (String)request.getAttribute("totalAmount");
+    if(totalAmount == null){
+        totalAmount = "0.00";
+    }
 %>
 <style>
     .requisition-report { width: 100%; border-collapse: collapse; font-size: 13px; }
     .requisition-report th, .requisition-report td { border: 1px solid #9aa4aa; padding: 6px; }
     .requisition-report th { background: #d4dae2; text-align: left; }
+    .requisition-total { font-weight: bold; background: #e6e9ec; }
     .requisition-actions { margin: 12px 0; }
     .requisition-actions a, .requisition-actions button, .requisition-actions input { margin-right: 8px; }
     .requisition-empty { text-align: center; padding: 18px; }
@@ -67,7 +72,7 @@ window.onload = function(){ window.print(); };
                 <td colspan="6">
                     <table class="requisition-report">
                         <thead><tr>
-                            <th>ID</th><th>Requisition Date</th><th>Budget Head</th>
+                            <th>Sr. No.</th><th>Requisition Date</th><th>Budget Head</th>
                             <th>Requested Amount</th>
                             <th>Remark</th><th>Department</th>
                         </tr></thead>
@@ -93,6 +98,11 @@ window.onload = function(){ window.print(); };
                         %>
                         <tr><td colspan="6" class="requisition-empty">No requisitions found.</td></tr>
                         <% } %>
+                        <tr class="requisition-total">
+                            <td colspan="3">Total Amount</td>
+                            <td align="right"><%=escapeHtml(totalAmount)%></td>
+                            <td colspan="2"></td>
+                        </tr>
                         </tbody>
                     </table>
                 </td>

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -44,6 +46,7 @@ public class BudgetRequisitionList extends Action
                 throw new IllegalStateException("User department is not available");
             }
             Vector values = new Vector();
+            String totalAmount = getTotalRequestedAmount(cvdal, accountUser, departmentId);
 
             if("csv".equalsIgnoreCase(request.getParameter("export"))){
                 if(accountUser){
@@ -52,7 +55,7 @@ public class BudgetRequisitionList extends Action
                     values.addElement(departmentId);
                     cvdal.setSQL("budgetRequisitionExportDept", values);
                 }
-                writeCsv(response, (Vector)cvdal.executeQuery());
+                writeCsv(response, (Vector)cvdal.executeQuery(), totalAmount);
                 return null;
             }
 
@@ -72,6 +75,7 @@ public class BudgetRequisitionList extends Action
                 request.setAttribute("data", printData);
                 request.setAttribute("page", printPage);
                 request.setAttribute("printMode", Boolean.TRUE);
+                request.setAttribute("totalAmount", totalAmount);
                 request.setAttribute("requisitionSaved", session.getAttribute("requisitionSaved"));
                 session.removeAttribute("requisitionSaved");
                 return mapping.findForward(Success);
@@ -138,6 +142,7 @@ public class BudgetRequisitionList extends Action
             request.setAttribute("data", data);
             request.setAttribute("page", page);
             request.setAttribute("printMode", Boolean.FALSE);
+            request.setAttribute("totalAmount", totalAmount);
             request.setAttribute("requisitionSaved", session.getAttribute("requisitionSaved"));
             session.removeAttribute("requisitionSaved");
             return mapping.findForward(Success);
@@ -165,14 +170,34 @@ public class BudgetRequisitionList extends Action
         return data;
     }
 
-    private void writeCsv(HttpServletResponse response, Vector rows) throws Exception
+    private String getTotalRequestedAmount(CVDal cvdal, boolean accountUser, String departmentId)
+    {
+        Vector values = new Vector();
+        if(accountUser){
+            cvdal.setSQL("budgetRequisitionTotalAll", values);
+        }else{
+            values.addElement(departmentId);
+            cvdal.setSQL("budgetRequisitionTotalDept", values);
+        }
+        Vector result = (Vector)cvdal.executeQuery();
+        if(result == null || result.isEmpty()){
+            return "0.00";
+        }
+        String amount = (String)((HashMap)result.elementAt(0)).get("total_amount");
+        if(amount == null || amount.length() == 0){
+            amount = "0";
+        }
+        return new BigDecimal(amount).setScale(2, RoundingMode.HALF_UP).toPlainString();
+    }
+
+    private void writeCsv(HttpServletResponse response, Vector rows, String totalAmount) throws Exception
     {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/csv; charset=UTF-8");
         response.setHeader("Content-Disposition", "attachment; filename=budget-requisitions.csv");
         PrintWriter writer = response.getWriter();
         writer.write("\uFEFF");
-        writer.println("Requisition ID,Requisition Date,Budget Head,Requested Amount,Remark,Department");
+        writer.println("Sr. No.,Requisition Date,Budget Head,Requested Amount,Remark,Department");
         if(rows != null){
             for(int index = 0; index < rows.size(); index++){
                 HashMap row = (HashMap)rows.elementAt(index);
@@ -184,6 +209,8 @@ public class BudgetRequisitionList extends Action
                         csv(row.get("department_name")));
             }
         }
+        writer.println(csv("Total Amount") + "," + csv("") + "," + csv("") + "," +
+                csv(totalAmount) + "," + csv("") + "," + csv(""));
         writer.flush();
     }
 
