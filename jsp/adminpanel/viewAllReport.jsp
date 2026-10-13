@@ -151,8 +151,8 @@ if(data!=null && data.size()>0){
 
             if(Allocated==null)
                 Allocated="0.00";
-
-            remaining=Double.parseDouble(remainingAmt);//Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+            //Double.parseDouble(remainingAmt);
+            remaining=Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
             reserved=(Double.parseDouble(budget_note_amt_tot)) - (Double.parseDouble(dblUtilisedAmount));
             totRemaning+=remaining;
             totAllocated+=Double.parseDouble(Allocated);
@@ -225,8 +225,8 @@ if(data1!=null && data1.size()>0){
 
             if(Allocated==null)
                 Allocated="0.00";
-
-            remaining=Double.parseDouble(remainingAmt);//Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+            //Double.parseDouble(remainingAmt);
+            remaining=Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
             reserved=(Double.parseDouble(budget_note_amt_tot)) - (Double.parseDouble(dblUtilisedAmount));
             totRemaning+=remaining;
             totAllocated+=Double.parseDouble(Allocated);
@@ -298,8 +298,8 @@ if(OthersGrp!=null && OthersGrp.size()>0){
 
             if(Allocated==null)
                 Allocated="0.00";
-
-            remaining=Double.parseDouble(remainingAmt);//Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
+            //Double.parseDouble(remainingAmt);
+            remaining=Double.parseDouble(Allocated) - (Double.parseDouble(dblUtilisedAmount) + Double.parseDouble(dblReservedAmount));
             reserved=(Double.parseDouble(budget_note_amt_tot)) - (Double.parseDouble(dblUtilisedAmount));
             totRemaning+=remaining;
             totAllocated+=Double.parseDouble(Allocated);
