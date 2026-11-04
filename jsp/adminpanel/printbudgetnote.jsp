@@ -278,7 +278,7 @@ function setAction(code,id){
         </div>
 	<table border="1">
             <tr>
-                <td  style="width: 300px;" class="section-header">Contact No.</td>
+                <td  style="width: 300px;" class="section-header">Receiver Contact No.</td>
                 <td class="section-header" colspan="2">&nbsp;Paid Date :</td>
                 <td class="section-header">&nbsp;</td>
             </tr>
@@ -313,7 +313,7 @@ function setAction(code,id){
                <td class="value" colspan="3">&nbsp;</td>
             </tr> <tr>
                 <td class="section-header" style="height: 60px;" valign="bottom"  colspan="1"  rowspan="" align="center">Signature Head of Dept.</td>
-               <td class="value" colspan="3" align="center">&nbsp;Signature of Receiver </td>
+               <td class="value" colspan="3" align="center">&nbsp;Signature of Receiver With Date </td>
             </tr>
 	 
     </table>
