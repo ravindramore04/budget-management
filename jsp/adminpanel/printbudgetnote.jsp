@@ -239,7 +239,10 @@ function setAction(code,id){
             <td style="height: 50px;border-bottom: none;"  colspan="1">
                 <div class="signature-title">&nbsp;</div>
             </td>
-            <td valign="middle" style="border-bottom: none;"  colspan="3">
+            <td style="height: 50px;border-bottom: none;"  colspan="1">
+                <div class="signature-title">&nbsp;</div>
+            </td>
+            <td valign="middle" style="border-bottom: none;" align="left"  colspan="2">
                 <div class="signature-title">
 				<% if("APPROVED".equals(budget_note_status)){ %>
                         Approved: Yes
@@ -251,10 +254,13 @@ function setAction(code,id){
         </tr>
 		 <tr style="border-top: none;">
             <td style="border-top: none;" colspan="1" align="center">
-                <div class="signature-title">Chief Accounts &amp; Finance Officer</div>
+                <div class="signature-title">Unit Director/Registrar</div>
             </td>
-            <td style="border-top: none;"  colspan="3" align="center">
-                <div class="signature-title">Director</div>
+            <td style="border-top: none; border-right: none;"  colspan="2" align="center">
+                <div class="signature-title">CAFO</div>
+            </td>
+            <td style="border-top: none;" align="center">
+                <div class="signature-title">CEO</div>
             </td>
         </tr>
     </table>
@@ -307,31 +313,9 @@ function setAction(code,id){
                <td class="value" colspan="3">&nbsp;</td>
             </tr> <tr>
                 <td class="section-header" style="height: 60px;" valign="bottom"  colspan="1"  rowspan="" align="center">Signature Head of Dept.</td>
-               <td class="value" colspan="3">&nbsp;</td>
+               <td class="value" colspan="3" align="center">&nbsp;Signature of Receiver </td>
             </tr>
-			<tr>
-                <td style="height: 60px;" valign="bottom"  colspan="1" align="center">
-				<div class="signature-title">Signature of Receiver </div></td>
-				<td style="height: 60px;" valign="bottom"  colspan="3" align="center">
-				<div class="signature-title">Registrar</div>
-				</td>
-            </tr>
-		 <tr>
-            <td style="height: 50px;border-bottom: none;"  colspan="1">
-                <div class="signature-title">&nbsp;</div>
-            </td>
-            <td valign="middle" style="border-bottom: none;"  colspan="3">&nbsp;
-               
-            </td>
-        </tr>
-		 <tr style="border-top: none;">
-            <td style="border-top: none;" colspan="1" align="center">
-                <div class="signature-title">Chief Accounts &amp; Finance Officer</div>
-            </td>
-            <td style="border-top: none;"  colspan="3" align="center">
-                <div class="signature-title">Director</div>
-            </td>
-        </tr>
+	 
     </table>
 	<%
 	}
