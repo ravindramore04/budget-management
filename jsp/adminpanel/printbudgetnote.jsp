@@ -254,7 +254,7 @@ function setAction(code,id){
         </tr>
 		 <tr style="border-top: none;">
             <td style="border-top: none;" colspan="1" align="center">
-                <div class="signature-title">Unit Director/Registrar</div>
+                <div class="signature-title">Unit Accounts</div>
             </td>
             <td style="border-top: none; border-right: none;"  colspan="2" align="center">
                 <div class="signature-title">CAFO</div>

@@ -551,12 +551,12 @@ if(strToAcc.length()>140 && strToAcc.length()< 220)
             <!-- Accountant -->
             <td width="16%" style="width:16%;">
                 <div style="height:80px;"></div>
-                <div>Unit-Accounts</div>
+                <div>&nbsp;</div>
             </td>
 
             <td colspan="2">
 			<div style="height:80px;"></div>
-                <div>Unit Registrar</div>
+                <div>Unit-Accounts</div>
 			</td>
         </tr>
 
@@ -577,19 +577,19 @@ if(strToAcc.length()>140 && strToAcc.length()< 220)
             <!-- Registrar -->
             <td style="width:16%;">
                 <div style="height:80px;"></div>
-                <div></div>
+                <div>CAFO</div>
             </td>
 
             <!-- Director -->
             <td style="width:16%;">
                 <div style="height:80px;"></div>
-                <div>CA FO</div>
+                <div></div>
             </td>
 
             <!-- Executive Director -->
             <td colspan="2" width="36%" style="width:16%;">
                 <div style="height:80px;"></div>
-                <div>C.E.O</div>
+                <div>CEO</div>
             </td>
 
            
